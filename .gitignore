@@ -147,3 +147,18 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# aGe Clan local runtime and ML outputs
+.sites-runtime/
+.wrangler/
+.vinext/
+artifacts/
+.dev.vars
+.dev.vars.*
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+ml/runs/
+ml/checkpoints/
+ml/data/private/

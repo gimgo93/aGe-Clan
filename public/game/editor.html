@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>게임 편집 도구 · aGe Clan</title><link rel="icon" type="image/png" href="assets/age-clan-logo-transparent.png"><meta name="application-name" content="aGe Clan"><link rel="stylesheet" href="editor.css"></head>
+<body>
+<header><a class="brand" href="index.html"><span class="brand-symbol"><img src="assets/age-clan-logo-transparent.png" alt=""></span><span>aGe Clan</span></a><a href="guide.html">배포·권한 안내 ↗</a></header>
+<main>
+ <div class="intro"><div class="eyebrow">CREATOR WORKSPACE</div><h1>게임을 직접 조율하세요.</h1><p>숫자를 바꾸고 미리보기한 뒤, 설정 파일을 내려받아 배포 폴더에 적용하세요.</p></div>
+ <aside class="notice"><strong>미리보기와 실제 배포는 별개입니다.</strong><p>이 도구는 이 브라우저의 초안만 저장합니다. 방문자가 이용해도 실제 사이트의 설정을 바꿀 수 없습니다. 전체 사이트에 적용하려면 <b>balance.js 다운로드 → 기존 파일 교체 → 재배포</b>가 필요합니다. 서버 관리자 페이지나 로그인 기능은 아닙니다.</p></aside>
+ <form id="balanceForm">
+  <section><div class="section-heading"><span class="number">01</span><div><h2>게임 시작과 전투 간격</h2><p>새 게임에 적용됩니다. 2배속에서는 게임 시간도 두 배로 흐릅니다.</p></div></div><div class="general-grid">
+   <label>시작 금<input id="startGold" name="startGold" type="number" min="0" max="100000" step="1" required><small>0 – 100,000금</small></label>
+   <label>시작 크리스탈<input id="startCrystals" name="startCrystals" type="number" min="0" max="10000" step="1" required><small>0 – 10,000개</small></label>
+   <label>웨이브 종료 후 대기<input id="waveRestSeconds" name="waveRestSeconds" type="number" min="1" max="300" step="1" required><small>1 – 300초 · 게임 시간 기준</small></label>
+  </div></section>
+  <section><div class="section-heading"><span class="number">02</span><div><h2>방어시설 기본 능력치</h2><p>아래 값은 강화 전 Lv.1 기준입니다. 공격 간격은 작을수록 빠르게 공격합니다.</p></div></div><div id="towerFields" class="tower-grid"></div></section>
+  <div class="actionbar"><div><b id="draftState" role="status" aria-live="polite">초안을 준비하는 중입니다.</b><span>초안은 현재 기기의 브라우저에만 저장됩니다.</span></div><button type="button" id="previewBtn" class="secondary">게임 미리보기 ↗</button><button type="submit">balance.js 다운로드 ↓</button></div>
+ </form>
+ <section class="backup"><div><h2>초안 관리</h2><p>JSON으로 백업하면 다른 기기에서 불러올 수 있습니다.</p></div><div class="backup-actions"><button id="exportJson" class="secondary">JSON 백업</button><label class="file-button">JSON 불러오기<input id="importJson" type="file" accept=".json,application/json"></label><button id="resetDraft" class="text-button">배포된 값으로 되돌리기</button></div></section>
+ <section class="next"><h2>수정 내용을 실제 사이트에 반영하기</h2><ol><li>위에서 <b>balance.js</b>를 다운로드합니다.</li><li>내 PC의 <b>sites/civilization-guardians/public/game/balance.js</b>를 내려받은 파일로 교체합니다.</li><li>직접 배포한 호스팅에서 <b>dist 폴더 전체</b>를 다시 배포합니다. Sites 버전은 이 채팅에서 해당 사이트의 재배포를 요청할 수 있습니다.</li></ol><p>이미지, 맵, 화면 구성도 원본 파일을 수정해 바꿀 수 있습니다. <a href="guide.html">파일별 편집 방법과 권한 안내 보기 →</a></p></section>
+</main><footer>aGe Clan · 제작 도구 <a href="index.html">게임으로 돌아가기</a></footer>
+<script src="balance.js"></script><script src="game.js"></script><script src="editor.js"></script>
+</body></html>

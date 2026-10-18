@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import Defense from '../lib/game-engine.js';
+import {newPlayer,startRoom,advance,act,restore} from '../lib/match-engine.js';
+const game=new Defense.Game();game.start();game.s.wood=99;assert.ok(game.buildBarracks().error);game.s.wood=100;assert.ok(game.buildBarracks().ok);assert.equal(game.s.wood,0);for(let i=0;i<81;i++)game.tick(.1);const gold=game.s.gold;assert.ok(game.recruit().ok);assert.equal(game.s.gold,gold-80);assert.equal(game.s.army,1);
+const room={status:'waiting',tick:0,players:Array.from({length:5},(_,i)=>newPlayer('p'+i,'군주'+i,1000))};startRoom(room,1000);assert.ok(room.players.every(p=>p.s.started&&p.s.multiplayer));
+const p=room.players[0];p.s.barracks=true;p.s.army=3;assert.ok(act(room,p,'dispatch',['p1',1]).error);p.s.completed=20;p.s.wave=20;
+assert.ok(act(room,p,'dispatch',['p1',2]).ok);assert.equal(p.s.army,1);assert.equal(room.players[1].s.enemies.length,2);assert.ok(act(room,p,'dispatch',['p1',1]).error);assert.ok(act(room,p,'dispatch',['p0',1]).error);
+const defender=restore(room.players[1]);defender.s.gold=1000;defender.build('archer',0);const tower=defender.s.towers[0],enemy=defender.s.enemies[0];Object.assign(enemy,{x:tower.x,y:tower.y,d:0,hp:100000,max:100000});defender.s.enemies=[enemy];for(let i=0;i<80;i++)defender.tick(.1);assert.equal(defender.s.towers.length,0,'invaders destroy towers');
+const endless=new Defense.Game();endless.start();endless.s.multiplayer=true;endless.s.wave=20;assert.ok(endless.startWave().ok);assert.equal(endless.s.wave,21);
+const solo=new Defense.Game();solo.start();solo.s.wave=20;assert.ok(solo.startWave().ok);
+const finishWave=new Defense.Game();finishWave.start();finishWave.s.multiplayer=true;finishWave.s.wave=20;finishWave.s.waves=[{number:20,total:1,spawned:1,resolved:1,spawnClock:0}];finishWave.syncWaves();finishWave.tick(.1);assert.equal(finishWave.s.completed,20);assert.equal(finishWave.s.over,false);assert.equal(finishWave.s.waveClock,20);for(let i=0;i<202;i++)finishWave.tick(.1);assert.equal(finishWave.s.wave,21);
+advance(room,2000);assert.ok(p.s.time>0);for(const player of room.players.slice(1))restore(player).finish(false);advance(room,2100);assert.equal(room.status,'finished');assert.equal(room.winner,'p0');assert.equal(p.s.won,true);
+console.log('PASS: training costs, five-player start, attack unlock/cooldown, tower destruction, endless/solo waves, server time, winner');
+const delayed={status:'playing',tick:1000,players:Array.from({length:5},(_,i)=>newPlayer('d'+i,'지연'+i,1000))};startRoom(delayed,1000);advance(delayed,26000);assert.equal(delayed.tick,11000);advance(delayed,26000);assert.equal(delayed.tick,21000);advance(delayed,26000);assert.equal(delayed.tick,26000);
+const countdown={status:'countdown',readyAt:6000,tick:1000,players:Array.from({length:5},(_,i)=>newPlayer('c'+i,'준비'+i,1000))};advance(countdown,5000);assert.equal(countdown.status,'countdown');advance(countdown,6000);assert.equal(countdown.status,'playing');
+const disconnect={status:'playing',tick:0,players:Array.from({length:5},(_,i)=>newPlayer('x'+i,'연결'+i,0))};startRoom(disconnect,0);disconnect.players[0].seen=91000;advance(disconnect,91000);assert.equal(disconnect.winner,'x0');
+const cap={status:'playing',players:[newPlayer('limit','제한',1000)]};restore(cap.players[0]).start();assert.ok(act(cap,cap.players[0],'startWave',[1]).ok);assert.ok(act(cap,cap.players[0],'startWave',[2]).error);
+console.log('PASS: countdown, preserved catch-up time, disconnect forfeit, maximum two waves');

@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import D from '../lib/game-engine.js';
+import {newPlayer,startRoom,act,restore} from '../lib/match-engine.js';
+const tick=(g,t)=>{for(let i=0;i<Math.ceil(t*10);i++)g.tick(.1);};
+const fresh=()=>{const g=new D.Game(()=>1);g.start();g.s.gold=10000;g.s.wood=10000;g.s.crystals=1000;return g;};
+const g=fresh();assert.ok(g.potion('ice').error);assert.ok(g.buildLab().ok);assert.equal(g.s.wood,9800);assert.ok(g.researchPotion('ice').error);tick(g,10.1);assert.ok(g.researchPotion('ice').ok);assert.equal(g.s.crystals,980);tick(g,29);assert.ok(g.potion('ice').error);tick(g,1.2);assert.equal(g.s.research.ice,-1);assert.ok(g.researchPotion('attack').error);
+g.startWave();g.spawn(g.s.waves[0]);const e=g.s.enemies[0];assert.ok(g.potion('ice').ok);assert.equal(e.frozen,5);const d=e.d;tick(g,4.5);assert.equal(e.d,d);assert.equal(g.s.potionCooldown.ice,0);
+g.s.research.lightning=-1;const hp=e.hp;assert.ok(g.potion('lightning').ok);assert.ok(Math.abs(e.hp-hp*.4)<.001);
+const killGold=g.s.gold;g.hurt(e,1e9);assert.equal(g.s.gold-killGold,2);
+const repair=fresh();repair.s.hp=50;assert.ok(repair.repairCastle().ok);assert.equal(repair.s.hp,70);assert.equal(repair.s.wood,9995);repair.repairCastle();assert.equal(repair.s.hp,90);assert.equal(repair.s.wood,9985);repair.repairCastle();assert.equal(repair.s.hp,100);assert.equal(repair.s.wood,9965);assert.ok(repair.repairCastle().error);
+const b=fresh();const tower=b.build('archer',0).tower;assert.equal(tower.buildRemaining,3);b.buildBarracks();assert.ok(b.recruit().error);tick(b,8.1);assert.equal(tower.buildRemaining,0);assert.ok(b.recruit().ok);
+const waves=fresh();waves.s.wave=3;waves.startWave(2);assert.deepEqual(waves.s.waves.map(w=>[w.number,w.hpBoost]),[[4,1.2],[5,1.2]]);assert.ok(waves.startWave().error);
+const spawnAt=n=>{const x=fresh();x.s.wave=n-1;x.startWave();x.spawn(x.s.waves[0]);return x;};
+const w20=spawnAt(20),w21=spawnAt(21),w22=spawnAt(22);assert.equal(w21.s.waves[0].total,w20.s.waves[0].total+1);assert.equal(w22.s.waves[0].total,w21.s.waves[0].total+1);assert.ok(Math.abs(w22.s.enemies[0].speed/w21.s.enemies[0].speed-1.1)<1e-6);assert.ok(Math.abs(w22.s.enemies[0].hp/w21.s.enemies[0].hp-1.1)<.002);
+const dbl=fresh();dbl.s.wave=3;dbl.startWave(2);dbl.spawn(dbl.s.waves[0]);assert.ok(Math.abs(dbl.s.enemies[0].hp/spawnAt(4).s.enemies[0].hp-1.2)<.005);
+const room={status:'waiting',tick:0,players:[newPlayer('a','A',1000),newPlayer('b','B',1000)]};startRoom(room,1000);const a=room.players[0],bPlayer=room.players[1];a.s.crystals=100;a.s.lab=true;a.s.research.attack=-1;const base=restore(bPlayer).stats({type:'archer'}).damage;assert.ok(act(room,a,'attackPotion',['b']).ok);assert.equal(a.s.crystals,90);assert.equal(a.s.potionCooldown.attack,5);assert.equal(restore(bPlayer).stats({type:'archer'}).damage,Math.round(base*.6));assert.ok(act(room,a,'attackPotion',['b']).error);tick(restore(a),5.1);act(room,a,'attackPotion',['b']);assert.equal(bPlayer.s.debuffs.length,2);assert.equal(restore(bPlayer).stats({type:'archer'}).damage,Math.round(base*.36));tick(restore(bPlayer),10.1);assert.equal(restore(bPlayer).stats({type:'archer'}).damage,base);
+assert.ok(act(room,a,'startWave',[2]).ok);assert.equal(a.s.wave,2);assert.equal(bPlayer.s.wave,0,'each player chooses their own wave progress');
+console.log('PASS: laboratory/build timers, research locks, potion buffs/cooldowns, repairs, kill rewards, double-wave HP, endless scaling, stacking PvP debuffs, independent waves');

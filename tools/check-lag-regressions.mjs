@@ -1,0 +1,22 @@
+import assert from 'node:assert/strict';
+import vm from 'node:vm';
+import { readFile } from 'node:fs/promises';
+import Defense from '../lib/game-engine.js';
+import { canReadSnapshot, claimHttpDriver } from '../lib/http-poll-policy.js';
+const sandbox={};vm.createContext(sandbox);vm.runInContext(await readFile(new URL('../public/game/net-visual.js',import.meta.url),'utf8'),sandbox);
+const visual=sandbox.ClanVisual;
+const game=new Defense.Game();game.start();game.startWave(1);game.spawn(game.s.waves[0]);
+const state=structuredClone(game.s);visual.adopt(state,null,0);
+let last=state.enemies[0].d;
+for(let i=0;i<180;i++){visual.animate(state,1/60,(i+1)/60,Defense);assert.ok(state.enemies[0]._net.distance>=last-1e-8,'delayed packets must never reset movement at 0.8 seconds');last=state.enemies[0]._net.distance;}
+assert.ok(last>70);assert.ok(last<=state.enemies[0].speed*2+.01,'prediction horizon is bounded');
+assert.equal(visual.distanceAt({...state.enemies[0],d:0,speed:100,frozen:1,slow:2,slowFactor:.5},1.5),25);
+const a={id:'a',seen:10000,s:{over:false}},b={id:'b',seen:10000,s:{over:false}},room={status:'playing',players:[a,b]};
+claimHttpDriver(room,a,10000);assert.equal(room.httpDriver,'a');
+assert.ok(canReadSnapshot(room,b,10000,10500),'follower should avoid a DB write');
+assert.ok(!canReadSnapshot(room,a,10000,10500),'driver must advance physics');
+assert.ok(!canReadSnapshot(room,b,10000,12100),'stale snapshot permits takeover');
+assert.ok(!canReadSnapshot(room,b,14000,15000),'heartbeat must persist');
+claimHttpDriver(room,b,15000);assert.equal(room.httpDriver,'b','a disconnected driver is replaceable');
+assert.ok(!canReadSnapshot({status:'countdown',readyAt:12000},a,11000,12000));
+console.log('PASS: 3-second packet stall has no movement snapback, bounded prediction, freeze/slow timing, HTTP follower reads, heartbeat and driver failover');

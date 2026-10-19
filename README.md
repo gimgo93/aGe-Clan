@@ -53,3 +53,8 @@ PvP: 각자 웨이브 진행, 관전 대상만 상세 데이터 전달, 좌표 �
 `vite.config.ts` declares the `CLAN_ROOMS` binding and the `clan-rooms-v1` SQLite migration. The deployed `/api/clan` health response reports `transport: websocket` only when that binding actually exists. Sites may restrict provisioned binding types: if absent, the client uses the compatible HTTP path with immediate action requests, shorter adaptive polling and reuse of snapshots less than 200 ms old. Do not claim WebSocket deployment without checking this endpoint and an actual upgrade.
 
 The client keeps health and resources authoritative, limits movement extrapolation to 0.8 seconds and smooths reconciliation over 80–200 ms. Network status distinguishes WebSocket ping round-trip from HTTP response latency. `tools/check-realtime.mjs` exercises 2/5 clients, actions, idempotent retries, independent waves, spectator scope, delta decoding and reconnect. Set `CLAN_TEST_URL` only to an explicitly authorized test destination; these tests create disposable rooms.
+
+
+## 2026-10-19 업데이트
+
+광장·서버 랭킹·업적·군주 프로필, 밸런스 조정 및 PvP 응답 개선을 추가했습니다. [반영 내역](docs/FEEDBACK_RELEASE_2026-10-19.md)과 [보안 검토](docs/SECURITY_RELEASE_2026-10-19.md)를 참고하세요. 혼자하기 랭킹도 서버 연결이 필요합니다.

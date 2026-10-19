@@ -1,11 +1,16 @@
 import handler from "vinext/server/fetch-handler";
 import { realtimeSocket } from "../lib/realtime-router.js";
+import { pvpGateway } from "../lib/pvp-gateway.js";
 export { ClanRoom } from "../lib/clan-room.js";
 import { runWithConnectorBinding } from "../lib/connector-context";
 import type { ConnectorBinding } from "../lib/connector-contract.mjs";
 
 export default {
-  fetch(request: Request, env: Cloudflare.Env, ctx: ExecutionContext<{ CONNECTORS?: ConnectorBinding }>) {
+  async fetch(request: Request, env: Cloudflare.Env, ctx: ExecutionContext<{ CONNECTORS?: ConnectorBinding }>) {
+    if (['/api/clan','/api/clan/socket'].includes(new URL(request.url).pathname)) {
+      const external = await pvpGateway(request, env);
+      if (external) return external;
+    }
     if (new URL(request.url).pathname === '/api/clan/socket') return realtimeSocket(request, env);
     let binding = ctx.props?.CONNECTORS;
     // Local preview emulates the same request-scoped capability. This branch and

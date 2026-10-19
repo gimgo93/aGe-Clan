@@ -5,8 +5,8 @@ window.FRONTIER_BALANCE = {
   startCrystals: 12,
   waveRestSeconds: 20,
   towers: {
-    archer: {gold: 140, damage: 19, rate: 0.8, range: 240},
-    ballista: {gold: 260, damage: 47, rate: 1.4, range: 330},
+    archer: {gold: 140, damage: 16, rate: 0.8, range: 240},
+    ballista: {gold: 260, damage: 61, rate: 1.4, range: 429},
     cannon: {gold: 370, damage: 65, rate: 1.8, range: 240},
     frost: {gold: 460, damage: 32, rate: 1, range: 280},
     storm: {gold: 570, damage: 44, rate: 0.65, range: 310}

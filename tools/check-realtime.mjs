@@ -1,10 +1,11 @@
 import assert from 'node:assert/strict';
 import WebSocket from 'ws';
 const base=process.env.CLAN_TEST_URL||'http://127.0.0.1:8787',users=[];
+const backendHeaders=process.env.CLAN_TEST_BACKEND_TOKEN?{'x-clan-backend-token':process.env.CLAN_TEST_BACKEND_TOKEN}:{};
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-async function api(c,input){const r=await fetch(base+'/api/clan',{method:'POST',headers:{'Content-Type':'application/json',cookie:c.cookie||''},body:JSON.stringify({roomId:c.id,...input})});if(r.headers.get('set-cookie'))c.cookie=r.headers.get('set-cookie').split(';')[0];const value=await r.json();assert.equal(r.status,200,JSON.stringify(value));if(value.roomId)c.id=value.roomId;return value;}
+async function api(c,input){const r=await fetch(base+'/api/clan',{method:'POST',headers:{...backendHeaders,'Content-Type':'application/json',cookie:c.cookie||''},body:JSON.stringify({roomId:c.id,...input})});if(r.headers.get('set-cookie'))c.cookie=r.headers.get('set-cookie').split(';')[0];const value=await r.json();assert.equal(r.status,200,JSON.stringify(value));if(value.roomId)c.id=value.roomId;return value;}
 function merge(v,p){if(!p)return v;if(Object.hasOwn(p,'set'))return p.set;if(p.order){const old=new Map((v||[]).map(x=>[x.id,x]));return p.order.map(id=>merge(old.get(id),p.entries[id]));}const n={...v};for(const k of p.remove||[])delete n[k];for(const [k,d] of Object.entries(p.changes||{}))n[k]=merge(n[k],d);return n;}
-async function connect(c){const url=base.replace(/^http/,'ws')+'/api/clan/socket?roomId='+encodeURIComponent(c.id),ws=new WebSocket(url,{headers:{cookie:c.cookie,origin:base}});c.ws=ws;c.messages=[];c.patches=0;c.bytes=0;
+async function connect(c){const url=base.replace(/^http/,'ws')+'/api/clan/socket?roomId='+encodeURIComponent(c.id),ws=new WebSocket(url,{headers:{...backendHeaders,cookie:c.cookie,origin:base}});c.ws=ws;c.messages=[];c.patches=0;c.bytes=0;
  ws.on('message',raw=>{c.bytes+=raw.length;const m=JSON.parse(raw);c.messages.push(m);if(m.type==='snapshot')c.state=m.value;if(m.type==='patch'){assert.equal(c.state.version,m.baseVersion);c.state=merge(c.state,m.patch);c.patches++;}});
  await new Promise((resolve,reject)=>{ws.once('open',resolve);ws.once('error',reject);});await until(()=>c.state,3000);return ws;
 }

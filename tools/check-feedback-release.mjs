@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {DatabaseSync} from 'node:sqlite';
+import D from '../lib/game-engine.js';
+import {mutateRoom,roomView} from '../lib/room-state.js';
+import {advance,act,newPlayer,restore} from '../lib/match-engine.js';
+const game=new D.Game(()=>0);game.start();game.s.wood=1000;
+assert.ok(game.buildBarracks().error,'solo cannot build training camp');assert.equal(game.s.wood,1000);
+assert.equal(D.spec('archer').damage,16);assert.equal(D.spec('ballista').damage,61);assert.equal(D.spec('ballista').range,429);assert.equal(D.spec('cannon').splash,98);
+const spawn=n=>{const g=new D.Game(()=>1);g.start();g.s.wave=n-1;g.startWave();g.spawn(g.s.waves[0]);return g.s.enemies[0];};
+assert.ok(Math.abs(spawn(22).speed/spawn(21).speed-1.05)<1e-8);assert.ok(Math.abs(spawn(22).hp/spawn(21).hp-1.05)<.002);
+const g=new D.Game(()=>0);g.start();g.s.gold=1000;g.build('archer',0);g.s.wave=16;g.startWave();g.s.waves[0].spawned=3;g.spawn(g.s.waves[0]);assert.equal(g.s.towers.length,1,'bomb must travel before destruction');assert.equal(g.s.effects.at(-1).type,'sabotageBomb');for(let i=0;i<11;i++)g.tick(.1);assert.equal(g.s.towers.length,0);
+const room={status:'waiting',private:true,solo:true,players:[],tick:1000};mutateRoom(room,'cookie',{op:'solo',name:'<군주>',avatar:3},1000);assert.equal(room.status,'playing');assert.equal(room.players[0].s.multiplayer,false);assert.equal(room.players[0].avatar,3);advance(room,2000);assert.equal(room.status,'playing','single survivor must not finish solo');assert.ok(room.players[0].s.time>.9);assert.ok(act(room,room.players[0],'dispatch',['bad',1]).error);
+const p=room.players[0];act(room,p,'setSpeed',[2]);advance(room,3000);assert.ok(p.s.time>2.9);act(room,p,'setPaused',[true]);const time=p.s.time;advance(room,4000);assert.equal(p.s.time,time);act(room,p,'setPaused',[false]);assert.equal(roomView('x',1,room,'cookie').players[0].key,undefined);
+const duel={status:'playing',players:[newPlayer('a','A',1000),newPlayer('b','B',1000)]};for(const p of duel.players)restore(p).start();duel.players[0].s.research.attack=-1;duel.players[0].s.crystals=100;assert.ok(act(duel,duel.players[0],'attackPotion',['b']).ok);assert.equal(duel.players[1].s.debuffs[0],15);assert.ok(duel.players.every(p=>p.s.events.some(e=>e.type==='attackPotion')));
+const db=new DatabaseSync(':memory:');db.exec(fs.readFileSync(new URL('../drizzle/0002_rankings.sql',import.meta.url),'utf8'));const insert=db.prepare('INSERT INTO clan_rankings VALUES (?,?,?,?,?)');[50,40,30,30,20].forEach((w,i)=>insert.run('id'+i,'군주'+i,i,w,i));assert.deepEqual(db.prepare('SELECT RANK() OVER (ORDER BY wave DESC) AS rank FROM clan_rankings ORDER BY wave DESC,updated ASC').all().map(x=>x.rank),[1,2,3,3,5]);
+const rate=db.prepare('INSERT INTO clan_limits VALUES (?,1,?) ON CONFLICT(id) DO UPDATE SET hits=hits+1 RETURNING hits');assert.equal(rate.get('same',1000).hits,1);assert.equal(rate.get('same',1000).hits,2);db.close();
+console.log('PASS: balance, delayed sabotage impact, server solo lifecycle/speed/pause, PvP-only barracks, replicated potion event, private identity, ranking ties and server rate counter');

@@ -15,8 +15,8 @@
     "prebuild": "node tools/sync-engine.mjs",
     "predev": "node tools/sync-engine.mjs",
     "check:pvp": "node tools/check-pvp.mjs",
-    "prepare:cloudflare": "node scripts/prepare-cloudflare.mjs",
-    "deploy:cloudflare": "wrangler deploy --config dist/server/wrangler.deploy.json"
+    "prepare:pvp": "node tools/sync-engine.mjs && node scripts/prepare-pvp.mjs",
+    "deploy:pvp": "wrangler deploy --config dist/pvp/wrangler.json"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

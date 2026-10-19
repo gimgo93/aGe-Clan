@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {advance,newPlayer,restore} from '../lib/match-engine.js';
+import {mutateRoom,roomView,roomError,delta} from '../lib/room-state.js';
+import {RoomDirectory,directoryRecord} from '../lib/room-directory.js';
+const source=fs.readFileSync(new URL('../lib/clan-room.js',import.meta.url),'utf8').replace(/^import .*;\r?\n/gm,'').replace('export class ClanRoom','class ClanRoom');
+const ClanRoom=Function('DurableObject','advance','mutateRoom','roomView','roomError','delta','RoomDirectory','directoryRecord',source+';return ClanRoom;')(class {},advance,mutateRoom,roomView,roomError,delta,RoomDirectory,directoryRecord);
+let release;const pending=new Promise(r=>release=r),background=[],options=[];
+const db={prepare:()=>({bind:()=>({run:async()=>({})})})};
+const ctx={waitUntil:p=>background.push(p),storage:{put:async(k,value,opt)=>{options.push(opt);await pending;},setAlarm:async(t,opt)=>options.push(opt)}};
+const room=new ClanRoom(ctx,{DB:db});room.id='test';room.version=0;room.room={solo:true,status:'playing',tick:Date.now(),players:[{...newPlayer('me','군주',Date.now()),key:'key'}]};restore(room.room.players[0]).start();
+const messages=[],ws={send:raw=>messages.push(JSON.parse(raw))};room.sockets.set(ws,{key:'key',lastCommand:0});
+await room.message(ws,JSON.stringify({type:'command',requestId:'r',input:{op:'action',action:'build',args:['archer',0],sequence:1,actionId:crypto.randomUUID()}}));
+assert.ok(messages.some(m=>m.type==='ack'),'ack must be sent before the blocked checkpoint resolves');assert.equal(room.room.players[0].s.towers.length,1);assert.equal(options[0].allowUnconfirmed,true);assert.equal(options[0].allowConcurrency,true);
+release();await Promise.all(background);assert.equal(options[1].allowUnconfirmed,true,'alarm must not reintroduce the output gate');
+let deletedId,deleted=false;const cold=new ClanRoom({storage:{get:async()=>({id:'cold-room'}),deleteAll:async()=>deleted=true},waitUntil:()=>{}},{DB:{prepare:()=>({bind:id=>{deletedId=id;return{run:async()=>({})};}})}});await cold.alarm();assert.equal(deletedId,'cold-room');assert.equal(deleted,true);
+console.log('PASS: acknowledgement precedes slow storage, write/alarm gates aligned, cold-start cleanup restores room id');

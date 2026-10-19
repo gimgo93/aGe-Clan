@@ -6,3 +6,10 @@ export const rooms = sqliteTable('clan_rooms', {
 export const feedback = sqliteTable('clan_feedback', {
  id: text('id').primaryKey(), message: text('message').notNull(), created: integer('created').notNull(),
 });
+export const rankings = sqliteTable('clan_rankings', {
+ id: text('id').primaryKey(), name: text('name').notNull(), avatar: integer('avatar').notNull().default(0),
+ wave: integer('wave').notNull(), updated: integer('updated').notNull(),
+}, t => [index('clan_rankings_wave').on(t.wave)]);
+export const limits = sqliteTable('clan_limits', {
+ id: text('id').primaryKey(), hits: integer('hits').notNull(), expires: integer('expires').notNull(),
+}, t => [index('clan_limits_expires').on(t.expires)]);

@@ -1,3 +1,4 @@
+import { canReadSnapshot, claimHttpDriver, timedDatabase } from '../../../lib/http-poll-policy.js';
 import { realtimeRequest } from '../../../lib/realtime-router.js';
 import { env } from 'cloudflare:workers';
 import { newPlayer, advance, startRoom, act, restore } from '../../../lib/match-engine.js';
@@ -11,19 +12,19 @@ async function identity(req:Request){
 }
 function view(row:any,room:any,key:string,result?:any,watchId?:string){
  const self=room.players.find((p:any)=>p.key===key);
- return{protocol:2,transport:'http',roomId:row.id,private:!!room.private,code:room.private?row.id.slice(2):null,hostId:room.hostId||null,status:room.status,version:row.version+1,selfId:self?.id,winner:room.winner||null,result,nextActionSeq:(self?.lastSequence||0)+1,serverTime:Date.now(),readyAt:room.readyAt||null,
- players:room.players.filter((p:any)=>!p.left||room.status==='playing'||room.status==='finished').map((p:any)=>({id:p.id,name:p.name,connected:!p.left&&Date.now()-p.seen<15000,towerCount:p.s.towers.length,s:p.id===self?.id||p.id===watchId?p.s:{hp:p.s.hp,maxHp:p.s.maxHp,castle:p.s.castle,wave:p.s.wave,completed:p.s.completed,over:p.s.over,won:p.s.won,gold:p.s.gold,crystals:p.s.crystals,wood:p.s.wood,miners:p.s.miners,population:p.s.population,army:p.s.army}}))};
+ return{protocol:2,transport:'http',roomId:row.id,private:!!room.private,code:room.private?row.id.slice(2):null,hostId:room.hostId||null,status:room.status,simulationTime:room.tick,pollAfterMs:room.status==='playing'?(room.httpDriver===self?.id?300:450):1000,version:row.version+1,selfId:self?.id,winner:room.winner||null,result,nextActionSeq:(self?.lastSequence||0)+1,serverTime:Date.now(),readyAt:room.readyAt||null,
+ players:room.players.filter((p:any)=>!p.left||room.status==='playing'||room.status==='finished').map((p:any)=>({id:p.id,name:p.name,connected:!p.left&&Date.now()-p.seen<15000,towerCount:p.s.towers.length,s:p.id===self?.id||p.id===watchId?{...p.s,workers:p.s.workers.slice(0,7),events:p.s.events.slice(-24)}:{hp:p.s.hp,maxHp:p.s.maxHp,castle:p.s.castle,wave:p.s.wave,completed:p.s.completed,over:p.s.over,won:p.s.won,gold:p.s.gold,crystals:p.s.crystals,wood:p.s.wood,miners:p.s.miners,population:p.s.population,army:p.s.army}}))};
 }
 function depart(room:any,key:string,now:number){const p=room.players.find((p:any)=>p.key===key);if(!p)return;if(room.status==='waiting'||room.status==='countdown'){room.players=room.players.filter((x:any)=>x!==p);room.status=room.private&&!room.players.length?'closed':'waiting';room.readyAt=null;if(room.hostId===p.id)room.hostId=room.players[0]?.id||null;}else{if(room.status==='playing'&&!p.s.over)restore(p).finish(false);p.left=true;advance(room,now);}}
-export async function POST(req:Request){if((env as any).CLAN_ROOMS)return realtimeRequest(req,env);return legacyPOST(req);}
-async function legacyPOST(req:Request){
+export async function POST(req:Request){const began=performance.now(),metrics={queries:0,storageMs:0,retries:0};const response=(env as any).CLAN_ROOMS?await realtimeRequest(req,env):await legacyPOST(req,metrics);const headers=new Headers(response.headers);headers.set('Server-Timing',`app;dur=${(performance.now()-began).toFixed(1)}, storage;dur=${metrics.storageMs.toFixed(1)}`);headers.set('X-Clan-Queries',String(metrics.queries));headers.set('X-Clan-Retries',String(metrics.retries));return new Response(response.body,{status:response.status,headers});}
+async function legacyPOST(req:Request,metrics:{queries:number,storageMs:number,retries:number}){
  try{
  const origin=req.headers.get('origin');if(origin&&origin!==new URL(req.url).origin)return json({error:'허용되지 않은 요청입니다.'},403);
  if(Number(req.headers.get('content-length'))>2048)return json({error:'요청이 너무 큽니다.'},413);
  const raw=await req.text();if(raw.length>2048)return json({error:'요청이 너무 큽니다.'},413);
  let input:any;try{input=JSON.parse(raw);}catch{return json({error:'잘못된 JSON 요청입니다.'},400);}
  if(!input||typeof input!=='object'||Array.isArray(input))return json({error:'잘못된 요청입니다.'},400);
- const {key,cookie}=await identity(req),db=env.DB!;
+ const {key,cookie}=await identity(req),db=timedDatabase(env.DB!,metrics);
  if(!['join','create','joinCode','begin','poll','action','leave'].includes(input.op))return json({error:'지원하지 않는 요청입니다.'},400,cookie);
  const entering=['join','create','joinCode'].includes(input.op);
  const code=typeof input.code==='string'?input.code.toUpperCase().replace(/[\s-]/g,''):'';
@@ -61,9 +62,9 @@ async function legacyPOST(req:Request){
  }
  if(!player){if(input.op==='leave')return json({ok:true},200,cookie);if(entering&&room.private)return json({error:room.status==='waiting'?'방이 가득 찼습니다. 최대 5명까지 참가할 수 있습니다.':'이미 시작했거나 종료된 방입니다.'},409,cookie);if(input.op==='join')continue;return json({error:'이 방의 참가자가 아닙니다. 다시 매칭해 주세요.'},403,cookie);}
  // Concurrent viewers reuse a recent committed snapshot without replaying physics or writing it again.
- if(input.op==='poll'&&now-row.updated<200&&now-player.seen<5000)return json(view({...row,version:row.version-1},room,key,undefined,input.watchId),200,cookie);
+ if(input.op==='poll'&&canReadSnapshot(room,player,row.updated,now))return json(view({...row,version:row.version-1},room,key,undefined,input.watchId),200,cookie);
  // A forfeited player cannot resurrect by polling after the reconnect grace period.
- advance(room,now);player.seen=now;
+ claimHttpDriver(room,player,now);advance(room,now);player.seen=now;
  let result:any;
  if(input.op==='leave'){
    depart(room,key,now);
@@ -81,7 +82,7 @@ async function legacyPOST(req:Request){
  if(!room.private&&room.status==='waiting'&&room.players.length===5){room.status='countdown';room.readyAt=now+5000;}
  const updated=await db.prepare('UPDATE clan_rooms SET state=?,status=?,version=version+1,updated=? WHERE id=? AND version=?').bind(JSON.stringify(room),room.status,now,row.id,row.version).run();
  if(updated.meta.changes)return json(input.op==='leave'?{ok:true}:view(row,room,key,result,input.watchId),200,cookie);
- await new Promise(resolve=>setTimeout(resolve,10+Math.random()*30));
+ metrics.retries++;await new Promise(resolve=>setTimeout(resolve,10+Math.random()*30));
  }
  return json({error:'다른 명령을 처리 중입니다. 잠시 후 다시 시도하세요.'},409);
  }catch(error){console.error('clan request failed',error instanceof Error?error.message:'error');return json({error:'대전 서버에 연결하지 못했습니다. 잠시 후 다시 시도하세요.'},503);}

@@ -22,7 +22,7 @@ Game.setSpeed와 Game.setPaused는 multiplayer 상태에서 거부한다. 따라
 
 ## 운영 시 남는 한계와 후속 확인
 
-- HTTP fetch의 this.queuedMessages 검사는 현재 카운터가 WS enqueue에서만 증감되므로 HTTP pending queue 자체를 40으로 제한하는 보장은 아니다. HTTP에는 위 35/초·12/초 제한이 적용된다. HTTP queue 상한을 문서에 주장하려면 HTTP enqueue에도 카운터 증감과 finally 해제가 필요하다.
+- HTTP pending 상한은 추가 검토 이후 수정했다. fetch 입구에서 카운터를 증가하고 finally에서 감소하므로 WS와 합산한 pending 상한 40을 적용한다.
 - 5초 랭킹 cache는 isolate별이다. 모든 지역·동시 cold isolate에서 D1 조회가 단 한 번만 일어난다는 보장은 아니다. 별도 조회 rate limit이나 global admission은 현재 확인하지 않았다.
 - 생성 제한은 신뢰 ingress identity 단위다. 여러 IP를 쓰는 공격자의 전체 할당량을 제한하는 전역 비용 상한·봇 탐지 체계까지 구현된 것은 아니다. 같은 학교·가정처럼 NAT를 공유하면 생성 quota도 함께 쓴다.
 - feedback 메시지와 랭킹의 장기 보관 정책은 아직 확인하지 않았다. raw IP를 이 코드가 저장하지 않더라도 IP hash와 세션 hash는 운영상 식별 데이터로 취급하는 편이 적절하다.
@@ -45,3 +45,5 @@ Git 기반 commit: `81ba514491b752f6ca7397b5c07a976801b0bc6a`. 아래는 해당 
 | drizzle/0002_rankings.sql | C4CDE3C8F766202162136DF2B1E33968963E65CF137AAA4B2DC79D9E7BDC573E |
 
 최종 추가 수정: HTTP fetch도 queuedMessages를 입구에서 증가하고 finally에서 감소하여 WS와 pending 상한을 공유합니다. check-checkpoint.mjs와 실제 2/5 WebSocket·서버 혼자하기 통합 검증을 통과했습니다. 운영 WAF/MFA/TLS 설정, 대규모 부하 및 계정 기반 동일인 식별은 검증 범위 밖입니다.
+
+보안 도구 제한: 현재 계정에는 Daybreak 보호 대상 결과 접근 권한이 없어 해당 결과를 확인하지 못했다. 일반 소스 검토는 진행했지만 이 제한을 보안 문제 부재로 해석하면 안 된다. https://chatgpt.com/cyber

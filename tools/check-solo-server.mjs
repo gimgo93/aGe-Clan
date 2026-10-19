@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 const base=process.env.CLAN_TEST_URL||'http://127.0.0.1:8788';
 const token=process.env.CLAN_TEST_BACKEND_TOKEN;
-let cookie='',roomId;const pause=ms=>new Promise(r=>setTimeout(r,ms));
-async function api(input){const r=await fetch(base+'/api/clan',{method:'POST',headers:{'Content-Type':'application/json',...(token?{'x-clan-backend-token':token}:{}),cookie},body:JSON.stringify({roomId,...input})});if(r.headers.get('set-cookie'))cookie=r.headers.get('set-cookie').split(';')[0];const v=await r.json();assert.equal(r.status,200,JSON.stringify(v));roomId=v.roomId||roomId;return v;}
+let cookie='',roomId;const cookies=new Map(),pause=ms=>new Promise(r=>setTimeout(r,ms));
+async function api(input){const r=await fetch(base+'/api/clan',{method:'POST',headers:{'Content-Type':'application/json',...(token?{'x-clan-backend-token':token}:{}),cookie},body:JSON.stringify({roomId,...input})});for(const entry of r.headers.getSetCookie()){const pair=entry.split(';')[0],at=pair.indexOf('=');cookies.set(pair.slice(0,at),pair.slice(at+1));}cookie=[...cookies].map(([k,v])=>k+'='+v).join('; ');const v=await r.json();assert.equal(r.status,200,JSON.stringify(v));roomId=v.roomId||roomId;return v;}
 let s;
 try{
  s=await api({op:'solo',name:'검증용 군주',avatar:5,entryId:crypto.randomUUID()});assert.equal(s.solo,true);assert.equal(s.status,'playing');const me=()=>s.players.find(p=>p.id===s.selfId).s;assert.equal(me().multiplayer,false);assert.equal(me().waveClock,30);

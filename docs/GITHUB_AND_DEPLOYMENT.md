@@ -2,7 +2,7 @@
 
 ## 현재 저장본
 
-- 기준: 2026-10-17 배포한 PvP 최적화 소스 `87a69dbc3f57811aa0cb516a923033567306bb51`
+- 현재 운영: Sites v15, 소스 `f36942654d98e39693923fe39b322765d41c94d5`. [2026-10-20 운영 현황](OPERATIONS_2026-10-20.md) 참조
 - 추가: 운영 HTTP 확인 도구, 독립 Cloudflare 배포 설정 생성기, 실행 안내, ML 작업 폴더
 - 포함: 브라우저 게임, 이미지와 출처, 매칭 API, 친구 방, D1 스키마, WebSocket 방 서버
 - 제외: 로그인 정보, 서버 DB 데이터, 로컬 런타임, node_modules, Python 가상환경
@@ -20,6 +20,7 @@ npm ci
 npm run build
 npx wrangler d1 execute DB --config dist/server/wrangler.json --local --persist-to .wrangler/state --file drizzle/0000_absent_angel.sql
 npx wrangler d1 execute DB --config dist/server/wrangler.json --local --persist-to .wrangler/state --file drizzle/0001_conscious_gorgon.sql
+npx wrangler d1 execute DB --config dist/server/wrangler.json --local --persist-to .wrangler/state --file drizzle/0002_rankings.sql
 npm start -- --port 8787
 ```
 
@@ -103,8 +104,8 @@ node tools/check-realtime.mjs
 
 ## GitHub Pages
 
-`public/game/`의 정적 파일은 혼자하기용으로 호스팅할 수 있습니다.
-전체 사이트와 PvP는 Worker, D1, Durable Object가 필요하며 GitHub Pages만으로 실행되지 않습니다.
+현재 혼자하기도 서버 판정·랭킹을 사용하므로 정적 파일만 배포해서는 정상 실행되지 않습니다.
+전체 사이트는 Worker, D1, Durable Object 및 API 연결이 필요하며 GitHub Pages만으로 실행되지 않습니다.
 
 ## 이미지와 라이선스
 

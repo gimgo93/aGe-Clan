@@ -1,5 +1,11 @@
 # 이미지 출처 및 라이선스
 
+## 2026-10-21 생성 이미지
+
+- `assets/town-courtyard-v2.webp`: 성벽과 여덟 궁수 감시초소가 있는 마을 광장.
+- `assets/menu-ranking-v2.webp`, `assets/menu-achievements-v2.webp`: 투명 배경 트로피·훈장.
+- OpenAI 내장 이미지 생성 도구로 이 게임을 위해 생성했습니다. 원본 생성 PNG는 제작자의 로컬 생성 이미지 폴더에 보존하며 배포본은 WebP 인코딩입니다. 이 세 파일은 아래 Flare 자료에서 파생하지 않았습니다. 사용 프롬프트는 저장소의 `docs/ART_REFRESH_2026-10-21.md`에 기록했습니다.
+
 ## aGe Clan 로고
 
 - 사용자가 제공한 `age-clan-logo.png` 원본을 사용합니다. 원본도 보관하며, `age-clan-logo-transparent.png`는 OpenAI 이미지 편집 도구로 흰 배경을 제거한 투명 버전입니다. 편집 프롬프트: 원래 aGe 글자·금속 질감·성 그림을 유지하고 흰 배경을 투명하게 제거.

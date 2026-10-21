@@ -1,8 +1,10 @@
 (() => {
 'use strict';
 const $=id=>document.getElementById(id),avatars=['♜','♞','♛','⚔','❖','☀','✦','♟'];
-$('rankBtn').innerHTML='<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 27V5M4 27h25M9 24V16h4v8M17 24V10h4v14M25 24V4h4v20"/></svg>랭킹';
-$('achievementsBtn').innerHTML='<svg viewBox="0 0 32 32" aria-hidden="true"><path d="m9 3 7 9 7-9M5 3h7l4 6 4-6h7l-8 12H13Z"/><circle cx="16" cy="21" r="9"/><path d="m16 15 2 4 4 .6-3 3 .7 4-3.7-2-3.7 2 .7-4-3-3 4-.6Z"/></svg>업적';
+$('rankBtn').innerHTML='<img src="assets/menu-ranking-v2.webp" width="72" height="72" alt="" decoding="async"><span>랭킹</span><small>명예의 전당</small>';
+$('achievementsBtn').innerHTML='<img src="assets/menu-achievements-v2.webp" width="72" height="72" alt="" decoding="async"><span>업적</span><small>군주의 훈장</small>';
+$('guideBtn').innerHTML='<span class="menu-guide-art" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M11 12c9-3 16-1 21 4 5-5 13-7 21-4v37c-8-3-15-2-21 3-6-5-13-6-21-3Z"/><path d="M32 17v35M17 23l9 3M17 31l9 3M17 39l9 3M38 26l9-3M38 34l9-3M38 42l9-3"/></svg></span><span>게임 설명</span><small>군주의 안내서</small>';
+document.querySelector('.credits-content').insertAdjacentHTML('afterbegin','<h3>성채 광장과 메뉴 이미지</h3><p>석조 성벽·궁수 감시초소가 있는 마을 배경과 랭킹 트로피·업적 훈장은 OpenAI 이미지 생성 도구로 이 게임을 위해 제작했습니다. 배포용 이미지는 WebP로 압축했습니다.</p>');
 let profile={name:'개척 군주',avatar:0},records={wave:0,kills:0,castle:0,miners:0,wood:0,tower:0,crystals:0,research:0};
 try{const p=JSON.parse(localStorage.getItem('age-profile')||'null');if(p&&typeof p.name==='string')profile={name:p.name.slice(0,16),avatar:Number.isInteger(p.avatar)&&p.avatar>=0&&p.avatar<8?p.avatar:0};records={...records,...JSON.parse(localStorage.getItem('age-records')||'{}')};}catch{}
 const medals=[['wave',10,'Ⅰ','첫 방어선','10웨이브 방어'],['wave',20,'Ⅱ','개척지의 수호자','20웨이브 방어'],['wave',30,'Ⅲ','끝없는 전설','30웨이브 방어'],['wave',50,'∞','불멸의 군주','50웨이브 방어'],['kills',1000,'⚔','천의 군세','적 1,000명 처치'],['castle',20,'♜','현대의 성채','성 레벨 20 달성'],['miners',30,'⚒','황금의 손','광부 30명 고용'],['wood',100,'♣','마을의 기초','나무 100개 수확'],['tower',5,'➶','명장의 무기','포탑 한 종류 레벨 5'],['research',3,'⚗','연금술의 대가','서로 다른 포션 3종 연구'],['crystals',100,'❖','수정 탐험가','크리스탈 100개 채굴']];

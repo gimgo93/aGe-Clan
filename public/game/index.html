@@ -8,6 +8,9 @@
 <symbol id="i-pick" viewBox="0 0 32 32"><path d="m7 27 16-19" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M6 5c9-2 17 4 21 14-6-7-12-9-21-14Z" fill="currentColor"/></symbol>
 <symbol id="i-sword" viewBox="0 0 32 32"><path d="m10 22 17-19 1 7-15 15M5 17l10 10M8 23l-5 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></symbol>
 <symbol id="i-gear" viewBox="0 0 32 32"><path d="m12 3 8 0 1 5 4 2 4 4-3 5-1 5-5 1-4 4-4-4-5-1-1-5-3-5 4-4 4-2Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="16" r="5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+<symbol id="i-duel" viewBox="0 0 32 32"><path d="m7 3 18 20-4 4L3 7Zm18 0L7 23l4 4L29 7Z" fill="url(#goldMetal)" stroke="#edd39a" stroke-width="1"/><path d="m3 21 8 8M21 3l8 8M21 24l7 6M8 24l-5 6" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+<symbol id="i-banner" viewBox="0 0 32 32"><path d="M8 29V3" stroke="currentColor" stroke-width="2.5"/><path d="M10 4h16l-4 7 4 7H10Z" fill="url(#goldMetal)" stroke="#e4c887"/><path d="m15 7 2 2 2-2 1 6h-6Z" fill="#463d28"/></symbol>
+<symbol id="i-key" viewBox="0 0 32 32"><circle cx="21" cy="10" r="7" fill="url(#goldMetal)" stroke="#e4c887"/><circle cx="23" cy="8" r="2" fill="#303926"/><path d="m17 15-12 13-3-3 4-4 3 2 2-3-2-2 5-5Z" fill="url(#goldMetal)" stroke="#e4c887"/></symbol>
 </defs></svg>
 <canvas id="world" aria-label="전장 지도. 하단에서 포탑을 선택하고 표시된 건설 터를 누르세요."></canvas>
 <div id="sceneTransition" aria-hidden="true"></div>
@@ -17,10 +20,10 @@
  <div class="title-vignette"></div>
  <div class="title-logo"><img src="assets/age-clan-logo-transparent.png" alt="aGe Clan 로고" fetchpriority="high"></div><div class="title-copy"><h1>aGe Clan</h1><p>그대의 문명과 함께하라</p></div>
  <div id="playModes" aria-label="게임 모드 선택">
- <button id="startBtn" class="start-button" disabled><span id="startLabel">혼자하기</span><small>무한 웨이브 도전</small></button>
- <button id="matchBtn" class="match-button" disabled>매칭<small>5인 자유 대전</small></button>
- <button id="createRoomBtn" class="match-button" disabled>방 만들기<small>친구 초대 · 2~5인</small></button>
- <button id="codeRoomBtn" class="match-button" disabled>코드로 입장<small>친구의 초대 코드 입력</small></button>
+ <button id="startBtn" class="start-button" disabled><span class="mode-emblem" aria-hidden="true"><svg><use href="#i-castle"/></svg></span><span id="startLabel">혼자하기</span><small>무한 웨이브 도전</small></button>
+ <button id="matchBtn" class="match-button" disabled><span class="mode-emblem" aria-hidden="true"><svg><use href="#i-duel"/></svg></span><span>매칭</span><small>5인 자유 대전</small></button>
+ <button id="createRoomBtn" class="match-button" disabled><span class="mode-emblem" aria-hidden="true"><svg><use href="#i-banner"/></svg></span><span>방 만들기</span><small>친구 초대 · 2~5인</small></button>
+ <button id="codeRoomBtn" class="match-button" disabled><span class="mode-emblem" aria-hidden="true"><svg><use href="#i-key"/></svg></span><span>코드로 입장</span><small>친구 코드 입력</small></button>
  </div>
  <button id="profileBtn" class="profile-launch"><span id="profileBadge">♜</span><span id="profileName">군주 이름 설정</span></button><div class="title-library"><button id="rankBtn"><span>▥</span>랭킹</button><button id="achievementsBtn"><span>♙</span>업적</button><button id="guideBtn"><span>?</span>게임 설명</button></div><button id="titleSettings" class="title-settings"><svg><use href="#i-gear"/></svg>설정</button>
  <div class="title-footer"><button id="creditsBtn">제작 및 이미지 출처</button></div>
@@ -71,8 +74,8 @@
  <label class="toggle-row"><span>화면 가장자리 이동<small>마우스를 가장자리로 옮겨 지도를 이동</small></span><input id="edgePan" type="checkbox"></label>
  <label class="slider-label"><span>지도 이동 속도 <output id="panValue">1.0×</output></span><input id="panSpeed" type="range" min="5" max="20" value="10"></label>
  <label class="toggle-row"><span>화면 흔들림</span><input id="shake" type="checkbox" checked></label><label class="toggle-row"><span>동작 줄이기<small>화면 전환과 흔들림을 줄입니다.</small></span><input id="reducedMotion" type="checkbox"></label>
- <button id="feedbackBtn" class="mini-button">의견 보내기</button><button id="fullscreenBtn" class="mini-button fullscreen">전체 화면 전환</button><p class="settings-note">설정은 이 브라우저에 저장됩니다. 혼자하기는 설정 중 멈춥니다. 대전은 설정·관전 중에도 계속됩니다.</p>
- </div><div class="dialog-footer"><button id="backTitle" class="text-button">시작 화면으로</button><button id="saveSettings" class="primary-small">설정 완료</button></div></dialog>
+ <button id="feedbackBtn" class="mini-button">의견 보내기</button><button id="fullscreenBtn" class="mini-button fullscreen">전체 화면 전환</button><p class="settings-note">로그인하면 프로필과 설정을 계정에 동기화합니다. 혼자하기는 설정 중 멈추며, 대전은 계속됩니다. 계정 변경은 게임에서 나간 뒤 가능합니다.</p>
+ </div><div class="dialog-footer"><button id="backTitle" class="text-button">게임 나가기</button><button id="saveSettings" class="primary-small">설정 완료</button></div></dialog>
 <dialog id="creditsDialog" class="settings-dialog"><div class="dialog-head"><div><div class="overline">ART & CREDITS</div><h2>이미지 출처</h2></div><button id="closeCredits" class="close-dialog" aria-label="출처 닫기">×</button></div><div class="settings-content credits-content"><h3>지형과 캐릭터</h3><p>Flare / Clint Bellanger 및 기여자들의 초원·동굴 타일, 병사·광부·적·벌목 농부 이미지를 사용했습니다. 타일 배치와 캐릭터 장비 조합, 포탑 합성은 이 게임에 맞게 구성했습니다.</p><p>CC BY-SA 3.0. 전체 기여자와 라이선스는 배포 파일의 ASSET_CREDITS.md 및 assets/FLARE-CREDITS.txt에 포함되어 있습니다.</p><h3>발리스타</h3><p>“[LPC] Siege Weapons” by bluecarrot16 · CC BY 4.0. 활과 장전 동작을 사용하고 크기·색감을 조정했습니다. <a href="https://opengameart.org/content/lpc-siege-weapons" target="_blank" rel="noreferrer">원본과 저작자</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">라이선스</a></p><h3>물약</h3><p>Melissa Krautheim (MELLE)의 FANTASY-potion-set. CC0. 노란색과 파란색 물약 위에 번개와 얼음 표식을 표시했습니다.</p><p class="credits-links"><a href="https://opengameart.org/content/grassland-tileset" target="_blank" rel="noreferrer">초원 타일</a><a href="https://opengameart.org/content/cave-tileset" target="_blank" rel="noreferrer">동굴 타일</a><a href="https://opengameart.org/content/fantasy-potion-set" target="_blank" rel="noreferrer">물약 아이콘</a></p></div></dialog>
 <dialog id="endingDialog" class="ending-dialog"><div class="ending-emblem"><svg><use href="#i-castle"/></svg></div><div class="overline" id="endingTag">THE FRONTIER ENDURES</div><h2 id="endingTitle">문명을 지켜냈습니다</h2><p id="endingStats"></p><button id="restartBtn" class="start-button">새 게임 시작</button></dialog>
 <script src="balance.js"></script><script src="assets/data.js"></script><script src="game.js"></script><script src="renderer.js"></script><script src="net-visual.js"></script><script src="multiplayer.js"></script><script src="app.js"></script><script src="chronicle.js"></script><script src="account.js"></script>

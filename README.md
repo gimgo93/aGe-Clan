@@ -10,7 +10,8 @@ Canvas 2D 문명 발전 타워 디펜스입니다. 혼자하기 무한 웨이브
 
 ## 현재 운영 상태 (2026-10-21)
 
-- 화면·API 입구: Sites v17. 게임 소스 기준 be11023dd9499d9f415281e5b2f6404988d62450.
+- 화면·API 입구: Sites v18. 게임 소스 기준 98887de233329037fd176242d4ab2c8cf4be892b.
+- 마을 성벽·궁수 감시초소와 시작 메뉴 이미지를 개편하고, 계정 연동을 설정 안으로 이동했습니다. [이미지·UI 반영 내역과 생성 프롬프트](docs/ART_REFRESH_2026-10-21.md)
 - Google 로그인·프로필/설정/서버 성장 기록 동기화 운영. 업적·랭킹 조회와 신규 등록은 로그인 계정만 허용합니다.
 - 도메인: ageclan.com과 www.ageclan.com DNS·HTTPS 연결 완료.
 - 대전: Cloudflare Worker → 방마다 별도 Durable Object → WebSocket 변경분 전송.

@@ -1,6 +1,6 @@
 class WorldRenderer {
  constructor(canvas,game){this.canvas=canvas;this.ctx=canvas.getContext('2d',{alpha:false});this.game=game;this.images={};this.camera={x:0,y:0,zoom:1};this.hover=-1;this.selected=null;this.buildType=null;this.scene='battle';this.ready=false;this.art=window.ART_META;this.resize();}
- async load(){await Promise.all(['ballista','ballista-arm','grassland','cave','miner','soldier','raider','woodcutter','woodcutter-axe','battleOuter','mineOuter','battleDetail','mineDetail'].map(name=>new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>{this.images[name]=image;resolve();};image.onerror=()=>reject(new Error(name+' 이미지를 불러오지 못했습니다.'));image.src='assets/'+name+((name.startsWith('woodcutter')||name.startsWith('ballista'))?'.png':'.webp');})));this.ground={battle:this.images.battleOuter,mine:this.images.mineOuter};this.groundDetail={battle:this.images.battleDetail,mine:this.images.mineDetail};this.decor=this.props();this.game.setTreeSites(this.decor.filter(p=>p.id>=240));this.ready=true;}
+ async load(){await Promise.all(['ballista','ballista-arm','grassland','cave','miner','soldier','raider','woodcutter','woodcutter-axe','battleOuter','mineOuter','battleDetail','mineDetail','town-courtyard-v2'].map(name=>new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>{this.images[name]=image;resolve();};image.onerror=()=>reject(new Error(name+' 이미지를 불러오지 못했습니다.'));image.src='assets/'+name+((name.startsWith('woodcutter')||name.startsWith('ballista'))?'.png':'.webp');})));this.ground={battle:this.images.battleOuter,mine:this.images.mineOuter};this.groundDetail={battle:this.images.battleDetail,mine:this.images.mineDetail};this.decor=this.props();this.game.setTreeSites(this.decor.filter(p=>p.id>=240));this.ready=true;}
  resize(){this.w=innerWidth;this.h=innerHeight;this.dockHeight=document.getElementById('commandDock')?.getBoundingClientRect().height||this.h*.3;this.dpr=Math.min(devicePixelRatio||1,2);this.canvas.width=this.w*this.dpr;this.canvas.height=this.h*this.dpr;this.canvas.style.width=this.w+'px';this.canvas.style.height=this.h+'px';}
  get scale(){const bottom=this.dockHeight;return Math.max(this.w/1900,Math.min(this.w/1630,(this.h-bottom-90)/840))*1.12*this.camera.zoom;}
  transform(){const bottom=this.dockHeight;const scale=this.scale;return{scale,x:this.w/2-800*scale+this.camera.x,y:68+(this.h-bottom-68)/2-440*scale+this.camera.y};}
@@ -104,22 +104,23 @@ class WorldRenderer {
 
  town(ctx,time){
   const s=this.game.s,era=this.game.era;
-  ctx.fillStyle='#3a452aca';ctx.fillRect(-900,-1900,3300,4800);
-  const paving=ctx.createLinearGradient(250,200,1200,750);paving.addColorStop(0,'#ad9c73');paving.addColorStop(1,'#716d52');ctx.fillStyle=paving;ctx.beginPath();ctx.ellipse(800,515,640,285,0,0,Math.PI*2);ctx.fill();
-  ctx.strokeStyle='#d5c9a530';ctx.lineWidth=2;for(let y=290;y<770;y+=36){ctx.beginPath();ctx.moveTo(270,y);ctx.lineTo(1320,y);ctx.stroke();}for(let x=280;x<1350;x+=65){ctx.beginPath();ctx.moveTo(x,265);ctx.lineTo(x,765);ctx.stroke();}
-  for(const [x,y] of [[160,300],[390,200],[730,170],[1110,215],[1430,330],[1450,730],[180,740]]){this.tile(ctx,'grassland',era<2?72:296,x,y,era<2?.85:.19,true);this.flag(ctx,x+38,y-10,'#8e4838',time,.65);}
-  for(let i=0;i<14;i++)this.tile(ctx,'grassland',248,60+i*113,110,.36);
+  // The painted curtain walls and eight watchtowers replace the former tree fence.
+  ctx.fillStyle='#77715a';ctx.fillRect(-900,-1900,3300,4800);
+  ctx.drawImage(this.images['town-courtyard-v2'],-120,-150,1840,1152);
+  for(const [x,y] of [[120,180],[410,120],[685,105],[930,105],[1210,120],[1500,180]]){
+   this.flag(ctx,x,y,'#8f3c30',time,.48);
+   this.sprite(ctx,'soldier','stance',Math.floor(time*2),7,x-14,y+10,.52);
+  }
   const fountain=ctx.createRadialGradient(800,550,8,800,550,65);fountain.addColorStop(0,'#8eb4b4');fountain.addColorStop(1,'#596d65');ctx.fillStyle=fountain;ctx.beginPath();ctx.ellipse(800,550,74,35,0,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#c5bb99';ctx.lineWidth=9;ctx.stroke();ctx.strokeStyle='#abcfd080';ctx.lineWidth=2;for(let i=0;i<3;i++){ctx.beginPath();ctx.ellipse(800,550,15+((time*15+i*20)%55),8+((time*7+i*10)%25),0,0,Math.PI*2);ctx.stroke();}
   for(const [kind,x,y,label,cost] of [['barracks',550,515,'훈련소',100],['lab',1040,505,'연구소',200]]){
    if(kind==='barracks'&&!s.multiplayer)continue;
-   this.shadow(ctx,x,y,120);
    if(!s[kind]){ctx.strokeStyle='#d2ba7a88';ctx.setLineDash([10,8]);ctx.lineWidth=3;ctx.strokeRect(x-100,y-75,200,105);ctx.setLineDash([]);this.text(ctx,label+' 건설 터',x,y+70,'#ead9a6',19);this.text(ctx,'나무 '+cost,x,y+98,'#cdbb88',15);continue;}
+   this.shadow(ctx,x,y,120);
    this.tile(ctx,'grassland',kind==='lab'?296:72,x,y,kind==='lab'?.34:1.5,true);this.flag(ctx,x+90,y-16,kind==='lab'?'#8a6aa8':'#486e93',time,.95);
    const timer=s[kind==='lab'?'labBuild':'barracksBuild'];this.text(ctx,timer>0?label+' 건설 '+Math.ceil(timer)+'초':label,x,y+72,'#f2deb1',23);this.text(ctx,'터치하여 관리',x,y+99,'#d4c49f',14);
    if(kind==='lab'){ctx.fillStyle='#a0dce5';ctx.shadowColor='#83e5ec';ctx.shadowBlur=14;ctx.beginPath();ctx.arc(x,y-85,13,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;}else for(let i=0;i<Math.min(5,s.army);i++)this.sprite(ctx,'soldier','stance',time*3+i,7,x-70+i*34,y+25,.75);
   }
   for(let i=0;i<5;i++){const x=330+i*210+Math.sin(time*.25+i)*40,y=665+Math.sin(time*.3+i)*45;this.sprite(ctx,'soldier','run',time*5+i,7,x,y,.65);}
-  this.text(ctx,Defense.ERAS[era]+' · 군주의 광장',800,105,'#ffe6ac',30);this.text(ctx,'← 전장으로 돌아가기',800,850,'#e0d4b7',17);
  }
 
  draw(settings={}){const ctx=this.ctx,s=this.game.s,visualNow=performance.now()/1000,currentEra=this.game.era;if(this.lastEra!==undefined&&currentEra>this.lastEra&&s.started)this.eraGlowAt=visualNow;if(!s.started||currentEra<this.lastEra)this.eraGlowAt=-100;this.lastEra=currentEra;ctx.setTransform(this.dpr,0,0,this.dpr,0,0);ctx.fillStyle='#292d20';ctx.fillRect(0,0,this.w,this.h);if(!this.ready)return;const transform=this.transform(),time=s.started&&!s.multiplayer?s.time:performance.now()/1000;ctx.save();let shake=settings.shake&&s.shake>0?Math.sin(time*99)*3:0;ctx.translate(transform.x+shake,transform.y);ctx.scale(transform.scale,transform.scale);const kind=this.scene,terrainKind=kind==='town'?'battle':kind;ctx.drawImage(this.ground[terrainKind],-900,-1900,3300,4800);ctx.drawImage(this.groundDetail[terrainKind],-500,-420);

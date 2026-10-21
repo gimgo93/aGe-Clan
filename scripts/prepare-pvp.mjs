@@ -7,6 +7,7 @@ const config={name,main:'../../build/pvp-worker.js',compatibility_date:'2026-05-
  durable_objects:{bindings:[{name:'CLAN_ROOMS',class_name:'ClanRoom'}]},migrations:[{tag:'clan-rooms-v1',new_sqlite_classes:['ClanRoom']}],
  d1_databases:[{binding:'DB',database_name:process.env.CLAN_DATABASE_NAME||'age-clan-pvp-db',database_id:id,migrations_dir:'../../drizzle'}],observability:{enabled:true}};
 if(process.env.CLOUDFLARE_ACCOUNT_ID)config.account_id=process.env.CLOUDFLARE_ACCOUNT_ID;
+if(process.env.GOOGLE_CLIENT_ID){if(!/^[0-9]+-[a-z0-9]+\.apps\.googleusercontent\.com$/.test(process.env.GOOGLE_CLIENT_ID))throw Error('Invalid GOOGLE_CLIENT_ID');config.vars={GOOGLE_CLIENT_ID:process.env.GOOGLE_CLIENT_ID};}
 await mkdir(new URL('../dist/pvp/',import.meta.url),{recursive:true});
 await writeFile(new URL('../dist/pvp/wrangler.json',import.meta.url),JSON.stringify(config,null,2)+'\n');
 console.log('PvP config ready: dist/pvp/wrangler.json (no credentials saved).');

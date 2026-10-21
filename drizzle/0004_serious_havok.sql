@@ -1,0 +1,1 @@
+ALTER TABLE `clan_rankings` ADD `account_id` text;

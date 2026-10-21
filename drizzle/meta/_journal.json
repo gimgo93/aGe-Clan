@@ -22,6 +22,20 @@
       "when": 1792411200000,
       "tag": "0002_rankings",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1792492947062,
+      "tag": "0003_lively_senator_kelly",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1792578461736,
+      "tag": "0004_serious_havok",
+      "breakpoints": true
     }
   ]
 }

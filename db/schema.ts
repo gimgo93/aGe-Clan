@@ -7,9 +7,23 @@ export const feedback = sqliteTable('clan_feedback', {
  id: text('id').primaryKey(), message: text('message').notNull(), created: integer('created').notNull(),
 });
 export const rankings = sqliteTable('clan_rankings', {
+ accountId: text('account_id'),
  id: text('id').primaryKey(), name: text('name').notNull(), avatar: integer('avatar').notNull().default(0),
  wave: integer('wave').notNull(), updated: integer('updated').notNull(),
 }, t => [index('clan_rankings_wave').on(t.wave)]);
 export const limits = sqliteTable('clan_limits', {
  id: text('id').primaryKey(), hits: integer('hits').notNull(), expires: integer('expires').notNull(),
 }, t => [index('clan_limits_expires').on(t.expires)]);
+export const accounts=sqliteTable('clan_accounts',{
+ id:text('id').primaryKey(),name:text('name').notNull(),avatar:integer('avatar').notNull().default(0),
+ settings:text('settings').notNull().default('{}'),legacy:text('legacy').notNull().default('{}'),revision:integer('revision').notNull().default(1),created:integer('created').notNull(),updated:integer('updated').notNull(),
+});
+export const accountSessions=sqliteTable('clan_account_sessions',{
+ id:text('id').primaryKey(),accountId:text('account_id').notNull(),expires:integer('expires').notNull(),
+},t=>[index('clan_account_sessions_account').on(t.accountId),index('clan_account_sessions_expires').on(t.expires)]);
+export const accountChallenges=sqliteTable('clan_account_challenges',{
+ id:text('id').primaryKey(),nonce:text('nonce').notNull(),expires:integer('expires').notNull(),
+},t=>[index('clan_account_challenges_expires').on(t.expires)]);
+export const accountProgress=sqliteTable('clan_account_progress',{
+ id:text('id').primaryKey(),wave:integer('wave').notNull().default(0),kills:integer('kills').notNull().default(0),castle:integer('castle').notNull().default(0),miners:integer('miners').notNull().default(0),wood:integer('wood').notNull().default(0),tower:integer('tower').notNull().default(0),crystals:integer('crystals').notNull().default(0),research:integer('research').notNull().default(0),updated:integer('updated').notNull(),
+});

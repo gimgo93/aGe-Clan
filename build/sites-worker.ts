@@ -7,7 +7,7 @@ import type { ConnectorBinding } from "../lib/connector-contract.mjs";
 
 export default {
   async fetch(request: Request, env: Cloudflare.Env, ctx: ExecutionContext<{ CONNECTORS?: ConnectorBinding }>) {
-    if (['/api/clan','/api/clan/socket'].includes(new URL(request.url).pathname)) {
+    if (['/api/clan','/api/clan/socket','/api/clan/account'].includes(new URL(request.url).pathname)) {
       const external = await pvpGateway(request, env);
       if (external) return external;
     }

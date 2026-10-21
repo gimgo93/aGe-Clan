@@ -1,4 +1,5 @@
 import {realtimeRequest,realtimeSocket} from '../lib/realtime-router.js';
+import {accountRequest} from '../lib/account-store.js';
 export {ClanRoom} from '../lib/clan-room.js';
 export default{
  async fetch(request,env){
@@ -12,6 +13,7 @@ export default{
   if(diff)return json({error:'인증되지 않은 요청입니다.'},403);
   if(!env.CLAN_ROOMS||!env.DB)return json({status:'unavailable',error:'DB와 방 서버 바인딩이 필요합니다.'},503);
   const path=new URL(request.url).pathname;
+  if(path==='/api/clan/account')return accountRequest(request,env);
   if(path==='/api/clan/socket')return realtimeSocket(request,env);
   if(path!=='/api/clan')return json({error:'Not found'},404);
   if(request.method==='GET'){

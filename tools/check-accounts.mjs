@@ -1,0 +1,35 @@
+import assert from 'node:assert/strict';
+import {DatabaseSync} from 'node:sqlite';
+import fs from 'node:fs';
+import {generateKeyPair,SignJWT,createLocalJWKSet,exportJWK} from 'jose';
+import {accountRequest,accountIdentity,verifyGoogle,sha,saveAccountProgress} from '../lib/account-store.js';
+import {realtimeRequest} from '../lib/realtime-router.js';
+const sql=new DatabaseSync(':memory:');for(const f of fs.readdirSync('drizzle').filter(f=>f.endsWith('.sql')).sort())sql.exec(fs.readFileSync('drizzle/'+f,'utf8'));
+const db={prepare(q){let values=[];const statement={bind(...v){values=v;return statement;},async first(){return sql.prepare(q).get(...values)||null;},async all(){return{results:sql.prepare(q).all(...values)};},async run(){return{meta:{changes:sql.prepare(q).run(...values).changes}};}};return statement;},async batch(statements){sql.exec('BEGIN');try{const result=await Promise.all(statements.map(s=>s.run()));sql.exec('COMMIT');return result;}catch(e){sql.exec('ROLLBACK');throw e;}}};
+const env={DB:db,GOOGLE_CLIENT_ID:'test.apps.googleusercontent.com'},origin='https://game.test';
+const keys=await generateKeyPair('RS256'),publicKey=await exportJWK(keys.publicKey),jwks=createLocalJWKSet({keys:[{...publicKey,kid:'test'}]});
+const verify=(t,a,n)=>verifyGoogle(t,a,n,jwks);
+async function token(nonce,aud=env.GOOGLE_CLIENT_ID){return new SignJWT({nonce}).setProtectedHeader({alg:'RS256',kid:'test'}).setSubject('google-test-user').setAudience(aud).setIssuer('https://accounts.google.com').setIssuedAt().setExpirationTime('5m').sign(keys.privateKey);}
+const a={cookies:new Map()},b={cookies:new Map()};
+async function api(c,v,expected=200,source=origin){const req=new Request(origin+'/api/clan/account',{method:'POST',headers:{Origin:source,'Content-Type':'application/json',Cookie:[...c.cookies].map(([k,v])=>k+'='+v).join('; ')},body:JSON.stringify(v)});const r=await accountRequest(req,env,verify);for(const item of r.headers.getSetCookie()){const [pair]=item.split(';'),at=pair.indexOf('=');c.cookies.set(pair.slice(0,at),pair.slice(at+1));}const data=await r.json();assert.equal(r.status,expected,JSON.stringify(data));return data;}
+await api(a,{op:'status'},403,'https://evil.test');await api(a,{op:'save'},401);
+const first=await api(a,{op:'challenge'}),bad=await token(first.nonce,'wrong');await api(a,{op:'login',nonce:first.nonce,credential:bad},401);
+const credential=await token(first.nonce);await assert.rejects(()=>verify(credential,env.GOOGLE_CLIENT_ID,'wrong'));
+const anonCookie=a.cookies.get('clan_session'),anonKey=await sha(anonCookie);sql.prepare('INSERT INTO clan_rankings(id,name,avatar,wave,updated) VALUES (?,?,?,?,?)').run(anonKey,'old',0,20,Date.now());
+sql.prepare('INSERT INTO clan_rooms VALUES (?,?,?,?,?)').run('stale-room','waiting',JSON.stringify({players:[{key:anonKey,s:{over:false}}]}),0,Date.now());env.CLAN_ROOMS={idFromName:x=>x,get:()=>({fetch:async()=>new Response('{}',{status:403})})};
+let signed=await api(a,{op:'login',credential,nonce:first.nonce,profile:{name:'군주 A',avatar:3}});assert.notEqual(a.cookies.get('clan_session'),anonCookie);assert.equal(signed.account.records.wave,20);assert.equal(signed.account.profile.name,'군주 A');await api(a,{op:'login',credential,nonce:first.nonce},409);
+signed=await api(a,{op:'save',revision:signed.account.revision,profile:{name:'군주 B',avatar:2},settings:{volume:25,evil:true}});assert.equal(signed.account.settings.evil,undefined);
+const second=await api(b,{op:'challenge'});let other=await api(b,{op:'login',credential:await token(second.nonce),nonce:second.nonce});assert.equal(other.account.profile.name,'군주 B');assert.equal(other.account.settings.volume,25);
+await api(a,{op:'save',revision:1,profile:{name:'overwrite'}},409);
+await api(a,{op:'importLegacy',records:{wave:999,wood:100}});other=await api(b,{op:'status'});assert.equal(other.account.legacy.wave,999);assert.equal(other.account.records.wave,20);
+const identity=await accountIdentity(new Request(origin,{headers:{cookie:[...b.cookies].map(([k,v])=>k+'='+v).join('; ')}}),env);
+const rankRequest=c=>new Request(origin+'/api/clan',{method:'POST',headers:{origin,cookie:[...c.cookies].map(([k,v])=>k+'='+v).join('; ')},body:JSON.stringify({op:'leaderboard'})});
+assert.equal((await realtimeRequest(rankRequest({cookies:new Map()}),env)).status,401);
+sql.prepare('INSERT INTO clan_rankings(id,name,avatar,wave,updated) VALUES (?,?,?,?,?)').run('unclaimed-guest','guest',0,9999,Date.now());
+const ranking=await realtimeRequest(rankRequest(b),env);assert.equal(ranking.status,200);const ranked=await ranking.json();assert.equal(ranked.items.length,1);assert.equal(ranked.items[0].name,'군주 B');assert.equal(ranked.items[0].wave,20);
+assert.match(fs.readFileSync('lib/clan-room.js','utf8'),/if\(!p\?\.accountId\|\|p\.s\.completed<1/);
+await saveAccountProgress(db,{accountId:identity.accountId,s:{completed:30,kills:100,castle:5,miners:7,woodHarvested:20,towerLevels:{archer:2},crystalsMined:5,research:{ice:-1}}});
+other=await api(b,{op:'status'});assert.equal(other.account.records.wave,30);
+await api(b,{op:'logout'});assert.equal((await api(b,{op:'status'})).account,null);assert.ok((await api(a,{op:'status'})).account);const loginAgain=await api(b,{op:'challenge'});await api(b,{op:'login',credential:await token(loginAgain.nonce),nonce:loginAgain.nonce});
+await api(a,{op:'delete'},400);await api(a,{op:'delete',confirm:'DELETE'});assert.equal((await api(b,{op:'status'})).account,null);await saveAccountProgress(db,{accountId:identity.accountId,s:{completed:99}});assert.equal(sql.prepare('SELECT COUNT(*) AS n FROM clan_account_progress').get().n,0);
+console.log('PASS: JWT signature/audience/nonce, session rotation, 2-device profile/settings, conflicts, legacy separation, server progress, deletion and all-session revocation');

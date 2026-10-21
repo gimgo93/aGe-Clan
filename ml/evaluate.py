@@ -14,7 +14,7 @@ from ml.env import AgeClanEnv
 from ml.experiment import environment_signature, write_json
 
 
-def evaluate(run_dir, episodes=5, seed=10000):
+def evaluate(run_dir, episodes=5, seed=10000, initial_policy=False):
     if type(episodes) is not int or not 1 <= episodes <= 10000:
         raise ValueError('episodes must be between 1 and 10000')
     if type(seed) is not int or seed < 0 or seed + episodes - 1 > 2**32 - 1:
@@ -31,26 +31,39 @@ def evaluate(run_dir, episodes=5, seed=10000):
         vector = VecNormalize.load(run_dir / 'vecnormalize.pkl', vector)
         vector.training = False  # Freeze training statistics on evaluation seeds.
         vector.norm_reward = False
-        model = PPO.load(run_dir / 'model.zip', env=vector, device='cpu')
+        if initial_policy:
+            # Controlled weight comparison: same trained observation statistics,
+            # but reconstruct the original randomly initialized policy without learn().
+            model = PPO('MlpPolicy', vector, device='cpu', seed=manifest['config']['seed'],
+                        verbose=0, **manifest['config']['ppo'])
+        else:
+            model = PPO.load(run_dir / 'model.zip', env=vector, device='cpu')
         results = []
         for index in range(episodes):
             episode_seed = seed + index
             vector.seed(episode_seed)
             obs = vector.reset()
             total, steps, invalid = 0.0, 0, 0
+            action_counts, invalid_counts = {}, {}
             while True:
                 action, _ = model.predict(obs, deterministic=True)
+                action_id = str(int(action[0]))
+                action_counts[action_id] = action_counts.get(action_id, 0) + 1
                 obs, reward, done, infos = vector.step(action)
                 info = infos[0]
                 total += float(reward[0])
                 steps += 1
                 invalid += int('error' in info['action_result'])
+                if 'error' in info['action_result']:
+                    invalid_counts[action_id] = invalid_counts.get(action_id, 0) + 1
                 if done[0]:
                     results.append({'python_seed': episode_seed, 'game_seed': info['seed'],
                                     'reward': total, 'steps': steps, 'invalid_actions': invalid,
+                                    'action_counts': action_counts, 'invalid_action_counts': invalid_counts,
                                     **{key: info[key] for key in ('game_time', 'completed', 'kills', 'hp', 'end_reason')}})
                     break
-        return {'episodes': results, 'mean_reward': float(np.mean([r['reward'] for r in results])),
+        return {'policy_mode': 'initial_weights_with_trained_normalization' if initial_policy else 'trained',
+                'episodes': results, 'mean_reward': float(np.mean([r['reward'] for r in results])),
                 'mean_completed': float(np.mean([r['completed'] for r in results])),
                 'target_successes': sum(r['end_reason'] == 'target_wave' for r in results)}
     finally:
@@ -62,11 +75,12 @@ def main():
     parser.add_argument('--run-dir', type=Path, required=True)
     parser.add_argument('--episodes', type=int, default=5)
     parser.add_argument('--seed', type=int, default=10000)
+    parser.add_argument('--initial-policy', action='store_true', help='Control: initial random weights with the same normalization')
     parser.add_argument('--output', type=Path, help='Optional new report file (existing files are refused)')
     args = parser.parse_args()
     if args.output and args.output.exists():
         parser.error('Report output already exists; choose a new file')
-    report = evaluate(args.run_dir, args.episodes, args.seed)
+    report = evaluate(args.run_dir, args.episodes, args.seed, initial_policy=args.initial_policy)
     if args.output:
         write_json(args.output, report)
     print(json.dumps(report, ensure_ascii=False, indent=2))

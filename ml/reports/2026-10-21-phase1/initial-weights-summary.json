@@ -1,0 +1,32 @@
+{
+  "seed-42": {
+    "policy_mode": "initial_weights_with_trained_normalization",
+    "summary": {
+      "episodes": 20,
+      "mean_reward": -17.252500102855265,
+      "mean_game_time": 126.79999999999707,
+      "mean_completed": 1.0,
+      "mean_kills": 1.0,
+      "mean_hp": 0.0,
+      "std_reward": 0.021650635417230567,
+      "invalid_action_rate": 0.9862204724409449,
+      "horizon_survivals": 0,
+      "target_successes": 0
+    }
+  },
+  "seed-43": {
+    "policy_mode": "initial_weights_with_trained_normalization",
+    "summary": {
+      "episodes": 20,
+      "mean_reward": -17.220000103861093,
+      "mean_game_time": 124.99999999999719,
+      "mean_completed": 1.0,
+      "mean_kills": 0.0,
+      "mean_hp": 0.0,
+      "std_reward": 0.06000000089406967,
+      "invalid_action_rate": 0.9952,
+      "horizon_survivals": 0,
+      "target_successes": 0
+    }
+  }
+}

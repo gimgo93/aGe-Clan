@@ -183,8 +183,9 @@ manifest에 기록합니다. 첫 연결 확인에는 다음 64-step 실행을 �
 ```
 
 같은 폴더를 덮어쓰지 않습니다. 재실행 때 `starter-002`처럼 새 이름을 사용하세요.
-출력 경로를 생략하면 UTC 타임스탬프 이름을 사용합니다. 이번 초기 코드에는 중단 학습 재개와
-주기적 checkpoint가 없으며 정상 완료 후 모델을 저장합니다. 중단된 폴더는 완료 실행으로 평가할 수 없습니다.
+출력 경로를 생략하면 UTC 타임스탬프 이름을 사용합니다. `--checkpoint-freq 8192`를 지정하면
+8192행동마다 모델과 정규화 통계를 저장합니다. 학습 재개 CLI는 아직 없으며, 중간 checkpoint에는
+최종 manifest가 없으므로 현재 evaluate 명령은 정상 완료된 실행 폴더에 사용합니다.
 
 | 파일 | 역할 |
 | --- | --- |
@@ -193,6 +194,8 @@ manifest에 기록합니다. 첫 연결 확인에는 다음 64-step 실행을 �
 | `vecnormalize.pkl` | 모델과 함께 사용해야 하는 관측 정규화 통계 |
 | `manifest.json` | 실제 step 수·라이브러리 버전·행동/관측 순서·엔진 소스 해시 |
 | `episodes.monitor.csv` | 종료된 학습 에피소드의 보상·길이 |
+| `progress.csv` | rollout 보상 평균·학습 손실·KL·진행 step |
+| `checkpoints/` | 선택적으로 저장한 중간 모델과 정규화 통계 |
 | `evaluation.json` | 명시적으로 요청한 평가 보고서 |
 
 원래 관측값은 단위 차이가 커서 `VecNormalize(norm_obs=True, norm_reward=False)`로 정규화합니다.
@@ -205,3 +208,12 @@ manifest에 기록합니다. 첫 연결 확인에는 다음 64-step 실행을 �
 올립니다. 결과 모델은 로컬 실험용이며 운영 게임에 연결되지 않습니다.
 `python -m unittest ml.test_training -v`는 임시 폴더에서 32-step 학습 → 저장 → 로드 → 두 평가
 재현 → 호환성 검사 → 정리를 수행합니다. 초소형 테스트 통과는 게임 실력을 학습했다는 의미가 아닙니다.
+
+## 실제 1차 실험
+
+[학습 설계](TRAINING_PLAN.md)에 알고리즘, 망 구조, 사용하는 함수와 보상·평가 기준을 설명했습니다.
+학습 시드 42·43에서 각각 32,768행동을 학습하고, 별도 공통 평가 시드 20개에서 대기·무작위·고정
+규칙 기반 정책과 비교합니다. `python -m ml.phase1 --output ml/runs/새-실험-이름`으로 재현합니다.
+단일 모델만 비교하려면 `python -m ml.benchmark --config ml/configs/phase1.json --run-dir 실행폴더
+--episodes 20 --seed 20000 --output 새보고서.json`을 사용합니다(명령은 한 줄로 입력).
+단순 학습 보상 상승을 실전 성능 향상으로 해석하지 않으며, 결과와 한계는 `ml/reports/`에 남깁니다.

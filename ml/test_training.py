@@ -6,6 +6,7 @@ import unittest
 from ml.evaluate import evaluate
 from ml.experiment import ROOT, load_config, write_json
 from ml.train import train
+from ml.benchmark import reference_evaluate
 
 
 class TrainingTests(unittest.TestCase):
@@ -20,8 +21,12 @@ class TrainingTests(unittest.TestCase):
         config['ppo'].update(n_steps=32, batch_size=16, n_epochs=1)
         with tempfile.TemporaryDirectory(dir=self.temp_root) as directory:
             run = Path(directory) / 'tiny-run'
-            manifest = train(config, run, verbose=0)
+            manifest = train(config, run, verbose=0, checkpoint_freq=16)
             self.assertEqual(manifest['actual_timesteps'], 32)
+            self.assertEqual(manifest['model']['parameters'], 38702)
+            self.assertTrue((run / 'progress.csv').is_file())
+            self.assertTrue((run / 'checkpoints' / 'ppo_16_steps.zip').is_file())
+            self.assertTrue((run / 'checkpoints' / 'ppo_vecnormalize_16_steps.pkl').is_file())
             for filename in ('config.json', 'model.zip', 'vecnormalize.pkl', 'manifest.json', 'episodes.monitor.csv'):
                 self.assertTrue((run / filename).is_file(), filename)
             before = (run / 'vecnormalize.pkl').read_bytes()
@@ -52,6 +57,13 @@ class TrainingTests(unittest.TestCase):
             write_json(path, config)
             with self.assertRaises(ValueError):
                 load_config(path)
+
+    def test_reference_policies(self):
+        config = {'frame_skip': 10, 'max_ticks': 13, 'target_wave': 0}
+        for policy in ('wait', 'random', 'scripted'):
+            first = reference_evaluate(config, policy, 2, 20000)
+            self.assertEqual(first, reference_evaluate(config, policy, 2, 20000))
+            self.assertEqual(first['summary']['horizon_survivals'], 2)
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-# Validated local versions. PyTorch/SB3 are only used by validation, not the bridge.
+# Validated local versions. PyTorch/SB3 support validation and starter training.
 numpy==2.5.4
 gymnasium==1.4.0
 stable-baselines3==2.9.0

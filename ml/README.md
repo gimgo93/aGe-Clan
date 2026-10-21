@@ -1,9 +1,13 @@
 # aGe Clan 오프라인 강화학습 환경
 
 실제 JavaScript 게임 엔진을 Python Gymnasium의 `reset()` / `step()`에 연결했습니다.
-이번 범위는 **혼자하기 방어 환경과 연결 테스트**입니다. PPO 학습, 학습 모델, 상대 AI,
-PvP 봇 배포는 포함하지 않습니다. OpenAI API, 운영 HTTP/WebSocket, DB, 사용자 계정,
+현재 범위는 **혼자하기 방어 환경과 PPO 초기 학습·평가 코드**입니다. 학습 실행은 사용자가
+명령으로 시작합니다. 검증용 초소형 학습 외 대규모 학습, 완성 모델, 상대 AI, PvP 봇 배포는
+포함하지 않습니다. OpenAI API, 운영 HTTP/WebSocket, DB, 사용자 계정,
 Cloudflare/Sites 배포에 접근하지 않습니다. 인터넷 없이 시뮬레이션할 수 있습니다.
+
+현재 준비 상태와 남은 작업은 [STATUS.md](STATUS.md)를 먼저 확인하세요.
+처음 실행한다면 아래 환경 검사 후 [초기 PPO 학습·평가](#초기-ppo-학습평가)를 진행하세요.
 
 ## 프로젝트와 엔진 재사용
 
@@ -38,6 +42,7 @@ node --version
 "%PYTHON%" -c "import sys,numpy,gymnasium,stable_baselines3,torch; print(sys.version); print(numpy.__version__,gymnasium.__version__,stable_baselines3.__version__,torch.__version__)"
 node ml/test_bridge.mjs
 "%PYTHON%" -m unittest ml.test_env -v
+"%PYTHON%" -m unittest ml.test_training -v
 "%PYTHON%" -m ml.smoke
 node tools/check-pvp.mjs
 node tools/check-overhaul.mjs
@@ -156,3 +161,47 @@ stdout은 프로토콜 전용이고 진단은 stderr에 나옵니다. 기본 응
 
 기존 `check-pvp`와 `check-overhaul`도 실행해 운영 규칙의 회귀 여부를 확인합니다.
 실제 PvP 접속, 운영 부하 시험, 대규모 PPO 실행이나 배포는 이 검증에 포함하지 않습니다.
+
+## 초기 PPO 학습·평가
+
+먼저 저장소 루트에서 위의 CMD `PYTHON` 변수를 설정합니다. 아래 코드는 운영 서버에 접속하지 않는
+CPU 전용 단일 환경 PPO입니다. 기본 설정은 `ml/configs/starter.json`이며 2,048개 **에이전트 행동**을
+학습합니다. 이는 게임 tick 수와 다릅니다. `frame_skip=10`이면 행동당 최대 10 tick을 진행합니다.
+PPO는 rollout 단위로 학습하므로 요청 step 수를 `n_steps=64`의 배수까지 올릴 수 있으며 실제 수는
+manifest에 기록합니다. 첫 연결 확인에는 다음 64-step 실행을 사용할 수 있습니다.
+
+```bat
+"%PYTHON%" -m ml.train --total-timesteps 64 --output ml/runs/first-check
+"%PYTHON%" -m ml.evaluate --run-dir ml/runs/first-check --episodes 2 --seed 10000 --output ml/runs/first-check/evaluation.json
+```
+
+검사 후 기본 초기 학습을 시작하려면 새 출력 폴더를 지정합니다.
+
+```bat
+"%PYTHON%" -m ml.train --config ml/configs/starter.json --output ml/runs/starter-001
+"%PYTHON%" -m ml.evaluate --run-dir ml/runs/starter-001 --episodes 5 --seed 10000 --output ml/runs/starter-001/evaluation.json
+```
+
+같은 폴더를 덮어쓰지 않습니다. 재실행 때 `starter-002`처럼 새 이름을 사용하세요.
+출력 경로를 생략하면 UTC 타임스탬프 이름을 사용합니다. 이번 초기 코드에는 중단 학습 재개와
+주기적 checkpoint가 없으며 정상 완료 후 모델을 저장합니다. 중단된 폴더는 완료 실행으로 평가할 수 없습니다.
+
+| 파일 | 역할 |
+| --- | --- |
+| `config.json` | 실제 사용한 seed·환경·PPO 설정 |
+| `model.zip` | SB3 PPO 모델 |
+| `vecnormalize.pkl` | 모델과 함께 사용해야 하는 관측 정규화 통계 |
+| `manifest.json` | 실제 step 수·라이브러리 버전·행동/관측 순서·엔진 소스 해시 |
+| `episodes.monitor.csv` | 종료된 학습 에피소드의 보상·길이 |
+| `evaluation.json` | 명시적으로 요청한 평가 보고서 |
+
+원래 관측값은 단위 차이가 커서 `VecNormalize(norm_obs=True, norm_reward=False)`로 정규화합니다.
+평가는 저장된 통계를 불러와 고정하고, 추가 학습 없이 결정적인 행동을 선택합니다.
+기본 평가 시드는 Python 기준 10000부터 순서대로 적용하며 보상·완료 웨이브·HP·실패 행동 수를
+보고합니다. 훈련 seed 42와 구분한 재현 가능한 평가 시작점이며 충분한 전략 평가를 대신하지 않습니다.
+현재 엔진·브리지·환경 코드나 행동/관측 순서가 학습 때와 다르면 평가를 거절하므로 호환 모델을 사용하세요.
+
+모델·통계·로그는 `.gitignore`에 포함된 `ml/runs/`에 저장합니다. GitHub에는 초기 소스와 설정만
+올립니다. 결과 모델은 로컬 실험용이며 운영 게임에 연결되지 않습니다.
+`python -m unittest ml.test_training -v`는 임시 폴더에서 32-step 학습 → 저장 → 로드 → 두 평가
+재현 → 호환성 검사 → 정리를 수행합니다. 초소형 테스트 통과는 게임 실력을 학습했다는 의미가 아닙니다.

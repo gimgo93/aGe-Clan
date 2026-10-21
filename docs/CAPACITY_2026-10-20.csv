@@ -1,0 +1,5 @@
+scenario,clients,rooms,seconds,ack_p95_ms,rtt_p95_ms,frame_gap_p95_ms,max_frame_gap_ms,errors,command_errors,disconnects,generator_lag_p95_ms
+early,5,1,30,170.5468,164.1573,203.0155,212.9064,0,0,0,18.4156
+late,5,1,30,187.3039,181.3955,206.2784,224.6561,0,0,0,18.5958
+late,10,2,30,189.0152,180.7488,206.2161,451.3901,0,0,0,20.0868
+late,20,4,30,206.9711,192.4585,206.4971,289.3841,0,0,0,21.2992

@@ -21,7 +21,7 @@ class AgeClanEnv(gym.Env):
     metadata = {"render_modes": []}
 
     def __init__(self, *, frame_skip=10, max_ticks=6000, target_wave=0,
-                 node_executable=None, response_timeout=30.0):
+                 node_executable=None, response_timeout=30.0, reward_mode='legacy'):
         super().__init__()
         for name, value, upper in (("frame_skip", frame_skip, 10000),
                                    ("max_ticks", max_ticks, 10000000),
@@ -30,6 +30,9 @@ class AgeClanEnv(gym.Env):
                 raise ValueError(f"Invalid {name}")
         if not math.isfinite(response_timeout) or response_timeout <= 0:
             raise ValueError("response_timeout must be positive and finite")
+        if reward_mode not in ('legacy', 'defense-v1'):
+            raise ValueError('Invalid reward_mode')
+        self.reward_mode = reward_mode
         self.frame_skip, self.max_ticks, self.target_wave = frame_skip, max_ticks, target_wave
         self.response_timeout = response_timeout
         self._closed, self._needs_reset = False, True
@@ -89,7 +92,7 @@ class AgeClanEnv(gym.Env):
         bridge_seed = int(self.np_random.integers(0, 2**32, dtype=np.uint64))
         result = self._request({"op": "reset", "seed": bridge_seed,
                                 "frameSkip": self.frame_skip, "maxTicks": self.max_ticks,
-                                "targetWave": self.target_wave})
+                                "targetWave": self.target_wave, "rewardMode": self.reward_mode})
         self._needs_reset = False
         return np.asarray(result["observation"], dtype=np.float32), result["info"]
 

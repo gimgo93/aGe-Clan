@@ -29,8 +29,11 @@ def load_config(path=DEFAULT_CONFIG, total_timesteps=None):
             raise ValueError(f'Invalid {name}')
     if config['seed'] > 2**32 - 1:
         raise ValueError('seed must fit uint32')
-    if set(config['env']) != {'frame_skip', 'max_ticks', 'target_wave'}:
+    if set(config['env']) not in ({'frame_skip', 'max_ticks', 'target_wave'},
+                                  {'frame_skip', 'max_ticks', 'target_wave', 'reward_mode'}):
         raise ValueError('Unexpected or missing environment keys')
+    if config['env'].get('reward_mode', 'legacy') not in ('legacy', 'defense-v1'):
+        raise ValueError('Invalid reward_mode')
     ppo = config['ppo']
     if set(ppo) != {'n_steps', 'batch_size', 'n_epochs', 'learning_rate', 'gamma', 'ent_coef'}:
         raise ValueError('Unexpected or missing PPO keys')
@@ -60,3 +63,12 @@ def environment_signature(env):
 def runtime_versions():
     return {'python': platform.python_version(),
             **{name: version(name) for name in ('numpy', 'gymnasium', 'stable-baselines3', 'sb3-contrib', 'torch')}}
+
+
+def check_policy_transfer(previous, current):
+    """Explicit adapter/objective transfer, never silently bypass engine/schema changes."""
+    if any(previous[key] != current[key] for key in ('version', 'actions', 'features')):
+        raise ValueError('Transfer observation/action schema differs')
+    for name in RULE_FILES:
+        if not name.startswith('ml/') and previous['source_sha256'][name] != current['source_sha256'][name]:
+            raise ValueError(f'Transfer game rules differ: {name}')

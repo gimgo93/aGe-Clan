@@ -18,6 +18,14 @@ class EnvironmentTests(unittest.TestCase):
             gym_check_env(env, skip_render_check=True)
             sb3_check_env(env, warn=True)
 
+    def test_defense_objective_checkers(self):
+        with AgeClanEnv(max_ticks=200, target_wave=20, reward_mode='defense-v1') as env:
+            gym_check_env(env, skip_render_check=True)
+            sb3_check_env(env, warn=True)
+            _, info = env.reset(seed=42)
+            self.assertEqual(info['reward_mode'], 'defense-v1')
+            self.assertEqual(info['cleared_waves'], 0)
+
     def test_seed_and_isolation(self):
         with AgeClanEnv() as a, AgeClanEnv() as b:
             obs_a, info_a = a.reset(seed=42)

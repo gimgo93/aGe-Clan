@@ -16,6 +16,9 @@ def summarize(episodes):
     total_steps = sum(row['steps'] for row in episodes)
     return {'episodes': len(episodes),
             **{f'mean_{key}': float(np.mean([row[key] for row in episodes]))
+               for key in ('cleared_waves', 'contiguous_cleared', 'leaks', 'damage_taken') if key in episodes[0]},
+            'survivals_300': sum(row.get('survived_300', False) for row in episodes),
+            **{f'mean_{key}': float(np.mean([row[key] for row in episodes]))
                for key in ('reward', 'game_time', 'completed', 'kills', 'hp')},
             'std_reward': float(np.std([row['reward'] for row in episodes])),
             'invalid_action_rate': sum(row['invalid_actions'] for row in episodes) / total_steps,
@@ -59,15 +62,19 @@ def reference_evaluate(env_config, policy, episodes, seed):
             observation, info = env.reset(seed=seed + index)
             env.action_space.seed(seed + index)
             total, steps, invalid = 0.0, 0, 0
+            survived_300 = False
             while True:
                 action = reference_action(env, observation, policy)
                 observation, reward, terminated, truncated, info = env.step(action)
                 total += reward
+                survived_300 |= info['game_time'] >= 300 - 1e-6 and info['hp'] > 0
                 steps += 1
                 invalid += int('error' in info['action_result'])
                 if terminated or truncated:
                     results.append({'python_seed': seed + index, 'game_seed': info['seed'],
                                     'reward': total, 'steps': steps, 'invalid_actions': invalid,
+                                    'survived_300': survived_300,
+                                    **{key: info[key] for key in ('cleared_waves', 'contiguous_cleared', 'leaks', 'damage_taken', 'reward_totals')},
                                     **{key: info[key] for key in ('game_time', 'completed', 'kills', 'hp', 'end_reason')}})
                     break
     return {'summary': summarize(results), 'episodes': results}

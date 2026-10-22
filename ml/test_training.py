@@ -124,6 +124,40 @@ class TrainingTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'requires resume_from'):
                 train(config, Path(directory) / 'no-parent', masked=True, resume_learning_rate=0.0001)
 
+    def test_explicit_objective_transfer(self):
+        from sb3_contrib import MaskablePPO
+        from ml.experiment import check_policy_transfer
+        config = load_config(total_timesteps=32)
+        config['env']['max_ticks'] = 50
+        config['ppo'].update(n_steps=32, batch_size=16, n_epochs=1)
+        with tempfile.TemporaryDirectory(dir=self.temp_root) as directory:
+            parent, child = Path(directory) / 'parent', Path(directory) / 'child'
+            before = train(config, parent, verbose=0, masked=True)
+            changed = deepcopy(config)
+            changed['env'].update(target_wave=20, max_ticks=100, reward_mode='defense-v1')
+            changed['ppo'].update(gamma=.999, learning_rate=.0001)
+            with self.assertRaisesRegex(ValueError, 'settings and seed unchanged'):
+                train(changed, Path(directory) / 'implicit', masked=True, resume_from=parent)
+            result = train(changed, child, verbose=0, masked=True, transfer_from=parent)
+            self.assertEqual(result['actual_timesteps'], 64)
+            self.assertEqual(result['added_timesteps'], 32)
+            self.assertIn('env', result['transfer_changes'])
+            model = MaskablePPO.load(child / 'model.zip', device='cpu')
+            self.assertEqual(model.gamma, .999)
+            self.assertEqual(model.rollout_buffer.gamma, .999)
+            self.assertEqual(model.lr_schedule(1), .0001)
+            evaluated = evaluate(parent, 1, 91000, env_config=changed['env'])
+            self.assertTrue(evaluated['explicit_objective_transfer'])
+            self.assertEqual(evaluated['episodes'][0]['invalid_actions'], 0)
+            self.assertIn('reward_totals', evaluated['episodes'][0])
+            tampered = deepcopy(before['environment'])
+            tampered['source_sha256']['lib/game-engine.js'] = 'changed'
+            with self.assertRaisesRegex(ValueError, 'game rules differ'):
+                check_policy_transfer(tampered, before['environment'])
+            tampered = deepcopy(before['environment']); tampered['features'] = []
+            with self.assertRaisesRegex(ValueError, 'schema differs'):
+                check_policy_transfer(tampered, before['environment'])
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

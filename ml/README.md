@@ -262,3 +262,42 @@ resume에서는 `actual_timesteps`가 누적 행동 수, `added_timesteps`가 �
 `--same-budget-control`은 같은 부모·학습량·환경·알고리즘·나머지 설정의 완료 실험을 받아
 학습률 외 조건이 맞는지 확인하고, 개발/새 검증 시드에서 함께 평가합니다.
 계속 학습의 최신 상태와 최선 모델은 [STATUS.md](STATUS.md)를 확인하세요.
+
+## 20웨이브 목표와 방어 품질 보상
+
+실제 20웨이브 실험은 `configs/wave20.json`을 사용합니다. 기존 starter/phase1 설정은
+과거 연결 검사·300초 실험을 재현하기 위해 유지합니다. wave20은6차에서 더 나았던 할인율0.99를
+사용합니다. 0.999도 통제 비교했지만 개선되지 않아 채택하지 않았습니다. 최신 결과는 STATUS와6차 보고서를 확인하세요.
+
+- `target_wave=20`: 1–20번 웨이브가 모두 실제 종료되고 성 HP가 양수이며 적/활성 웨이브가 없을 때 성공.
+- `max_ticks=30000`: 3,000게임초의 안전 제한이며 시간 도달은 성공이 아닌 truncated.
+- 목표를 넘는 수동 웨이브 시작은 학습 전용 제약으로 거절하고 마스크에서도 제외합니다.
+- `reward_mode=defense-v1`: 실제 웨이브 종료마다 처치수/전체적수(0–1)를 지급합니다.
+  전원 누수는 웨이브 보상0, 피해 감점은 별도입니다. 나머지는 처치+.01, HP피해-.02,
+  실패행동-.05, 함락-10, 목표달성+10을 유지합니다. 생존 시간/건설/회복 자체에는 직접 보상이 없습니다.
+- `legacy`는 비교용 기존 보상이며 웨이브 번호 최댓값 차이를 보상으로 사용합니다.
+- `cleared_waves`, `contiguous_cleared`, `leaks`, `damage_taken`, `reward_totals`로 진척/누수/피해/항목별 보상을 기록합니다.
+
+목표/보상/할인율이 달라지는 실험은 strict resume가 아니라 명시적 `--transfer-from`을 사용합니다.
+망/정규화/Adam 통계를 이어받되 환경·PPO 차이를 manifest에 기록하고 실제 gamma/rollout gamma/LR도 저장합니다.
+실제 게임 엔진 해시와 관측/행동 스키마가 다르면 transfer도 거절합니다.
+새 보상 버전으로 어댑터 소스 해시가 바뀌었으므로 과거 모델의 기본 평가/strict resume는 거절될 수 있습니다.
+이때 옛 manifest를 고치지 말고 명시적 공통 목표 평가를 사용하세요.
+
+```bat
+set "PYTHON=C:\Users\pc\aGe-ai\.venv\Scripts\python.exe"
+set "TEMP=%CD%\ml\runs"
+set "TMP=%TEMP%"
+node ml/test_rewards.mjs
+"%PYTHON%" -m unittest ml.test_env ml.test_training -v
+rem 같은 부모에서 세 변형 비교: 총 49,152 추가행동, CPU 1스레드
+"%PYTHON%" -m ml.phase6 --output ml/runs/new-wave20-comparison
+rem 20목표/새 보상으로 명시적으로 전이하는 단일 실험
+"%PYTHON%" -m ml.train --config ml/configs/wave20.json --masked --transfer-from ml/runs/phase3-continued-20261022/seed-42 --output ml/runs/new-wave20
+rem 기존 모델도 새 모델과 동일한20목표/보상으로 재평가
+"%PYTHON%" -m ml.evaluate --run-dir ml/runs/phase3-continued-20261022/seed-42 --env-config ml/configs/wave20.json --episodes 10 --seed 93000
+```
+
+위 학습 명령은 각각 별개 예시입니다. 같은 실행의 예산을 넘어 모두 연속 실행하지 마세요.
+실패행동은 action_result.error가 있는 실행 거절이며, 전략적 실수·함락·대기를 뜻하지 않습니다.
+파라미터의 근거/확대 예상과 정확한 실패 정의는 [6차 파라미터 설명](reports/2026-10-22-phase6/PARAMETERS.md)에 있습니다.

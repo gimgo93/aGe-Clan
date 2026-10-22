@@ -243,6 +243,22 @@ manifest에 기록합니다. 첫 연결 확인에는 다음 64-step 실행을 �
 ```
 
 resume에서는 `actual_timesteps`가 누적 행동 수, `added_timesteps`가 이번 추가량입니다.
-환경·PPO 설정·seed가 부모와 다르면 거절합니다. 게임 도중 상태와 RNG의 정확한 복구가 아니라
+기본적으로 환경·PPO 설정·seed가 부모와 다르면 거절합니다. 게임 도중 상태와 RNG의 정확한 복구가 아니라
 완료 모델/optimizer/정규화 통계를 불러와 새 에피소드부터 재개하는 방식입니다.
-최신 결과는 [2차 보고서](reports/2026-10-22-phase2/README.md)를 확인하세요.
+단계별 최신 결과와 최선 모델은 [STATUS.md](STATUS.md)를 확인하세요.
+
+## 학습률 한 요소의 명시적 재개 실험
+
+`--resume-learning-rate 0.0001`을 명시한 경우에만 부모의 학습률을 변경할 수 있습니다.
+환경·seed·나머지 PPO 설정은 계속 고정하며, config만 수정해 암묵적으로 재개하는 방식은 거절합니다.
+부모 optimizer의 누적 통계는 보존하고 learning-rate schedule 및 실제 parameter-group LR을
+새 값으로 적용합니다. manifest의 `resume_overrides`, `learning_rate_schedule`,
+`optimizer_learning_rates`에 실제 변경과 값을 기록합니다. 호출자가 전달한 config는 수정하지 않습니다.
+
+```bat
+"%PYTHON%" -m ml.phase3 --parents ml/runs/phase3-continued-20261022 --resume-learning-rate 0.0001 --same-budget-control ml/runs/phase4-continued-20261022 --confirmation-seed 80000 --output ml/runs/new-low-lr
+```
+
+`--same-budget-control`은 같은 부모·학습량·환경·알고리즘·나머지 설정의 완료 실험을 받아
+학습률 외 조건이 맞는지 확인하고, 개발/새 검증 시드에서 함께 평가합니다.
+계속 학습의 최신 상태와 최선 모델은 [STATUS.md](STATUS.md)를 확인하세요.

@@ -32,6 +32,7 @@ def main():
         evidence[f'seed-{seed}'] = {key: manifest[key] for key in (
             'algorithm', 'config', 'actual_timesteps', 'added_timesteps', 'wall_seconds', 'runtime', 'model')}
         evidence[f'seed-{seed}']['source_sha256'] = manifest['environment']['source_sha256']
+        evidence[f'seed-{seed}']['resume_overrides'] = manifest.get('resume_overrides', {})
         evidence[f'seed-{seed}']['artifact_sha256'] = {
             name: hashlib.sha256((run / name).read_bytes()).hexdigest()
             for name in ('model.zip', 'vecnormalize.pkl')}
@@ -58,7 +59,7 @@ def main():
         ax.grid(axis='x', alpha=.2)
         ax.spines[['top', 'right']].set_visible(False)
     total = evidence['seed-42']['actual_timesteps']
-    fig.suptitle(f'aGe Clan: {total:,} cumulative actions per masked policy; settings unchanged')
+    fig.suptitle(f'aGe Clan: {total:,} cumulative actions per masked policy; {report["change"]}')
     fig.savefig(args.output / 'comparison.png', dpi=150)
     plt.close(fig)
     print(json.dumps(summary, indent=2))

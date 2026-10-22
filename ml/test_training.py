@@ -1,5 +1,6 @@
 """Tiny learning/save/load integration check, not strategy evaluation."""
 from pathlib import Path
+from copy import deepcopy
 import tempfile
 import unittest
 
@@ -84,6 +85,44 @@ class TrainingTests(unittest.TestCase):
             changed = load_config(total_timesteps=32)
             with self.assertRaisesRegex(ValueError, 'settings and seed unchanged'):
                 train(changed, Path(directory) / 'wrong-settings', masked=True, resume_from=run)
+
+    def test_explicit_resumed_learning_rate(self):
+        from sb3_contrib import MaskablePPO
+        config = load_config(total_timesteps=32)
+        config['env']['max_ticks'] = 50
+        config['ppo'].update(n_steps=32, batch_size=16, n_epochs=1)
+        with tempfile.TemporaryDirectory(dir=self.temp_root) as directory:
+            parent, child = Path(directory) / 'parent', Path(directory) / 'child'
+            train(config, parent, verbose=0, masked=True)
+            original = MaskablePPO.load(parent / 'model.zip', device='cpu')
+            parent_steps = [float(state['step']) for state in original.policy.optimizer.state.values()]
+            manifest = train(config, child, verbose=0, masked=True, resume_from=parent,
+                             resume_learning_rate=0.0001)
+            self.assertEqual(config['ppo']['learning_rate'], 0.0003, 'caller config must not change')
+            self.assertEqual(manifest['resume_overrides'], {'learning_rate': {'from': 0.0003, 'to': 0.0001}})
+            self.assertEqual(manifest['config']['ppo']['learning_rate'], 0.0001)
+            self.assertEqual(manifest['actual_timesteps'], 64)
+            loaded = MaskablePPO.load(child / 'model.zip', device='cpu')
+            self.assertAlmostEqual(loaded.learning_rate, 0.0001)
+            for progress in (0.0, 0.5, 1.0):
+                self.assertAlmostEqual(loaded.lr_schedule(progress), 0.0001)
+            for group in loaded.policy.optimizer.param_groups:
+                self.assertAlmostEqual(group['lr'], 0.0001)
+            self.assertGreater(min(float(state['step']) for state in loaded.policy.optimizer.state.values()), max(parent_steps))
+            self.assertTrue(all(row['invalid_actions'] == 0 for row in evaluate(child, 1, 80000)['episodes']))
+            implicit = deepcopy(config)
+            implicit['ppo']['learning_rate'] = 0.0001
+            with self.assertRaisesRegex(ValueError, 'settings and seed unchanged'):
+                train(implicit, Path(directory) / 'implicit', masked=True, resume_from=parent)
+            bad = deepcopy(config)
+            bad['ppo']['gamma'] = 0.95
+            with self.assertRaisesRegex(ValueError, 'settings and seed unchanged'):
+                train(bad, Path(directory) / 'other-change', masked=True, resume_from=parent, resume_learning_rate=0.0001)
+            for value in (0, -1, float('nan'), float('inf'), True):
+                with self.subTest(value=value), self.assertRaises(ValueError):
+                    train(config, Path(directory) / 'invalid', masked=True, resume_from=parent, resume_learning_rate=value)
+            with self.assertRaisesRegex(ValueError, 'requires resume_from'):
+                train(config, Path(directory) / 'no-parent', masked=True, resume_learning_rate=0.0001)
 
 
 if __name__ == '__main__':

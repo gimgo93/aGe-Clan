@@ -1,0 +1,93 @@
+{
+  "observed_at_utc": "2026-10-22T13:12:39.197Z",
+  "timezone": "Asia/Seoul",
+  "samples_per_endpoint": 2,
+  "status": "public_checks_pass",
+  "limitations": [
+    "Point-in-time public GET observations, not population latency or uptime statistics",
+    "API readiness does not verify login, actual rooms, WebSocket or game commands",
+    "A local/network observation failure alone does not establish a site outage"
+  ],
+  "targets": [
+    {
+      "url": "https://ageclan.com/game/",
+      "observations": [
+        {
+          "status": 200,
+          "response_ms": 474,
+          "outcome": "ok",
+          "content_sha256": "363bd876c8dfab469b16db908472067fb2411de8bb18cf5a4d05e1db7f1b40d9"
+        },
+        {
+          "status": 200,
+          "response_ms": 60,
+          "outcome": "ok",
+          "content_sha256": "faeb49fed34f9f1cfd62266a1b454f70ea540807045a209da24474873971c2d6"
+        }
+      ]
+    },
+    {
+      "url": "https://ageclan.com/api/clan",
+      "observations": [
+        {
+          "status": 200,
+          "response_ms": 494,
+          "outcome": "ok",
+          "content_sha256": "80fb8d4f461cd2d14987728daf3a97c32c9b00a682388da9dc347d2cb9d6a9f4",
+          "api_status": "ready",
+          "reported_transport": "websocket"
+        },
+        {
+          "status": 200,
+          "response_ms": 271,
+          "outcome": "ok",
+          "content_sha256": "80fb8d4f461cd2d14987728daf3a97c32c9b00a682388da9dc347d2cb9d6a9f4",
+          "api_status": "ready",
+          "reported_transport": "websocket"
+        }
+      ]
+    },
+    {
+      "url": "https://ageclan.com/game/balance.js",
+      "observations": [
+        {
+          "status": 200,
+          "response_ms": 402,
+          "outcome": "ok",
+          "content_sha256": "c09e31b76c489e360d185b577d1e1c9dceb1f6fd20524530ca8835b52dc91ec4",
+          "local_sha256": "c09e31b76c489e360d185b577d1e1c9dceb1f6fd20524530ca8835b52dc91ec4",
+          "matches_local_source": true
+        },
+        {
+          "status": 200,
+          "response_ms": 59,
+          "outcome": "ok",
+          "content_sha256": "c09e31b76c489e360d185b577d1e1c9dceb1f6fd20524530ca8835b52dc91ec4",
+          "local_sha256": "c09e31b76c489e360d185b577d1e1c9dceb1f6fd20524530ca8835b52dc91ec4",
+          "matches_local_source": true
+        }
+      ]
+    },
+    {
+      "url": "https://ageclan.com/game/game.js",
+      "observations": [
+        {
+          "status": 200,
+          "response_ms": 405,
+          "outcome": "ok",
+          "content_sha256": "e898fc890e431b38919b3c44d4d3310385dbac531cb9a0e2d6a26980735d2081",
+          "local_sha256": "e898fc890e431b38919b3c44d4d3310385dbac531cb9a0e2d6a26980735d2081",
+          "matches_local_source": true
+        },
+        {
+          "status": 200,
+          "response_ms": 57,
+          "outcome": "ok",
+          "content_sha256": "e898fc890e431b38919b3c44d4d3310385dbac531cb9a0e2d6a26980735d2081",
+          "local_sha256": "e898fc890e431b38919b3c44d4d3310385dbac531cb9a0e2d6a26980735d2081",
+          "matches_local_source": true
+        }
+      ]
+    }
+  ]
+}

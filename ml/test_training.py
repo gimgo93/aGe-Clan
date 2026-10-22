@@ -60,10 +60,30 @@ class TrainingTests(unittest.TestCase):
 
     def test_reference_policies(self):
         config = {'frame_skip': 10, 'max_ticks': 13, 'target_wave': 0}
-        for policy in ('wait', 'random', 'scripted'):
+        for policy in ('wait', 'random', 'masked-random', 'scripted'):
             first = reference_evaluate(config, policy, 2, 20000)
             self.assertEqual(first, reference_evaluate(config, policy, 2, 20000))
             self.assertEqual(first['summary']['horizon_survivals'], 2)
+
+    def test_masked_training_and_evaluation(self):
+        config = load_config(total_timesteps=32)
+        config['env']['max_ticks'] = 50
+        config['ppo'].update(n_steps=32, batch_size=16, n_epochs=1)
+        with tempfile.TemporaryDirectory(dir=self.temp_root) as directory:
+            run = Path(directory) / 'masked'
+            manifest = train(config, run, verbose=0, masked=True)
+            self.assertEqual(manifest['algorithm'], 'MaskablePPO')
+            result = evaluate(run, episodes=2, seed=40000)
+            self.assertTrue(all(row['invalid_actions'] == 0 for row in result['episodes']))
+            self.assertEqual(result, evaluate(run, episodes=2, seed=40000))
+            continued = Path(directory) / 'continued'
+            resumed = train(config, continued, verbose=0, masked=True, resume_from=run)
+            self.assertEqual(resumed['actual_timesteps'], 64)
+            self.assertEqual(resumed['added_timesteps'], 32)
+            self.assertTrue(all(row['invalid_actions'] == 0 for row in evaluate(continued, 1, 50000)['episodes']))
+            changed = load_config(total_timesteps=32)
+            with self.assertRaisesRegex(ValueError, 'settings and seed unchanged'):
+                train(changed, Path(directory) / 'wrong-settings', masked=True, resume_from=run)
 
 
 if __name__ == '__main__':

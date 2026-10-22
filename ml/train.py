@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 from datetime import datetime, timezone
 from pathlib import Path
 from time import perf_counter
@@ -18,7 +19,7 @@ from ml.experiment import (DEFAULT_CONFIG, ROOT, environment_signature, load_con
                            runtime_versions, write_json)
 
 
-def train(config, output, verbose=1, checkpoint_freq=0):
+def train(config, output, verbose=1, checkpoint_freq=0, masked=False, resume_from=None):
     """Create a new run directory; never overwrite an existing experiment."""
     if type(checkpoint_freq) is not int or checkpoint_freq < 0:
         raise ValueError('checkpoint_freq must be a nonnegative integer')
@@ -33,9 +34,29 @@ def train(config, output, verbose=1, checkpoint_freq=0):
         vector = DummyVecEnv([lambda: Monitor(AgeClanEnv(**config['env']),
                                               filename=str(output / 'episodes.monitor.csv'))])
         signature = environment_signature(vector.envs[0].unwrapped)
-        vector = VecNormalize(vector, norm_obs=True, norm_reward=False, clip_obs=10.0)
-        model = PPO('MlpPolicy', vector, device='cpu', seed=config['seed'],
-                    verbose=verbose, **config['ppo'])
+        algorithm = PPO
+        if masked:
+            from sb3_contrib import MaskablePPO
+            algorithm = MaskablePPO
+        start_steps = 0
+        if resume_from is not None:
+            parent = Path(resume_from).resolve()
+            previous = json.loads((parent / 'manifest.json').read_text(encoding='utf-8'))
+            if previous['status'] != 'complete' or previous['algorithm'] != ('MaskablePPO' if masked else 'PPO'):
+                raise ValueError('Resume requires a completed run of the same algorithm')
+            if previous['environment'] != signature:
+                raise ValueError('Resume environment signature differs')
+            if any(previous['config'][key] != config[key] for key in ('env', 'ppo', 'seed', 'torch_threads')):
+                raise ValueError('Resume must keep environment, PPO settings and seed unchanged')
+            vector = VecNormalize.load(parent / 'vecnormalize.pkl', vector)
+            vector.training = True
+            vector.norm_reward = False
+            model = algorithm.load(parent / 'model.zip', env=vector, device='cpu')
+            start_steps = model.num_timesteps
+        else:
+            vector = VecNormalize(vector, norm_obs=True, norm_reward=False, clip_obs=10.0)
+            model = algorithm('MlpPolicy', vector, device='cpu', seed=config['seed'],
+                        verbose=verbose, **config['ppo'])
         run_logger = configure(str(output), ['csv'] + (['stdout'] if verbose else []))
         model.set_logger(run_logger)
         callback = None
@@ -43,12 +64,15 @@ def train(config, output, verbose=1, checkpoint_freq=0):
             callback = CheckpointCallback(checkpoint_freq, str(output / 'checkpoints'),
                                           name_prefix='ppo', save_vecnormalize=True)
         # SB3 may round this upward to a full n_steps rollout; record actual steps.
-        model.learn(total_timesteps=config['total_timesteps'], callback=callback)
+        model.learn(total_timesteps=config['total_timesteps'], callback=callback,
+                    reset_num_timesteps=resume_from is None)
         model.save(output / 'model.zip')
         vector.save(output / 'vecnormalize.pkl')
         manifest = {'status': 'complete', 'created_at_utc': datetime.now(timezone.utc).isoformat(),
-                    'algorithm': 'PPO', 'device': 'cpu', 'config': config,
+                    'algorithm': 'MaskablePPO' if masked else 'PPO', 'device': 'cpu', 'config': config,
                     'actual_timesteps': model.num_timesteps, 'runtime': runtime_versions(),
+                    'added_timesteps': model.num_timesteps - start_steps,
+                    'parent_run': str(Path(resume_from).resolve()) if resume_from else None,
                     'wall_seconds': perf_counter() - began,
                     'checkpoint_freq': checkpoint_freq,
                     'model': {'policy': 'MlpPolicy', 'parameters': sum(p.numel() for p in model.policy.parameters()),
@@ -70,11 +94,14 @@ def main():
     parser.add_argument('--config', type=Path, default=DEFAULT_CONFIG)
     parser.add_argument('--total-timesteps', type=int)
     parser.add_argument('--checkpoint-freq', type=int, default=0, help='Save model and normalization every N actions')
+    parser.add_argument('--masked', action='store_true', help='Use engine-validated action masking')
+    parser.add_argument('--resume-from', type=Path, help='Continue model/optimizer/normalization into a new output directory')
     parser.add_argument('--output', type=Path,
                         default=ROOT / 'ml' / 'runs' / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ'))
     args = parser.parse_args()
     config = load_config(args.config, args.total_timesteps)
-    manifest = train(config, args.output, checkpoint_freq=args.checkpoint_freq)
+    manifest = train(config, args.output, checkpoint_freq=args.checkpoint_freq, masked=args.masked,
+                     resume_from=args.resume_from)
     print(f"Saved {manifest['actual_timesteps']} steps to {args.output.resolve()}")
 
 

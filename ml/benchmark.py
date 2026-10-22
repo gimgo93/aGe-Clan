@@ -28,6 +28,8 @@ def reference_action(env, observation, policy):
         return 0
     if policy == 'random':
         return int(env.action_space.sample())
+    if policy == 'masked-random':
+        return int(env.action_space.np_random.choice(np.flatnonzero(env.action_masks())))
     values = dict(zip(env.feature_names, observation))
     # A deliberately fixed, simple reference controller, not game-rule validation.
     def find(name, args=None):
@@ -47,7 +49,7 @@ def reference_action(env, observation, policy):
 
 
 def reference_evaluate(env_config, policy, episodes, seed):
-    if policy not in ('wait', 'random', 'scripted'):
+    if policy not in ('wait', 'random', 'masked-random', 'scripted'):
         raise ValueError('Unknown reference policy')
     if not 1 <= episodes <= 10000 or not 0 <= seed <= 2**32 - episodes:
         raise ValueError('Invalid episode count or seed range')

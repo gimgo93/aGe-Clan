@@ -59,4 +59,4 @@ def environment_signature(env):
 
 def runtime_versions():
     return {'python': platform.python_version(),
-            **{name: version(name) for name in ('numpy', 'gymnasium', 'stable-baselines3', 'torch')}}
+            **{name: version(name) for name in ('numpy', 'gymnasium', 'stable-baselines3', 'sb3-contrib', 'torch')}}

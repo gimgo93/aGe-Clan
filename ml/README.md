@@ -107,7 +107,7 @@ stdout은 프로토콜 전용이고 진단은 stderr에 나옵니다. 기본 응
 
 자원·문명·쿨다운·건설 중·최대 동시 웨이브 검사는 원래 게임 메서드가 수행합니다.
 합법 인덱스가 게임 규칙상 불가능하면 행동 변경 없이 오류를 반환하고 시간은 진행됩니다.
-행동 마스크는 아직 없으므로 탐색 시 실패 행동이 많을 수 있습니다. 범위 밖 인덱스는 Python에서
+일반 PPO는 마스크 없이 실행할 수 있고, MaskablePPO는 `action_masks()`로 실패 행동을 제외합니다. 범위 밖 인덱스는 Python에서
 `ValueError`를 내며 시간은 진행하지 않습니다. 훈련소·군사·상대 대상 행동은 이번 범위에서 제외했습니다.
 
 ## 관측 공간 v1
@@ -184,8 +184,9 @@ manifest에 기록합니다. 첫 연결 확인에는 다음 64-step 실행을 �
 
 같은 폴더를 덮어쓰지 않습니다. 재실행 때 `starter-002`처럼 새 이름을 사용하세요.
 출력 경로를 생략하면 UTC 타임스탬프 이름을 사용합니다. `--checkpoint-freq 8192`를 지정하면
-8192행동마다 모델과 정규화 통계를 저장합니다. 학습 재개 CLI는 아직 없으며, 중간 checkpoint에는
-최종 manifest가 없으므로 현재 evaluate 명령은 정상 완료된 실행 폴더에 사용합니다.
+8192행동마다 모델과 정규화 통계를 저장합니다. 중간 checkpoint에는 최종 manifest가 없으므로
+현재 evaluate 및 resume 명령은 정상 완료된 실행 폴더에 사용합니다. `--resume-from 완료폴더`로
+모델·optimizer·정규화 통계를 새 출력 폴더에서 이어갈 수 있습니다.
 
 | 파일 | 역할 |
 | --- | --- |
@@ -217,3 +218,31 @@ manifest에 기록합니다. 첫 연결 확인에는 다음 64-step 실행을 �
 단일 모델만 비교하려면 `python -m ml.benchmark --config ml/configs/phase1.json --run-dir 실행폴더
 --episodes 20 --seed 20000 --output 새보고서.json`을 사용합니다(명령은 한 줄로 입력).
 단순 학습 보상 상승을 실전 성능 향상으로 해석하지 않으며, 결과와 한계는 `ml/reports/`에 남깁니다.
+
+## 행동 마스크와 계속 학습
+
+[마스킹 실험 설계](MASKING_PLAN.md)를 참조하세요. `sb3-contrib==2.9.0`을 requirements에 추가했습니다.
+`python -m ml.train --masked ...`로 MaskablePPO를 선택합니다. 평가는 manifest의 알고리즘을 읽어
+현재 행동 마스크를 predict에 전달하며, 일반 PPO도 그대로 지원합니다.
+마스크는 실제 엔진의 복사 상태를 이용해 검사하고 실제 자원·시간·난수를 바꾸지 않습니다.
+`node ml/test_masks.mjs`로 모든 행동 판정과 부작용 없음을 확인합니다.
+
+`python -m ml.phase2 --variant control|masked|low-entropy --output 새폴더`에서 variant는
+세 값 중 하나만 선택해 입력합니다. 같은 평가 시드·예산에서 마스크 효과를 비교하고,
+후속 low-entropy는 다른 조건을 유지한 채 entropy 계수만 낮춥니다.
+이전 버전 모델의 manifest를 덮어쓰거나 소스 해시 검사를 우회하지 마세요. 과거 모델 재평가는
+해당 커밋의 원본 코드에서 수행하고, 현재 실험은 현재 버전의 대조 모델을 별도로 만듭니다.
+
+계속 학습 자동화는 2시간 간격이며, PC와 앱이 켜져 있을 때 현재 대화에서 이어집니다.
+실행당 최대 2시드·65,536행동을 제한하고 중복 실행을 피합니다. 운영 배포는 하지 않습니다.
+
+마스킹+낮은 탐색 계수 모델을 추가 32,768행동 학습하는 예입니다.
+
+```bat
+"%PYTHON%" -m ml.train --config ml/runs/phase2-low-entropy-20261021/seed-43/config.json --masked --resume-from ml/runs/phase2-low-entropy-20261021/seed-43 --total-timesteps 32768 --checkpoint-freq 8192 --output ml/runs/new-continued-43
+```
+
+resume에서는 `actual_timesteps`가 누적 행동 수, `added_timesteps`가 이번 추가량입니다.
+환경·PPO 설정·seed가 부모와 다르면 거절합니다. 게임 도중 상태와 RNG의 정확한 복구가 아니라
+완료 모델/optimizer/정규화 통계를 불러와 새 에피소드부터 재개하는 방식입니다.
+최신 결과는 [2차 보고서](reports/2026-10-22-phase2/README.md)를 확인하세요.

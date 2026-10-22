@@ -103,6 +103,11 @@ class AgeClanEnv(gym.Env):
         return (np.asarray(result["observation"], dtype=np.float32), float(result["reward"]),
                 bool(result["terminated"]), bool(result["truncated"]), result["info"])
 
+    def action_masks(self):
+        if self._needs_reset:
+            raise gym.error.ResetNeeded('Call reset before requesting action masks')
+        return np.asarray(self._request({'op': 'masks'}), dtype=np.bool_)
+
     def close(self):
         if getattr(self, "_closed", True):
             return

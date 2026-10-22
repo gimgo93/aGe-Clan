@@ -32,6 +32,15 @@ function integer(value, min, max, name) {
   return value;
 }
 
+export function applyAction(game, command) {
+  if (command.name === 'wait') return {ok: true};
+  if (command.name === 'sellTower') {
+    const tower = game.s.towers.find(t => t.pad === command.pad);
+    return tower ? game.sellTower(tower.id) : {error: 'No tower on this pad'};
+  }
+  return game[command.name](...(command.args ?? []));
+}
+
 export class TrainingSession {
   reset({seed = 0, frameSkip = 10, maxTicks = 6000, targetWave = 0} = {}) {
     this.seed = integer(seed, 0, 0xffffffff, 'seed');
@@ -71,6 +80,35 @@ export class TrainingSession {
     return values.concat(bins.flat());
   }
 
+  actionMasks() {
+    if (!this.game || this.done) throw new Error('Reset before requesting action masks');
+    const mask = Array(ACTIONS.length).fill(false);
+    mask[0] = true;
+    const valid = command => {
+      const probe = Object.create(Game.prototype);
+      probe.s = structuredClone(this.game.s);
+      probe.id = this.game.id;
+      probe.treeSites = this.game.treeSites;
+      // Only the sandbox consumes this RNG; validity checks do not depend on its value.
+      probe.rng = () => 0.5;
+      return !applyAction(probe, command).error;
+    };
+    const empty = PADS.map((_, pad) => pad).filter(pad => !this.game.s.towers.some(t => t.pad === pad));
+    // In the current engine build legality differs by pad only through occupancy.
+    // Probe all cost/era rules once per type, then apply the same result to empty pads.
+    // Exhaustive oracle tests below verify this optimization against every engine call.
+    const canBuild = new Map(TYPES.map(type => [type.id,
+      empty.length > 0 && valid({name: 'build', args: [type.id, empty[0]]})]));
+    for (let i = 1; i < ACTIONS.length; i++) {
+      const command = ACTIONS[i];
+      mask[i] = command.name === 'build'
+        ? canBuild.get(command.args[0]) && empty.includes(command.args[1])
+        : command.name === 'sellTower' && !this.game.s.towers.some(t => t.pad === command.pad)
+          ? false : valid(command);
+    }
+    return mask;
+  }
+
   result(reward, terminated, truncated, actionResult, rewardTerms) {
     const s = this.game.s;
     return {observation: this.observation(), reward, terminated, truncated,
@@ -84,11 +122,7 @@ export class TrainingSession {
     integer(action, 0, ACTIONS.length - 1, 'action');
     const command = ACTIONS[action], s = this.game.s;
     const before = {kills: s.kills, completed: s.completed};
-    let actionResult = {ok: true};
-    if (command.name === 'sellTower') {
-      const tower = s.towers.find(t => t.pad === command.pad);
-      actionResult = tower ? this.game.sellTower(tower.id) : {error: 'No tower on this pad'};
-    } else if (command.name !== 'wait') actionResult = this.game[command.name](...(command.args ?? []));
+    const actionResult = applyAction(this.game, command);
     // Start after the action so upgrades/repairs cannot earn healing rewards.
     const hp = s.hp;
     let success = false;
@@ -119,6 +153,7 @@ function serve() {
         case 'describe': data = {version: 1, actions: ACTIONS, features: FEATURES, tickSeconds: 0.1}; break;
         case 'reset': data = session.reset(request); break;
         case 'step': data = session.step(request.action); break;
+        case 'masks': data = session.actionMasks(); break;
         case 'close': process.stdout.write(JSON.stringify({ok: true}) + '\n'); lines.close(); process.stdin.destroy(); return;
         default: throw new Error('Unknown operation');
       }

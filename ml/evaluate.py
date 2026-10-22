@@ -21,9 +21,15 @@ def evaluate(run_dir, episodes=5, seed=10000, initial_policy=False):
         raise ValueError('Evaluation seeds must fit uint32')
     run_dir = Path(run_dir).resolve()
     manifest = json.loads((run_dir / 'manifest.json').read_text(encoding='utf-8'))
-    if manifest.get('status') != 'complete' or manifest.get('algorithm') != 'PPO':
+    if manifest.get('status') != 'complete' or manifest.get('algorithm') not in ('PPO', 'MaskablePPO'):
         raise ValueError('Expected a completed starter PPO run')
     torch.set_num_threads(manifest['config']['torch_threads'])
+    masked = manifest['algorithm'] == 'MaskablePPO'
+    algorithm = PPO
+    if masked:
+        from sb3_contrib import MaskablePPO
+        from sb3_contrib.common.maskable.utils import get_action_masks
+        algorithm = MaskablePPO
     vector = DummyVecEnv([lambda: AgeClanEnv(**manifest['config']['env'])])
     try:
         if environment_signature(vector.envs[0].unwrapped) != manifest['environment']:
@@ -34,10 +40,10 @@ def evaluate(run_dir, episodes=5, seed=10000, initial_policy=False):
         if initial_policy:
             # Controlled weight comparison: same trained observation statistics,
             # but reconstruct the original randomly initialized policy without learn().
-            model = PPO('MlpPolicy', vector, device='cpu', seed=manifest['config']['seed'],
+            model = algorithm('MlpPolicy', vector, device='cpu', seed=manifest['config']['seed'],
                         verbose=0, **manifest['config']['ppo'])
         else:
-            model = PPO.load(run_dir / 'model.zip', env=vector, device='cpu')
+            model = algorithm.load(run_dir / 'model.zip', env=vector, device='cpu')
         results = []
         for index in range(episodes):
             episode_seed = seed + index
@@ -46,7 +52,8 @@ def evaluate(run_dir, episodes=5, seed=10000, initial_policy=False):
             total, steps, invalid = 0.0, 0, 0
             action_counts, invalid_counts = {}, {}
             while True:
-                action, _ = model.predict(obs, deterministic=True)
+                predict_args = {'action_masks': get_action_masks(vector)} if masked else {}
+                action, _ = model.predict(obs, deterministic=True, **predict_args)
                 action_id = str(int(action[0]))
                 action_counts[action_id] = action_counts.get(action_id, 0) + 1
                 obs, reward, done, infos = vector.step(action)

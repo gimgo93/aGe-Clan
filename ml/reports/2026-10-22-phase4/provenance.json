@@ -1,0 +1,108 @@
+{
+  "seed-42": {
+    "algorithm": "MaskablePPO",
+    "config": {
+      "seed": 42,
+      "total_timesteps": 32768,
+      "torch_threads": 1,
+      "env": {
+        "frame_skip": 10,
+        "max_ticks": 3000,
+        "target_wave": 0
+      },
+      "ppo": {
+        "n_steps": 256,
+        "batch_size": 64,
+        "n_epochs": 4,
+        "learning_rate": 0.0003,
+        "gamma": 0.99,
+        "ent_coef": 0.003
+      }
+    },
+    "actual_timesteps": 98304,
+    "added_timesteps": 32768,
+    "wall_seconds": 147.4806129000499,
+    "runtime": {
+      "python": "3.13.16",
+      "numpy": "2.5.4",
+      "gymnasium": "1.4.0",
+      "stable-baselines3": "2.9.0",
+      "sb3-contrib": "2.9.0",
+      "torch": "2.14.1+cpu"
+    },
+    "model": {
+      "policy": "MlpPolicy",
+      "parameters": 38702,
+      "architecture": "MaskableActorCriticPolicy(\n  (features_extractor): FlattenExtractor(\n    (flatten): Flatten(start_dim=1, end_dim=-1)\n  )\n  (pi_features_extractor): FlattenExtractor(\n    (flatten): Flatten(start_dim=1, end_dim=-1)\n  )\n  (vf_features_extractor): FlattenExtractor(\n    (flatten): Flatten(start_dim=1, end_dim=-1)\n  )\n  (mlp_extractor): MlpExtractor(\n    (policy_net): Sequential(\n      (0): Linear(in_features=148, out_features=64, bias=True)\n      (1): Tanh()\n      (2): Linear(in_features=64, out_features=64, bias=True)\n      (3): Tanh()\n    )\n    (value_net): Sequential(\n      (0): Linear(in_features=148, out_features=64, bias=True)\n      (1): Tanh()\n      (2): Linear(in_features=64, out_features=64, bias=True)\n      (3): Tanh()\n    )\n  )\n  (action_net): Linear(in_features=64, out_features=173, bias=True)\n  (value_net): Linear(in_features=64, out_features=1, bias=True)\n)",
+      "optimizer": "Adam",
+      "clip_range": 0.2,
+      "gae_lambda": 0.95,
+      "vf_coef": 0.5
+    },
+    "source_sha256": {
+      "public/game/game.js": "e898fc890e431b38919b3c44d4d3310385dbac531cb9a0e2d6a26980735d2081",
+      "public/game/balance.js": "c09e31b76c489e360d185b577d1e1c9dceb1f6fd20524530ca8835b52dc91ec4",
+      "lib/game-engine.js": "53a20c6b6d27ff5a869da32668712b5f86eb207d6d185bcd236b7eefae717440",
+      "lib/trees.js": "9c927c61a3cafb0f6754df270298ce447d443a1303b4c004098cab09b5428366",
+      "ml/bridge.mjs": "6a4ea860f0f3b9b31d9687e265266c825eba221d599520e45128f1532649cf69",
+      "ml/env.py": "75810d9d535b7e3bacdbb086d189025737079ebc99dd2f5d75f1c63be2a28a9d"
+    },
+    "artifact_sha256": {
+      "model.zip": "d0a9367fa4fcb0135636565aaf7407f338bb462fa1d6236db01b163f4a8a262e",
+      "vecnormalize.pkl": "c05f3d32cae0bb7cdf39a295b0bef45bcd5e92b33c9f987d621dde63360f62dc"
+    }
+  },
+  "seed-43": {
+    "algorithm": "MaskablePPO",
+    "config": {
+      "seed": 43,
+      "total_timesteps": 32768,
+      "torch_threads": 1,
+      "env": {
+        "frame_skip": 10,
+        "max_ticks": 3000,
+        "target_wave": 0
+      },
+      "ppo": {
+        "n_steps": 256,
+        "batch_size": 64,
+        "n_epochs": 4,
+        "learning_rate": 0.0003,
+        "gamma": 0.99,
+        "ent_coef": 0.003
+      }
+    },
+    "actual_timesteps": 98304,
+    "added_timesteps": 32768,
+    "wall_seconds": 139.7182939000195,
+    "runtime": {
+      "python": "3.13.16",
+      "numpy": "2.5.4",
+      "gymnasium": "1.4.0",
+      "stable-baselines3": "2.9.0",
+      "sb3-contrib": "2.9.0",
+      "torch": "2.14.1+cpu"
+    },
+    "model": {
+      "policy": "MlpPolicy",
+      "parameters": 38702,
+      "architecture": "MaskableActorCriticPolicy(\n  (features_extractor): FlattenExtractor(\n    (flatten): Flatten(start_dim=1, end_dim=-1)\n  )\n  (pi_features_extractor): FlattenExtractor(\n    (flatten): Flatten(start_dim=1, end_dim=-1)\n  )\n  (vf_features_extractor): FlattenExtractor(\n    (flatten): Flatten(start_dim=1, end_dim=-1)\n  )\n  (mlp_extractor): MlpExtractor(\n    (policy_net): Sequential(\n      (0): Linear(in_features=148, out_features=64, bias=True)\n      (1): Tanh()\n      (2): Linear(in_features=64, out_features=64, bias=True)\n      (3): Tanh()\n    )\n    (value_net): Sequential(\n      (0): Linear(in_features=148, out_features=64, bias=True)\n      (1): Tanh()\n      (2): Linear(in_features=64, out_features=64, bias=True)\n      (3): Tanh()\n    )\n  )\n  (action_net): Linear(in_features=64, out_features=173, bias=True)\n  (value_net): Linear(in_features=64, out_features=1, bias=True)\n)",
+      "optimizer": "Adam",
+      "clip_range": 0.2,
+      "gae_lambda": 0.95,
+      "vf_coef": 0.5
+    },
+    "source_sha256": {
+      "public/game/game.js": "e898fc890e431b38919b3c44d4d3310385dbac531cb9a0e2d6a26980735d2081",
+      "public/game/balance.js": "c09e31b76c489e360d185b577d1e1c9dceb1f6fd20524530ca8835b52dc91ec4",
+      "lib/game-engine.js": "53a20c6b6d27ff5a869da32668712b5f86eb207d6d185bcd236b7eefae717440",
+      "lib/trees.js": "9c927c61a3cafb0f6754df270298ce447d443a1303b4c004098cab09b5428366",
+      "ml/bridge.mjs": "6a4ea860f0f3b9b31d9687e265266c825eba221d599520e45128f1532649cf69",
+      "ml/env.py": "75810d9d535b7e3bacdbb086d189025737079ebc99dd2f5d75f1c63be2a28a9d"
+    },
+    "artifact_sha256": {
+      "model.zip": "c6838a616b2a29ccaf836e1a397b74729df93970eea1d9762a068f43c4da75ba",
+      "vecnormalize.pkl": "2b228a792c4b3baab8419c3919f3c703f5d273d9f79ccd568ddea879c6490ab3"
+    }
+  }
+}

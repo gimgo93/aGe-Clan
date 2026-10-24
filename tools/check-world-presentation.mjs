@@ -6,7 +6,7 @@ const contexts=[];
 function context(){const c={save(){},restore(){},translate(){},scale(){},drawImage(){},fillRect(){},beginPath(){},rect(){},ellipse(){},clip(){},createPattern(){return {};}};contexts.push(c);return c;}
 const document={createElement(){return {getContext:context};}};
 const env=vm.createContext({document,window:{},Math});vm.runInContext(read('renderer.js')+'\nglobalThis.Renderer=WorldRenderer;',env);
-const renderer=Object.create(env.Renderer.prototype);let patterns=0;renderer.ctx={createPattern(){patterns++;return {};}};renderer.images={'town-courtyard-v2':{}};renderer.tile=()=>{};
+const renderer=Object.create(env.Renderer.prototype);let patterns=0;renderer.ctx={createPattern(){patterns++;return {};}};renderer.images={'town-courtyard-v3':{}};renderer.tile=()=>{};
 renderer.prepareBackdrops();assert.equal(patterns,4);
 for(const [w,h]of [[390,844],[1366,768],[844,390]])for(const scale of [.12,.3,.7,1.8])for(const x of [-w*.7,0,w*.7])for(const y of [-h*.6,0,h*.6])for(const shake of [-3,0,3]){
  renderer.w=w;renderer.h=h;const t={x,y,scale},b=renderer.visibleBounds(t,shake);
@@ -16,6 +16,12 @@ for(const [w,h]of [[390,844],[1366,768],[844,390]])for(const scale of [.12,.3,.7
 }
 assert.equal(patterns,4,'camera motion must reuse cached textures');
 renderer.outskirts(context(),{x:0,y:0,scale:.3});
+renderer.observeCastleDamage({started:true,time:10,hp:100},1,'room');assert.equal(renderer.castleImpact,null);
+renderer.observeCastleDamage({started:true,time:11,hp:70},2,'room');assert.equal(renderer.castleImpact.damage,30);
+renderer.observeCastleDamage({started:true,time:11,hp:70},3,'room');assert.equal(renderer.castleImpact.at,2);
+renderer.observeCastleDamage({started:true,time:12,hp:90},4,'room');assert.equal(renderer.castleImpact.at,2,'healing is not damage');
+renderer.observeCastleDamage({started:true,time:12,hp:20},5,'other');assert.equal(renderer.castleImpact,null,'reconnect baseline must not flash');
+for(const [w,h,dock]of [[390,844,232],[345,523,232],[1366,768,174]]){renderer.w=w;renderer.h=h;renderer.dockHeight=dock;renderer.scene='town';renderer.camera={x:0,y:0,zoom:1};const t=renderer.transform();assert.ok(t.x-120*t.scale>=0);assert.ok(t.x+1720*t.scale<=w);assert.ok(t.y-150*t.scale>=68);assert.ok(t.y+1002*t.scale<=h-dock);}
 const transitions=vm.createContext({window:{},document});vm.runInContext(read('scene-transition.js'),transitions);
 const {SceneTransition,sceneTransitionStyle}=transitions.window;
 assert.equal(sceneTransitionStyle({transition:'fade'}),'fade');assert.equal(sceneTransitionStyle({transition:'slide'}),'slide');assert.equal(sceneTransitionStyle({transition:'bad'}),'fade');assert.equal(sceneTransitionStyle({transition:'slide',reducedMotion:true}),'none');

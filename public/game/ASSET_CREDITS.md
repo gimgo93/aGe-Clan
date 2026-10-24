@@ -48,3 +48,6 @@ Files: assets/ballista.png, assets/ballista-arm.png. Originals retained; rendere
 ## 2026-10-24 건설·광장 시설 이미지
 
 construction-site-v1.png, lab-building-v1.png, barracks-building-v1.png는 이 게임을 위해 내장 이미지 생성 도구로 제작한 투명 PNG입니다. 외부 음원/이미지를 새로 내려받아 포함하지 않았습니다. 생성 프롬프트와 사용 범위는 docs/WORLD_PRESENTATION_2026-10-24.md에 기록합니다. 바닥과 숲은 기존 Flare 타일과 배포된 광장 이미지에서 렌더링하며 기존 출처 조건을 유지합니다.
+
+
+2026-10-24: town-courtyard-v3.png는 기존 광장 배경을 내장 이미지 도구로 확장해 잘린 성벽/감시탑을 완성한 수정본입니다. 기존 v2는 보존합니다. 피격·광산 효과음은 외부 음원 없이 Web Audio로 합성합니다.

@@ -2,7 +2,7 @@
 (() => {
 'use strict';
 class ClanAudio {
- constructor(settings){this.readSettings=settings;this.context=null;this.oscillators=[];this.cooldowns=new Map();this.voices=0;this.previous=null;}
+ constructor(settings){this.readSettings=settings;this.context=null;this.oscillators=[];this.cooldowns=new Map();this.voices=0;this.previous=null;this.scene='battle';}
  init(){try{if(!this.context){const C=window.AudioContext||window.webkitAudioContext;if(!C)return;
    this.context=new C();this.master=this.context.createGain();this.master.connect(this.context.destination);
    this.musicGain=this.context.createGain();this.musicGain.connect(this.master);
@@ -12,9 +12,10 @@ class ClanAudio {
  }this.context.resume().catch(()=>{});}catch{}}
  apply(){if(!this.context)return;const s=this.readSettings(),t=this.context.currentTime;
    this.master.gain.setTargetAtTime(Math.max(0,Math.min(100,s.volume))/100,t,.025);
-   this.musicGain.gain.setTargetAtTime(s.music?.55:0,t,.05);
+   this.musicGain.gain.setTargetAtTime(s.music?(this.scene==='mine'?.165:.55):0,t,.25);
    this.effectsGain.gain.setTargetAtTime(s.effects?1:0,t,.015);
  }
+ setScene(scene){if(scene===this.scene)return;this.scene=scene;this.apply();}
  allowed(kind,interval=.08){const s=this.readSettings();if(!s.effects||s.volume<=0||!this.context||this.context.state!=='running'||document.hidden)return false;
    const t=this.context.currentTime;if(t-(this.cooldowns.get(kind)??-100)<interval||this.voices>=24)return false;this.cooldowns.set(kind,t);return true;
  }
@@ -33,6 +34,9 @@ class ClanAudio {
  }
  chime(kind='join'){this.melody(kind,kind==='ready'?[392,523.25,659.25]:[659.25,880],{volume:.055,spacing:.13,duration:.3});}
  tone(kind='click'){
+   if(kind==='castleHit'){if(!this.allowed(kind,.28))return;this.note(100,{end:38,duration:.35,volume:.12,type:'triangle'});this.note(520,{end:180,duration:.10,volume:.065,type:'triangle'});this.note(220,{duration:.22,volume:.035});return;}
+   if(kind==='mine'){if(!this.allowed(kind,.12))return;this.note(1250,{end:720,duration:.075,volume:.055,type:'triangle',attack:.003});this.note(2350,{end:1700,delay:.025,duration:.13,volume:.025,attack:.003});this.note(190,{end:95,duration:.12,volume:.025,type:'triangle'});return;}
+
    if(kind==='crystal'){this.melody(kind,[880,1174.66,1568],{volume:.033,spacing:.065,duration:.36});return;}
    if(kind==='upgrade'||kind==='era'||kind==='clear'){this.melody(kind,kind==='era'?[392,523.25,659.25,783.99]:[523.25,659.25,783.99]);return;}
    if(kind==='victory'){this.melody(kind,[392,523.25,659.25,783.99],{spacing:.15,duration:.45});return;}
@@ -52,13 +56,15 @@ class ClanAudio {
    source.onended=()=>{source.disconnect();filter.disconnect();gain.disconnect();this.voices--;};
  }
  observe(s,key='local'){
+   this.setScene(s.scene||'battle');
    if(!s.started||document.hidden){this.previous=null;return;}
-   const now={key,time:s.time,kills:s.kills,crystals:s.crystalsMined,over:s.over,hp:s.hp};const old=this.previous;this.previous=now;
+   const now={key,time:s.time,kills:s.kills,crystals:s.crystalsMined,over:s.over,hp:s.hp,strikes:s.strikes||0};const old=this.previous;this.previous=now;
    // Baseline first snapshots/reconnects and resets; never replay historical kills.
    if(!old||old.key!==key||now.time<old.time||now.kills<old.kills||now.crystals<old.crystals)return;
    if(now.kills>old.kills)this.tone('kill');
    if(now.crystals>old.crystals)this.tone('crystal');
-   if(now.hp<old.hp)this.tone('destroy');
+   if(now.hp<old.hp)this.tone('castleHit');
+   if(this.scene==='mine'&&!s.paused&&now.strikes>old.strikes)this.tone('mine');
    if(now.over&&!old.over)this.tone(s.won?'victory':'defeat');
  }
 }

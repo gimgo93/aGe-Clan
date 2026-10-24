@@ -21,6 +21,7 @@ sound.tone('crystal');assert.ok(sound.context.nodes.length>count,'kill must not 
 settings.effects=false;sound.apply();assert.equal(sound.effectsGain.gain.value,0);const muted=sound.context.nodes.length;sound.chime();sound.transition('slide');assert.equal(sound.context.nodes.length,muted);
 settings.effects=true;settings.volume=0;sound.apply();sound.tone('build');assert.equal(sound.context.nodes.length,muted);assert.equal(sound.master.gain.value,0);
 settings.volume=60;sound.apply();sound.context.currentTime=1;sound.transition('slide');assert.ok(sound.noise);sound.context.currentTime=2;sound.transition('fade');
+sound.setScene('mine');assert.equal(sound.musicGain.gain.value,.165);sound.setScene('battle');assert.equal(sound.musicGain.gain.value,.55);settings.music=false;sound.apply();assert.equal(sound.musicGain.gain.value,0);settings.music=true;sound.apply();sound.tone('castleHit');sound.tone('mine');
 for(const n of sound.context.nodes)if(n.onended)n.onended();assert.equal(sound.voices,0,'all transient nodes release');
 const events=[];sound.tone=k=>events.push(k);
 const state={started:true,time:50,kills:100,crystalsMined:20,hp:100,over:false};sound.observe(state,'one');assert.deepEqual(events,[]);
@@ -31,4 +32,9 @@ sound.observe({started:false});sound.observe(state,'one');assert.equal(events.le
 assert.ok(!read('multiplayer.js').includes('입장 알림음은 설정'));
 assert.ok(!read('style.css').includes('.title-library{left:auto;right:4%'));
 assert.ok(read('renderer.js').includes('Noto Serif KR'));
+events.length=0;
+sound.observe({...state,scene:'mine',strikes:10},'mine-test');sound.observe({...state,scene:'mine',strikes:15,time:51},'mine-test');assert.deepEqual(events,['mine']);
+sound.observe({...state,scene:'mine',strikes:15,time:51},'mine-test');assert.equal(events.length,1);
+sound.observe({...state,scene:'battle',strikes:20,time:52,hp:86},'mine-test');assert.deepEqual(events,['mine','castleHit']);
+sound.observe({...state,scene:'battle',strikes:25,time:53},'mine-test');assert.equal(events.length,2,'repair and off-scene mining silent');
 console.log('PASS: randomized/session-stable guests, invalid/storage fallback, audio consent/settings/mute/throttle/cleanup, transitions and snapshot deltas, menu/font integration');

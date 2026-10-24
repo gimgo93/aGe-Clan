@@ -1,0 +1,27 @@
+{
+  "checked_at": "2026-10-24T11:39:39.130Z",
+  "site_version": 26,
+  "source_commit": "651d8b0393b68cb156f1942d7ade4b79a50b268f",
+  "files": {
+    "audio.js": {
+      "status": 200,
+      "sha256": "023188f4e06519f086ac5d06f1696a9dc72582d03e3dc977b76ae09a3281c2c3",
+      "bytes": 6509
+    },
+    "renderer.js": {
+      "status": 200,
+      "sha256": "8052c7d65f19c7c3c42f6538f06a04321d05218ffe4a4d8ff3966c689688966f",
+      "bytes": 31241
+    },
+    "app.js": {
+      "status": 200,
+      "sha256": "151bda6d8410091294dab32eee917e2cf93a247c903e07367f3f97a534c560c1",
+      "bytes": 26731
+    },
+    "assets/town-courtyard-v3.png": {
+      "status": 200,
+      "sha256": "9f6abb6683e33bf0db9931a2a48a13b5a7a43bcfd43a270d5d196597bad393dd",
+      "bytes": 4354395
+    }
+  }
+}

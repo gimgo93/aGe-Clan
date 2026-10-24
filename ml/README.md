@@ -313,6 +313,21 @@ rem 기존 모델도 새 모델과 동일한20목표/보상으로 재평가
 기존 엔진을 이용한 오프라인 검증입니다. 실제 유저 동접·장기 지연·오류·시설별 이용률 집계와
 전역 후보 탐색·운영 자동 배포가 완성된 것은 아닙니다. 패치는 격리 검증 후 PR로 제시합니다.
 
+최신 사용자 요구는 궁수 단일 전략이15웨이브를 넘지 못하고 문명 전환/상위 포탑을 활용해야 한다는 것입니다.
+[문명 전환 밸런스 검증](reports/2026-10-22-civilization/README.md)에 솔로 중장갑 화살 저항 패치,
+고정 정책350판 비교와새20시드 결과를 기록했습니다. 두궁수정책은각새20판모두15에서멈췄습니다.
+경제조합의30성공6/20,물약추가8/20이며40은물약추가1/20/미사용0/20입니다.
+이는정책표본의결과이며모든전략의궁수상한/물약필수성을보장하지않습니다.
+원본·서버생성본을함께패치하고PvP는기존피해규칙을유지합니다. 아직사이트에는배포하지않았습니다.
+
+```bat
+node tools/sync-engine.mjs
+node ml/balance/test_civilization.mjs
+node ml/balance/test_editor.mjs
+node ml/balance/civilization.mjs baseline 20 110000 ml/runs/ops/new-civilization-before.json
+node ml/balance/civilization.mjs armor-020 20 110000 ml/runs/ops/new-civilization-after.json
+```
+
 ```bat
 node ml/ops/test_monitor.mjs
 node ml/ops/monitor.mjs

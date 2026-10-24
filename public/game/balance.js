@@ -4,6 +4,8 @@ window.FRONTIER_BALANCE = {
   startGold: 240,
   startCrystals: 12,
   waveRestSeconds: 20,
+  // 혼자하기 중장갑 적의 화살 저항. 대전과 상위 포탑/물약에는 적용하지 않습니다.
+  soloArrowResistance: {startWave: 13, step: 0.2, max: 0.9},
   towers: {
     archer: {gold: 140, damage: 16, rate: 0.8, range: 240},
     ballista: {gold: 260, damage: 61, rate: 1.4, range: 429},

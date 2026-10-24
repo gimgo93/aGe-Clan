@@ -1,0 +1,163 @@
+{
+  "selected_candidate_seed": 42,
+  "development": {
+    "continued-42": {
+      "episodes": 20,
+      "mean_reward": 2.5519999435171483,
+      "mean_game_time": 298.55999999999943,
+      "mean_completed": 4.45,
+      "mean_kills": 40.2,
+      "mean_hp": 73.8,
+      "std_reward": 3.3311372980389597,
+      "invalid_action_rate": 0.0,
+      "horizon_survivals": 19,
+      "target_successes": 0
+    },
+    "parent-42": {
+      "episodes": 20,
+      "mean_reward": 2.562999936379492,
+      "mean_game_time": 299.9999999999998,
+      "mean_completed": 4.3,
+      "mean_kills": 36.7,
+      "mean_hp": 72.8,
+      "std_reward": 1.4270041928760504,
+      "invalid_action_rate": 0.0,
+      "horizon_survivals": 20,
+      "target_successes": 0
+    },
+    "same-budget-42": {
+      "episodes": 20,
+      "mean_reward": -3.5374999972991645,
+      "mean_game_time": 252.83999999999574,
+      "mean_completed": 3.35,
+      "mean_kills": 30.45,
+      "mean_hp": 18.4,
+      "std_reward": 6.855739041398401,
+      "invalid_action_rate": 0.0,
+      "horizon_survivals": 9,
+      "target_successes": 0
+    },
+    "continued-43": {
+      "episodes": 20,
+      "mean_reward": 0.5764999688602984,
+      "mean_game_time": 294.4049999999985,
+      "mean_completed": 4.35,
+      "mean_kills": 38.25,
+      "mean_hp": 63.4,
+      "std_reward": 5.401350943815488,
+      "invalid_action_rate": 0.0,
+      "horizon_survivals": 16,
+      "target_successes": 0
+    },
+    "parent-43": {
+      "episodes": 20,
+      "mean_reward": 0.5309999709948897,
+      "mean_game_time": 293.42999999999824,
+      "mean_completed": 4.2,
+      "mean_kills": 38.3,
+      "mean_hp": 63.4,
+      "std_reward": 5.487263271724004,
+      "invalid_action_rate": 0.0,
+      "horizon_survivals": 16,
+      "target_successes": 0
+    },
+    "same-budget-43": {
+      "episodes": 20,
+      "mean_reward": 0.8964999638497829,
+      "mean_game_time": 295.2299999999986,
+      "mean_completed": 4.15,
+      "mean_kills": 37.85,
+      "mean_hp": 61.2,
+      "std_reward": 4.791477033886589,
+      "invalid_action_rate": 0.0,
+      "horizon_survivals": 17,
+      "target_successes": 0
+    }
+  },
+  "confirmation": {
+    "continued": {
+      "episodes": 20,
+      "mean_reward": 3.753499924950302,
+      "mean_game_time": 299.9999999999998,
+      "mean_completed": 4.6,
+      "mean_kills": 44.95,
+      "mean_hp": 87.6,
+      "std_reward": 1.1377006331956834,
+      "invalid_action_rate": 0.0,
+      "horizon_survivals": 20,
+      "target_successes": 0
+    },
+    "parent-masked-42": {
+      "episodes": 20,
+      "mean_reward": 3.8094999266788365,
+      "mean_game_time": 299.9999999999998,
+      "mean_completed": 4.6,
+      "mean_kills": 45.75,
+      "mean_hp": 97.0,
+      "std_reward": 1.1642657472936093,
+      "invalid_action_rate": 0.0,
+      "horizon_survivals": 20,
+      "target_successes": 0
+    },
+    "best-unmasked-43": {
+      "episodes": 20,
+      "mean_reward": -9.374500216264277,
+      "mean_game_time": 299.9999999999998,
+      "mean_completed": 4.8,
+      "mean_kills": 53.75,
+      "mean_hp": 92.4,
+      "std_reward": 0.7660513761153714,
+      "invalid_action_rate": 0.9706666666666667,
+      "horizon_survivals": 20,
+      "target_successes": 0
+    },
+    "same-budget-control-43": {
+      "episodes": 20,
+      "mean_reward": 3.2429999362677338,
+      "mean_game_time": 298.37999999999937,
+      "mean_completed": 4.65,
+      "mean_kills": 45.3,
+      "mean_hp": 84.0,
+      "std_reward": 3.2922349093616865,
+      "invalid_action_rate": 0.0,
+      "horizon_survivals": 19,
+      "target_successes": 0
+    },
+    "wait": {
+      "episodes": 20,
+      "mean_reward": -11.0,
+      "mean_game_time": 124.99999999999719,
+      "mean_completed": 1.0,
+      "mean_kills": 0.0,
+      "mean_hp": 0.0,
+      "std_reward": 0.0,
+      "invalid_action_rate": 0.0,
+      "horizon_survivals": 0,
+      "target_successes": 0
+    },
+    "random": {
+      "episodes": 20,
+      "mean_reward": -16.113999999999994,
+      "mean_game_time": 117.65499999999793,
+      "mean_completed": 1.0,
+      "mean_kills": 5.1,
+      "mean_hp": 1.6,
+      "std_reward": 1.9841431399977112,
+      "invalid_action_rate": 0.9306846999154691,
+      "horizon_survivals": 1,
+      "target_successes": 0
+    },
+    "scripted": {
+      "episodes": 20,
+      "mean_reward": 6.694999999999991,
+      "mean_game_time": 299.9999999999998,
+      "mean_completed": 6.0,
+      "mean_kills": 69.5,
+      "mean_hp": 132.0,
+      "std_reward": 0.009746794344809212,
+      "invalid_action_rate": 0.0,
+      "horizon_survivals": 20,
+      "target_successes": 0
+    }
+  }
+}

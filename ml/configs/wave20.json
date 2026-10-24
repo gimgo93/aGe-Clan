@@ -1,0 +1,19 @@
+{
+  "seed": 42,
+  "total_timesteps": 16384,
+  "torch_threads": 1,
+  "env": {
+    "frame_skip": 10,
+    "max_ticks": 30000,
+    "target_wave": 20,
+    "reward_mode": "defense-v1"
+  },
+  "ppo": {
+    "n_steps": 256,
+    "batch_size": 64,
+    "n_epochs": 4,
+    "learning_rate": 0.0001,
+    "gamma": 0.99,
+    "ent_coef": 0.003
+  }
+}

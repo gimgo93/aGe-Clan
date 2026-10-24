@@ -1,0 +1,7620 @@
+{
+  "hypothesis": "quality-weight actual wave clears; then increase gamma only",
+  "training_seed": 42,
+  "total_added_actions": 49152,
+  "common_evaluation_env": {
+    "frame_skip": 10,
+    "max_ticks": 30000,
+    "target_wave": 20,
+    "reward_mode": "defense-v1"
+  },
+  "development_seed_start": 92000,
+  "confirmation_seed_start": 93000,
+  "development": {
+    "legacy-g099": {
+      "summary": {
+        "episodes": 10,
+        "mean_cleared_waves": 7.0,
+        "mean_contiguous_cleared": 7.0,
+        "mean_leaks": 17.6,
+        "mean_damage_taken": 172.2,
+        "survivals_300": 10,
+        "mean_reward": -6.679056238569319,
+        "mean_game_time": 522.8900000000503,
+        "mean_completed": 7.0,
+        "mean_kills": 82.8,
+        "mean_hp": 0.0,
+        "std_reward": 0.8216016728046105,
+        "invalid_action_rate": 0.0,
+        "horizon_survivals": 0,
+        "target_successes": 0
+      },
+      "episodes": [
+        {
+          "python_seed": 92000,
+          "game_seed": 544946767,
+          "reward": -6.5058332569897175,
+          "steps": 513,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 9,
+            "0": 493,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 17,
+          "damage_taken": 164,
+          "reward_totals": {
+            "kills": 0.8200000000000005,
+            "waves": 5.954166666666667,
+            "damage": -3.280000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 512.2000000000479,
+          "completed": 7,
+          "kills": 82,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92001,
+          "game_seed": 1333243279,
+          "reward": -6.223611056804657,
+          "steps": 515,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 9,
+            "0": 495,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 16,
+          "damage_taken": 162,
+          "reward_totals": {
+            "kills": 0.8400000000000005,
+            "waves": 6.176388888888889,
+            "damage": -3.240000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 514.9000000000485,
+          "completed": 7,
+          "kills": 84,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92002,
+          "game_seed": 640597088,
+          "reward": -7.139065593481064,
+          "steps": 539,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 8,
+            "0": 519,
+            "172": 6,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 19,
+          "damage_taken": 180,
+          "reward_totals": {
+            "kills": 0.8300000000000005,
+            "waves": 5.630934343434344,
+            "damage": -3.6000000000000005,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 538.7000000000539,
+          "completed": 7,
+          "kills": 83,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92003,
+          "game_seed": 420585880,
+          "reward": -8.54101001098752,
+          "steps": 476,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 8,
+            "0": 457,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 6,
+          "contiguous_cleared": 6,
+          "leaks": 21,
+          "damage_taken": 184,
+          "reward_totals": {
+            "kills": 0.6400000000000003,
+            "waves": 4.498989898989899,
+            "damage": -3.6800000000000006,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 475.3000000000396,
+          "completed": 6,
+          "kills": 64,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92004,
+          "game_seed": 1419405319,
+          "reward": -6.223611056804657,
+          "steps": 521,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 9,
+            "0": 501,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 16,
+          "damage_taken": 162,
+          "reward_totals": {
+            "kills": 0.8400000000000005,
+            "waves": 6.176388888888889,
+            "damage": -3.240000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 520.7000000000498,
+          "completed": 7,
+          "kills": 84,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92005,
+          "game_seed": 1591972114,
+          "reward": -6.223611056804657,
+          "steps": 523,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 9,
+            "0": 503,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 16,
+          "damage_taken": 162,
+          "reward_totals": {
+            "kills": 0.8400000000000005,
+            "waves": 6.176388888888889,
+            "damage": -3.240000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 522.4000000000502,
+          "completed": 7,
+          "kills": 84,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92006,
+          "game_seed": 731595857,
+          "reward": -7.742398856207728,
+          "steps": 536,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 8,
+            "0": 516,
+            "172": 6,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 21,
+          "damage_taken": 192,
+          "reward_totals": {
+            "kills": 0.8000000000000005,
+            "waves": 5.29760101010101,
+            "damage": -3.8400000000000007,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 535.7000000000533,
+          "completed": 7,
+          "kills": 80,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92007,
+          "game_seed": 4055693560,
+          "reward": -6.223611056804657,
+          "steps": 515,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 9,
+            "0": 495,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 16,
+          "damage_taken": 162,
+          "reward_totals": {
+            "kills": 0.8400000000000005,
+            "waves": 6.176388888888889,
+            "damage": -3.240000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 514.9000000000485,
+          "completed": 7,
+          "kills": 84,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92008,
+          "game_seed": 1250293108,
+          "reward": -6.223611056804657,
+          "steps": 515,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 9,
+            "0": 495,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 16,
+          "damage_taken": 162,
+          "reward_totals": {
+            "kills": 0.8400000000000005,
+            "waves": 6.176388888888889,
+            "damage": -3.240000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 514.9000000000485,
+          "completed": 7,
+          "kills": 84,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92009,
+          "game_seed": 3511971378,
+          "reward": -5.744199384003878,
+          "steps": 580,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 9,
+            "0": 558,
+            "172": 7,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 8,
+          "contiguous_cleared": 8,
+          "leaks": 18,
+          "damage_taken": 192,
+          "reward_totals": {
+            "kills": 0.9900000000000007,
+            "waves": 7.1058006535947715,
+            "damage": -3.8400000000000016,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 579.2000000000631,
+          "completed": 8,
+          "kills": 99,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        }
+      ]
+    },
+    "defense-g099": {
+      "summary": {
+        "episodes": 10,
+        "mean_cleared_waves": 8.9,
+        "mean_contiguous_cleared": 8.9,
+        "mean_leaks": 20.3,
+        "mean_damage_taken": 200.4,
+        "survivals_300": 10,
+        "mean_reward": -5.082217986509204,
+        "mean_game_time": 645.0300000000782,
+        "mean_completed": 8.9,
+        "mean_kills": 113.7,
+        "mean_hp": 0.0,
+        "std_reward": 0.8142932474414671,
+        "invalid_action_rate": 0.0,
+        "horizon_survivals": 0,
+        "target_successes": 0
+      },
+      "episodes": [
+        {
+          "python_seed": 92000,
+          "game_seed": 544946767,
+          "reward": -4.942026007920504,
+          "steps": 651,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 10,
+            "0": 628,
+            "172": 7,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 9,
+          "contiguous_cleared": 9,
+          "leaks": 20,
+          "damage_taken": 198,
+          "reward_totals": {
+            "kills": 1.1500000000000008,
+            "waves": 7.86797385620915,
+            "damage": -3.9600000000000017,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 650.2000000000793,
+          "completed": 9,
+          "kills": 115,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92001,
+          "game_seed": 1333243279,
+          "reward": -4.659803807735443,
+          "steps": 644,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 10,
+            "0": 621,
+            "172": 7,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 9,
+          "contiguous_cleared": 9,
+          "leaks": 19,
+          "damage_taken": 196,
+          "reward_totals": {
+            "kills": 1.1700000000000008,
+            "waves": 8.090196078431372,
+            "damage": -3.9200000000000017,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 643.2000000000777,
+          "completed": 9,
+          "kills": 117,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92002,
+          "game_seed": 640597088,
+          "reward": -5.505258487537503,
+          "steps": 662,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 10,
+            "0": 639,
+            "172": 7,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 9,
+          "contiguous_cleared": 9,
+          "leaks": 23,
+          "damage_taken": 208,
+          "reward_totals": {
+            "kills": 1.1100000000000008,
+            "waves": 7.544741532976827,
+            "damage": -4.160000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 661.6000000000819,
+          "completed": 9,
+          "kills": 111,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92003,
+          "game_seed": 420585880,
+          "reward": -6.867480594664812,
+          "steps": 605,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 9,
+            "0": 583,
+            "172": 7,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 8,
+          "contiguous_cleared": 8,
+          "leaks": 23,
+          "damage_taken": 208,
+          "reward_totals": {
+            "kills": 0.9700000000000006,
+            "waves": 6.322519310754605,
+            "damage": -4.160000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 604.7000000000689,
+          "completed": 8,
+          "kills": 97,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92004,
+          "game_seed": 1419405319,
+          "reward": -4.659803807735443,
+          "steps": 649,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 10,
+            "0": 626,
+            "172": 7,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 9,
+          "contiguous_cleared": 9,
+          "leaks": 19,
+          "damage_taken": 196,
+          "reward_totals": {
+            "kills": 1.1700000000000008,
+            "waves": 8.090196078431372,
+            "damage": -3.9200000000000017,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 649.000000000079,
+          "completed": 9,
+          "kills": 117,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92005,
+          "game_seed": 1591972114,
+          "reward": -4.659803807735443,
+          "steps": 651,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 10,
+            "0": 628,
+            "172": 7,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 9,
+          "contiguous_cleared": 9,
+          "leaks": 19,
+          "damage_taken": 196,
+          "reward_totals": {
+            "kills": 1.1700000000000008,
+            "waves": 8.090196078431372,
+            "damage": -3.9200000000000017,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 650.7000000000794,
+          "completed": 9,
+          "kills": 117,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92006,
+          "game_seed": 731595857,
+          "reward": -6.188591793179512,
+          "steps": 661,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 10,
+            "0": 638,
+            "172": 7,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 9,
+          "contiguous_cleared": 9,
+          "leaks": 25,
+          "damage_taken": 224,
+          "reward_totals": {
+            "kills": 1.0800000000000007,
+            "waves": 7.211408199643493,
+            "damage": -4.480000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 660.3000000000816,
+          "completed": 9,
+          "kills": 108,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92007,
+          "game_seed": 4055693560,
+          "reward": -4.659803807735443,
+          "steps": 644,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 10,
+            "0": 621,
+            "172": 7,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 9,
+          "contiguous_cleared": 9,
+          "leaks": 19,
+          "damage_taken": 196,
+          "reward_totals": {
+            "kills": 1.1700000000000008,
+            "waves": 8.090196078431372,
+            "damage": -3.9200000000000017,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 643.2000000000777,
+          "completed": 9,
+          "kills": 117,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92008,
+          "game_seed": 1250293108,
+          "reward": -4.659803807735443,
+          "steps": 644,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 10,
+            "0": 621,
+            "172": 7,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 9,
+          "contiguous_cleared": 9,
+          "leaks": 19,
+          "damage_taken": 196,
+          "reward_totals": {
+            "kills": 1.1700000000000008,
+            "waves": 8.090196078431372,
+            "damage": -3.9200000000000017,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 643.2000000000777,
+          "completed": 9,
+          "kills": 117,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92009,
+          "game_seed": 3511971378,
+          "reward": -4.019803943112493,
+          "steps": 645,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 10,
+            "0": 622,
+            "172": 7,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 9,
+          "contiguous_cleared": 9,
+          "leaks": 17,
+          "damage_taken": 186,
+          "reward_totals": {
+            "kills": 1.2100000000000009,
+            "waves": 8.490196078431373,
+            "damage": -3.7200000000000015,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 644.2000000000779,
+          "completed": 9,
+          "kills": 121,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        }
+      ]
+    },
+    "defense-g0999": {
+      "summary": {
+        "episodes": 10,
+        "mean_cleared_waves": 7.1,
+        "mean_contiguous_cleared": 7.1,
+        "mean_leaks": 21.1,
+        "mean_damage_taken": 208.0,
+        "survivals_300": 10,
+        "mean_reward": -7.554236999712884,
+        "mean_game_time": 536.2800000000534,
+        "mean_completed": 7.1,
+        "mean_kills": 80.3,
+        "mean_hp": 0.0,
+        "std_reward": 0.9113579406990787,
+        "invalid_action_rate": 0.0,
+        "horizon_survivals": 0,
+        "target_successes": 0
+      },
+      "episodes": [
+        {
+          "python_seed": 92000,
+          "game_seed": 544946767,
+          "reward": -7.225833106786013,
+          "steps": 527,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "0": 509,
+            "132": 8,
+            "172": 5
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 19,
+          "damage_taken": 200,
+          "reward_totals": {
+            "kills": 0.8200000000000005,
+            "waves": 5.954166666666667,
+            "damage": -4.000000000000002,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 527.0000000000513,
+          "completed": 7,
+          "kills": 82,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92001,
+          "game_seed": 1333243279,
+          "reward": -6.583610981702805,
+          "steps": 518,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "0": 501,
+            "132": 8,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 17,
+          "damage_taken": 180,
+          "reward_totals": {
+            "kills": 0.8400000000000005,
+            "waves": 6.176388888888889,
+            "damage": -3.6000000000000014,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 517.6000000000491,
+          "completed": 7,
+          "kills": 84,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92002,
+          "game_seed": 640597088,
+          "reward": -7.9890656638890505,
+          "steps": 542,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "0": 522,
+            "132": 9,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 23,
+          "damage_taken": 220,
+          "reward_totals": {
+            "kills": 0.7800000000000005,
+            "waves": 5.630934343434344,
+            "damage": -4.400000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 541.1000000000545,
+          "completed": 7,
+          "kills": 78,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92003,
+          "game_seed": 420585880,
+          "reward": -9.755454501137137,
+          "steps": 476,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "0": 457,
+            "132": 8,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 6,
+          "contiguous_cleared": 6,
+          "leaks": 26,
+          "damage_taken": 220,
+          "reward_totals": {
+            "kills": 0.5900000000000003,
+            "waves": 4.054545454545455,
+            "damage": -4.400000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 475.3000000000396,
+          "completed": 6,
+          "kills": 59,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92004,
+          "game_seed": 1419405319,
+          "reward": -7.9890656638890505,
+          "steps": 542,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "0": 522,
+            "132": 9,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 23,
+          "damage_taken": 220,
+          "reward_totals": {
+            "kills": 0.7800000000000005,
+            "waves": 5.630934343434344,
+            "damage": -4.400000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 541.1000000000545,
+          "completed": 7,
+          "kills": 78,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92005,
+          "game_seed": 1591972114,
+          "reward": -7.9890656638890505,
+          "steps": 542,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "0": 522,
+            "132": 9,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 23,
+          "damage_taken": 220,
+          "reward_totals": {
+            "kills": 0.7800000000000005,
+            "waves": 5.630934343434344,
+            "damage": -4.400000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 541.1000000000545,
+          "completed": 7,
+          "kills": 78,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92006,
+          "game_seed": 731595857,
+          "reward": -7.687676539644599,
+          "steps": 460,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "0": 445,
+            "132": 7,
+            "172": 3
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 6,
+          "contiguous_cleared": 6,
+          "leaks": 17,
+          "damage_taken": 160,
+          "reward_totals": {
+            "kills": 0.6800000000000004,
+            "waves": 4.832323232323232,
+            "damage": -3.2,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 459.500000000036,
+          "completed": 6,
+          "kills": 68,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92007,
+          "game_seed": 4055693560,
+          "reward": -6.774199292063713,
+          "steps": 587,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "0": 566,
+            "132": 10,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 8,
+          "contiguous_cleared": 8,
+          "leaks": 21,
+          "damage_taken": 220,
+          "reward_totals": {
+            "kills": 0.9200000000000006,
+            "waves": 6.705800653594771,
+            "damage": -4.400000000000002,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 586.7000000000648,
+          "completed": 8,
+          "kills": 92,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92008,
+          "game_seed": 1250293108,
+          "reward": -6.774199292063713,
+          "steps": 587,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "0": 566,
+            "132": 10,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 8,
+          "contiguous_cleared": 8,
+          "leaks": 21,
+          "damage_taken": 220,
+          "reward_totals": {
+            "kills": 0.9200000000000006,
+            "waves": 6.705800653594771,
+            "damage": -4.400000000000002,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 586.7000000000648,
+          "completed": 8,
+          "kills": 92,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 92009,
+          "game_seed": 3511971378,
+          "reward": -6.774199292063713,
+          "steps": 587,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "0": 566,
+            "132": 10,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 8,
+          "contiguous_cleared": 8,
+          "leaks": 21,
+          "damage_taken": 220,
+          "reward_totals": {
+            "kills": 0.9200000000000006,
+            "waves": 6.705800653594771,
+            "damage": -4.400000000000002,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 586.7000000000648,
+          "completed": 8,
+          "kills": 92,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        }
+      ]
+    }
+  },
+  "confirmation": {
+    "legacy-g099": {
+      "summary": {
+        "episodes": 10,
+        "mean_cleared_waves": 6.8,
+        "mean_contiguous_cleared": 6.8,
+        "mean_leaks": 18.0,
+        "mean_damage_taken": 169.4,
+        "survivals_300": 10,
+        "mean_reward": -6.940959516912699,
+        "mean_game_time": 509.6500000000474,
+        "mean_completed": 6.8,
+        "mean_kills": 78.3,
+        "mean_hp": 0.0,
+        "std_reward": 0.9732465391122946,
+        "invalid_action_rate": 0.0,
+        "horizon_survivals": 0,
+        "target_successes": 0
+      },
+      "episodes": [
+        {
+          "python_seed": 93000,
+          "game_seed": 4025918302,
+          "reward": -5.953611036762595,
+          "steps": 514,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 9,
+            "0": 494,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 15,
+          "damage_taken": 154,
+          "reward_totals": {
+            "kills": 0.8500000000000005,
+            "waves": 6.276388888888889,
+            "damage": -3.080000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 513.1000000000481,
+          "completed": 7,
+          "kills": 85,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93001,
+          "game_seed": 2138642245,
+          "reward": -6.75694421865046,
+          "steps": 513,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 8,
+            "0": 493,
+            "172": 6,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 17,
+          "damage_taken": 172,
+          "reward_totals": {
+            "kills": 0.8400000000000005,
+            "waves": 5.843055555555555,
+            "damage": -3.4400000000000013,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 512.2000000000479,
+          "completed": 7,
+          "kills": 84,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93002,
+          "game_seed": 3340749059,
+          "reward": -6.223611056804657,
+          "steps": 521,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 9,
+            "0": 501,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 16,
+          "damage_taken": 162,
+          "reward_totals": {
+            "kills": 0.8400000000000005,
+            "waves": 6.176388888888889,
+            "damage": -3.240000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 520.7000000000498,
+          "completed": 7,
+          "kills": 84,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93003,
+          "game_seed": 2014404895,
+          "reward": -6.223611056804657,
+          "steps": 515,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 9,
+            "0": 495,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 16,
+          "damage_taken": 162,
+          "reward_totals": {
+            "kills": 0.8400000000000005,
+            "waves": 6.176388888888889,
+            "damage": -3.240000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 514.9000000000485,
+          "completed": 7,
+          "kills": 84,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93004,
+          "game_seed": 3730091695,
+          "reward": -8.713232221081853,
+          "steps": 470,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 8,
+            "0": 451,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 6,
+          "contiguous_cleared": 6,
+          "leaks": 22,
+          "damage_taken": 180,
+          "reward_totals": {
+            "kills": 0.6100000000000003,
+            "waves": 4.276767676767677,
+            "damage": -3.6000000000000005,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 469.90000000003835,
+          "completed": 6,
+          "kills": 61,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93005,
+          "game_seed": 2830673481,
+          "reward": -6.223611056804657,
+          "steps": 515,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 9,
+            "0": 495,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 16,
+          "damage_taken": 162,
+          "reward_totals": {
+            "kills": 0.8400000000000005,
+            "waves": 6.176388888888889,
+            "damage": -3.240000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 514.9000000000485,
+          "completed": 7,
+          "kills": 84,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93006,
+          "game_seed": 3926645487,
+          "reward": -6.223611056804657,
+          "steps": 515,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 9,
+            "0": 495,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 16,
+          "damage_taken": 162,
+          "reward_totals": {
+            "kills": 0.8400000000000005,
+            "waves": 6.176388888888889,
+            "damage": -3.240000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 514.9000000000485,
+          "completed": 7,
+          "kills": 84,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93007,
+          "game_seed": 1530627394,
+          "reward": -7.189065622165799,
+          "steps": 533,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 9,
+            "0": 513,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 20,
+          "damage_taken": 180,
+          "reward_totals": {
+            "kills": 0.7800000000000005,
+            "waves": 5.630934343434344,
+            "damage": -3.6000000000000005,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 533.0000000000526,
+          "completed": 7,
+          "kills": 78,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93008,
+          "game_seed": 1987031410,
+          "reward": -7.189065622165799,
+          "steps": 533,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 9,
+            "0": 513,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 20,
+          "damage_taken": 180,
+          "reward_totals": {
+            "kills": 0.7800000000000005,
+            "waves": 5.630934343434344,
+            "damage": -3.6000000000000005,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 533.0000000000526,
+          "completed": 7,
+          "kills": 78,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93009,
+          "game_seed": 1542088637,
+          "reward": -8.713232221081853,
+          "steps": 470,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 8,
+            "0": 451,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 6,
+          "contiguous_cleared": 6,
+          "leaks": 22,
+          "damage_taken": 180,
+          "reward_totals": {
+            "kills": 0.6100000000000003,
+            "waves": 4.276767676767677,
+            "damage": -3.6000000000000005,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 469.90000000003835,
+          "completed": 6,
+          "kills": 61,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        }
+      ]
+    },
+    "defense-g099": {
+      "summary": {
+        "episodes": 10,
+        "mean_cleared_waves": 8.6,
+        "mean_contiguous_cleared": 8.6,
+        "mean_leaks": 20.5,
+        "mean_damage_taken": 197.0,
+        "survivals_300": 10,
+        "mean_reward": -5.462913726642728,
+        "mean_game_time": 623.4600000000731,
+        "mean_completed": 8.6,
+        "mean_kills": 108.2,
+        "mean_hp": 0.0,
+        "std_reward": 1.1684268608398072,
+        "invalid_action_rate": 0.0,
+        "horizon_survivals": 0,
+        "target_successes": 0
+      },
+      "episodes": [
+        {
+          "python_seed": 93000,
+          "game_seed": 4025918302,
+          "reward": -4.389803787693381,
+          "steps": 652,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 10,
+            "0": 629,
+            "172": 7,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 9,
+          "contiguous_cleared": 9,
+          "leaks": 18,
+          "damage_taken": 188,
+          "reward_totals": {
+            "kills": 1.1800000000000008,
+            "waves": 8.190196078431372,
+            "damage": -3.7600000000000016,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 651.1000000000795,
+          "completed": 9,
+          "kills": 118,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93001,
+          "game_seed": 2138642245,
+          "reward": -5.22313710860908,
+          "steps": 641,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 9,
+            "0": 619,
+            "172": 7,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 9,
+          "contiguous_cleared": 9,
+          "leaks": 21,
+          "damage_taken": 206,
+          "reward_totals": {
+            "kills": 1.1400000000000008,
+            "waves": 7.756862745098038,
+            "damage": -4.120000000000002,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 640.5000000000771,
+          "completed": 9,
+          "kills": 114,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93002,
+          "game_seed": 3340749059,
+          "reward": -4.659803807735443,
+          "steps": 649,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 10,
+            "0": 626,
+            "172": 7,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 9,
+          "contiguous_cleared": 9,
+          "leaks": 19,
+          "damage_taken": 196,
+          "reward_totals": {
+            "kills": 1.1700000000000008,
+            "waves": 8.090196078431372,
+            "damage": -3.9200000000000017,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 649.000000000079,
+          "completed": 9,
+          "kills": 117,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93003,
+          "game_seed": 2014404895,
+          "reward": -4.659803807735443,
+          "steps": 644,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 10,
+            "0": 621,
+            "172": 7,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 9,
+          "contiguous_cleared": 9,
+          "leaks": 19,
+          "damage_taken": 196,
+          "reward_totals": {
+            "kills": 1.1700000000000008,
+            "waves": 8.090196078431372,
+            "damage": -3.9200000000000017,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 643.2000000000777,
+          "completed": 9,
+          "kills": 117,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93004,
+          "game_seed": 3730091695,
+          "reward": -7.683232082054019,
+          "steps": 521,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 8,
+            "0": 501,
+            "172": 6,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 22,
+          "damage_taken": 188,
+          "reward_totals": {
+            "kills": 0.8000000000000005,
+            "waves": 5.276767676767677,
+            "damage": -3.7600000000000007,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 520.9000000000499,
+          "completed": 7,
+          "kills": 80,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93005,
+          "game_seed": 2830673481,
+          "reward": -4.659803807735443,
+          "steps": 644,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 10,
+            "0": 621,
+            "172": 7,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 9,
+          "contiguous_cleared": 9,
+          "leaks": 19,
+          "damage_taken": 196,
+          "reward_totals": {
+            "kills": 1.1700000000000008,
+            "waves": 8.090196078431372,
+            "damage": -3.9200000000000017,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 643.2000000000777,
+          "completed": 9,
+          "kills": 117,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93006,
+          "game_seed": 3926645487,
+          "reward": -4.659803807735443,
+          "steps": 644,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 10,
+            "0": 621,
+            "172": 7,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 9,
+          "contiguous_cleared": 9,
+          "leaks": 19,
+          "damage_taken": 196,
+          "reward_totals": {
+            "kills": 1.1700000000000008,
+            "waves": 8.090196078431372,
+            "damage": -3.9200000000000017,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 643.2000000000777,
+          "completed": 9,
+          "kills": 117,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93007,
+          "game_seed": 1530627394,
+          "reward": -5.505258487537503,
+          "steps": 662,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 10,
+            "0": 639,
+            "172": 7,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 9,
+          "contiguous_cleared": 9,
+          "leaks": 23,
+          "damage_taken": 208,
+          "reward_totals": {
+            "kills": 1.1100000000000008,
+            "waves": 7.544741532976827,
+            "damage": -4.160000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 661.3000000000818,
+          "completed": 9,
+          "kills": 111,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93008,
+          "game_seed": 1987031410,
+          "reward": -5.505258487537503,
+          "steps": 662,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 10,
+            "0": 639,
+            "172": 7,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 9,
+          "contiguous_cleared": 9,
+          "leaks": 23,
+          "damage_taken": 208,
+          "reward_totals": {
+            "kills": 1.1100000000000008,
+            "waves": 7.544741532976827,
+            "damage": -4.160000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 661.3000000000818,
+          "completed": 9,
+          "kills": 111,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93009,
+          "game_seed": 1542088637,
+          "reward": -7.683232082054019,
+          "steps": 521,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 8,
+            "0": 501,
+            "172": 6,
+            "23": 1
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 22,
+          "damage_taken": 188,
+          "reward_totals": {
+            "kills": 0.8000000000000005,
+            "waves": 5.276767676767677,
+            "damage": -3.7600000000000007,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 520.9000000000499,
+          "completed": 7,
+          "kills": 80,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        }
+      ]
+    },
+    "defense-g0999": {
+      "summary": {
+        "episodes": 10,
+        "mean_cleared_waves": 6.8,
+        "mean_contiguous_cleared": 6.8,
+        "mean_leaks": 18.5,
+        "mean_damage_taken": 184.0,
+        "survivals_300": 10,
+        "mean_reward": -7.170323850214482,
+        "mean_game_time": 511.5100000000478,
+        "mean_completed": 6.8,
+        "mean_kills": 78.7,
+        "mean_hp": 0.0,
+        "std_reward": 1.0490471720792827,
+        "invalid_action_rate": 0.0,
+        "horizon_survivals": 0,
+        "target_successes": 0
+      },
+      "episodes": [
+        {
+          "python_seed": 93000,
+          "game_seed": 4025918302,
+          "reward": -5.743611039593816,
+          "steps": 509,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "0": 492,
+            "132": 9,
+            "172": 3
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 14,
+          "damage_taken": 160,
+          "reward_totals": {
+            "kills": 0.8800000000000006,
+            "waves": 6.576388888888889,
+            "damage": -3.200000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 508.20000000004705,
+          "completed": 7,
+          "kills": 88,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93001,
+          "game_seed": 2138642245,
+          "reward": -7.104722121730447,
+          "steps": 521,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "0": 503,
+            "132": 8,
+            "172": 5
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 19,
+          "damage_taken": 200,
+          "reward_totals": {
+            "kills": 0.8300000000000005,
+            "waves": 6.065277777777778,
+            "damage": -4.000000000000002,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 520.3000000000497,
+          "completed": 7,
+          "kills": 83,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93002,
+          "game_seed": 3340749059,
+          "reward": -6.774199292063713,
+          "steps": 594,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "0": 573,
+            "132": 10,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 8,
+          "contiguous_cleared": 8,
+          "leaks": 21,
+          "damage_taken": 220,
+          "reward_totals": {
+            "kills": 0.9200000000000006,
+            "waves": 6.705800653594771,
+            "damage": -4.400000000000002,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 593.1000000000663,
+          "completed": 8,
+          "kills": 92,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93003,
+          "game_seed": 2014404895,
+          "reward": -6.583610981702805,
+          "steps": 518,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "0": 501,
+            "132": 8,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 17,
+          "damage_taken": 180,
+          "reward_totals": {
+            "kills": 0.8400000000000005,
+            "waves": 6.176388888888889,
+            "damage": -3.6000000000000014,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 517.6000000000491,
+          "completed": 7,
+          "kills": 84,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93004,
+          "game_seed": 3730091695,
+          "reward": -9.113232107833028,
+          "steps": 473,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "0": 456,
+            "132": 7,
+            "172": 5
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 6,
+          "contiguous_cleared": 6,
+          "leaks": 23,
+          "damage_taken": 200,
+          "reward_totals": {
+            "kills": 0.6100000000000003,
+            "waves": 4.276767676767677,
+            "damage": -4.000000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 472.60000000003896,
+          "completed": 6,
+          "kills": 61,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93005,
+          "game_seed": 2830673481,
+          "reward": -6.583610981702805,
+          "steps": 518,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "0": 501,
+            "132": 8,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 17,
+          "damage_taken": 180,
+          "reward_totals": {
+            "kills": 0.8400000000000005,
+            "waves": 6.176388888888889,
+            "damage": -3.6000000000000014,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 517.6000000000491,
+          "completed": 7,
+          "kills": 84,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93006,
+          "game_seed": 3926645487,
+          "reward": -5.761110985651612,
+          "steps": 436,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "0": 424,
+            "132": 7
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 6,
+          "contiguous_cleared": 6,
+          "leaks": 10,
+          "damage_taken": 100,
+          "reward_totals": {
+            "kills": 0.7500000000000004,
+            "waves": 5.488888888888889,
+            "damage": -2.0000000000000004,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 436.00000000003064,
+          "completed": 6,
+          "kills": 75,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93007,
+          "game_seed": 1530627394,
+          "reward": -7.687676539644599,
+          "steps": 460,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "0": 445,
+            "132": 7,
+            "172": 3
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 6,
+          "contiguous_cleared": 6,
+          "leaks": 17,
+          "damage_taken": 160,
+          "reward_totals": {
+            "kills": 0.6800000000000004,
+            "waves": 4.832323232323232,
+            "damage": -3.2,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 459.500000000036,
+          "completed": 6,
+          "kills": 68,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93008,
+          "game_seed": 1987031410,
+          "reward": -8.36239878833294,
+          "steps": 549,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "0": 529,
+            "132": 9,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 24,
+          "damage_taken": 220,
+          "reward_totals": {
+            "kills": 0.7400000000000004,
+            "waves": 5.29760101010101,
+            "damage": -4.400000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 548.8000000000562,
+          "completed": 7,
+          "kills": 74,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93009,
+          "game_seed": 1542088637,
+          "reward": -7.9890656638890505,
+          "steps": 542,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "0": 522,
+            "132": 9,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 23,
+          "damage_taken": 220,
+          "reward_totals": {
+            "kills": 0.7800000000000005,
+            "waves": 5.630934343434344,
+            "damage": -4.400000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 541.4000000000545,
+          "completed": 7,
+          "kills": 78,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        }
+      ]
+    },
+    "previous-masked-best": {
+      "summary": {
+        "episodes": 10,
+        "mean_cleared_waves": 7.3,
+        "mean_contiguous_cleared": 7.3,
+        "mean_leaks": 22.2,
+        "mean_damage_taken": 215.2,
+        "survivals_300": 10,
+        "mean_reward": -7.569173610210418,
+        "mean_game_time": 549.0700000000563,
+        "mean_completed": 7.3,
+        "mean_kills": 81.8,
+        "mean_hp": 0.0,
+        "std_reward": 1.1959372297637358,
+        "invalid_action_rate": 0.0,
+        "horizon_survivals": 0,
+        "target_successes": 0
+      },
+      "episodes": [
+        {
+          "python_seed": 93000,
+          "game_seed": 4025918302,
+          "reward": -5.934199379757047,
+          "steps": 582,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 10,
+            "0": 560,
+            "172": 7
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 8,
+          "contiguous_cleared": 8,
+          "leaks": 19,
+          "damage_taken": 200,
+          "reward_totals": {
+            "kills": 0.9600000000000006,
+            "waves": 7.1058006535947715,
+            "damage": -4.000000000000002,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 581.2000000000636,
+          "completed": 8,
+          "kills": 96,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93001,
+          "game_seed": 2138642245,
+          "reward": -6.85419936478138,
+          "steps": 590,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 10,
+            "0": 568,
+            "172": 7
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 8,
+          "contiguous_cleared": 8,
+          "leaks": 22,
+          "damage_taken": 224,
+          "reward_totals": {
+            "kills": 0.9200000000000006,
+            "waves": 6.705800653594771,
+            "damage": -4.480000000000002,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 589.4000000000655,
+          "completed": 8,
+          "kills": 92,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93002,
+          "game_seed": 3340749059,
+          "reward": -6.85419936478138,
+          "steps": 590,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 10,
+            "0": 568,
+            "172": 7
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 8,
+          "contiguous_cleared": 8,
+          "leaks": 22,
+          "damage_taken": 224,
+          "reward_totals": {
+            "kills": 0.9200000000000006,
+            "waves": 6.705800653594771,
+            "damage": -4.480000000000002,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 589.4000000000655,
+          "completed": 8,
+          "kills": 92,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93003,
+          "game_seed": 2014404895,
+          "reward": -6.85419936478138,
+          "steps": 590,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 10,
+            "0": 568,
+            "172": 7
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 8,
+          "contiguous_cleared": 8,
+          "leaks": 22,
+          "damage_taken": 224,
+          "reward_totals": {
+            "kills": 0.9200000000000006,
+            "waves": 6.705800653594771,
+            "damage": -4.480000000000002,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 589.4000000000655,
+          "completed": 8,
+          "kills": 92,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93004,
+          "game_seed": 3730091695,
+          "reward": -9.179898746311665,
+          "steps": 476,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 8,
+            "0": 457,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 6,
+          "contiguous_cleared": 6,
+          "leaks": 23,
+          "damage_taken": 208,
+          "reward_totals": {
+            "kills": 0.6200000000000003,
+            "waves": 4.36010101010101,
+            "damage": -4.160000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 475.3000000000396,
+          "completed": 6,
+          "kills": 62,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93005,
+          "game_seed": 2830673481,
+          "reward": -6.85419936478138,
+          "steps": 590,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 10,
+            "0": 568,
+            "172": 7
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 8,
+          "contiguous_cleared": 8,
+          "leaks": 22,
+          "damage_taken": 224,
+          "reward_totals": {
+            "kills": 0.9200000000000006,
+            "waves": 6.705800653594771,
+            "damage": -4.480000000000002,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 589.4000000000655,
+          "completed": 8,
+          "kills": 92,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93006,
+          "game_seed": 3926645487,
+          "reward": -6.584199344739318,
+          "steps": 588,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 10,
+            "0": 566,
+            "172": 7
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 8,
+          "contiguous_cleared": 8,
+          "leaks": 21,
+          "damage_taken": 216,
+          "reward_totals": {
+            "kills": 0.9300000000000006,
+            "waves": 6.805800653594771,
+            "damage": -4.320000000000002,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 587.600000000065,
+          "completed": 8,
+          "kills": 93,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93007,
+          "game_seed": 1530627394,
+          "reward": -8.030176725238562,
+          "steps": 539,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 9,
+            "0": 519,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 7,
+          "contiguous_cleared": 7,
+          "leaks": 23,
+          "damage_taken": 216,
+          "reward_totals": {
+            "kills": 0.7700000000000005,
+            "waves": 5.519823232323232,
+            "damage": -4.320000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 538.4000000000539,
+          "completed": 7,
+          "kills": 77,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93008,
+          "game_seed": 1987031410,
+          "reward": -9.273232223466039,
+          "steps": 476,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 8,
+            "0": 457,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 6,
+          "contiguous_cleared": 6,
+          "leaks": 24,
+          "damage_taken": 208,
+          "reward_totals": {
+            "kills": 0.6100000000000003,
+            "waves": 4.276767676767677,
+            "damage": -4.160000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 475.3000000000396,
+          "completed": 6,
+          "kills": 61,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93009,
+          "game_seed": 1542088637,
+          "reward": -9.273232223466039,
+          "steps": 476,
+          "invalid_actions": 0,
+          "action_counts": {
+            "7": 1,
+            "134": 4,
+            "132": 8,
+            "0": 457,
+            "172": 6
+          },
+          "invalid_action_counts": {},
+          "survived_300": true,
+          "cleared_waves": 6,
+          "contiguous_cleared": 6,
+          "leaks": 24,
+          "damage_taken": 208,
+          "reward_totals": {
+            "kills": 0.6100000000000003,
+            "waves": 4.276767676767677,
+            "damage": -4.160000000000001,
+            "invalid": 0,
+            "terminal": -10
+          },
+          "game_time": 475.3000000000396,
+          "completed": 6,
+          "kills": 61,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        }
+      ]
+    },
+    "previous-unmasked-best": {
+      "summary": {
+        "episodes": 10,
+        "mean_cleared_waves": 12.4,
+        "mean_contiguous_cleared": 12.4,
+        "mean_leaks": 4.3,
+        "mean_damage_taken": 100.0,
+        "survivals_300": 10,
+        "mean_reward": -42.33515177741647,
+        "mean_game_time": 902.6500000001366,
+        "mean_completed": 12.4,
+        "mean_kills": 205.5,
+        "mean_hp": 0.0,
+        "std_reward": 2.554492404189484,
+        "invalid_action_rate": 0.99036438143759,
+        "horizon_survivals": 0,
+        "target_successes": 0
+      },
+      "episodes": [
+        {
+          "python_seed": 93000,
+          "game_seed": 4025918302,
+          "reward": -43.755454771220684,
+          "steps": 947,
+          "invalid_actions": 938,
+          "action_counts": {
+            "134": 135,
+            "9": 1,
+            "12": 44,
+            "138": 17,
+            "140": 147,
+            "95": 60,
+            "97": 16,
+            "32": 1,
+            "96": 12,
+            "135": 4,
+            "25": 1,
+            "23": 493,
+            "15": 2,
+            "36": 11,
+            "78": 1,
+            "40": 2
+          },
+          "invalid_action_counts": {
+            "134": 131,
+            "138": 17,
+            "140": 147,
+            "95": 60,
+            "97": 16,
+            "32": 1,
+            "96": 12,
+            "12": 43,
+            "135": 4,
+            "23": 492,
+            "15": 1,
+            "36": 11,
+            "78": 1,
+            "40": 2
+          },
+          "survived_300": true,
+          "cleared_waves": 13,
+          "contiguous_cleared": 13,
+          "leaks": 4,
+          "damage_taken": 100,
+          "reward_totals": {
+            "kills": 2.1899999999999977,
+            "waves": 12.954545454545455,
+            "damage": -2,
+            "invalid": -46.89999999999947,
+            "terminal": -10
+          },
+          "game_time": 947.0000000001468,
+          "completed": 13,
+          "kills": 219,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93001,
+          "game_seed": 2138642245,
+          "reward": -38.07111137919128,
+          "steps": 781,
+          "invalid_actions": 773,
+          "action_counts": {
+            "134": 177,
+            "9": 1,
+            "12": 57,
+            "96": 30,
+            "140": 33,
+            "95": 4,
+            "32": 1,
+            "135": 5,
+            "97": 30,
+            "40": 57,
+            "23": 291,
+            "36": 56,
+            "68": 1,
+            "78": 34,
+            "94": 1,
+            "89": 2,
+            "15": 1
+          },
+          "invalid_action_counts": {
+            "134": 173,
+            "96": 30,
+            "140": 33,
+            "95": 4,
+            "32": 1,
+            "12": 56,
+            "135": 5,
+            "97": 30,
+            "40": 57,
+            "23": 290,
+            "36": 56,
+            "68": 1,
+            "78": 34,
+            "94": 1,
+            "89": 2
+          },
+          "survived_300": true,
+          "cleared_waves": 11,
+          "contiguous_cleared": 11,
+          "leaks": 5,
+          "damage_taken": 100,
+          "reward_totals": {
+            "kills": 1.7400000000000013,
+            "waves": 10.838888888888889,
+            "damage": -2,
+            "invalid": -38.64999999999994,
+            "terminal": -10
+          },
+          "game_time": 780.3000000001089,
+          "completed": 11,
+          "kills": 174,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93002,
+          "game_seed": 3340749059,
+          "reward": -43.8554548099637,
+          "steps": 949,
+          "invalid_actions": 940,
+          "action_counts": {
+            "134": 138,
+            "9": 1,
+            "12": 45,
+            "138": 8,
+            "140": 139,
+            "95": 62,
+            "32": 1,
+            "96": 15,
+            "135": 9,
+            "25": 1,
+            "23": 488,
+            "97": 25,
+            "15": 1,
+            "78": 1,
+            "40": 8,
+            "36": 7
+          },
+          "invalid_action_counts": {
+            "134": 134,
+            "138": 8,
+            "140": 139,
+            "95": 62,
+            "32": 1,
+            "96": 15,
+            "12": 44,
+            "135": 9,
+            "23": 487,
+            "97": 25,
+            "78": 1,
+            "40": 8,
+            "36": 7
+          },
+          "survived_300": true,
+          "cleared_waves": 13,
+          "contiguous_cleared": 13,
+          "leaks": 4,
+          "damage_taken": 100,
+          "reward_totals": {
+            "kills": 2.1899999999999977,
+            "waves": 12.954545454545455,
+            "damage": -2,
+            "invalid": -46.99999999999947,
+            "terminal": -10
+          },
+          "game_time": 948.200000000147,
+          "completed": 13,
+          "kills": 219,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93003,
+          "game_seed": 2014404895,
+          "reward": -43.755454771220684,
+          "steps": 947,
+          "invalid_actions": 938,
+          "action_counts": {
+            "134": 134,
+            "9": 1,
+            "12": 46,
+            "23": 490,
+            "140": 151,
+            "95": 61,
+            "97": 16,
+            "32": 1,
+            "96": 12,
+            "68": 1,
+            "135": 3,
+            "25": 1,
+            "138": 14,
+            "15": 2,
+            "36": 10,
+            "78": 2,
+            "40": 2
+          },
+          "invalid_action_counts": {
+            "134": 130,
+            "23": 489,
+            "140": 151,
+            "95": 61,
+            "97": 16,
+            "32": 1,
+            "96": 12,
+            "12": 45,
+            "68": 1,
+            "135": 3,
+            "138": 14,
+            "15": 1,
+            "36": 10,
+            "78": 2,
+            "40": 2
+          },
+          "survived_300": true,
+          "cleared_waves": 13,
+          "contiguous_cleared": 13,
+          "leaks": 4,
+          "damage_taken": 100,
+          "reward_totals": {
+            "kills": 2.1899999999999977,
+            "waves": 12.954545454545455,
+            "damage": -2,
+            "invalid": -46.89999999999947,
+            "terminal": -10
+          },
+          "game_time": 947.0000000001468,
+          "completed": 13,
+          "kills": 219,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93004,
+          "game_seed": 3730091695,
+          "reward": -39.321111461147666,
+          "steps": 806,
+          "invalid_actions": 798,
+          "action_counts": {
+            "134": 162,
+            "9": 4,
+            "12": 54,
+            "96": 25,
+            "140": 37,
+            "95": 6,
+            "32": 1,
+            "40": 53,
+            "23": 307,
+            "97": 31,
+            "36": 63,
+            "135": 2,
+            "94": 1,
+            "15": 1,
+            "78": 55,
+            "138": 4
+          },
+          "invalid_action_counts": {
+            "134": 158,
+            "96": 25,
+            "140": 37,
+            "95": 6,
+            "32": 1,
+            "12": 53,
+            "9": 3,
+            "40": 53,
+            "97": 31,
+            "36": 63,
+            "135": 2,
+            "94": 1,
+            "23": 306,
+            "78": 55,
+            "138": 4
+          },
+          "survived_300": true,
+          "cleared_waves": 11,
+          "contiguous_cleared": 11,
+          "leaks": 5,
+          "damage_taken": 100,
+          "reward_totals": {
+            "kills": 1.7400000000000013,
+            "waves": 10.838888888888889,
+            "damage": -2,
+            "invalid": -39.89999999999987,
+            "terminal": -10
+          },
+          "game_time": 805.7000000001146,
+          "completed": 11,
+          "kills": 174,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93005,
+          "game_seed": 2830673481,
+          "reward": -43.755454771220684,
+          "steps": 947,
+          "invalid_actions": 938,
+          "action_counts": {
+            "134": 134,
+            "9": 1,
+            "12": 45,
+            "23": 496,
+            "140": 153,
+            "95": 56,
+            "32": 1,
+            "96": 11,
+            "68": 1,
+            "135": 4,
+            "25": 1,
+            "97": 13,
+            "138": 15,
+            "15": 2,
+            "36": 12,
+            "78": 1,
+            "40": 1
+          },
+          "invalid_action_counts": {
+            "134": 130,
+            "23": 495,
+            "140": 153,
+            "95": 56,
+            "32": 1,
+            "96": 11,
+            "12": 44,
+            "68": 1,
+            "135": 4,
+            "97": 13,
+            "138": 15,
+            "15": 1,
+            "36": 12,
+            "78": 1,
+            "40": 1
+          },
+          "survived_300": true,
+          "cleared_waves": 13,
+          "contiguous_cleared": 13,
+          "leaks": 4,
+          "damage_taken": 100,
+          "reward_totals": {
+            "kills": 2.1899999999999977,
+            "waves": 12.954545454545455,
+            "damage": -2,
+            "invalid": -46.89999999999947,
+            "terminal": -10
+          },
+          "game_time": 947.0000000001468,
+          "completed": 13,
+          "kills": 219,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93006,
+          "game_seed": 3926645487,
+          "reward": -43.755454771220684,
+          "steps": 947,
+          "invalid_actions": 938,
+          "action_counts": {
+            "134": 134,
+            "9": 1,
+            "12": 43,
+            "138": 15,
+            "140": 148,
+            "95": 59,
+            "32": 1,
+            "96": 12,
+            "135": 4,
+            "25": 1,
+            "23": 499,
+            "97": 14,
+            "15": 2,
+            "36": 11,
+            "78": 1,
+            "40": 2
+          },
+          "invalid_action_counts": {
+            "134": 130,
+            "138": 15,
+            "140": 148,
+            "95": 59,
+            "32": 1,
+            "96": 12,
+            "12": 42,
+            "135": 4,
+            "23": 498,
+            "97": 14,
+            "15": 1,
+            "36": 11,
+            "78": 1,
+            "40": 2
+          },
+          "survived_300": true,
+          "cleared_waves": 13,
+          "contiguous_cleared": 13,
+          "leaks": 4,
+          "damage_taken": 100,
+          "reward_totals": {
+            "kills": 2.1899999999999977,
+            "waves": 12.954545454545455,
+            "damage": -2,
+            "invalid": -46.89999999999947,
+            "terminal": -10
+          },
+          "game_time": 947.0000000001468,
+          "completed": 13,
+          "kills": 219,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93007,
+          "game_seed": 1530627394,
+          "reward": -38.07111137919128,
+          "steps": 781,
+          "invalid_actions": 773,
+          "action_counts": {
+            "134": 187,
+            "9": 2,
+            "12": 57,
+            "96": 29,
+            "140": 31,
+            "95": 6,
+            "32": 1,
+            "40": 52,
+            "23": 295,
+            "36": 53,
+            "97": 27,
+            "68": 2,
+            "78": 33,
+            "135": 1,
+            "107": 2,
+            "89": 2,
+            "15": 1
+          },
+          "invalid_action_counts": {
+            "134": 183,
+            "96": 29,
+            "140": 31,
+            "95": 6,
+            "32": 1,
+            "12": 56,
+            "9": 1,
+            "40": 52,
+            "23": 294,
+            "36": 53,
+            "97": 27,
+            "68": 2,
+            "78": 33,
+            "135": 1,
+            "107": 2,
+            "89": 2
+          },
+          "survived_300": true,
+          "cleared_waves": 11,
+          "contiguous_cleared": 11,
+          "leaks": 5,
+          "damage_taken": 100,
+          "reward_totals": {
+            "kills": 1.7400000000000013,
+            "waves": 10.838888888888889,
+            "damage": -2,
+            "invalid": -38.64999999999994,
+            "terminal": -10
+          },
+          "game_time": 780.3000000001089,
+          "completed": 11,
+          "kills": 174,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93008,
+          "game_seed": 1987031410,
+          "reward": -44.55545483157039,
+          "steps": 963,
+          "invalid_actions": 954,
+          "action_counts": {
+            "134": 148,
+            "9": 1,
+            "12": 47,
+            "96": 24,
+            "140": 132,
+            "95": 57,
+            "32": 1,
+            "97": 34,
+            "25": 1,
+            "23": 478,
+            "51": 1,
+            "138": 9,
+            "15": 1,
+            "78": 1,
+            "40": 19,
+            "36": 9
+          },
+          "invalid_action_counts": {
+            "134": 144,
+            "96": 24,
+            "140": 132,
+            "95": 57,
+            "32": 1,
+            "12": 46,
+            "97": 34,
+            "23": 477,
+            "51": 1,
+            "138": 9,
+            "78": 1,
+            "40": 19,
+            "36": 9
+          },
+          "survived_300": true,
+          "cleared_waves": 13,
+          "contiguous_cleared": 13,
+          "leaks": 4,
+          "damage_taken": 100,
+          "reward_totals": {
+            "kills": 2.1899999999999977,
+            "waves": 12.954545454545455,
+            "damage": -2,
+            "invalid": -47.69999999999943,
+            "terminal": -10
+          },
+          "game_time": 963.0000000001504,
+          "completed": 13,
+          "kills": 219,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93009,
+          "game_seed": 1542088637,
+          "reward": -44.455454828217626,
+          "steps": 961,
+          "invalid_actions": 952,
+          "action_counts": {
+            "134": 140,
+            "9": 1,
+            "12": 42,
+            "96": 11,
+            "140": 129,
+            "95": 78,
+            "32": 1,
+            "25": 1,
+            "23": 475,
+            "97": 31,
+            "138": 8,
+            "135": 4,
+            "51": 2,
+            "107": 1,
+            "15": 1,
+            "78": 3,
+            "40": 21,
+            "36": 12
+          },
+          "invalid_action_counts": {
+            "134": 136,
+            "96": 11,
+            "140": 129,
+            "95": 78,
+            "32": 1,
+            "12": 41,
+            "23": 474,
+            "97": 31,
+            "138": 8,
+            "135": 4,
+            "51": 2,
+            "107": 1,
+            "78": 3,
+            "40": 21,
+            "36": 12
+          },
+          "survived_300": true,
+          "cleared_waves": 13,
+          "contiguous_cleared": 13,
+          "leaks": 4,
+          "damage_taken": 100,
+          "reward_totals": {
+            "kills": 2.1899999999999977,
+            "waves": 12.954545454545455,
+            "damage": -2,
+            "invalid": -47.59999999999943,
+            "terminal": -10
+          },
+          "game_time": 961.00000000015,
+          "completed": 13,
+          "kills": 219,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        }
+      ]
+    },
+    "random": {
+      "summary": {
+        "episodes": 10,
+        "mean_cleared_waves": 1.0,
+        "mean_contiguous_cleared": 1.0,
+        "mean_leaks": 13.2,
+        "mean_damage_taken": 101.6,
+        "survivals_300": 0,
+        "mean_reward": -17.092777777777776,
+        "mean_game_time": 115.40999999999767,
+        "mean_completed": 1.0,
+        "mean_kills": 4.2,
+        "mean_hp": 0.0,
+        "std_reward": 2.1500675987076243,
+        "invalid_action_rate": 0.9352331606217616,
+        "horizon_survivals": 0,
+        "target_successes": 0
+      },
+      "episodes": [
+        {
+          "python_seed": 93000,
+          "game_seed": 4025918302,
+          "reward": -18.198888888888877,
+          "steps": 134,
+          "invalid_actions": 127,
+          "survived_300": false,
+          "cleared_waves": 1,
+          "contiguous_cleared": 1,
+          "leaks": 13,
+          "damage_taken": 100,
+          "reward_totals": {
+            "kills": 0.04,
+            "waves": 0.1111111111111111,
+            "damage": -1.9999999999999998,
+            "invalid": -6.349999999999985,
+            "terminal": -10
+          },
+          "game_time": 133.89999999999668,
+          "completed": 1,
+          "kills": 4,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93001,
+          "game_seed": 2138642245,
+          "reward": -17.94999999999999,
+          "steps": 125,
+          "invalid_actions": 119,
+          "survived_300": false,
+          "cleared_waves": 1,
+          "contiguous_cleared": 1,
+          "leaks": 13,
+          "damage_taken": 100,
+          "reward_totals": {
+            "kills": 0,
+            "waves": 0,
+            "damage": -1.9999999999999998,
+            "invalid": -5.949999999999987,
+            "terminal": -10
+          },
+          "game_time": 124.99999999999717,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93002,
+          "game_seed": 3340749059,
+          "reward": -17.24777777777777,
+          "steps": 120,
+          "invalid_actions": 110,
+          "survived_300": false,
+          "cleared_waves": 1,
+          "contiguous_cleared": 1,
+          "leaks": 13,
+          "damage_taken": 100,
+          "reward_totals": {
+            "kills": 0.03,
+            "waves": 0.2222222222222222,
+            "damage": -2,
+            "invalid": -5.4999999999999885,
+            "terminal": -10
+          },
+          "game_time": 119.69999999999747,
+          "completed": 1,
+          "kills": 3,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93003,
+          "game_seed": 2014404895,
+          "reward": -22.106666666666694,
+          "steps": 264,
+          "invalid_actions": 249,
+          "survived_300": false,
+          "cleared_waves": 3,
+          "contiguous_cleared": 3,
+          "leaks": 14,
+          "damage_taken": 108,
+          "reward_totals": {
+            "kills": 0.2700000000000001,
+            "waves": 2.2333333333333334,
+            "damage": -2.1599999999999997,
+            "invalid": -12.450000000000042,
+            "terminal": -10
+          },
+          "game_time": 263.0999999999913,
+          "completed": 3,
+          "kills": 27,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93004,
+          "game_seed": 3730091695,
+          "reward": -15.877777777777775,
+          "steps": 90,
+          "invalid_actions": 83,
+          "survived_300": false,
+          "cleared_waves": 1,
+          "contiguous_cleared": 1,
+          "leaks": 13,
+          "damage_taken": 100,
+          "reward_totals": {
+            "kills": 0.05,
+            "waves": 0.2222222222222222,
+            "damage": -1.9999999999999998,
+            "invalid": -4.149999999999993,
+            "terminal": -10
+          },
+          "game_time": 89.69999999999918,
+          "completed": 1,
+          "kills": 5,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93005,
+          "game_seed": 2830673481,
+          "reward": -14.249999999999998,
+          "steps": 49,
+          "invalid_actions": 45,
+          "survived_300": false,
+          "cleared_waves": 0,
+          "contiguous_cleared": 0,
+          "leaks": 13,
+          "damage_taken": 100,
+          "reward_totals": {
+            "kills": 0,
+            "waves": 0,
+            "damage": -2,
+            "invalid": -2.25,
+            "terminal": -10
+          },
+          "game_time": 48.10000000000041,
+          "completed": 0,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93006,
+          "game_seed": 3926645487,
+          "reward": -17.059999999999995,
+          "steps": 105,
+          "invalid_actions": 98,
+          "survived_300": false,
+          "cleared_waves": 1,
+          "contiguous_cleared": 1,
+          "leaks": 14,
+          "damage_taken": 108,
+          "reward_totals": {
+            "kills": 0,
+            "waves": 0,
+            "damage": -2.16,
+            "invalid": -4.899999999999991,
+            "terminal": -10
+          },
+          "game_time": 104.89999999999831,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93007,
+          "game_seed": 1530627394,
+          "reward": -16.37888888888888,
+          "steps": 96,
+          "invalid_actions": 90,
+          "survived_300": false,
+          "cleared_waves": 1,
+          "contiguous_cleared": 1,
+          "leaks": 13,
+          "damage_taken": 100,
+          "reward_totals": {
+            "kills": 0.01,
+            "waves": 0.1111111111111111,
+            "damage": -2,
+            "invalid": -4.499999999999992,
+            "terminal": -10
+          },
+          "game_time": 95.89999999999883,
+          "completed": 1,
+          "kills": 1,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93008,
+          "game_seed": 1987031410,
+          "reward": -17.707777777777768,
+          "steps": 129,
+          "invalid_actions": 119,
+          "survived_300": false,
+          "cleared_waves": 1,
+          "contiguous_cleared": 1,
+          "leaks": 13,
+          "damage_taken": 100,
+          "reward_totals": {
+            "kills": 0.02,
+            "waves": 0.2222222222222222,
+            "damage": -1.9999999999999998,
+            "invalid": -5.949999999999987,
+            "terminal": -10
+          },
+          "game_time": 128.69999999999698,
+          "completed": 1,
+          "kills": 2,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 93009,
+          "game_seed": 1542088637,
+          "reward": -14.149999999999999,
+          "steps": 46,
+          "invalid_actions": 43,
+          "survived_300": false,
+          "cleared_waves": 0,
+          "contiguous_cleared": 0,
+          "leaks": 13,
+          "damage_taken": 100,
+          "reward_totals": {
+            "kills": 0,
+            "waves": 0,
+            "damage": -2,
+            "invalid": -2.1500000000000004,
+            "terminal": -10
+          },
+          "game_time": 45.10000000000037,
+          "completed": 0,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        }
+      ]
+    },
+    "scripted": {
+      "summary": {
+        "episodes": 10,
+        "mean_cleared_waves": 20.0,
+        "mean_contiguous_cleared": 20.0,
+        "mean_leaks": 0.2,
+        "mean_damage_taken": 6.0,
+        "survivals_300": 10,
+        "mean_reward": 33.78133333333352,
+        "mean_game_time": 1117.4300000000792,
+        "mean_completed": 20.0,
+        "mean_kills": 390.8,
+        "mean_hp": 126.0,
+        "std_reward": 0.3860000000000009,
+        "invalid_action_rate": 0.0,
+        "horizon_survivals": 0,
+        "target_successes": 10
+      },
+      "episodes": [
+        {
+          "python_seed": 93000,
+          "game_seed": 4025918302,
+          "reward": 33.91000000000019,
+          "steps": 1098,
+          "invalid_actions": 0,
+          "survived_300": true,
+          "cleared_waves": 20,
+          "contiguous_cleared": 20,
+          "leaks": 0,
+          "damage_taken": 0,
+          "reward_totals": {
+            "kills": 3.9099999999999646,
+            "waves": 20,
+            "damage": 0,
+            "invalid": 0,
+            "terminal": 10
+          },
+          "game_time": 1097.3000000000975,
+          "completed": 20,
+          "kills": 391,
+          "hp": 132,
+          "end_reason": "target_wave"
+        },
+        {
+          "python_seed": 93001,
+          "game_seed": 2138642245,
+          "reward": 33.91000000000018,
+          "steps": 1109,
+          "invalid_actions": 0,
+          "survived_300": true,
+          "cleared_waves": 20,
+          "contiguous_cleared": 20,
+          "leaks": 0,
+          "damage_taken": 0,
+          "reward_totals": {
+            "kills": 3.909999999999966,
+            "waves": 20,
+            "damage": 0,
+            "invalid": 0,
+            "terminal": 10
+          },
+          "game_time": 1108.800000000087,
+          "completed": 20,
+          "kills": 391,
+          "hp": 132,
+          "end_reason": "target_wave"
+        },
+        {
+          "python_seed": 93002,
+          "game_seed": 3340749059,
+          "reward": 33.910000000000196,
+          "steps": 1115,
+          "invalid_actions": 0,
+          "survived_300": true,
+          "cleared_waves": 20,
+          "contiguous_cleared": 20,
+          "leaks": 0,
+          "damage_taken": 0,
+          "reward_totals": {
+            "kills": 3.9099999999999646,
+            "waves": 20,
+            "damage": 0,
+            "invalid": 0,
+            "terminal": 10
+          },
+          "game_time": 1114.400000000082,
+          "completed": 20,
+          "kills": 391,
+          "hp": 132,
+          "end_reason": "target_wave"
+        },
+        {
+          "python_seed": 93003,
+          "game_seed": 2014404895,
+          "reward": 33.910000000000196,
+          "steps": 1111,
+          "invalid_actions": 0,
+          "survived_300": true,
+          "cleared_waves": 20,
+          "contiguous_cleared": 20,
+          "leaks": 0,
+          "damage_taken": 0,
+          "reward_totals": {
+            "kills": 3.9099999999999633,
+            "waves": 20,
+            "damage": 0,
+            "invalid": 0,
+            "terminal": 10
+          },
+          "game_time": 1110.4000000000856,
+          "completed": 20,
+          "kills": 391,
+          "hp": 132,
+          "end_reason": "target_wave"
+        },
+        {
+          "python_seed": 93004,
+          "game_seed": 3730091695,
+          "reward": 33.910000000000196,
+          "steps": 1114,
+          "invalid_actions": 0,
+          "survived_300": true,
+          "cleared_waves": 20,
+          "contiguous_cleared": 20,
+          "leaks": 0,
+          "damage_taken": 0,
+          "reward_totals": {
+            "kills": 3.9099999999999637,
+            "waves": 20,
+            "damage": 0,
+            "invalid": 0,
+            "terminal": 10
+          },
+          "game_time": 1113.5000000000828,
+          "completed": 20,
+          "kills": 391,
+          "hp": 132,
+          "end_reason": "target_wave"
+        },
+        {
+          "python_seed": 93005,
+          "game_seed": 2830673481,
+          "reward": 33.91000000000019,
+          "steps": 1090,
+          "invalid_actions": 0,
+          "survived_300": true,
+          "cleared_waves": 20,
+          "contiguous_cleared": 20,
+          "leaks": 0,
+          "damage_taken": 0,
+          "reward_totals": {
+            "kills": 3.909999999999965,
+            "waves": 20,
+            "damage": 0,
+            "invalid": 0,
+            "terminal": 10
+          },
+          "game_time": 1089.4000000001047,
+          "completed": 20,
+          "kills": 391,
+          "hp": 132,
+          "end_reason": "target_wave"
+        },
+        {
+          "python_seed": 93006,
+          "game_seed": 3926645487,
+          "reward": 32.62333333333352,
+          "steps": 1136,
+          "invalid_actions": 0,
+          "survived_300": true,
+          "cleared_waves": 20,
+          "contiguous_cleared": 20,
+          "leaks": 2,
+          "damage_taken": 60,
+          "reward_totals": {
+            "kills": 3.8899999999999655,
+            "waves": 19.933333333333334,
+            "damage": -1.2,
+            "invalid": 0,
+            "terminal": 10
+          },
+          "game_time": 1135.8000000000625,
+          "completed": 20,
+          "kills": 389,
+          "hp": 72,
+          "end_reason": "target_wave"
+        },
+        {
+          "python_seed": 93007,
+          "game_seed": 1530627394,
+          "reward": 33.91000000000019,
+          "steps": 1107,
+          "invalid_actions": 0,
+          "survived_300": true,
+          "cleared_waves": 20,
+          "contiguous_cleared": 20,
+          "leaks": 0,
+          "damage_taken": 0,
+          "reward_totals": {
+            "kills": 3.9099999999999655,
+            "waves": 20,
+            "damage": 0,
+            "invalid": 0,
+            "terminal": 10
+          },
+          "game_time": 1107.0000000000887,
+          "completed": 20,
+          "kills": 391,
+          "hp": 132,
+          "end_reason": "target_wave"
+        },
+        {
+          "python_seed": 93008,
+          "game_seed": 1987031410,
+          "reward": 33.91000000000018,
+          "steps": 1139,
+          "invalid_actions": 0,
+          "survived_300": true,
+          "cleared_waves": 20,
+          "contiguous_cleared": 20,
+          "leaks": 0,
+          "damage_taken": 0,
+          "reward_totals": {
+            "kills": 3.909999999999966,
+            "waves": 20,
+            "damage": 0,
+            "invalid": 0,
+            "terminal": 10
+          },
+          "game_time": 1138.60000000006,
+          "completed": 20,
+          "kills": 391,
+          "hp": 132,
+          "end_reason": "target_wave"
+        },
+        {
+          "python_seed": 93009,
+          "game_seed": 1542088637,
+          "reward": 33.91000000000019,
+          "steps": 1160,
+          "invalid_actions": 0,
+          "survived_300": true,
+          "cleared_waves": 20,
+          "contiguous_cleared": 20,
+          "leaks": 0,
+          "damage_taken": 0,
+          "reward_totals": {
+            "kills": 3.909999999999965,
+            "waves": 20,
+            "damage": 0,
+            "invalid": 0,
+            "terminal": 10
+          },
+          "game_time": 1159.1000000000413,
+          "completed": 20,
+          "kills": 391,
+          "hp": 132,
+          "end_reason": "target_wave"
+        }
+      ]
+    }
+  },
+  "manifests": {
+    "legacy-g099": {
+      "status": "complete",
+      "created_at_utc": "2026-10-22T12:48:28.263713+00:00",
+      "algorithm": "MaskablePPO",
+      "device": "cpu",
+      "config": {
+        "seed": 42,
+        "total_timesteps": 16384,
+        "torch_threads": 1,
+        "env": {
+          "frame_skip": 10,
+          "max_ticks": 30000,
+          "target_wave": 20,
+          "reward_mode": "legacy"
+        },
+        "ppo": {
+          "n_steps": 256,
+          "batch_size": 64,
+          "n_epochs": 4,
+          "learning_rate": 0.0001,
+          "gamma": 0.99,
+          "ent_coef": 0.003
+        }
+      },
+      "actual_timesteps": 81920,
+      "runtime": {
+        "python": "3.13.16",
+        "numpy": "2.5.4",
+        "gymnasium": "1.4.0",
+        "stable-baselines3": "2.9.0",
+        "sb3-contrib": "2.9.0",
+        "torch": "2.14.1+cpu"
+      },
+      "added_timesteps": 16384,
+      "parent_run": null,
+      "transfer_from": "C:\\Users\\pc\\OneDrive\\문서\\ChatGPT\\tower depense\\github-age-clan\\ml\\runs\\phase3-continued-20261022\\seed-42",
+      "transfer_changes": {
+        "env": {
+          "from": {
+            "frame_skip": 10,
+            "max_ticks": 3000,
+            "target_wave": 0
+          },
+          "to": {
+            "frame_skip": 10,
+            "max_ticks": 30000,
+            "target_wave": 20,
+            "reward_mode": "legacy"
+          }
+        },
+        "ppo": {
+          "from": {
+            "n_steps": 256,
+            "batch_size": 64,
+            "n_epochs": 4,
+            "learning_rate": 0.0003,
+            "gamma": 0.99,
+            "ent_coef": 0.003
+          },
+          "to": {
+            "n_steps": 256,
+            "batch_size": 64,
+            "n_epochs": 4,
+            "learning_rate": 0.0001,
+            "gamma": 0.99,
+            "ent_coef": 0.003
+          }
+        }
+      },
+      "resume_overrides": {},
+      "wall_seconds": 86.1370190999587,
+      "checkpoint_freq": 8192,
+      "model": {
+        "policy": "MlpPolicy",
+        "parameters": 38702,
+        "architecture": "MaskableActorCriticPolicy(\n  (features_extractor): FlattenExtractor(\n    (flatten): Flatten(start_dim=1, end_dim=-1)\n  )\n  (pi_features_extractor): FlattenExtractor(\n    (flatten): Flatten(start_dim=1, end_dim=-1)\n  )\n  (vf_features_extractor): FlattenExtractor(\n    (flatten): Flatten(start_dim=1, end_dim=-1)\n  )\n  (mlp_extractor): MlpExtractor(\n    (policy_net): Sequential(\n      (0): Linear(in_features=148, out_features=64, bias=True)\n      (1): Tanh()\n      (2): Linear(in_features=64, out_features=64, bias=True)\n      (3): Tanh()\n    )\n    (value_net): Sequential(\n      (0): Linear(in_features=148, out_features=64, bias=True)\n      (1): Tanh()\n      (2): Linear(in_features=64, out_features=64, bias=True)\n      (3): Tanh()\n    )\n  )\n  (action_net): Linear(in_features=64, out_features=173, bias=True)\n  (value_net): Linear(in_features=64, out_features=1, bias=True)\n)",
+        "optimizer": "Adam",
+        "clip_range": 0.2,
+        "gae_lambda": 0.95,
+        "vf_coef": 0.5,
+        "gamma": 0.99,
+        "rollout_gamma": 0.99,
+        "learning_rate_schedule": [
+          0.0001,
+          0.0001
+        ],
+        "optimizer_learning_rates": [
+          0.0001
+        ]
+      },
+      "environment": {
+        "version": 1,
+        "actions": [
+          {
+            "name": "wait"
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              0
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              1
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              2
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              3
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              4
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              5
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              6
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              7
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              8
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              9
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              10
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              11
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              12
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              13
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              14
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              15
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              16
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              17
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              18
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              19
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              20
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              21
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              22
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              23
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              24
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              25
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              0
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              1
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              2
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              3
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              4
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              5
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              6
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              7
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              8
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              9
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              10
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              11
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              12
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              13
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              14
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              15
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              16
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              17
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              18
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              19
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              20
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              21
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              22
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              23
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              24
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              25
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              0
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              1
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              2
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              3
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              4
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              5
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              6
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              7
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              8
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              9
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              10
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              11
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              12
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              13
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              14
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              15
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              16
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              17
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              18
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              19
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              20
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              21
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              22
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              23
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              24
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              25
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              0
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              1
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              2
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              3
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              4
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              5
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              6
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              7
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              8
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              9
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              10
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              11
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              12
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              13
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              14
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              15
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              16
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              17
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              18
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              19
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              20
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              21
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              22
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              23
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              24
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              25
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              0
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              1
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              2
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              3
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              4
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              5
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              6
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              7
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              8
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              9
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              10
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              11
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              12
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              13
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              14
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              15
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              16
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              17
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              18
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              19
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              20
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              21
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              22
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              23
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              24
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              25
+            ]
+          },
+          {
+            "name": "hire"
+          },
+          {
+            "name": "hireWoodcutter"
+          },
+          {
+            "name": "upgradeCastle"
+          },
+          {
+            "name": "upgradeTower",
+            "args": [
+              "archer"
+            ]
+          },
+          {
+            "name": "upgradeTower",
+            "args": [
+              "ballista"
+            ]
+          },
+          {
+            "name": "upgradeTower",
+            "args": [
+              "cannon"
+            ]
+          },
+          {
+            "name": "upgradeTower",
+            "args": [
+              "frost"
+            ]
+          },
+          {
+            "name": "upgradeTower",
+            "args": [
+              "storm"
+            ]
+          },
+          {
+            "name": "startWave",
+            "args": [
+              1
+            ]
+          },
+          {
+            "name": "startWave",
+            "args": [
+              2
+            ]
+          },
+          {
+            "name": "sellTower",
+            "pad": 0
+          },
+          {
+            "name": "sellTower",
+            "pad": 1
+          },
+          {
+            "name": "sellTower",
+            "pad": 2
+          },
+          {
+            "name": "sellTower",
+            "pad": 3
+          },
+          {
+            "name": "sellTower",
+            "pad": 4
+          },
+          {
+            "name": "sellTower",
+            "pad": 5
+          },
+          {
+            "name": "sellTower",
+            "pad": 6
+          },
+          {
+            "name": "sellTower",
+            "pad": 7
+          },
+          {
+            "name": "sellTower",
+            "pad": 8
+          },
+          {
+            "name": "sellTower",
+            "pad": 9
+          },
+          {
+            "name": "sellTower",
+            "pad": 10
+          },
+          {
+            "name": "sellTower",
+            "pad": 11
+          },
+          {
+            "name": "sellTower",
+            "pad": 12
+          },
+          {
+            "name": "sellTower",
+            "pad": 13
+          },
+          {
+            "name": "sellTower",
+            "pad": 14
+          },
+          {
+            "name": "sellTower",
+            "pad": 15
+          },
+          {
+            "name": "sellTower",
+            "pad": 16
+          },
+          {
+            "name": "sellTower",
+            "pad": 17
+          },
+          {
+            "name": "sellTower",
+            "pad": 18
+          },
+          {
+            "name": "sellTower",
+            "pad": 19
+          },
+          {
+            "name": "sellTower",
+            "pad": 20
+          },
+          {
+            "name": "sellTower",
+            "pad": 21
+          },
+          {
+            "name": "sellTower",
+            "pad": 22
+          },
+          {
+            "name": "sellTower",
+            "pad": 23
+          },
+          {
+            "name": "sellTower",
+            "pad": 24
+          },
+          {
+            "name": "sellTower",
+            "pad": 25
+          },
+          {
+            "name": "buildLab"
+          },
+          {
+            "name": "researchPotion",
+            "args": [
+              "lightning"
+            ]
+          },
+          {
+            "name": "researchPotion",
+            "args": [
+              "ice"
+            ]
+          },
+          {
+            "name": "potion",
+            "args": [
+              "lightning"
+            ]
+          },
+          {
+            "name": "potion",
+            "args": [
+              "ice"
+            ]
+          },
+          {
+            "name": "repairCastle"
+          }
+        ],
+        "features": [
+          "time",
+          "gold",
+          "crystals",
+          "wood",
+          "hp",
+          "maxHp",
+          "castle",
+          "era",
+          "miners",
+          "population",
+          "wave",
+          "completed",
+          "kills",
+          "activeWaves",
+          "waveClock",
+          "miningClock",
+          "lab",
+          "labBuild",
+          "repairCount",
+          "lightningResearch",
+          "iceResearch",
+          "lightningCooldown",
+          "iceCooldown",
+          "level.archer",
+          "level.ballista",
+          "level.cannon",
+          "level.frost",
+          "level.storm",
+          "pad.0.type",
+          "pad.0.hp",
+          "pad.0.buildRemaining",
+          "pad.0.cooldown",
+          "pad.1.type",
+          "pad.1.hp",
+          "pad.1.buildRemaining",
+          "pad.1.cooldown",
+          "pad.2.type",
+          "pad.2.hp",
+          "pad.2.buildRemaining",
+          "pad.2.cooldown",
+          "pad.3.type",
+          "pad.3.hp",
+          "pad.3.buildRemaining",
+          "pad.3.cooldown",
+          "pad.4.type",
+          "pad.4.hp",
+          "pad.4.buildRemaining",
+          "pad.4.cooldown",
+          "pad.5.type",
+          "pad.5.hp",
+          "pad.5.buildRemaining",
+          "pad.5.cooldown",
+          "pad.6.type",
+          "pad.6.hp",
+          "pad.6.buildRemaining",
+          "pad.6.cooldown",
+          "pad.7.type",
+          "pad.7.hp",
+          "pad.7.buildRemaining",
+          "pad.7.cooldown",
+          "pad.8.type",
+          "pad.8.hp",
+          "pad.8.buildRemaining",
+          "pad.8.cooldown",
+          "pad.9.type",
+          "pad.9.hp",
+          "pad.9.buildRemaining",
+          "pad.9.cooldown",
+          "pad.10.type",
+          "pad.10.hp",
+          "pad.10.buildRemaining",
+          "pad.10.cooldown",
+          "pad.11.type",
+          "pad.11.hp",
+          "pad.11.buildRemaining",
+          "pad.11.cooldown",
+          "pad.12.type",
+          "pad.12.hp",
+          "pad.12.buildRemaining",
+          "pad.12.cooldown",
+          "pad.13.type",
+          "pad.13.hp",
+          "pad.13.buildRemaining",
+          "pad.13.cooldown",
+          "pad.14.type",
+          "pad.14.hp",
+          "pad.14.buildRemaining",
+          "pad.14.cooldown",
+          "pad.15.type",
+          "pad.15.hp",
+          "pad.15.buildRemaining",
+          "pad.15.cooldown",
+          "pad.16.type",
+          "pad.16.hp",
+          "pad.16.buildRemaining",
+          "pad.16.cooldown",
+          "pad.17.type",
+          "pad.17.hp",
+          "pad.17.buildRemaining",
+          "pad.17.cooldown",
+          "pad.18.type",
+          "pad.18.hp",
+          "pad.18.buildRemaining",
+          "pad.18.cooldown",
+          "pad.19.type",
+          "pad.19.hp",
+          "pad.19.buildRemaining",
+          "pad.19.cooldown",
+          "pad.20.type",
+          "pad.20.hp",
+          "pad.20.buildRemaining",
+          "pad.20.cooldown",
+          "pad.21.type",
+          "pad.21.hp",
+          "pad.21.buildRemaining",
+          "pad.21.cooldown",
+          "pad.22.type",
+          "pad.22.hp",
+          "pad.22.buildRemaining",
+          "pad.22.cooldown",
+          "pad.23.type",
+          "pad.23.hp",
+          "pad.23.buildRemaining",
+          "pad.23.cooldown",
+          "pad.24.type",
+          "pad.24.hp",
+          "pad.24.buildRemaining",
+          "pad.24.cooldown",
+          "pad.25.type",
+          "pad.25.hp",
+          "pad.25.buildRemaining",
+          "pad.25.cooldown",
+          "enemyBin.0.count",
+          "enemyBin.0.hp",
+          "enemyBin.1.count",
+          "enemyBin.1.hp",
+          "enemyBin.2.count",
+          "enemyBin.2.hp",
+          "enemyBin.3.count",
+          "enemyBin.3.hp",
+          "enemyBin.4.count",
+          "enemyBin.4.hp",
+          "enemyBin.5.count",
+          "enemyBin.5.hp",
+          "enemyBin.6.count",
+          "enemyBin.6.hp",
+          "enemyBin.7.count",
+          "enemyBin.7.hp"
+        ],
+        "source_sha256": {
+          "public/game/game.js": "e898fc890e431b38919b3c44d4d3310385dbac531cb9a0e2d6a26980735d2081",
+          "public/game/balance.js": "c09e31b76c489e360d185b577d1e1c9dceb1f6fd20524530ca8835b52dc91ec4",
+          "lib/game-engine.js": "53a20c6b6d27ff5a869da32668712b5f86eb207d6d185bcd236b7eefae717440",
+          "lib/trees.js": "9c927c61a3cafb0f6754df270298ce447d443a1303b4c004098cab09b5428366",
+          "ml/bridge.mjs": "216e5be1517507dd690b4267594f2c2ab8841419af746b042324c1308e088540",
+          "ml/env.py": "8dbf01a13702c9445a87c8aee2aa93691cded22632012a9e81753dbfb7edba38"
+        }
+      }
+    },
+    "defense-g099": {
+      "status": "complete",
+      "created_at_utc": "2026-10-22T12:50:10.595034+00:00",
+      "algorithm": "MaskablePPO",
+      "device": "cpu",
+      "config": {
+        "seed": 42,
+        "total_timesteps": 16384,
+        "torch_threads": 1,
+        "env": {
+          "frame_skip": 10,
+          "max_ticks": 30000,
+          "target_wave": 20,
+          "reward_mode": "defense-v1"
+        },
+        "ppo": {
+          "n_steps": 256,
+          "batch_size": 64,
+          "n_epochs": 4,
+          "learning_rate": 0.0001,
+          "gamma": 0.99,
+          "ent_coef": 0.003
+        }
+      },
+      "actual_timesteps": 81920,
+      "runtime": {
+        "python": "3.13.16",
+        "numpy": "2.5.4",
+        "gymnasium": "1.4.0",
+        "stable-baselines3": "2.9.0",
+        "sb3-contrib": "2.9.0",
+        "torch": "2.14.1+cpu"
+      },
+      "added_timesteps": 16384,
+      "parent_run": null,
+      "transfer_from": "C:\\Users\\pc\\OneDrive\\문서\\ChatGPT\\tower depense\\github-age-clan\\ml\\runs\\phase3-continued-20261022\\seed-42",
+      "transfer_changes": {
+        "env": {
+          "from": {
+            "frame_skip": 10,
+            "max_ticks": 3000,
+            "target_wave": 0
+          },
+          "to": {
+            "frame_skip": 10,
+            "max_ticks": 30000,
+            "target_wave": 20,
+            "reward_mode": "defense-v1"
+          }
+        },
+        "ppo": {
+          "from": {
+            "n_steps": 256,
+            "batch_size": 64,
+            "n_epochs": 4,
+            "learning_rate": 0.0003,
+            "gamma": 0.99,
+            "ent_coef": 0.003
+          },
+          "to": {
+            "n_steps": 256,
+            "batch_size": 64,
+            "n_epochs": 4,
+            "learning_rate": 0.0001,
+            "gamma": 0.99,
+            "ent_coef": 0.003
+          }
+        }
+      },
+      "resume_overrides": {},
+      "wall_seconds": 82.19035620003706,
+      "checkpoint_freq": 8192,
+      "model": {
+        "policy": "MlpPolicy",
+        "parameters": 38702,
+        "architecture": "MaskableActorCriticPolicy(\n  (features_extractor): FlattenExtractor(\n    (flatten): Flatten(start_dim=1, end_dim=-1)\n  )\n  (pi_features_extractor): FlattenExtractor(\n    (flatten): Flatten(start_dim=1, end_dim=-1)\n  )\n  (vf_features_extractor): FlattenExtractor(\n    (flatten): Flatten(start_dim=1, end_dim=-1)\n  )\n  (mlp_extractor): MlpExtractor(\n    (policy_net): Sequential(\n      (0): Linear(in_features=148, out_features=64, bias=True)\n      (1): Tanh()\n      (2): Linear(in_features=64, out_features=64, bias=True)\n      (3): Tanh()\n    )\n    (value_net): Sequential(\n      (0): Linear(in_features=148, out_features=64, bias=True)\n      (1): Tanh()\n      (2): Linear(in_features=64, out_features=64, bias=True)\n      (3): Tanh()\n    )\n  )\n  (action_net): Linear(in_features=64, out_features=173, bias=True)\n  (value_net): Linear(in_features=64, out_features=1, bias=True)\n)",
+        "optimizer": "Adam",
+        "clip_range": 0.2,
+        "gae_lambda": 0.95,
+        "vf_coef": 0.5,
+        "gamma": 0.99,
+        "rollout_gamma": 0.99,
+        "learning_rate_schedule": [
+          0.0001,
+          0.0001
+        ],
+        "optimizer_learning_rates": [
+          0.0001
+        ]
+      },
+      "environment": {
+        "version": 1,
+        "actions": [
+          {
+            "name": "wait"
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              0
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              1
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              2
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              3
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              4
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              5
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              6
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              7
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              8
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              9
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              10
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              11
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              12
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              13
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              14
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              15
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              16
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              17
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              18
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              19
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              20
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              21
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              22
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              23
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              24
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              25
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              0
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              1
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              2
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              3
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              4
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              5
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              6
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              7
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              8
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              9
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              10
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              11
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              12
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              13
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              14
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              15
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              16
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              17
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              18
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              19
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              20
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              21
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              22
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              23
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              24
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              25
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              0
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              1
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              2
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              3
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              4
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              5
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              6
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              7
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              8
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              9
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              10
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              11
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              12
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              13
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              14
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              15
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              16
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              17
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              18
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              19
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              20
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              21
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              22
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              23
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              24
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              25
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              0
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              1
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              2
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              3
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              4
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              5
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              6
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              7
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              8
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              9
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              10
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              11
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              12
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              13
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              14
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              15
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              16
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              17
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              18
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              19
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              20
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              21
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              22
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              23
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              24
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              25
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              0
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              1
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              2
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              3
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              4
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              5
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              6
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              7
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              8
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              9
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              10
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              11
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              12
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              13
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              14
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              15
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              16
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              17
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              18
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              19
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              20
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              21
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              22
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              23
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              24
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              25
+            ]
+          },
+          {
+            "name": "hire"
+          },
+          {
+            "name": "hireWoodcutter"
+          },
+          {
+            "name": "upgradeCastle"
+          },
+          {
+            "name": "upgradeTower",
+            "args": [
+              "archer"
+            ]
+          },
+          {
+            "name": "upgradeTower",
+            "args": [
+              "ballista"
+            ]
+          },
+          {
+            "name": "upgradeTower",
+            "args": [
+              "cannon"
+            ]
+          },
+          {
+            "name": "upgradeTower",
+            "args": [
+              "frost"
+            ]
+          },
+          {
+            "name": "upgradeTower",
+            "args": [
+              "storm"
+            ]
+          },
+          {
+            "name": "startWave",
+            "args": [
+              1
+            ]
+          },
+          {
+            "name": "startWave",
+            "args": [
+              2
+            ]
+          },
+          {
+            "name": "sellTower",
+            "pad": 0
+          },
+          {
+            "name": "sellTower",
+            "pad": 1
+          },
+          {
+            "name": "sellTower",
+            "pad": 2
+          },
+          {
+            "name": "sellTower",
+            "pad": 3
+          },
+          {
+            "name": "sellTower",
+            "pad": 4
+          },
+          {
+            "name": "sellTower",
+            "pad": 5
+          },
+          {
+            "name": "sellTower",
+            "pad": 6
+          },
+          {
+            "name": "sellTower",
+            "pad": 7
+          },
+          {
+            "name": "sellTower",
+            "pad": 8
+          },
+          {
+            "name": "sellTower",
+            "pad": 9
+          },
+          {
+            "name": "sellTower",
+            "pad": 10
+          },
+          {
+            "name": "sellTower",
+            "pad": 11
+          },
+          {
+            "name": "sellTower",
+            "pad": 12
+          },
+          {
+            "name": "sellTower",
+            "pad": 13
+          },
+          {
+            "name": "sellTower",
+            "pad": 14
+          },
+          {
+            "name": "sellTower",
+            "pad": 15
+          },
+          {
+            "name": "sellTower",
+            "pad": 16
+          },
+          {
+            "name": "sellTower",
+            "pad": 17
+          },
+          {
+            "name": "sellTower",
+            "pad": 18
+          },
+          {
+            "name": "sellTower",
+            "pad": 19
+          },
+          {
+            "name": "sellTower",
+            "pad": 20
+          },
+          {
+            "name": "sellTower",
+            "pad": 21
+          },
+          {
+            "name": "sellTower",
+            "pad": 22
+          },
+          {
+            "name": "sellTower",
+            "pad": 23
+          },
+          {
+            "name": "sellTower",
+            "pad": 24
+          },
+          {
+            "name": "sellTower",
+            "pad": 25
+          },
+          {
+            "name": "buildLab"
+          },
+          {
+            "name": "researchPotion",
+            "args": [
+              "lightning"
+            ]
+          },
+          {
+            "name": "researchPotion",
+            "args": [
+              "ice"
+            ]
+          },
+          {
+            "name": "potion",
+            "args": [
+              "lightning"
+            ]
+          },
+          {
+            "name": "potion",
+            "args": [
+              "ice"
+            ]
+          },
+          {
+            "name": "repairCastle"
+          }
+        ],
+        "features": [
+          "time",
+          "gold",
+          "crystals",
+          "wood",
+          "hp",
+          "maxHp",
+          "castle",
+          "era",
+          "miners",
+          "population",
+          "wave",
+          "completed",
+          "kills",
+          "activeWaves",
+          "waveClock",
+          "miningClock",
+          "lab",
+          "labBuild",
+          "repairCount",
+          "lightningResearch",
+          "iceResearch",
+          "lightningCooldown",
+          "iceCooldown",
+          "level.archer",
+          "level.ballista",
+          "level.cannon",
+          "level.frost",
+          "level.storm",
+          "pad.0.type",
+          "pad.0.hp",
+          "pad.0.buildRemaining",
+          "pad.0.cooldown",
+          "pad.1.type",
+          "pad.1.hp",
+          "pad.1.buildRemaining",
+          "pad.1.cooldown",
+          "pad.2.type",
+          "pad.2.hp",
+          "pad.2.buildRemaining",
+          "pad.2.cooldown",
+          "pad.3.type",
+          "pad.3.hp",
+          "pad.3.buildRemaining",
+          "pad.3.cooldown",
+          "pad.4.type",
+          "pad.4.hp",
+          "pad.4.buildRemaining",
+          "pad.4.cooldown",
+          "pad.5.type",
+          "pad.5.hp",
+          "pad.5.buildRemaining",
+          "pad.5.cooldown",
+          "pad.6.type",
+          "pad.6.hp",
+          "pad.6.buildRemaining",
+          "pad.6.cooldown",
+          "pad.7.type",
+          "pad.7.hp",
+          "pad.7.buildRemaining",
+          "pad.7.cooldown",
+          "pad.8.type",
+          "pad.8.hp",
+          "pad.8.buildRemaining",
+          "pad.8.cooldown",
+          "pad.9.type",
+          "pad.9.hp",
+          "pad.9.buildRemaining",
+          "pad.9.cooldown",
+          "pad.10.type",
+          "pad.10.hp",
+          "pad.10.buildRemaining",
+          "pad.10.cooldown",
+          "pad.11.type",
+          "pad.11.hp",
+          "pad.11.buildRemaining",
+          "pad.11.cooldown",
+          "pad.12.type",
+          "pad.12.hp",
+          "pad.12.buildRemaining",
+          "pad.12.cooldown",
+          "pad.13.type",
+          "pad.13.hp",
+          "pad.13.buildRemaining",
+          "pad.13.cooldown",
+          "pad.14.type",
+          "pad.14.hp",
+          "pad.14.buildRemaining",
+          "pad.14.cooldown",
+          "pad.15.type",
+          "pad.15.hp",
+          "pad.15.buildRemaining",
+          "pad.15.cooldown",
+          "pad.16.type",
+          "pad.16.hp",
+          "pad.16.buildRemaining",
+          "pad.16.cooldown",
+          "pad.17.type",
+          "pad.17.hp",
+          "pad.17.buildRemaining",
+          "pad.17.cooldown",
+          "pad.18.type",
+          "pad.18.hp",
+          "pad.18.buildRemaining",
+          "pad.18.cooldown",
+          "pad.19.type",
+          "pad.19.hp",
+          "pad.19.buildRemaining",
+          "pad.19.cooldown",
+          "pad.20.type",
+          "pad.20.hp",
+          "pad.20.buildRemaining",
+          "pad.20.cooldown",
+          "pad.21.type",
+          "pad.21.hp",
+          "pad.21.buildRemaining",
+          "pad.21.cooldown",
+          "pad.22.type",
+          "pad.22.hp",
+          "pad.22.buildRemaining",
+          "pad.22.cooldown",
+          "pad.23.type",
+          "pad.23.hp",
+          "pad.23.buildRemaining",
+          "pad.23.cooldown",
+          "pad.24.type",
+          "pad.24.hp",
+          "pad.24.buildRemaining",
+          "pad.24.cooldown",
+          "pad.25.type",
+          "pad.25.hp",
+          "pad.25.buildRemaining",
+          "pad.25.cooldown",
+          "enemyBin.0.count",
+          "enemyBin.0.hp",
+          "enemyBin.1.count",
+          "enemyBin.1.hp",
+          "enemyBin.2.count",
+          "enemyBin.2.hp",
+          "enemyBin.3.count",
+          "enemyBin.3.hp",
+          "enemyBin.4.count",
+          "enemyBin.4.hp",
+          "enemyBin.5.count",
+          "enemyBin.5.hp",
+          "enemyBin.6.count",
+          "enemyBin.6.hp",
+          "enemyBin.7.count",
+          "enemyBin.7.hp"
+        ],
+        "source_sha256": {
+          "public/game/game.js": "e898fc890e431b38919b3c44d4d3310385dbac531cb9a0e2d6a26980735d2081",
+          "public/game/balance.js": "c09e31b76c489e360d185b577d1e1c9dceb1f6fd20524530ca8835b52dc91ec4",
+          "lib/game-engine.js": "53a20c6b6d27ff5a869da32668712b5f86eb207d6d185bcd236b7eefae717440",
+          "lib/trees.js": "9c927c61a3cafb0f6754df270298ce447d443a1303b4c004098cab09b5428366",
+          "ml/bridge.mjs": "216e5be1517507dd690b4267594f2c2ab8841419af746b042324c1308e088540",
+          "ml/env.py": "8dbf01a13702c9445a87c8aee2aa93691cded22632012a9e81753dbfb7edba38"
+        }
+      }
+    },
+    "defense-g0999": {
+      "status": "complete",
+      "created_at_utc": "2026-10-22T12:51:57.415542+00:00",
+      "algorithm": "MaskablePPO",
+      "device": "cpu",
+      "config": {
+        "seed": 42,
+        "total_timesteps": 16384,
+        "torch_threads": 1,
+        "env": {
+          "frame_skip": 10,
+          "max_ticks": 30000,
+          "target_wave": 20,
+          "reward_mode": "defense-v1"
+        },
+        "ppo": {
+          "n_steps": 256,
+          "batch_size": 64,
+          "n_epochs": 4,
+          "learning_rate": 0.0001,
+          "gamma": 0.999,
+          "ent_coef": 0.003
+        }
+      },
+      "actual_timesteps": 81920,
+      "runtime": {
+        "python": "3.13.16",
+        "numpy": "2.5.4",
+        "gymnasium": "1.4.0",
+        "stable-baselines3": "2.9.0",
+        "sb3-contrib": "2.9.0",
+        "torch": "2.14.1+cpu"
+      },
+      "added_timesteps": 16384,
+      "parent_run": null,
+      "transfer_from": "C:\\Users\\pc\\OneDrive\\문서\\ChatGPT\\tower depense\\github-age-clan\\ml\\runs\\phase3-continued-20261022\\seed-42",
+      "transfer_changes": {
+        "env": {
+          "from": {
+            "frame_skip": 10,
+            "max_ticks": 3000,
+            "target_wave": 0
+          },
+          "to": {
+            "frame_skip": 10,
+            "max_ticks": 30000,
+            "target_wave": 20,
+            "reward_mode": "defense-v1"
+          }
+        },
+        "ppo": {
+          "from": {
+            "n_steps": 256,
+            "batch_size": 64,
+            "n_epochs": 4,
+            "learning_rate": 0.0003,
+            "gamma": 0.99,
+            "ent_coef": 0.003
+          },
+          "to": {
+            "n_steps": 256,
+            "batch_size": 64,
+            "n_epochs": 4,
+            "learning_rate": 0.0001,
+            "gamma": 0.999,
+            "ent_coef": 0.003
+          }
+        }
+      },
+      "resume_overrides": {},
+      "wall_seconds": 79.04919950000476,
+      "checkpoint_freq": 8192,
+      "model": {
+        "policy": "MlpPolicy",
+        "parameters": 38702,
+        "architecture": "MaskableActorCriticPolicy(\n  (features_extractor): FlattenExtractor(\n    (flatten): Flatten(start_dim=1, end_dim=-1)\n  )\n  (pi_features_extractor): FlattenExtractor(\n    (flatten): Flatten(start_dim=1, end_dim=-1)\n  )\n  (vf_features_extractor): FlattenExtractor(\n    (flatten): Flatten(start_dim=1, end_dim=-1)\n  )\n  (mlp_extractor): MlpExtractor(\n    (policy_net): Sequential(\n      (0): Linear(in_features=148, out_features=64, bias=True)\n      (1): Tanh()\n      (2): Linear(in_features=64, out_features=64, bias=True)\n      (3): Tanh()\n    )\n    (value_net): Sequential(\n      (0): Linear(in_features=148, out_features=64, bias=True)\n      (1): Tanh()\n      (2): Linear(in_features=64, out_features=64, bias=True)\n      (3): Tanh()\n    )\n  )\n  (action_net): Linear(in_features=64, out_features=173, bias=True)\n  (value_net): Linear(in_features=64, out_features=1, bias=True)\n)",
+        "optimizer": "Adam",
+        "clip_range": 0.2,
+        "gae_lambda": 0.95,
+        "vf_coef": 0.5,
+        "gamma": 0.999,
+        "rollout_gamma": 0.999,
+        "learning_rate_schedule": [
+          0.0001,
+          0.0001
+        ],
+        "optimizer_learning_rates": [
+          0.0001
+        ]
+      },
+      "environment": {
+        "version": 1,
+        "actions": [
+          {
+            "name": "wait"
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              0
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              1
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              2
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              3
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              4
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              5
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              6
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              7
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              8
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              9
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              10
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              11
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              12
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              13
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              14
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              15
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              16
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              17
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              18
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              19
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              20
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              21
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              22
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              23
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              24
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "archer",
+              25
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              0
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              1
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              2
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              3
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              4
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              5
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              6
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              7
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              8
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              9
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              10
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              11
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              12
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              13
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              14
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              15
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              16
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              17
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              18
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              19
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              20
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              21
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              22
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              23
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              24
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "ballista",
+              25
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              0
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              1
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              2
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              3
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              4
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              5
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              6
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              7
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              8
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              9
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              10
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              11
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              12
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              13
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              14
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              15
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              16
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              17
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              18
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              19
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              20
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              21
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              22
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              23
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              24
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "cannon",
+              25
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              0
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              1
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              2
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              3
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              4
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              5
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              6
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              7
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              8
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              9
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              10
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              11
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              12
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              13
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              14
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              15
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              16
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              17
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              18
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              19
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              20
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              21
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              22
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              23
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              24
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "frost",
+              25
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              0
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              1
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              2
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              3
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              4
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              5
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              6
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              7
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              8
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              9
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              10
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              11
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              12
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              13
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              14
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              15
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              16
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              17
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              18
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              19
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              20
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              21
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              22
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              23
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              24
+            ]
+          },
+          {
+            "name": "build",
+            "args": [
+              "storm",
+              25
+            ]
+          },
+          {
+            "name": "hire"
+          },
+          {
+            "name": "hireWoodcutter"
+          },
+          {
+            "name": "upgradeCastle"
+          },
+          {
+            "name": "upgradeTower",
+            "args": [
+              "archer"
+            ]
+          },
+          {
+            "name": "upgradeTower",
+            "args": [
+              "ballista"
+            ]
+          },
+          {
+            "name": "upgradeTower",
+            "args": [
+              "cannon"
+            ]
+          },
+          {
+            "name": "upgradeTower",
+            "args": [
+              "frost"
+            ]
+          },
+          {
+            "name": "upgradeTower",
+            "args": [
+              "storm"
+            ]
+          },
+          {
+            "name": "startWave",
+            "args": [
+              1
+            ]
+          },
+          {
+            "name": "startWave",
+            "args": [
+              2
+            ]
+          },
+          {
+            "name": "sellTower",
+            "pad": 0
+          },
+          {
+            "name": "sellTower",
+            "pad": 1
+          },
+          {
+            "name": "sellTower",
+            "pad": 2
+          },
+          {
+            "name": "sellTower",
+            "pad": 3
+          },
+          {
+            "name": "sellTower",
+            "pad": 4
+          },
+          {
+            "name": "sellTower",
+            "pad": 5
+          },
+          {
+            "name": "sellTower",
+            "pad": 6
+          },
+          {
+            "name": "sellTower",
+            "pad": 7
+          },
+          {
+            "name": "sellTower",
+            "pad": 8
+          },
+          {
+            "name": "sellTower",
+            "pad": 9
+          },
+          {
+            "name": "sellTower",
+            "pad": 10
+          },
+          {
+            "name": "sellTower",
+            "pad": 11
+          },
+          {
+            "name": "sellTower",
+            "pad": 12
+          },
+          {
+            "name": "sellTower",
+            "pad": 13
+          },
+          {
+            "name": "sellTower",
+            "pad": 14
+          },
+          {
+            "name": "sellTower",
+            "pad": 15
+          },
+          {
+            "name": "sellTower",
+            "pad": 16
+          },
+          {
+            "name": "sellTower",
+            "pad": 17
+          },
+          {
+            "name": "sellTower",
+            "pad": 18
+          },
+          {
+            "name": "sellTower",
+            "pad": 19
+          },
+          {
+            "name": "sellTower",
+            "pad": 20
+          },
+          {
+            "name": "sellTower",
+            "pad": 21
+          },
+          {
+            "name": "sellTower",
+            "pad": 22
+          },
+          {
+            "name": "sellTower",
+            "pad": 23
+          },
+          {
+            "name": "sellTower",
+            "pad": 24
+          },
+          {
+            "name": "sellTower",
+            "pad": 25
+          },
+          {
+            "name": "buildLab"
+          },
+          {
+            "name": "researchPotion",
+            "args": [
+              "lightning"
+            ]
+          },
+          {
+            "name": "researchPotion",
+            "args": [
+              "ice"
+            ]
+          },
+          {
+            "name": "potion",
+            "args": [
+              "lightning"
+            ]
+          },
+          {
+            "name": "potion",
+            "args": [
+              "ice"
+            ]
+          },
+          {
+            "name": "repairCastle"
+          }
+        ],
+        "features": [
+          "time",
+          "gold",
+          "crystals",
+          "wood",
+          "hp",
+          "maxHp",
+          "castle",
+          "era",
+          "miners",
+          "population",
+          "wave",
+          "completed",
+          "kills",
+          "activeWaves",
+          "waveClock",
+          "miningClock",
+          "lab",
+          "labBuild",
+          "repairCount",
+          "lightningResearch",
+          "iceResearch",
+          "lightningCooldown",
+          "iceCooldown",
+          "level.archer",
+          "level.ballista",
+          "level.cannon",
+          "level.frost",
+          "level.storm",
+          "pad.0.type",
+          "pad.0.hp",
+          "pad.0.buildRemaining",
+          "pad.0.cooldown",
+          "pad.1.type",
+          "pad.1.hp",
+          "pad.1.buildRemaining",
+          "pad.1.cooldown",
+          "pad.2.type",
+          "pad.2.hp",
+          "pad.2.buildRemaining",
+          "pad.2.cooldown",
+          "pad.3.type",
+          "pad.3.hp",
+          "pad.3.buildRemaining",
+          "pad.3.cooldown",
+          "pad.4.type",
+          "pad.4.hp",
+          "pad.4.buildRemaining",
+          "pad.4.cooldown",
+          "pad.5.type",
+          "pad.5.hp",
+          "pad.5.buildRemaining",
+          "pad.5.cooldown",
+          "pad.6.type",
+          "pad.6.hp",
+          "pad.6.buildRemaining",
+          "pad.6.cooldown",
+          "pad.7.type",
+          "pad.7.hp",
+          "pad.7.buildRemaining",
+          "pad.7.cooldown",
+          "pad.8.type",
+          "pad.8.hp",
+          "pad.8.buildRemaining",
+          "pad.8.cooldown",
+          "pad.9.type",
+          "pad.9.hp",
+          "pad.9.buildRemaining",
+          "pad.9.cooldown",
+          "pad.10.type",
+          "pad.10.hp",
+          "pad.10.buildRemaining",
+          "pad.10.cooldown",
+          "pad.11.type",
+          "pad.11.hp",
+          "pad.11.buildRemaining",
+          "pad.11.cooldown",
+          "pad.12.type",
+          "pad.12.hp",
+          "pad.12.buildRemaining",
+          "pad.12.cooldown",
+          "pad.13.type",
+          "pad.13.hp",
+          "pad.13.buildRemaining",
+          "pad.13.cooldown",
+          "pad.14.type",
+          "pad.14.hp",
+          "pad.14.buildRemaining",
+          "pad.14.cooldown",
+          "pad.15.type",
+          "pad.15.hp",
+          "pad.15.buildRemaining",
+          "pad.15.cooldown",
+          "pad.16.type",
+          "pad.16.hp",
+          "pad.16.buildRemaining",
+          "pad.16.cooldown",
+          "pad.17.type",
+          "pad.17.hp",
+          "pad.17.buildRemaining",
+          "pad.17.cooldown",
+          "pad.18.type",
+          "pad.18.hp",
+          "pad.18.buildRemaining",
+          "pad.18.cooldown",
+          "pad.19.type",
+          "pad.19.hp",
+          "pad.19.buildRemaining",
+          "pad.19.cooldown",
+          "pad.20.type",
+          "pad.20.hp",
+          "pad.20.buildRemaining",
+          "pad.20.cooldown",
+          "pad.21.type",
+          "pad.21.hp",
+          "pad.21.buildRemaining",
+          "pad.21.cooldown",
+          "pad.22.type",
+          "pad.22.hp",
+          "pad.22.buildRemaining",
+          "pad.22.cooldown",
+          "pad.23.type",
+          "pad.23.hp",
+          "pad.23.buildRemaining",
+          "pad.23.cooldown",
+          "pad.24.type",
+          "pad.24.hp",
+          "pad.24.buildRemaining",
+          "pad.24.cooldown",
+          "pad.25.type",
+          "pad.25.hp",
+          "pad.25.buildRemaining",
+          "pad.25.cooldown",
+          "enemyBin.0.count",
+          "enemyBin.0.hp",
+          "enemyBin.1.count",
+          "enemyBin.1.hp",
+          "enemyBin.2.count",
+          "enemyBin.2.hp",
+          "enemyBin.3.count",
+          "enemyBin.3.hp",
+          "enemyBin.4.count",
+          "enemyBin.4.hp",
+          "enemyBin.5.count",
+          "enemyBin.5.hp",
+          "enemyBin.6.count",
+          "enemyBin.6.hp",
+          "enemyBin.7.count",
+          "enemyBin.7.hp"
+        ],
+        "source_sha256": {
+          "public/game/game.js": "e898fc890e431b38919b3c44d4d3310385dbac531cb9a0e2d6a26980735d2081",
+          "public/game/balance.js": "c09e31b76c489e360d185b577d1e1c9dceb1f6fd20524530ca8835b52dc91ec4",
+          "lib/game-engine.js": "53a20c6b6d27ff5a869da32668712b5f86eb207d6d185bcd236b7eefae717440",
+          "lib/trees.js": "9c927c61a3cafb0f6754df270298ce447d443a1303b4c004098cab09b5428366",
+          "ml/bridge.mjs": "216e5be1517507dd690b4267594f2c2ab8841419af746b042324c1308e088540",
+          "ml/env.py": "8dbf01a13702c9445a87c8aee2aa93691cded22632012a9e81753dbfb7edba38"
+        }
+      }
+    }
+  },
+  "selected_candidate": "defense-g099"
+}

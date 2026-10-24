@@ -1,0 +1,1528 @@
+{
+  "variant": "masked",
+  "evaluation_seed_start": 40000,
+  "policies": {
+    "seed-42": {
+      "summary": {
+        "episodes": 20,
+        "mean_reward": -11.879999816417694,
+        "mean_game_time": 136.99999999999648,
+        "mean_completed": 1.0,
+        "mean_kills": 0.0,
+        "mean_hp": 0.0,
+        "std_reward": 0.0,
+        "invalid_action_rate": 0.0,
+        "horizon_survivals": 0,
+        "target_successes": 0
+      },
+      "episodes": [
+        {
+          "python_seed": 40000,
+          "game_seed": 934492691,
+          "reward": -11.879999816417694,
+          "steps": 137,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 5,
+            "0": 128,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "game_time": 136.9999999999965,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40001,
+          "game_seed": 2681485645,
+          "reward": -11.879999816417694,
+          "steps": 137,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 5,
+            "0": 128,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "game_time": 136.9999999999965,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40002,
+          "game_seed": 3475293362,
+          "reward": -11.879999816417694,
+          "steps": 137,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 5,
+            "0": 128,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "game_time": 136.9999999999965,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40003,
+          "game_seed": 4069362161,
+          "reward": -11.879999816417694,
+          "steps": 137,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 5,
+            "0": 128,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "game_time": 136.9999999999965,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40004,
+          "game_seed": 2689782898,
+          "reward": -11.879999816417694,
+          "steps": 137,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 5,
+            "0": 128,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "game_time": 136.9999999999965,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40005,
+          "game_seed": 2014578088,
+          "reward": -11.879999816417694,
+          "steps": 137,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 5,
+            "0": 128,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "game_time": 136.9999999999965,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40006,
+          "game_seed": 4150678509,
+          "reward": -11.879999816417694,
+          "steps": 137,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 5,
+            "0": 128,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "game_time": 136.9999999999965,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40007,
+          "game_seed": 2507652979,
+          "reward": -11.879999816417694,
+          "steps": 137,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 5,
+            "0": 128,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "game_time": 136.9999999999965,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40008,
+          "game_seed": 3607798119,
+          "reward": -11.879999816417694,
+          "steps": 137,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 5,
+            "0": 128,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "game_time": 136.9999999999965,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40009,
+          "game_seed": 1403320125,
+          "reward": -11.879999816417694,
+          "steps": 137,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 5,
+            "0": 128,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "game_time": 136.9999999999965,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40010,
+          "game_seed": 1697386974,
+          "reward": -11.879999816417694,
+          "steps": 137,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 5,
+            "0": 128,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "game_time": 136.9999999999965,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40011,
+          "game_seed": 4191556122,
+          "reward": -11.879999816417694,
+          "steps": 137,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 5,
+            "0": 128,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "game_time": 136.9999999999965,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40012,
+          "game_seed": 805588368,
+          "reward": -11.879999816417694,
+          "steps": 137,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 5,
+            "0": 128,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "game_time": 136.9999999999965,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40013,
+          "game_seed": 1796452242,
+          "reward": -11.879999816417694,
+          "steps": 137,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 5,
+            "0": 128,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "game_time": 136.9999999999965,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40014,
+          "game_seed": 3566173752,
+          "reward": -11.879999816417694,
+          "steps": 137,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 5,
+            "0": 128,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "game_time": 136.9999999999965,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40015,
+          "game_seed": 891923800,
+          "reward": -11.879999816417694,
+          "steps": 137,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 5,
+            "0": 128,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "game_time": 136.9999999999965,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40016,
+          "game_seed": 3743041399,
+          "reward": -11.879999816417694,
+          "steps": 137,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 5,
+            "0": 128,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "game_time": 136.9999999999965,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40017,
+          "game_seed": 1557584943,
+          "reward": -11.879999816417694,
+          "steps": 137,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 5,
+            "0": 128,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "game_time": 136.9999999999965,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40018,
+          "game_seed": 10786447,
+          "reward": -11.879999816417694,
+          "steps": 137,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 5,
+            "0": 128,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "game_time": 136.9999999999965,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40019,
+          "game_seed": 2529669275,
+          "reward": -11.879999816417694,
+          "steps": 137,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 5,
+            "0": 128,
+            "172": 4
+          },
+          "invalid_action_counts": {},
+          "game_time": 136.9999999999965,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        }
+      ],
+      "training_seconds": 178.09080160001758
+    },
+    "seed-43": {
+      "summary": {
+        "episodes": 20,
+        "mean_reward": -11.647999896109104,
+        "mean_game_time": 135.2899999999966,
+        "mean_completed": 1.0,
+        "mean_kills": 0.0,
+        "mean_hp": 0.0,
+        "std_reward": 0.061449164609452975,
+        "invalid_action_rate": 0.0,
+        "horizon_survivals": 0,
+        "target_successes": 0
+      },
+      "episodes": [
+        {
+          "python_seed": 40000,
+          "game_seed": 934492691,
+          "reward": -11.639999896287918,
+          "steps": 136,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 4,
+            "133": 4,
+            "0": 128
+          },
+          "invalid_action_counts": {},
+          "game_time": 135.1999999999966,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40001,
+          "game_seed": 2681485645,
+          "reward": -11.639999896287918,
+          "steps": 136,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 4,
+            "133": 4,
+            "0": 128
+          },
+          "invalid_action_counts": {},
+          "game_time": 135.1999999999966,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40002,
+          "game_seed": 3475293362,
+          "reward": -11.639999896287918,
+          "steps": 136,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 4,
+            "133": 4,
+            "0": 128
+          },
+          "invalid_action_counts": {},
+          "game_time": 135.1999999999966,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40003,
+          "game_seed": 4069362161,
+          "reward": -11.639999896287918,
+          "steps": 136,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 4,
+            "133": 4,
+            "0": 128
+          },
+          "invalid_action_counts": {},
+          "game_time": 135.1999999999966,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40004,
+          "game_seed": 2689782898,
+          "reward": -11.639999896287918,
+          "steps": 136,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 4,
+            "133": 4,
+            "0": 128
+          },
+          "invalid_action_counts": {},
+          "game_time": 135.1999999999966,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40005,
+          "game_seed": 2014578088,
+          "reward": -11.639999896287918,
+          "steps": 136,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 4,
+            "133": 4,
+            "0": 128
+          },
+          "invalid_action_counts": {},
+          "game_time": 135.1999999999966,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40006,
+          "game_seed": 4150678509,
+          "reward": -11.79999989271164,
+          "steps": 137,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 4,
+            "133": 5,
+            "0": 128
+          },
+          "invalid_action_counts": {},
+          "game_time": 136.9999999999965,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40007,
+          "game_seed": 2507652979,
+          "reward": -11.639999896287918,
+          "steps": 136,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 4,
+            "133": 4,
+            "0": 128
+          },
+          "invalid_action_counts": {},
+          "game_time": 135.1999999999966,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40008,
+          "game_seed": 3607798119,
+          "reward": -11.639999896287918,
+          "steps": 136,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 4,
+            "133": 4,
+            "0": 128
+          },
+          "invalid_action_counts": {},
+          "game_time": 135.1999999999966,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40009,
+          "game_seed": 1403320125,
+          "reward": -11.639999896287918,
+          "steps": 136,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 4,
+            "133": 4,
+            "0": 128
+          },
+          "invalid_action_counts": {},
+          "game_time": 135.1999999999966,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40010,
+          "game_seed": 1697386974,
+          "reward": -11.639999896287918,
+          "steps": 136,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 4,
+            "133": 4,
+            "0": 128
+          },
+          "invalid_action_counts": {},
+          "game_time": 135.1999999999966,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40011,
+          "game_seed": 4191556122,
+          "reward": -11.639999896287918,
+          "steps": 136,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 4,
+            "133": 4,
+            "0": 128
+          },
+          "invalid_action_counts": {},
+          "game_time": 135.1999999999966,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40012,
+          "game_seed": 805588368,
+          "reward": -11.639999896287918,
+          "steps": 136,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 4,
+            "133": 4,
+            "0": 128
+          },
+          "invalid_action_counts": {},
+          "game_time": 135.1999999999966,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40013,
+          "game_seed": 1796452242,
+          "reward": -11.639999896287918,
+          "steps": 136,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 4,
+            "133": 4,
+            "0": 128
+          },
+          "invalid_action_counts": {},
+          "game_time": 135.1999999999966,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40014,
+          "game_seed": 3566173752,
+          "reward": -11.639999896287918,
+          "steps": 136,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 4,
+            "133": 4,
+            "0": 128
+          },
+          "invalid_action_counts": {},
+          "game_time": 135.1999999999966,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40015,
+          "game_seed": 891923800,
+          "reward": -11.639999896287918,
+          "steps": 136,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 4,
+            "133": 4,
+            "0": 128
+          },
+          "invalid_action_counts": {},
+          "game_time": 135.1999999999966,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40016,
+          "game_seed": 3743041399,
+          "reward": -11.479999899864197,
+          "steps": 134,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 4,
+            "133": 3,
+            "0": 127
+          },
+          "invalid_action_counts": {},
+          "game_time": 133.3999999999967,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40017,
+          "game_seed": 1557584943,
+          "reward": -11.639999896287918,
+          "steps": 136,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 4,
+            "133": 4,
+            "0": 128
+          },
+          "invalid_action_counts": {},
+          "game_time": 135.1999999999966,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40018,
+          "game_seed": 10786447,
+          "reward": -11.79999989271164,
+          "steps": 137,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 4,
+            "133": 5,
+            "0": 128
+          },
+          "invalid_action_counts": {},
+          "game_time": 136.9999999999965,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40019,
+          "game_seed": 2529669275,
+          "reward": -11.639999896287918,
+          "steps": 136,
+          "invalid_actions": 0,
+          "action_counts": {
+            "132": 4,
+            "133": 4,
+            "0": 128
+          },
+          "invalid_action_counts": {},
+          "game_time": 135.1999999999966,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        }
+      ],
+      "training_seconds": 57021.62972369997
+    },
+    "wait": {
+      "summary": {
+        "episodes": 20,
+        "mean_reward": -11.0,
+        "mean_game_time": 124.99999999999719,
+        "mean_completed": 1.0,
+        "mean_kills": 0.0,
+        "mean_hp": 0.0,
+        "std_reward": 0.0,
+        "invalid_action_rate": 0.0,
+        "horizon_survivals": 0,
+        "target_successes": 0
+      },
+      "episodes": [
+        {
+          "python_seed": 40000,
+          "game_seed": 934492691,
+          "reward": -11.0,
+          "steps": 125,
+          "invalid_actions": 0,
+          "game_time": 124.99999999999717,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40001,
+          "game_seed": 2681485645,
+          "reward": -11.0,
+          "steps": 125,
+          "invalid_actions": 0,
+          "game_time": 124.99999999999717,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40002,
+          "game_seed": 3475293362,
+          "reward": -11.0,
+          "steps": 125,
+          "invalid_actions": 0,
+          "game_time": 124.99999999999717,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40003,
+          "game_seed": 4069362161,
+          "reward": -11.0,
+          "steps": 125,
+          "invalid_actions": 0,
+          "game_time": 124.99999999999717,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40004,
+          "game_seed": 2689782898,
+          "reward": -11.0,
+          "steps": 125,
+          "invalid_actions": 0,
+          "game_time": 124.99999999999717,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40005,
+          "game_seed": 2014578088,
+          "reward": -11.0,
+          "steps": 125,
+          "invalid_actions": 0,
+          "game_time": 124.99999999999717,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40006,
+          "game_seed": 4150678509,
+          "reward": -11.0,
+          "steps": 125,
+          "invalid_actions": 0,
+          "game_time": 124.99999999999717,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40007,
+          "game_seed": 2507652979,
+          "reward": -11.0,
+          "steps": 125,
+          "invalid_actions": 0,
+          "game_time": 124.99999999999717,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40008,
+          "game_seed": 3607798119,
+          "reward": -11.0,
+          "steps": 125,
+          "invalid_actions": 0,
+          "game_time": 124.99999999999717,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40009,
+          "game_seed": 1403320125,
+          "reward": -11.0,
+          "steps": 125,
+          "invalid_actions": 0,
+          "game_time": 124.99999999999717,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40010,
+          "game_seed": 1697386974,
+          "reward": -11.0,
+          "steps": 125,
+          "invalid_actions": 0,
+          "game_time": 124.99999999999717,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40011,
+          "game_seed": 4191556122,
+          "reward": -11.0,
+          "steps": 125,
+          "invalid_actions": 0,
+          "game_time": 124.99999999999717,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40012,
+          "game_seed": 805588368,
+          "reward": -11.0,
+          "steps": 125,
+          "invalid_actions": 0,
+          "game_time": 124.99999999999717,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40013,
+          "game_seed": 1796452242,
+          "reward": -11.0,
+          "steps": 125,
+          "invalid_actions": 0,
+          "game_time": 124.99999999999717,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40014,
+          "game_seed": 3566173752,
+          "reward": -11.0,
+          "steps": 125,
+          "invalid_actions": 0,
+          "game_time": 124.99999999999717,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40015,
+          "game_seed": 891923800,
+          "reward": -11.0,
+          "steps": 125,
+          "invalid_actions": 0,
+          "game_time": 124.99999999999717,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40016,
+          "game_seed": 3743041399,
+          "reward": -11.0,
+          "steps": 125,
+          "invalid_actions": 0,
+          "game_time": 124.99999999999717,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40017,
+          "game_seed": 1557584943,
+          "reward": -11.0,
+          "steps": 125,
+          "invalid_actions": 0,
+          "game_time": 124.99999999999717,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40018,
+          "game_seed": 10786447,
+          "reward": -11.0,
+          "steps": 125,
+          "invalid_actions": 0,
+          "game_time": 124.99999999999717,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40019,
+          "game_seed": 2529669275,
+          "reward": -11.0,
+          "steps": 125,
+          "invalid_actions": 0,
+          "game_time": 124.99999999999717,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        }
+      ]
+    },
+    "random": {
+      "summary": {
+        "episodes": 20,
+        "mean_reward": -16.59699999999999,
+        "mean_game_time": 116.89499999999755,
+        "mean_completed": 1.0,
+        "mean_kills": 2.65,
+        "mean_hp": 0.0,
+        "std_reward": 1.1513127290184852,
+        "invalid_action_rate": 0.931827865360034,
+        "horizon_survivals": 0,
+        "target_successes": 0
+      },
+      "episodes": [
+        {
+          "python_seed": 40000,
+          "game_seed": 934492691,
+          "reward": -15.649999999999991,
+          "steps": 97,
+          "invalid_actions": 90,
+          "game_time": 96.89999999999877,
+          "completed": 1,
+          "kills": 1,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40001,
+          "game_seed": 2681485645,
+          "reward": -15.84999999999999,
+          "steps": 104,
+          "invalid_actions": 97,
+          "game_time": 103.09999999999842,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40002,
+          "game_seed": 3475293362,
+          "reward": -17.499999999999986,
+          "steps": 158,
+          "invalid_actions": 145,
+          "game_time": 157.69999999999533,
+          "completed": 2,
+          "kills": 7,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40003,
+          "game_seed": 4069362161,
+          "reward": -13.849999999999998,
+          "steps": 41,
+          "invalid_actions": 37,
+          "game_time": 40.1000000000003,
+          "completed": 0,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40004,
+          "game_seed": 2689782898,
+          "reward": -15.029999999999998,
+          "steps": 85,
+          "invalid_actions": 81,
+          "game_time": 84.29999999999949,
+          "completed": 1,
+          "kills": 2,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40005,
+          "game_seed": 2014578088,
+          "reward": -17.579999999999988,
+          "steps": 136,
+          "invalid_actions": 129,
+          "game_time": 135.1999999999966,
+          "completed": 1,
+          "kills": 3,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40006,
+          "game_seed": 4150678509,
+          "reward": -15.399999999999997,
+          "steps": 73,
+          "invalid_actions": 68,
+          "game_time": 72.60000000000015,
+          "completed": 0,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40007,
+          "game_seed": 2507652979,
+          "reward": -17.44999999999999,
+          "steps": 132,
+          "invalid_actions": 126,
+          "game_time": 131.5999999999968,
+          "completed": 1,
+          "kills": 1,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40008,
+          "game_seed": 3607798119,
+          "reward": -17.67999999999999,
+          "steps": 139,
+          "invalid_actions": 128,
+          "game_time": 138.7999999999964,
+          "completed": 1,
+          "kills": 4,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40009,
+          "game_seed": 1403320125,
+          "reward": -16.65999999999999,
+          "steps": 121,
+          "invalid_actions": 110,
+          "game_time": 120.8999999999974,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40010,
+          "game_seed": 1697386974,
+          "reward": -16.90999999999999,
+          "steps": 127,
+          "invalid_actions": 115,
+          "game_time": 126.79999999999707,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40011,
+          "game_seed": 4191556122,
+          "reward": -17.78999999999999,
+          "steps": 134,
+          "invalid_actions": 128,
+          "game_time": 133.3999999999967,
+          "completed": 1,
+          "kills": 1,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40012,
+          "game_seed": 805588368,
+          "reward": -15.519999999999992,
+          "steps": 90,
+          "invalid_actions": 84,
+          "game_time": 89.89999999999917,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40013,
+          "game_seed": 1796452242,
+          "reward": -18.479999999999986,
+          "steps": 178,
+          "invalid_actions": 166,
+          "game_time": 177.2999999999942,
+          "completed": 2,
+          "kills": 14,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40014,
+          "game_seed": 3566173752,
+          "reward": -15.149999999999999,
+          "steps": 68,
+          "invalid_actions": 63,
+          "game_time": 67.10000000000046,
+          "completed": 0,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40015,
+          "game_seed": 891923800,
+          "reward": -16.76999999999999,
+          "steps": 148,
+          "invalid_actions": 138,
+          "game_time": 147.6999999999959,
+          "completed": 2,
+          "kills": 13,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40016,
+          "game_seed": 3743041399,
+          "reward": -16.84999999999999,
+          "steps": 125,
+          "invalid_actions": 117,
+          "game_time": 124.99999999999717,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40017,
+          "game_seed": 1557584943,
+          "reward": -17.579999999999988,
+          "steps": 136,
+          "invalid_actions": 129,
+          "game_time": 135.1999999999966,
+          "completed": 1,
+          "kills": 3,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40018,
+          "game_seed": 10786447,
+          "reward": -17.059999999999988,
+          "steps": 127,
+          "invalid_actions": 118,
+          "game_time": 126.79999999999707,
+          "completed": 1,
+          "kills": 0,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        },
+        {
+          "python_seed": 40019,
+          "game_seed": 2529669275,
+          "reward": -17.179999999999993,
+          "steps": 128,
+          "invalid_actions": 118,
+          "game_time": 127.49999999999703,
+          "completed": 1,
+          "kills": 4,
+          "hp": 0,
+          "end_reason": "castle_destroyed"
+        }
+      ]
+    },
+    "scripted": {
+      "summary": {
+        "episodes": 20,
+        "mean_reward": 6.689999999999991,
+        "mean_game_time": 299.9999999999998,
+        "mean_completed": 6.0,
+        "mean_kills": 69.0,
+        "mean_hp": 132.0,
+        "std_reward": 6.586907452451086e-16,
+        "invalid_action_rate": 0.0,
+        "horizon_survivals": 20,
+        "target_successes": 0
+      },
+      "episodes": [
+        {
+          "python_seed": 40000,
+          "game_seed": 934492691,
+          "reward": 6.68999999999999,
+          "steps": 300,
+          "invalid_actions": 0,
+          "game_time": 299.9999999999997,
+          "completed": 6,
+          "kills": 69,
+          "hp": 132,
+          "end_reason": "time_limit"
+        },
+        {
+          "python_seed": 40001,
+          "game_seed": 2681485645,
+          "reward": 6.689999999999991,
+          "steps": 300,
+          "invalid_actions": 0,
+          "game_time": 299.9999999999997,
+          "completed": 6,
+          "kills": 69,
+          "hp": 132,
+          "end_reason": "time_limit"
+        },
+        {
+          "python_seed": 40002,
+          "game_seed": 3475293362,
+          "reward": 6.689999999999991,
+          "steps": 300,
+          "invalid_actions": 0,
+          "game_time": 299.9999999999997,
+          "completed": 6,
+          "kills": 69,
+          "hp": 132,
+          "end_reason": "time_limit"
+        },
+        {
+          "python_seed": 40003,
+          "game_seed": 4069362161,
+          "reward": 6.68999999999999,
+          "steps": 300,
+          "invalid_actions": 0,
+          "game_time": 299.9999999999997,
+          "completed": 6,
+          "kills": 69,
+          "hp": 132,
+          "end_reason": "time_limit"
+        },
+        {
+          "python_seed": 40004,
+          "game_seed": 2689782898,
+          "reward": 6.689999999999991,
+          "steps": 300,
+          "invalid_actions": 0,
+          "game_time": 299.9999999999997,
+          "completed": 6,
+          "kills": 69,
+          "hp": 132,
+          "end_reason": "time_limit"
+        },
+        {
+          "python_seed": 40005,
+          "game_seed": 2014578088,
+          "reward": 6.689999999999991,
+          "steps": 300,
+          "invalid_actions": 0,
+          "game_time": 299.9999999999997,
+          "completed": 6,
+          "kills": 69,
+          "hp": 132,
+          "end_reason": "time_limit"
+        },
+        {
+          "python_seed": 40006,
+          "game_seed": 4150678509,
+          "reward": 6.6899999999999915,
+          "steps": 300,
+          "invalid_actions": 0,
+          "game_time": 299.9999999999997,
+          "completed": 6,
+          "kills": 69,
+          "hp": 132,
+          "end_reason": "time_limit"
+        },
+        {
+          "python_seed": 40007,
+          "game_seed": 2507652979,
+          "reward": 6.689999999999991,
+          "steps": 300,
+          "invalid_actions": 0,
+          "game_time": 299.9999999999997,
+          "completed": 6,
+          "kills": 69,
+          "hp": 132,
+          "end_reason": "time_limit"
+        },
+        {
+          "python_seed": 40008,
+          "game_seed": 3607798119,
+          "reward": 6.68999999999999,
+          "steps": 300,
+          "invalid_actions": 0,
+          "game_time": 299.9999999999997,
+          "completed": 6,
+          "kills": 69,
+          "hp": 132,
+          "end_reason": "time_limit"
+        },
+        {
+          "python_seed": 40009,
+          "game_seed": 1403320125,
+          "reward": 6.68999999999999,
+          "steps": 300,
+          "invalid_actions": 0,
+          "game_time": 299.9999999999997,
+          "completed": 6,
+          "kills": 69,
+          "hp": 132,
+          "end_reason": "time_limit"
+        },
+        {
+          "python_seed": 40010,
+          "game_seed": 1697386974,
+          "reward": 6.689999999999991,
+          "steps": 300,
+          "invalid_actions": 0,
+          "game_time": 299.9999999999997,
+          "completed": 6,
+          "kills": 69,
+          "hp": 132,
+          "end_reason": "time_limit"
+        },
+        {
+          "python_seed": 40011,
+          "game_seed": 4191556122,
+          "reward": 6.689999999999991,
+          "steps": 300,
+          "invalid_actions": 0,
+          "game_time": 299.9999999999997,
+          "completed": 6,
+          "kills": 69,
+          "hp": 132,
+          "end_reason": "time_limit"
+        },
+        {
+          "python_seed": 40012,
+          "game_seed": 805588368,
+          "reward": 6.68999999999999,
+          "steps": 300,
+          "invalid_actions": 0,
+          "game_time": 299.9999999999997,
+          "completed": 6,
+          "kills": 69,
+          "hp": 132,
+          "end_reason": "time_limit"
+        },
+        {
+          "python_seed": 40013,
+          "game_seed": 1796452242,
+          "reward": 6.68999999999999,
+          "steps": 300,
+          "invalid_actions": 0,
+          "game_time": 299.9999999999997,
+          "completed": 6,
+          "kills": 69,
+          "hp": 132,
+          "end_reason": "time_limit"
+        },
+        {
+          "python_seed": 40014,
+          "game_seed": 3566173752,
+          "reward": 6.689999999999991,
+          "steps": 300,
+          "invalid_actions": 0,
+          "game_time": 299.9999999999997,
+          "completed": 6,
+          "kills": 69,
+          "hp": 132,
+          "end_reason": "time_limit"
+        },
+        {
+          "python_seed": 40015,
+          "game_seed": 891923800,
+          "reward": 6.68999999999999,
+          "steps": 300,
+          "invalid_actions": 0,
+          "game_time": 299.9999999999997,
+          "completed": 6,
+          "kills": 69,
+          "hp": 132,
+          "end_reason": "time_limit"
+        },
+        {
+          "python_seed": 40016,
+          "game_seed": 3743041399,
+          "reward": 6.68999999999999,
+          "steps": 300,
+          "invalid_actions": 0,
+          "game_time": 299.9999999999997,
+          "completed": 6,
+          "kills": 69,
+          "hp": 132,
+          "end_reason": "time_limit"
+        },
+        {
+          "python_seed": 40017,
+          "game_seed": 1557584943,
+          "reward": 6.68999999999999,
+          "steps": 300,
+          "invalid_actions": 0,
+          "game_time": 299.9999999999997,
+          "completed": 6,
+          "kills": 69,
+          "hp": 132,
+          "end_reason": "time_limit"
+        },
+        {
+          "python_seed": 40018,
+          "game_seed": 10786447,
+          "reward": 6.6899999999999915,
+          "steps": 300,
+          "invalid_actions": 0,
+          "game_time": 299.9999999999997,
+          "completed": 6,
+          "kills": 69,
+          "hp": 132,
+          "end_reason": "time_limit"
+        },
+        {
+          "python_seed": 40019,
+          "game_seed": 2529669275,
+          "reward": 6.689999999999991,
+          "steps": 300,
+          "invalid_actions": 0,
+          "game_time": 299.9999999999997,
+          "completed": 6,
+          "kills": 69,
+          "hp": 132,
+          "end_reason": "time_limit"
+        }
+      ]
+    }
+  }
+}

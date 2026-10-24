@@ -1,0 +1,13 @@
+{
+  "selected": "armor-020",
+  "source_sha256": {
+    "public/game/game.js": "23297e81191913f85acf0b261444d31792f4880c8b32ef67c679aa2e77229a44",
+    "public/game/balance.js": "d8e2e75dfd581eb652d2152351cc9f212de1fe1793c1139a515f1f4324c6c280",
+    "lib/game-engine.js": "0649df13b2d838c350b80ea34ad1f78f6c27c00e08e55c0b996fc6ba14bb11db",
+    "ml/balance/civilization.mjs": "19e6c4dff8150833e28783067940b46dcdad9aba56ba23599c844a24d8c726bf",
+    "ml/balance/fixtures/game-before-civilization.js": "e898fc890e431b38919b3c44d4d3310385dbac531cb9a0e2d6a26980735d2081",
+    "ml/balance/fixtures/balance-before-civilization.js": "c09e31b76c489e360d185b577d1e1c9dceb1f6fd20524530ca8835b52dc91ec4"
+  },
+  "measured_final_comparison_seconds": 501.54733780000004,
+  "note": "Final fixed-policy comparisons only; exploratory policy pilots excluded"
+}

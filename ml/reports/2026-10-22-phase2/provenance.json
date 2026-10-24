@@ -1,0 +1,266 @@
+{
+  "control-42": {
+    "algorithm": "PPO",
+    "config": {
+      "seed": 42,
+      "total_timesteps": 32768,
+      "torch_threads": 1,
+      "env": {
+        "frame_skip": 10,
+        "max_ticks": 3000,
+        "target_wave": 0
+      },
+      "ppo": {
+        "n_steps": 256,
+        "batch_size": 64,
+        "n_epochs": 4,
+        "learning_rate": 0.0003,
+        "gamma": 0.99,
+        "ent_coef": 0.01
+      }
+    },
+    "runtime": {
+      "python": "3.13.16",
+      "numpy": "2.5.4",
+      "gymnasium": "1.4.0",
+      "stable-baselines3": "2.9.0",
+      "sb3-contrib": "2.9.0",
+      "torch": "2.14.1+cpu"
+    },
+    "actual_timesteps": 32768,
+    "wall_seconds": 87.65714460000163,
+    "source_sha256": {
+      "public/game/game.js": "e898fc890e431b38919b3c44d4d3310385dbac531cb9a0e2d6a26980735d2081",
+      "public/game/balance.js": "c09e31b76c489e360d185b577d1e1c9dceb1f6fd20524530ca8835b52dc91ec4",
+      "lib/game-engine.js": "53a20c6b6d27ff5a869da32668712b5f86eb207d6d185bcd236b7eefae717440",
+      "lib/trees.js": "9c927c61a3cafb0f6754df270298ce447d443a1303b4c004098cab09b5428366",
+      "ml/bridge.mjs": "6a4ea860f0f3b9b31d9687e265266c825eba221d599520e45128f1532649cf69",
+      "ml/env.py": "75810d9d535b7e3bacdbb086d189025737079ebc99dd2f5d75f1c63be2a28a9d"
+    },
+    "parameters": 38702,
+    "artifact_sha256": {
+      "model.zip": "fa2706d52129c67038a2a2faacd736698c50bfd3ef09c0f3f1e18f60b0ee4f5a",
+      "vecnormalize.pkl": "048b9e744bbc1265eddcd7da3053ea1e3e5f1a9612f5253c65ce619898c31799"
+    }
+  },
+  "control-43": {
+    "algorithm": "PPO",
+    "config": {
+      "seed": 43,
+      "total_timesteps": 32768,
+      "torch_threads": 1,
+      "env": {
+        "frame_skip": 10,
+        "max_ticks": 3000,
+        "target_wave": 0
+      },
+      "ppo": {
+        "n_steps": 256,
+        "batch_size": 64,
+        "n_epochs": 4,
+        "learning_rate": 0.0003,
+        "gamma": 0.99,
+        "ent_coef": 0.01
+      }
+    },
+    "runtime": {
+      "python": "3.13.16",
+      "numpy": "2.5.4",
+      "gymnasium": "1.4.0",
+      "stable-baselines3": "2.9.0",
+      "sb3-contrib": "2.9.0",
+      "torch": "2.14.1+cpu"
+    },
+    "actual_timesteps": 32768,
+    "wall_seconds": 81.59272809998947,
+    "source_sha256": {
+      "public/game/game.js": "e898fc890e431b38919b3c44d4d3310385dbac531cb9a0e2d6a26980735d2081",
+      "public/game/balance.js": "c09e31b76c489e360d185b577d1e1c9dceb1f6fd20524530ca8835b52dc91ec4",
+      "lib/game-engine.js": "53a20c6b6d27ff5a869da32668712b5f86eb207d6d185bcd236b7eefae717440",
+      "lib/trees.js": "9c927c61a3cafb0f6754df270298ce447d443a1303b4c004098cab09b5428366",
+      "ml/bridge.mjs": "6a4ea860f0f3b9b31d9687e265266c825eba221d599520e45128f1532649cf69",
+      "ml/env.py": "75810d9d535b7e3bacdbb086d189025737079ebc99dd2f5d75f1c63be2a28a9d"
+    },
+    "parameters": 38702,
+    "artifact_sha256": {
+      "model.zip": "31800d38bed44fd10d090711a9d3d0cbedf6297d3fc57a2e7c1777d603351e0c",
+      "vecnormalize.pkl": "10541208978c8e46b7965ea6d9fa9991e6da9d76dead79bc917333948f286e30"
+    }
+  },
+  "masked-42": {
+    "algorithm": "MaskablePPO",
+    "config": {
+      "seed": 42,
+      "total_timesteps": 32768,
+      "torch_threads": 1,
+      "env": {
+        "frame_skip": 10,
+        "max_ticks": 3000,
+        "target_wave": 0
+      },
+      "ppo": {
+        "n_steps": 256,
+        "batch_size": 64,
+        "n_epochs": 4,
+        "learning_rate": 0.0003,
+        "gamma": 0.99,
+        "ent_coef": 0.01
+      }
+    },
+    "runtime": {
+      "python": "3.13.16",
+      "numpy": "2.5.4",
+      "gymnasium": "1.4.0",
+      "stable-baselines3": "2.9.0",
+      "sb3-contrib": "2.9.0",
+      "torch": "2.14.1+cpu"
+    },
+    "actual_timesteps": 32768,
+    "wall_seconds": 178.09080160001758,
+    "source_sha256": {
+      "public/game/game.js": "e898fc890e431b38919b3c44d4d3310385dbac531cb9a0e2d6a26980735d2081",
+      "public/game/balance.js": "c09e31b76c489e360d185b577d1e1c9dceb1f6fd20524530ca8835b52dc91ec4",
+      "lib/game-engine.js": "53a20c6b6d27ff5a869da32668712b5f86eb207d6d185bcd236b7eefae717440",
+      "lib/trees.js": "9c927c61a3cafb0f6754df270298ce447d443a1303b4c004098cab09b5428366",
+      "ml/bridge.mjs": "6a4ea860f0f3b9b31d9687e265266c825eba221d599520e45128f1532649cf69",
+      "ml/env.py": "75810d9d535b7e3bacdbb086d189025737079ebc99dd2f5d75f1c63be2a28a9d"
+    },
+    "parameters": 38702,
+    "artifact_sha256": {
+      "model.zip": "0708175232563f9b5aae3a06e9ee4cef038c34a10ebabc377dd468826adf2306",
+      "vecnormalize.pkl": "4cb709ec230698e50355a188527ad578a634e744e71c34d28b4771de5a77a61a"
+    }
+  },
+  "masked-43": {
+    "algorithm": "MaskablePPO",
+    "config": {
+      "seed": 43,
+      "total_timesteps": 32768,
+      "torch_threads": 1,
+      "env": {
+        "frame_skip": 10,
+        "max_ticks": 3000,
+        "target_wave": 0
+      },
+      "ppo": {
+        "n_steps": 256,
+        "batch_size": 64,
+        "n_epochs": 4,
+        "learning_rate": 0.0003,
+        "gamma": 0.99,
+        "ent_coef": 0.01
+      }
+    },
+    "runtime": {
+      "python": "3.13.16",
+      "numpy": "2.5.4",
+      "gymnasium": "1.4.0",
+      "stable-baselines3": "2.9.0",
+      "sb3-contrib": "2.9.0",
+      "torch": "2.14.1+cpu"
+    },
+    "actual_timesteps": 32768,
+    "wall_seconds": 57021.62972369997,
+    "source_sha256": {
+      "public/game/game.js": "e898fc890e431b38919b3c44d4d3310385dbac531cb9a0e2d6a26980735d2081",
+      "public/game/balance.js": "c09e31b76c489e360d185b577d1e1c9dceb1f6fd20524530ca8835b52dc91ec4",
+      "lib/game-engine.js": "53a20c6b6d27ff5a869da32668712b5f86eb207d6d185bcd236b7eefae717440",
+      "lib/trees.js": "9c927c61a3cafb0f6754df270298ce447d443a1303b4c004098cab09b5428366",
+      "ml/bridge.mjs": "6a4ea860f0f3b9b31d9687e265266c825eba221d599520e45128f1532649cf69",
+      "ml/env.py": "75810d9d535b7e3bacdbb086d189025737079ebc99dd2f5d75f1c63be2a28a9d"
+    },
+    "parameters": 38702,
+    "artifact_sha256": {
+      "model.zip": "8bd0d4949116ef926bf299209f03b2888d6c19bda8e151ef6cb4361af5b3e36d",
+      "vecnormalize.pkl": "6a940b73dcda8f6b3ef9342e390a3ebce62499ebf436f73af92e45d8eb6787b3"
+    }
+  },
+  "low-entropy-42": {
+    "algorithm": "MaskablePPO",
+    "config": {
+      "seed": 42,
+      "total_timesteps": 32768,
+      "torch_threads": 1,
+      "env": {
+        "frame_skip": 10,
+        "max_ticks": 3000,
+        "target_wave": 0
+      },
+      "ppo": {
+        "n_steps": 256,
+        "batch_size": 64,
+        "n_epochs": 4,
+        "learning_rate": 0.0003,
+        "gamma": 0.99,
+        "ent_coef": 0.003
+      }
+    },
+    "runtime": {
+      "python": "3.13.16",
+      "numpy": "2.5.4",
+      "gymnasium": "1.4.0",
+      "stable-baselines3": "2.9.0",
+      "sb3-contrib": "2.9.0",
+      "torch": "2.14.1+cpu"
+    },
+    "actual_timesteps": 32768,
+    "wall_seconds": 57021.659346,
+    "source_sha256": {
+      "public/game/game.js": "e898fc890e431b38919b3c44d4d3310385dbac531cb9a0e2d6a26980735d2081",
+      "public/game/balance.js": "c09e31b76c489e360d185b577d1e1c9dceb1f6fd20524530ca8835b52dc91ec4",
+      "lib/game-engine.js": "53a20c6b6d27ff5a869da32668712b5f86eb207d6d185bcd236b7eefae717440",
+      "lib/trees.js": "9c927c61a3cafb0f6754df270298ce447d443a1303b4c004098cab09b5428366",
+      "ml/bridge.mjs": "6a4ea860f0f3b9b31d9687e265266c825eba221d599520e45128f1532649cf69",
+      "ml/env.py": "75810d9d535b7e3bacdbb086d189025737079ebc99dd2f5d75f1c63be2a28a9d"
+    },
+    "parameters": 38702,
+    "artifact_sha256": {
+      "model.zip": "afedc46118b7a06a89ebe1c8c589db929a5e31c291a0ccfac9cb90d6f3b253f1",
+      "vecnormalize.pkl": "378a5b61d0719842c64b1ab79ad3ab8f63693c30e876ccc05ac9c5efc08177d6"
+    }
+  },
+  "low-entropy-43": {
+    "algorithm": "MaskablePPO",
+    "config": {
+      "seed": 43,
+      "total_timesteps": 32768,
+      "torch_threads": 1,
+      "env": {
+        "frame_skip": 10,
+        "max_ticks": 3000,
+        "target_wave": 0
+      },
+      "ppo": {
+        "n_steps": 256,
+        "batch_size": 64,
+        "n_epochs": 4,
+        "learning_rate": 0.0003,
+        "gamma": 0.99,
+        "ent_coef": 0.003
+      }
+    },
+    "runtime": {
+      "python": "3.13.16",
+      "numpy": "2.5.4",
+      "gymnasium": "1.4.0",
+      "stable-baselines3": "2.9.0",
+      "sb3-contrib": "2.9.0",
+      "torch": "2.14.1+cpu"
+    },
+    "actual_timesteps": 32768,
+    "wall_seconds": 158.8098667000304,
+    "source_sha256": {
+      "public/game/game.js": "e898fc890e431b38919b3c44d4d3310385dbac531cb9a0e2d6a26980735d2081",
+      "public/game/balance.js": "c09e31b76c489e360d185b577d1e1c9dceb1f6fd20524530ca8835b52dc91ec4",
+      "lib/game-engine.js": "53a20c6b6d27ff5a869da32668712b5f86eb207d6d185bcd236b7eefae717440",
+      "lib/trees.js": "9c927c61a3cafb0f6754df270298ce447d443a1303b4c004098cab09b5428366",
+      "ml/bridge.mjs": "6a4ea860f0f3b9b31d9687e265266c825eba221d599520e45128f1532649cf69",
+      "ml/env.py": "75810d9d535b7e3bacdbb086d189025737079ebc99dd2f5d75f1c63be2a28a9d"
+    },
+    "parameters": 38702,
+    "artifact_sha256": {
+      "model.zip": "635ef2b5c006e96f89a13e28594656fc3bb6e5cb511dac769e47bb8f838b2323",
+      "vecnormalize.pkl": "f75ee92b96fc822fa2c77d6bafa41e3200df9939620fea5568401628bcaac860"
+    }
+  }
+}

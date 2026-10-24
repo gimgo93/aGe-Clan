@@ -1,0 +1,2608 @@
+{
+  "seed-42": {
+    "actual_timesteps": 32768,
+    "wall_seconds": 58.63701050000964,
+    "config": {
+      "seed": 42,
+      "total_timesteps": 32768,
+      "torch_threads": 1,
+      "env": {
+        "frame_skip": 10,
+        "max_ticks": 3000,
+        "target_wave": 0
+      },
+      "ppo": {
+        "n_steps": 256,
+        "batch_size": 64,
+        "n_epochs": 4,
+        "learning_rate": 0.0003,
+        "gamma": 0.99,
+        "ent_coef": 0.01
+      }
+    },
+    "runtime": {
+      "python": "3.13.16",
+      "numpy": "2.5.4",
+      "gymnasium": "1.4.0",
+      "stable-baselines3": "2.9.0",
+      "torch": "2.14.1+cpu"
+    },
+    "model": {
+      "policy": "MlpPolicy",
+      "parameters": 38702,
+      "architecture": "ActorCriticPolicy(\n  (features_extractor): FlattenExtractor(\n    (flatten): Flatten(start_dim=1, end_dim=-1)\n  )\n  (pi_features_extractor): FlattenExtractor(\n    (flatten): Flatten(start_dim=1, end_dim=-1)\n  )\n  (vf_features_extractor): FlattenExtractor(\n    (flatten): Flatten(start_dim=1, end_dim=-1)\n  )\n  (mlp_extractor): MlpExtractor(\n    (policy_net): Sequential(\n      (0): Linear(in_features=148, out_features=64, bias=True)\n      (1): Tanh()\n      (2): Linear(in_features=64, out_features=64, bias=True)\n      (3): Tanh()\n    )\n    (value_net): Sequential(\n      (0): Linear(in_features=148, out_features=64, bias=True)\n      (1): Tanh()\n      (2): Linear(in_features=64, out_features=64, bias=True)\n      (3): Tanh()\n    )\n  )\n  (action_net): Linear(in_features=64, out_features=173, bias=True)\n  (value_net): Linear(in_features=64, out_features=1, bias=True)\n)",
+      "optimizer": "Adam",
+      "clip_range": 0.2,
+      "gae_lambda": 0.95,
+      "vf_coef": 0.5
+    },
+    "environment": {
+      "version": 1,
+      "actions": [
+        {
+          "name": "wait"
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            0
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            1
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            2
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            3
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            4
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            5
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            6
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            7
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            8
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            9
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            10
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            11
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            12
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            13
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            14
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            15
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            16
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            17
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            18
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            19
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            20
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            21
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            22
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            23
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            24
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            25
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            0
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            1
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            2
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            3
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            4
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            5
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            6
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            7
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            8
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            9
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            10
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            11
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            12
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            13
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            14
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            15
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            16
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            17
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            18
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            19
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            20
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            21
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            22
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            23
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            24
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            25
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            0
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            1
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            2
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            3
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            4
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            5
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            6
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            7
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            8
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            9
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            10
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            11
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            12
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            13
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            14
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            15
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            16
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            17
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            18
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            19
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            20
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            21
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            22
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            23
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            24
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            25
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            0
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            1
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            2
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            3
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            4
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            5
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            6
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            7
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            8
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            9
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            10
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            11
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            12
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            13
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            14
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            15
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            16
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            17
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            18
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            19
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            20
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            21
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            22
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            23
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            24
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            25
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            0
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            1
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            2
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            3
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            4
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            5
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            6
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            7
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            8
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            9
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            10
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            11
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            12
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            13
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            14
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            15
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            16
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            17
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            18
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            19
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            20
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            21
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            22
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            23
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            24
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            25
+          ]
+        },
+        {
+          "name": "hire"
+        },
+        {
+          "name": "hireWoodcutter"
+        },
+        {
+          "name": "upgradeCastle"
+        },
+        {
+          "name": "upgradeTower",
+          "args": [
+            "archer"
+          ]
+        },
+        {
+          "name": "upgradeTower",
+          "args": [
+            "ballista"
+          ]
+        },
+        {
+          "name": "upgradeTower",
+          "args": [
+            "cannon"
+          ]
+        },
+        {
+          "name": "upgradeTower",
+          "args": [
+            "frost"
+          ]
+        },
+        {
+          "name": "upgradeTower",
+          "args": [
+            "storm"
+          ]
+        },
+        {
+          "name": "startWave",
+          "args": [
+            1
+          ]
+        },
+        {
+          "name": "startWave",
+          "args": [
+            2
+          ]
+        },
+        {
+          "name": "sellTower",
+          "pad": 0
+        },
+        {
+          "name": "sellTower",
+          "pad": 1
+        },
+        {
+          "name": "sellTower",
+          "pad": 2
+        },
+        {
+          "name": "sellTower",
+          "pad": 3
+        },
+        {
+          "name": "sellTower",
+          "pad": 4
+        },
+        {
+          "name": "sellTower",
+          "pad": 5
+        },
+        {
+          "name": "sellTower",
+          "pad": 6
+        },
+        {
+          "name": "sellTower",
+          "pad": 7
+        },
+        {
+          "name": "sellTower",
+          "pad": 8
+        },
+        {
+          "name": "sellTower",
+          "pad": 9
+        },
+        {
+          "name": "sellTower",
+          "pad": 10
+        },
+        {
+          "name": "sellTower",
+          "pad": 11
+        },
+        {
+          "name": "sellTower",
+          "pad": 12
+        },
+        {
+          "name": "sellTower",
+          "pad": 13
+        },
+        {
+          "name": "sellTower",
+          "pad": 14
+        },
+        {
+          "name": "sellTower",
+          "pad": 15
+        },
+        {
+          "name": "sellTower",
+          "pad": 16
+        },
+        {
+          "name": "sellTower",
+          "pad": 17
+        },
+        {
+          "name": "sellTower",
+          "pad": 18
+        },
+        {
+          "name": "sellTower",
+          "pad": 19
+        },
+        {
+          "name": "sellTower",
+          "pad": 20
+        },
+        {
+          "name": "sellTower",
+          "pad": 21
+        },
+        {
+          "name": "sellTower",
+          "pad": 22
+        },
+        {
+          "name": "sellTower",
+          "pad": 23
+        },
+        {
+          "name": "sellTower",
+          "pad": 24
+        },
+        {
+          "name": "sellTower",
+          "pad": 25
+        },
+        {
+          "name": "buildLab"
+        },
+        {
+          "name": "researchPotion",
+          "args": [
+            "lightning"
+          ]
+        },
+        {
+          "name": "researchPotion",
+          "args": [
+            "ice"
+          ]
+        },
+        {
+          "name": "potion",
+          "args": [
+            "lightning"
+          ]
+        },
+        {
+          "name": "potion",
+          "args": [
+            "ice"
+          ]
+        },
+        {
+          "name": "repairCastle"
+        }
+      ],
+      "features": [
+        "time",
+        "gold",
+        "crystals",
+        "wood",
+        "hp",
+        "maxHp",
+        "castle",
+        "era",
+        "miners",
+        "population",
+        "wave",
+        "completed",
+        "kills",
+        "activeWaves",
+        "waveClock",
+        "miningClock",
+        "lab",
+        "labBuild",
+        "repairCount",
+        "lightningResearch",
+        "iceResearch",
+        "lightningCooldown",
+        "iceCooldown",
+        "level.archer",
+        "level.ballista",
+        "level.cannon",
+        "level.frost",
+        "level.storm",
+        "pad.0.type",
+        "pad.0.hp",
+        "pad.0.buildRemaining",
+        "pad.0.cooldown",
+        "pad.1.type",
+        "pad.1.hp",
+        "pad.1.buildRemaining",
+        "pad.1.cooldown",
+        "pad.2.type",
+        "pad.2.hp",
+        "pad.2.buildRemaining",
+        "pad.2.cooldown",
+        "pad.3.type",
+        "pad.3.hp",
+        "pad.3.buildRemaining",
+        "pad.3.cooldown",
+        "pad.4.type",
+        "pad.4.hp",
+        "pad.4.buildRemaining",
+        "pad.4.cooldown",
+        "pad.5.type",
+        "pad.5.hp",
+        "pad.5.buildRemaining",
+        "pad.5.cooldown",
+        "pad.6.type",
+        "pad.6.hp",
+        "pad.6.buildRemaining",
+        "pad.6.cooldown",
+        "pad.7.type",
+        "pad.7.hp",
+        "pad.7.buildRemaining",
+        "pad.7.cooldown",
+        "pad.8.type",
+        "pad.8.hp",
+        "pad.8.buildRemaining",
+        "pad.8.cooldown",
+        "pad.9.type",
+        "pad.9.hp",
+        "pad.9.buildRemaining",
+        "pad.9.cooldown",
+        "pad.10.type",
+        "pad.10.hp",
+        "pad.10.buildRemaining",
+        "pad.10.cooldown",
+        "pad.11.type",
+        "pad.11.hp",
+        "pad.11.buildRemaining",
+        "pad.11.cooldown",
+        "pad.12.type",
+        "pad.12.hp",
+        "pad.12.buildRemaining",
+        "pad.12.cooldown",
+        "pad.13.type",
+        "pad.13.hp",
+        "pad.13.buildRemaining",
+        "pad.13.cooldown",
+        "pad.14.type",
+        "pad.14.hp",
+        "pad.14.buildRemaining",
+        "pad.14.cooldown",
+        "pad.15.type",
+        "pad.15.hp",
+        "pad.15.buildRemaining",
+        "pad.15.cooldown",
+        "pad.16.type",
+        "pad.16.hp",
+        "pad.16.buildRemaining",
+        "pad.16.cooldown",
+        "pad.17.type",
+        "pad.17.hp",
+        "pad.17.buildRemaining",
+        "pad.17.cooldown",
+        "pad.18.type",
+        "pad.18.hp",
+        "pad.18.buildRemaining",
+        "pad.18.cooldown",
+        "pad.19.type",
+        "pad.19.hp",
+        "pad.19.buildRemaining",
+        "pad.19.cooldown",
+        "pad.20.type",
+        "pad.20.hp",
+        "pad.20.buildRemaining",
+        "pad.20.cooldown",
+        "pad.21.type",
+        "pad.21.hp",
+        "pad.21.buildRemaining",
+        "pad.21.cooldown",
+        "pad.22.type",
+        "pad.22.hp",
+        "pad.22.buildRemaining",
+        "pad.22.cooldown",
+        "pad.23.type",
+        "pad.23.hp",
+        "pad.23.buildRemaining",
+        "pad.23.cooldown",
+        "pad.24.type",
+        "pad.24.hp",
+        "pad.24.buildRemaining",
+        "pad.24.cooldown",
+        "pad.25.type",
+        "pad.25.hp",
+        "pad.25.buildRemaining",
+        "pad.25.cooldown",
+        "enemyBin.0.count",
+        "enemyBin.0.hp",
+        "enemyBin.1.count",
+        "enemyBin.1.hp",
+        "enemyBin.2.count",
+        "enemyBin.2.hp",
+        "enemyBin.3.count",
+        "enemyBin.3.hp",
+        "enemyBin.4.count",
+        "enemyBin.4.hp",
+        "enemyBin.5.count",
+        "enemyBin.5.hp",
+        "enemyBin.6.count",
+        "enemyBin.6.hp",
+        "enemyBin.7.count",
+        "enemyBin.7.hp"
+      ],
+      "source_sha256": {
+        "public/game/game.js": "e898fc890e431b38919b3c44d4d3310385dbac531cb9a0e2d6a26980735d2081",
+        "public/game/balance.js": "c09e31b76c489e360d185b577d1e1c9dceb1f6fd20524530ca8835b52dc91ec4",
+        "lib/game-engine.js": "53a20c6b6d27ff5a869da32668712b5f86eb207d6d185bcd236b7eefae717440",
+        "lib/trees.js": "9c927c61a3cafb0f6754df270298ce447d443a1303b4c004098cab09b5428366",
+        "ml/bridge.mjs": "d9ab9c8e42ef7cd873fe106583595fbd797e1f18d5a497984efc74acbf4ed4cb",
+        "ml/env.py": "7bb940e538e8806496d69eaf9ad890bb15fdd696ec8c14b95dedc9659523a8a4"
+      }
+    },
+    "artifact_sha256": {
+      "model.zip": "bbb11e48b9b5afdab0e1b4b5b942db1454ccc0fdc533e86a111f7cb966d026fc",
+      "vecnormalize.pkl": "048b9e744bbc1265eddcd7da3053ea1e3e5f1a9612f5253c65ce619898c31799"
+    }
+  },
+  "seed-43": {
+    "actual_timesteps": 32768,
+    "wall_seconds": 61.74129679999896,
+    "config": {
+      "seed": 43,
+      "total_timesteps": 32768,
+      "torch_threads": 1,
+      "env": {
+        "frame_skip": 10,
+        "max_ticks": 3000,
+        "target_wave": 0
+      },
+      "ppo": {
+        "n_steps": 256,
+        "batch_size": 64,
+        "n_epochs": 4,
+        "learning_rate": 0.0003,
+        "gamma": 0.99,
+        "ent_coef": 0.01
+      }
+    },
+    "runtime": {
+      "python": "3.13.16",
+      "numpy": "2.5.4",
+      "gymnasium": "1.4.0",
+      "stable-baselines3": "2.9.0",
+      "torch": "2.14.1+cpu"
+    },
+    "model": {
+      "policy": "MlpPolicy",
+      "parameters": 38702,
+      "architecture": "ActorCriticPolicy(\n  (features_extractor): FlattenExtractor(\n    (flatten): Flatten(start_dim=1, end_dim=-1)\n  )\n  (pi_features_extractor): FlattenExtractor(\n    (flatten): Flatten(start_dim=1, end_dim=-1)\n  )\n  (vf_features_extractor): FlattenExtractor(\n    (flatten): Flatten(start_dim=1, end_dim=-1)\n  )\n  (mlp_extractor): MlpExtractor(\n    (policy_net): Sequential(\n      (0): Linear(in_features=148, out_features=64, bias=True)\n      (1): Tanh()\n      (2): Linear(in_features=64, out_features=64, bias=True)\n      (3): Tanh()\n    )\n    (value_net): Sequential(\n      (0): Linear(in_features=148, out_features=64, bias=True)\n      (1): Tanh()\n      (2): Linear(in_features=64, out_features=64, bias=True)\n      (3): Tanh()\n    )\n  )\n  (action_net): Linear(in_features=64, out_features=173, bias=True)\n  (value_net): Linear(in_features=64, out_features=1, bias=True)\n)",
+      "optimizer": "Adam",
+      "clip_range": 0.2,
+      "gae_lambda": 0.95,
+      "vf_coef": 0.5
+    },
+    "environment": {
+      "version": 1,
+      "actions": [
+        {
+          "name": "wait"
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            0
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            1
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            2
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            3
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            4
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            5
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            6
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            7
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            8
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            9
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            10
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            11
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            12
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            13
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            14
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            15
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            16
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            17
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            18
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            19
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            20
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            21
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            22
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            23
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            24
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            25
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            0
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            1
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            2
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            3
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            4
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            5
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            6
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            7
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            8
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            9
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            10
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            11
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            12
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            13
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            14
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            15
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            16
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            17
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            18
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            19
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            20
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            21
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            22
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            23
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            24
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            25
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            0
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            1
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            2
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            3
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            4
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            5
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            6
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            7
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            8
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            9
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            10
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            11
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            12
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            13
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            14
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            15
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            16
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            17
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            18
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            19
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            20
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            21
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            22
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            23
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            24
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            25
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            0
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            1
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            2
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            3
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            4
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            5
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            6
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            7
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            8
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            9
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            10
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            11
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            12
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            13
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            14
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            15
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            16
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            17
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            18
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            19
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            20
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            21
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            22
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            23
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            24
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            25
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            0
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            1
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            2
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            3
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            4
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            5
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            6
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            7
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            8
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            9
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            10
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            11
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            12
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            13
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            14
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            15
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            16
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            17
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            18
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            19
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            20
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            21
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            22
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            23
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            24
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            25
+          ]
+        },
+        {
+          "name": "hire"
+        },
+        {
+          "name": "hireWoodcutter"
+        },
+        {
+          "name": "upgradeCastle"
+        },
+        {
+          "name": "upgradeTower",
+          "args": [
+            "archer"
+          ]
+        },
+        {
+          "name": "upgradeTower",
+          "args": [
+            "ballista"
+          ]
+        },
+        {
+          "name": "upgradeTower",
+          "args": [
+            "cannon"
+          ]
+        },
+        {
+          "name": "upgradeTower",
+          "args": [
+            "frost"
+          ]
+        },
+        {
+          "name": "upgradeTower",
+          "args": [
+            "storm"
+          ]
+        },
+        {
+          "name": "startWave",
+          "args": [
+            1
+          ]
+        },
+        {
+          "name": "startWave",
+          "args": [
+            2
+          ]
+        },
+        {
+          "name": "sellTower",
+          "pad": 0
+        },
+        {
+          "name": "sellTower",
+          "pad": 1
+        },
+        {
+          "name": "sellTower",
+          "pad": 2
+        },
+        {
+          "name": "sellTower",
+          "pad": 3
+        },
+        {
+          "name": "sellTower",
+          "pad": 4
+        },
+        {
+          "name": "sellTower",
+          "pad": 5
+        },
+        {
+          "name": "sellTower",
+          "pad": 6
+        },
+        {
+          "name": "sellTower",
+          "pad": 7
+        },
+        {
+          "name": "sellTower",
+          "pad": 8
+        },
+        {
+          "name": "sellTower",
+          "pad": 9
+        },
+        {
+          "name": "sellTower",
+          "pad": 10
+        },
+        {
+          "name": "sellTower",
+          "pad": 11
+        },
+        {
+          "name": "sellTower",
+          "pad": 12
+        },
+        {
+          "name": "sellTower",
+          "pad": 13
+        },
+        {
+          "name": "sellTower",
+          "pad": 14
+        },
+        {
+          "name": "sellTower",
+          "pad": 15
+        },
+        {
+          "name": "sellTower",
+          "pad": 16
+        },
+        {
+          "name": "sellTower",
+          "pad": 17
+        },
+        {
+          "name": "sellTower",
+          "pad": 18
+        },
+        {
+          "name": "sellTower",
+          "pad": 19
+        },
+        {
+          "name": "sellTower",
+          "pad": 20
+        },
+        {
+          "name": "sellTower",
+          "pad": 21
+        },
+        {
+          "name": "sellTower",
+          "pad": 22
+        },
+        {
+          "name": "sellTower",
+          "pad": 23
+        },
+        {
+          "name": "sellTower",
+          "pad": 24
+        },
+        {
+          "name": "sellTower",
+          "pad": 25
+        },
+        {
+          "name": "buildLab"
+        },
+        {
+          "name": "researchPotion",
+          "args": [
+            "lightning"
+          ]
+        },
+        {
+          "name": "researchPotion",
+          "args": [
+            "ice"
+          ]
+        },
+        {
+          "name": "potion",
+          "args": [
+            "lightning"
+          ]
+        },
+        {
+          "name": "potion",
+          "args": [
+            "ice"
+          ]
+        },
+        {
+          "name": "repairCastle"
+        }
+      ],
+      "features": [
+        "time",
+        "gold",
+        "crystals",
+        "wood",
+        "hp",
+        "maxHp",
+        "castle",
+        "era",
+        "miners",
+        "population",
+        "wave",
+        "completed",
+        "kills",
+        "activeWaves",
+        "waveClock",
+        "miningClock",
+        "lab",
+        "labBuild",
+        "repairCount",
+        "lightningResearch",
+        "iceResearch",
+        "lightningCooldown",
+        "iceCooldown",
+        "level.archer",
+        "level.ballista",
+        "level.cannon",
+        "level.frost",
+        "level.storm",
+        "pad.0.type",
+        "pad.0.hp",
+        "pad.0.buildRemaining",
+        "pad.0.cooldown",
+        "pad.1.type",
+        "pad.1.hp",
+        "pad.1.buildRemaining",
+        "pad.1.cooldown",
+        "pad.2.type",
+        "pad.2.hp",
+        "pad.2.buildRemaining",
+        "pad.2.cooldown",
+        "pad.3.type",
+        "pad.3.hp",
+        "pad.3.buildRemaining",
+        "pad.3.cooldown",
+        "pad.4.type",
+        "pad.4.hp",
+        "pad.4.buildRemaining",
+        "pad.4.cooldown",
+        "pad.5.type",
+        "pad.5.hp",
+        "pad.5.buildRemaining",
+        "pad.5.cooldown",
+        "pad.6.type",
+        "pad.6.hp",
+        "pad.6.buildRemaining",
+        "pad.6.cooldown",
+        "pad.7.type",
+        "pad.7.hp",
+        "pad.7.buildRemaining",
+        "pad.7.cooldown",
+        "pad.8.type",
+        "pad.8.hp",
+        "pad.8.buildRemaining",
+        "pad.8.cooldown",
+        "pad.9.type",
+        "pad.9.hp",
+        "pad.9.buildRemaining",
+        "pad.9.cooldown",
+        "pad.10.type",
+        "pad.10.hp",
+        "pad.10.buildRemaining",
+        "pad.10.cooldown",
+        "pad.11.type",
+        "pad.11.hp",
+        "pad.11.buildRemaining",
+        "pad.11.cooldown",
+        "pad.12.type",
+        "pad.12.hp",
+        "pad.12.buildRemaining",
+        "pad.12.cooldown",
+        "pad.13.type",
+        "pad.13.hp",
+        "pad.13.buildRemaining",
+        "pad.13.cooldown",
+        "pad.14.type",
+        "pad.14.hp",
+        "pad.14.buildRemaining",
+        "pad.14.cooldown",
+        "pad.15.type",
+        "pad.15.hp",
+        "pad.15.buildRemaining",
+        "pad.15.cooldown",
+        "pad.16.type",
+        "pad.16.hp",
+        "pad.16.buildRemaining",
+        "pad.16.cooldown",
+        "pad.17.type",
+        "pad.17.hp",
+        "pad.17.buildRemaining",
+        "pad.17.cooldown",
+        "pad.18.type",
+        "pad.18.hp",
+        "pad.18.buildRemaining",
+        "pad.18.cooldown",
+        "pad.19.type",
+        "pad.19.hp",
+        "pad.19.buildRemaining",
+        "pad.19.cooldown",
+        "pad.20.type",
+        "pad.20.hp",
+        "pad.20.buildRemaining",
+        "pad.20.cooldown",
+        "pad.21.type",
+        "pad.21.hp",
+        "pad.21.buildRemaining",
+        "pad.21.cooldown",
+        "pad.22.type",
+        "pad.22.hp",
+        "pad.22.buildRemaining",
+        "pad.22.cooldown",
+        "pad.23.type",
+        "pad.23.hp",
+        "pad.23.buildRemaining",
+        "pad.23.cooldown",
+        "pad.24.type",
+        "pad.24.hp",
+        "pad.24.buildRemaining",
+        "pad.24.cooldown",
+        "pad.25.type",
+        "pad.25.hp",
+        "pad.25.buildRemaining",
+        "pad.25.cooldown",
+        "enemyBin.0.count",
+        "enemyBin.0.hp",
+        "enemyBin.1.count",
+        "enemyBin.1.hp",
+        "enemyBin.2.count",
+        "enemyBin.2.hp",
+        "enemyBin.3.count",
+        "enemyBin.3.hp",
+        "enemyBin.4.count",
+        "enemyBin.4.hp",
+        "enemyBin.5.count",
+        "enemyBin.5.hp",
+        "enemyBin.6.count",
+        "enemyBin.6.hp",
+        "enemyBin.7.count",
+        "enemyBin.7.hp"
+      ],
+      "source_sha256": {
+        "public/game/game.js": "e898fc890e431b38919b3c44d4d3310385dbac531cb9a0e2d6a26980735d2081",
+        "public/game/balance.js": "c09e31b76c489e360d185b577d1e1c9dceb1f6fd20524530ca8835b52dc91ec4",
+        "lib/game-engine.js": "53a20c6b6d27ff5a869da32668712b5f86eb207d6d185bcd236b7eefae717440",
+        "lib/trees.js": "9c927c61a3cafb0f6754df270298ce447d443a1303b4c004098cab09b5428366",
+        "ml/bridge.mjs": "d9ab9c8e42ef7cd873fe106583595fbd797e1f18d5a497984efc74acbf4ed4cb",
+        "ml/env.py": "7bb940e538e8806496d69eaf9ad890bb15fdd696ec8c14b95dedc9659523a8a4"
+      }
+    },
+    "artifact_sha256": {
+      "model.zip": "de61904fcfbac0c5f1030a5e3aad5ea9924c8a52e31d79e9ba0f258bb77ac39e",
+      "vecnormalize.pkl": "10541208978c8e46b7965ea6d9fa9991e6da9d76dead79bc917333948f286e30"
+    }
+  }
+}

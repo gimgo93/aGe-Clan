@@ -1,0 +1,6 @@
+# Validated local versions. PyTorch/SB3 support validation and starter training.
+numpy==2.5.4
+gymnasium==1.4.0
+stable-baselines3==2.9.0
+sb3-contrib==2.9.0
+torch==2.14.1

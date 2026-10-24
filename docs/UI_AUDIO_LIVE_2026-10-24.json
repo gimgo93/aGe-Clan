@@ -1,0 +1,44 @@
+{
+  "checked_at": "2026-10-24T10:52:58.398Z",
+  "source_commit": "bc29127d986b0a95de6b8cdb0af36600be355407",
+  "site_version": 24,
+  "files": {
+    "index.html": {
+      "status": 200,
+      "sha256": "9408ccb06b08fe4626429355f6815b22db578b3aa6b9d3fc3c604b388ff16ff1"
+    },
+    "audio.js": {
+      "status": 200,
+      "sha256": "c4e4934d76cb870ed670598947e154b9734fb9529eb6582693132dd8c8847137"
+    },
+    "guest-profile.js": {
+      "status": 200,
+      "sha256": "e955ee98b88d5a7bdf3717a1a073c99bf6e6a2bae5000251db2ed7b7c0264f57"
+    },
+    "app.js": {
+      "status": 200,
+      "sha256": "b6678edd9178ba6defebf1e619cc3714499b333e6f93fed7545fd6717283bb99"
+    },
+    "chronicle.js": {
+      "status": 200,
+      "sha256": "85fc5bc8ef502175e035620d1930c3b0e608d144dff1d9acac223e11f3e5d978"
+    },
+    "multiplayer.js": {
+      "status": 200,
+      "sha256": "87f60886b1181ab22bf74a33954991608b6d49e0e9a927b0e7fc7d813ba3f6c9"
+    },
+    "account.js": {
+      "status": 200,
+      "sha256": "71483ea61cffe7813bf80597ca1fcd06b9e055b7c65caa37fff2d7322d6a993b"
+    },
+    "renderer.js": {
+      "status": 200,
+      "sha256": "0d9584e08ae92741ec8c550491340d077a1d28e2cb3c9145f64563acb3d9e4be"
+    },
+    "style.css": {
+      "status": 200,
+      "sha256": "70214de2b38d339aa5e7dfe997cfb8b1ddc81faf87a02337a5fe29cbc930655b"
+    }
+  },
+  "html_note": "Hosting injects runtime script; verified explicit new script/font links instead of exact HTML hash"
+}

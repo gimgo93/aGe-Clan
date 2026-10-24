@@ -37,3 +37,9 @@
 Source: https://opengameart.org/content/lpc-siege-weapons
 Selected license: CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
 Files: assets/ballista.png, assets/ballista-arm.png. Originals retained; rendered with scale and color adjustment.
+
+
+## 2026-10-24 글꼴·효과음
+
+메뉴와 전장 글꼴은 Google Fonts의 Noto Serif KR을 사용하며, 연결할 수 없을 때 바탕/명조 계열 시스템 글꼴로 대체합니다. https://fonts.google.com/specimen/Noto+Serif+KR
+처치·크리스탈·화면 전환·건설·강화·승패 효과음은 audio.js의 Web Audio 합성으로 제작했으며 외부 음원을 사용하지 않습니다.

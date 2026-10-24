@@ -1,0 +1,42 @@
+{
+  "checked_at": "2026-10-24T11:17:41.863Z",
+  "site_version": 25,
+  "source_commit": "0e98b614c55a07ffb964c733cfaf6cdecf7ebc99",
+  "files": {
+    "renderer.js": {
+      "status": 200,
+      "sha256": "3dbc36aad2c8b3cfd68fb3da09d1c3f7d38473991caa1754369799a9c0fc9287",
+      "bytes": 29206
+    },
+    "scene-transition.js": {
+      "status": 200,
+      "sha256": "161d6d8b12b986b26900100d9f6e545306b4a3b5a3e70d79f7d9cae3c800f075",
+      "bytes": 1536
+    },
+    "app.js": {
+      "status": 200,
+      "sha256": "fbda84f66fd83bed67005e5c2cf54cb38f90a1834c1b3a926cc1bdf1959f8815",
+      "bytes": 26852
+    },
+    "style.css": {
+      "status": 200,
+      "sha256": "dc19de4973cb57b876f63beaee6c248c7e99b20aaee51f6810d17900cc2099f6",
+      "bytes": 52278
+    },
+    "assets/construction-site-v1.png": {
+      "status": 200,
+      "sha256": "9cb2b2e19c0aa2675e31725e44a5c8feb5fdf88d039fbd55e3d5e96779fcd639",
+      "bytes": 2343616
+    },
+    "assets/lab-building-v1.png": {
+      "status": 200,
+      "sha256": "468c82d6c8d2ac4d90c21a076408b853bfa53b4294b54763265d1cedb72c53a9",
+      "bytes": 2019978
+    },
+    "assets/barracks-building-v1.png": {
+      "status": 200,
+      "sha256": "d2d719aaa9fd3496e4e707ca648897c9324cad4cd2fd8abbe864ed3edcbeafcb",
+      "bytes": 1969914
+    }
+  }
+}

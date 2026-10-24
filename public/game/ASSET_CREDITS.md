@@ -43,3 +43,8 @@ Files: assets/ballista.png, assets/ballista-arm.png. Originals retained; rendere
 
 메뉴와 전장 글꼴은 Google Fonts의 Noto Serif KR을 사용하며, 연결할 수 없을 때 바탕/명조 계열 시스템 글꼴로 대체합니다. https://fonts.google.com/specimen/Noto+Serif+KR
 처치·크리스탈·화면 전환·건설·강화·승패 효과음은 audio.js의 Web Audio 합성으로 제작했으며 외부 음원을 사용하지 않습니다.
+
+
+## 2026-10-24 건설·광장 시설 이미지
+
+construction-site-v1.png, lab-building-v1.png, barracks-building-v1.png는 이 게임을 위해 내장 이미지 생성 도구로 제작한 투명 PNG입니다. 외부 음원/이미지를 새로 내려받아 포함하지 않았습니다. 생성 프롬프트와 사용 범위는 docs/WORLD_PRESENTATION_2026-10-24.md에 기록합니다. 바닥과 숲은 기존 Flare 타일과 배포된 광장 이미지에서 렌더링하며 기존 출처 조건을 유지합니다.

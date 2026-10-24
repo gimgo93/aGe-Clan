@@ -1,5 +1,7 @@
 # aGe Clan
 
+로컬 밸런스 학습·일일 시뮬레이션: [balance_ml](balance_ml/README.md). 보존한 플레이 PPO: [ml](ml/PPO_LEGACY.md).
+
 플레이: **https://ageclan.com/game/** · 보조 주소: https://www.ageclan.com/game/
 
 기존 주소 https://age-clan.elatedbadge256.chatgpt.site/game/ 도 유지됩니다.

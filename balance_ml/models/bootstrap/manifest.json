@@ -1,0 +1,87 @@
+{
+  "fingerprint": "d2bd0b8f9cd6ad7901f1ae904a834ae12f62c16ca214b6af9a64bac0576b199d",
+  "budget": 300,
+  "seed": 24601,
+  "created": "2026-10-24T10:49:50.795824",
+  "schema": {
+    "towers.archer.damage": {
+      "base": 16,
+      "min": 13,
+      "max": 19,
+      "integer": true
+    },
+    "towers.archer.gold": {
+      "base": 140,
+      "min": 112,
+      "max": 168,
+      "integer": true
+    },
+    "towers.ballista.damage": {
+      "base": 61,
+      "min": 49,
+      "max": 73,
+      "integer": true
+    },
+    "towers.ballista.gold": {
+      "base": 260,
+      "min": 208,
+      "max": 312,
+      "integer": true
+    },
+    "towers.cannon.damage": {
+      "base": 65,
+      "min": 52,
+      "max": 78,
+      "integer": true
+    },
+    "towers.cannon.gold": {
+      "base": 370,
+      "min": 296,
+      "max": 444,
+      "integer": true
+    },
+    "towers.frost.damage": {
+      "base": 32,
+      "min": 26,
+      "max": 38,
+      "integer": true
+    },
+    "towers.frost.gold": {
+      "base": 460,
+      "min": 368,
+      "max": 552,
+      "integer": true
+    },
+    "towers.storm.damage": {
+      "base": 44,
+      "min": 35,
+      "max": 53,
+      "integer": true
+    },
+    "towers.storm.gold": {
+      "base": 570,
+      "min": 456,
+      "max": 684,
+      "integer": true
+    },
+    "startGold": {
+      "base": 240,
+      "min": 200,
+      "max": 280,
+      "integer": true
+    },
+    "soloArrowResistance.step": {
+      "base": 0.2,
+      "min": 0.15,
+      "max": 0.25,
+      "integer": false
+    }
+  },
+  "policies": [
+    "archer-fixed",
+    "archer-economy",
+    "mixed-no-miners",
+    "mixed-no-potions",
+    "mixed-potions"
+  ]
+}

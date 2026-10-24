@@ -1,0 +1,407 @@
+{
+  "state": "complete",
+  "completed_games": 300,
+  "budget": 300,
+  "fingerprint": "d2bd0b8f9cd6ad7901f1ae904a834ae12f62c16ca214b6af9a64bac0576b199d",
+  "model": {
+    "holdout_mae_waves": 4.866749828894374,
+    "constant_policy_mae_waves": 2.9266666666666667,
+    "training_rows": 150,
+    "holdout_rows": 40,
+    "configuration_groups": 37,
+    "holdout_groups": [
+      "017688a1a9fc2c9afdd9e6a59abb5356a723f96668db3b3d3ea8dded164d0efd",
+      "32df67eb20ac9c53f2e354cbdb074fdf6d5ba7a7aeb02f75017b2e11af0cdc35",
+      "47773d75a25f106bb5ccc435835cb50fa2f6c0da8d9b1bfda11f120f63dea5a9",
+      "700ea06ddef319d5ed484fc583f10130d8b036cdb976839d76e6f38490ba85bd",
+      "9ce1b237165c32cea0ce6b72d7888cbfaa899f15b9307be68d120ed584ade3c4",
+      "c9dc253a00000a1d2627b511b49a31efcd880ec9e0c71d6fea4bb69ce1d4e31d",
+      "ea182d1db5f409fd1e369f9268375d26aefdfc56fb824765a223be50b8eb7472",
+      "fdfee8a1b4fb4dc6bb3295f8610846f6e7d0525ad914eadf9ef96eecb37581ea"
+    ],
+    "training_groups": [
+      "133e6a524bcc4b5862ccba7d4a2a2642bb28a7e130504cb207ef166900670c8e",
+      "1d82633272557f690be4b7581c3182c73db00a8d747c5b98615c0b3d0b164b57",
+      "25cddbedcb6ac726388cc3998bd604939a11e9fe7f5bf36568baaadf4058fbbe",
+      "27745fef0346874860f68834400fb293f5f775ddff90db2c1e32745c8d9bdf2f",
+      "3625ac0d7a13f623580d29f34fd6e1d89371bafddef748d3ac5458354042c3c0",
+      "3d5603e98ea84d649a7d4023a29d4d136511c12817bc4295934476cf2cf8c072",
+      "40b29dda4c46cbaf3a7a1846141d1cbe1afa7f879e8e0de9019981390c25a998",
+      "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "481b82d872729beab88cccbdd2459769d8e588d131e062514614dde89804692b",
+      "5450658a7cabd6fbb98446fcdf6bd0ce6888996fa4c8f3e0ab65a6226996bb49",
+      "580009f4d06f9e8be437e2beb43e0c4304cc743c1570e63f45167a78ae959372",
+      "5b03b4300a322b4dc09003fc1166c58f881bc3885ba57b87eff828f0ecd74d88",
+      "717d2858f0e7bc39712c57ec0b8b71b0bc8cc26ee3f212d3acf7576ddda59d78",
+      "815abf93f939b324ac8104d47cfae22b7745e0dbdd4bb1b66f63c81c2c23fe34",
+      "89977db0d6eecfb071cea056133c94f6872864a4de765d9468ecb061cd0a1989",
+      "96c690d744e1de7977efdd275b49fc2682846ca29f01e59fc0d688e71a3d7d0d",
+      "9cf6a2e6409b01f7bfcb1b4de44d046770e352b410a2e3eae86036f8f57b5f62",
+      "ab25a1c7a5dd257139fb2aa3854c62cb8220d363b80b99072403126ac5fcce0c",
+      "b66f24a6ec7f9eb02552552adc074d1ad61a98ce34e9d11d7c0457bb46ee456f",
+      "be133f681e38b9e772a03c1db697f3ada7e1ef04a1b6cff681b46114c568f212",
+      "cf868e8716cc918120ec81a2ff27e92a286f5dd1031a85df86f32ec33f92e71a",
+      "d6a5082418ab3fe22bf8bc57c98b7ce06d10765dd90739a2c6a28ebdfb2127af",
+      "df998811fceb5a4dd5acb34529938a625664ffe3895885c7790cdbc71632d837",
+      "e4c8fd7c92d4c8b5a28a51aa77451e1eb95c3fb038fc1ca06ae7a0060accaaf7",
+      "f0ae11c7c9abf739f12ec7b2e71ae6d1b25556ab2b57157124b17296b1e7bc0d",
+      "f58f56c3ea878d66e81f39b6775799d838f465030a58235d5875afb6fa8c8ec5",
+      "faace7f978f6dfbb87331464ff20132da0c94f463f6fa2cb1e7e952fde25571e",
+      "fcbfed6572c3d82263b95ab3c857ed007eac9e79cf8efd87ff0a83b071c751a7",
+      "ff9aefe2510686db3a9a68b5775056ce96a164fc38b8dd1f27ef9c22303721f1"
+    ]
+  },
+  "candidate": {
+    "towers.cannon.damage": 72
+  },
+  "recommendation": "no_patch",
+  "reasons": [
+    "Surrogate did not outperform constant-policy holdout baseline"
+  ],
+  "fresh_score_improvement": 1.9600000000000013,
+  "baseline": {
+    "archer-fixed": {
+      "cleared": 15.0,
+      "hp": 0.0,
+      "kills": 262.0,
+      "leaks": 8.0,
+      "damage": 132.0,
+      "destroyed": 0.6,
+      "time": 876.8200000001309,
+      "games": 5,
+      "max_cleared": 15,
+      "invalid_actions": 0,
+      "invalid_action_rate": 0.0,
+      "time_censored": 0,
+      "reached": {
+        "15": 5,
+        "16": 0,
+        "20": 0,
+        "30": 0,
+        "40": 0
+      },
+      "actions": {
+        "build:archer": 77,
+        "upgradeCastle:": 20,
+        "upgradeTower:archer": 20
+      }
+    },
+    "archer-economy": {
+      "cleared": 15.0,
+      "hp": 0.0,
+      "kills": 262.4,
+      "leaks": 9.0,
+      "damage": 164.0,
+      "destroyed": 1.2,
+      "time": 922.9000000001413,
+      "games": 5,
+      "max_cleared": 15,
+      "invalid_actions": 0,
+      "invalid_action_rate": 0.0,
+      "time_censored": 0,
+      "reached": {
+        "15": 5,
+        "16": 0,
+        "20": 0,
+        "30": 0,
+        "40": 0
+      },
+      "actions": {
+        "build:archer": 79,
+        "upgradeCastle:": 40,
+        "upgradeTower:archer": 20
+      }
+    },
+    "mixed-no-miners": {
+      "cleared": 17.6,
+      "hp": 0.0,
+      "kills": 330.8,
+      "leaks": 12.6,
+      "damage": 280.8,
+      "destroyed": 5.0,
+      "time": 1213.1399999999921,
+      "games": 5,
+      "max_cleared": 19,
+      "invalid_actions": 0,
+      "invalid_action_rate": 0.0,
+      "time_censored": 0,
+      "reached": {
+        "15": 5,
+        "16": 5,
+        "20": 0,
+        "30": 0,
+        "40": 0
+      },
+      "actions": {
+        "build:archer": 17,
+        "build:ballista": 34,
+        "build:cannon": 3,
+        "buildLab:": 5,
+        "hireWoodcutter:": 20,
+        "repairCastle:": 30,
+        "upgradeCastle:": 38,
+        "upgradeTower:archer": 20,
+        "upgradeTower:ballista": 15,
+        "upgradeTower:cannon": 6
+      }
+    },
+    "mixed-no-potions": {
+      "cleared": 26.8,
+      "hp": 0.0,
+      "kills": 657.8,
+      "leaks": 19.0,
+      "damage": 337.6,
+      "destroyed": 21.2,
+      "time": 1815.779999999444,
+      "games": 5,
+      "max_cleared": 38,
+      "invalid_actions": 0,
+      "invalid_action_rate": 0.0,
+      "time_censored": 0,
+      "reached": {
+        "15": 5,
+        "16": 5,
+        "20": 4,
+        "30": 1,
+        "40": 0
+      },
+      "actions": {
+        "build:archer": 28,
+        "build:ballista": 47,
+        "build:cannon": 47,
+        "build:frost": 12,
+        "buildLab:": 5,
+        "hire:": 65,
+        "hireWoodcutter:": 20,
+        "repairCastle:": 35,
+        "researchPotion:ice": 5,
+        "researchPotion:lightning": 5,
+        "upgradeCastle:": 61,
+        "upgradeTower:archer": 20,
+        "upgradeTower:ballista": 19,
+        "upgradeTower:cannon": 19,
+        "upgradeTower:frost": 15
+      }
+    },
+    "mixed-potions": {
+      "cleared": 26.4,
+      "hp": 0.0,
+      "kills": 630.6,
+      "leaks": 19.0,
+      "damage": 340.0,
+      "destroyed": 22.4,
+      "time": 1796.1799999994619,
+      "games": 5,
+      "max_cleared": 33,
+      "invalid_actions": 0,
+      "invalid_action_rate": 0.0,
+      "time_censored": 0,
+      "reached": {
+        "15": 5,
+        "16": 5,
+        "20": 4,
+        "30": 2,
+        "40": 0
+      },
+      "actions": {
+        "build:archer": 28,
+        "build:ballista": 44,
+        "build:cannon": 45,
+        "build:frost": 13,
+        "buildLab:": 5,
+        "hire:": 65,
+        "hireWoodcutter:": 20,
+        "potion:ice": 22,
+        "potion:lightning": 8,
+        "repairCastle:": 36,
+        "researchPotion:ice": 5,
+        "researchPotion:lightning": 5,
+        "upgradeCastle:": 60,
+        "upgradeTower:archer": 20,
+        "upgradeTower:ballista": 19,
+        "upgradeTower:cannon": 19,
+        "upgradeTower:frost": 15
+      }
+    }
+  },
+  "confirmation": {
+    "archer-fixed": {
+      "cleared": 15.0,
+      "hp": 0.0,
+      "kills": 262.0,
+      "leaks": 8.0,
+      "damage": 132.0,
+      "destroyed": 0.6,
+      "time": 876.8200000001309,
+      "games": 5,
+      "max_cleared": 15,
+      "invalid_actions": 0,
+      "invalid_action_rate": 0.0,
+      "time_censored": 0,
+      "reached": {
+        "15": 5,
+        "16": 0,
+        "20": 0,
+        "30": 0,
+        "40": 0
+      },
+      "actions": {
+        "build:archer": 77,
+        "upgradeCastle:": 20,
+        "upgradeTower:archer": 20
+      }
+    },
+    "archer-economy": {
+      "cleared": 15.0,
+      "hp": 0.0,
+      "kills": 262.4,
+      "leaks": 9.0,
+      "damage": 164.0,
+      "destroyed": 1.2,
+      "time": 922.9000000001413,
+      "games": 5,
+      "max_cleared": 15,
+      "invalid_actions": 0,
+      "invalid_action_rate": 0.0,
+      "time_censored": 0,
+      "reached": {
+        "15": 5,
+        "16": 0,
+        "20": 0,
+        "30": 0,
+        "40": 0
+      },
+      "actions": {
+        "build:archer": 79,
+        "upgradeCastle:": 40,
+        "upgradeTower:archer": 20
+      }
+    },
+    "mixed-no-miners": {
+      "cleared": 17.6,
+      "hp": 0.0,
+      "kills": 331.4,
+      "leaks": 12.4,
+      "damage": 280.8,
+      "destroyed": 5.2,
+      "time": 1213.259999999992,
+      "games": 5,
+      "max_cleared": 19,
+      "invalid_actions": 0,
+      "invalid_action_rate": 0.0,
+      "time_censored": 0,
+      "reached": {
+        "15": 5,
+        "16": 5,
+        "20": 0,
+        "30": 0,
+        "40": 0
+      },
+      "actions": {
+        "build:archer": 17,
+        "build:ballista": 34,
+        "build:cannon": 3,
+        "buildLab:": 5,
+        "hireWoodcutter:": 20,
+        "repairCastle:": 30,
+        "upgradeCastle:": 38,
+        "upgradeTower:archer": 20,
+        "upgradeTower:ballista": 15,
+        "upgradeTower:cannon": 6
+      }
+    },
+    "mixed-no-potions": {
+      "cleared": 29.8,
+      "hp": 0.0,
+      "kills": 752.2,
+      "leaks": 18.2,
+      "damage": 349.6,
+      "destroyed": 24.0,
+      "time": 1989.559999999286,
+      "games": 5,
+      "max_cleared": 34,
+      "invalid_actions": 0,
+      "invalid_action_rate": 0.0,
+      "time_censored": 0,
+      "reached": {
+        "15": 5,
+        "16": 5,
+        "20": 5,
+        "30": 3,
+        "40": 0
+      },
+      "actions": {
+        "build:archer": 34,
+        "build:ballista": 42,
+        "build:cannon": 63,
+        "build:frost": 14,
+        "buildLab:": 5,
+        "hire:": 65,
+        "hireWoodcutter:": 20,
+        "repairCastle:": 36,
+        "researchPotion:ice": 5,
+        "researchPotion:lightning": 5,
+        "upgradeCastle:": 66,
+        "upgradeTower:archer": 20,
+        "upgradeTower:ballista": 20,
+        "upgradeTower:cannon": 20,
+        "upgradeTower:frost": 20
+      }
+    },
+    "mixed-potions": {
+      "cleared": 33.2,
+      "hp": 70.8,
+      "kills": 907.6,
+      "leaks": 12.6,
+      "damage": 254.8,
+      "destroyed": 29.8,
+      "time": 2247.3799999990515,
+      "games": 5,
+      "max_cleared": 40,
+      "invalid_actions": 0,
+      "invalid_action_rate": 0.0,
+      "time_censored": 0,
+      "reached": {
+        "15": 5,
+        "16": 5,
+        "20": 5,
+        "30": 3,
+        "40": 2
+      },
+      "actions": {
+        "build:archer": 41,
+        "build:ballista": 55,
+        "build:cannon": 68,
+        "build:frost": 21,
+        "buildLab:": 5,
+        "hire:": 65,
+        "hireWoodcutter:": 20,
+        "potion:ice": 42,
+        "potion:lightning": 27,
+        "repairCastle:": 30,
+        "researchPotion:ice": 5,
+        "researchPotion:lightning": 5,
+        "upgradeCastle:": 66,
+        "upgradeTower:archer": 20,
+        "upgradeTower:ballista": 20,
+        "upgradeTower:cannon": 20,
+        "upgradeTower:frost": 20
+      }
+    }
+  },
+  "invocation_wall_seconds": 0.7679732999999942,
+  "measured_seconds_per_game": 1.1478218340000004,
+  "throughput_measurement_seconds": 344.34655020000014,
+  "throughput_basis": "per-game wall timings",
+  "estimated_simulation_hours": {
+    "5000": 1.5941969916666672,
+    "10000": 3.1883939833333343
+  },
+  "automation": "Local feedback only; no deployment or code application",
+  "limitations": [
+    "Fixed controllers are not human skill cohorts",
+    "Solo only; PvP unvalidated",
+    "Ensemble spread is not calibrated",
+    "Only tower damage/cost, starting gold and solo arrow armor searched; potion/economy behavior observed but their constants not tuned"
+  ]
+}

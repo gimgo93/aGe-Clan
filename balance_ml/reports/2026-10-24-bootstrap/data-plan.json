@@ -1,0 +1,114 @@
+[
+  {},
+  {
+    "towers.storm.gold": 633
+  },
+  {
+    "towers.cannon.damage": 72
+  },
+  {
+    "towers.storm.gold": 484
+  },
+  {
+    "towers.ballista.damage": 53
+  },
+  {
+    "towers.ballista.gold": 212
+  },
+  {
+    "startGold": 205
+  },
+  {
+    "towers.archer.damage": 16
+  },
+  {
+    "towers.ballista.damage": 70
+  },
+  {
+    "towers.ballista.gold": 255
+  },
+  {
+    "towers.archer.gold": 133
+  },
+  {
+    "towers.ballista.gold": 248
+  },
+  {
+    "towers.cannon.damage": 62
+  },
+  {
+    "towers.storm.damage": 43
+  },
+  {
+    "towers.storm.gold": 506
+  },
+  {
+    "towers.ballista.damage": 61
+  },
+  {
+    "towers.ballista.damage": 62
+  },
+  {
+    "startGold": 241
+  },
+  {
+    "startGold": 266
+  },
+  {
+    "towers.ballista.gold": 290
+  },
+  {
+    "towers.cannon.gold": 353
+  },
+  {
+    "towers.storm.gold": 528
+  },
+  {
+    "towers.ballista.damage": 54
+  },
+  {
+    "towers.frost.damage": 37
+  },
+  {
+    "towers.archer.damage": 14
+  },
+  {
+    "towers.archer.damage": 17
+  },
+  {
+    "towers.ballista.gold": 302
+  },
+  {
+    "towers.frost.gold": 508
+  },
+  {
+    "towers.storm.gold": 559
+  },
+  {
+    "towers.frost.damage": 28
+  },
+  {
+    "soloArrowResistance.step": 0.15015
+  },
+  {
+    "towers.storm.damage": 49
+  },
+  {
+    "towers.archer.damage": 17
+  },
+  {
+    "towers.storm.damage": 38
+  },
+  {
+    "soloArrowResistance.step": 0.23047
+  },
+  {
+    "towers.cannon.gold": 435
+  },
+  {
+    "soloArrowResistance.step": 0.23371
+  },
+  {
+    "soloArrowResistance.step": 0.21297
+  }
+]

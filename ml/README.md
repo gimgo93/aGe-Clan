@@ -1,5 +1,8 @@
 # aGe Clan 오프라인 강화학습 환경
 
+> **보존한 플레이 PPO 실험입니다. 현재 밸런스 AI 프로그램은 [balance_ml/README.md](../balance_ml/README.md)를 사용하세요.**
+> 과거 모델·명령은 호환성을 위해 그대로 남깁니다. [구분 설명](PPO_LEGACY.md).
+
 실제 JavaScript 게임 엔진을 Python Gymnasium의 `reset()` / `step()`에 연결했습니다.
 현재 범위는 **혼자하기 방어 환경과 PPO 초기 학습·평가 코드**입니다. 학습 실행은 사용자가
 명령으로 시작합니다. 검증용 초소형 학습 외 대규모 학습, 완성 모델, 상대 AI, PvP 봇 배포는

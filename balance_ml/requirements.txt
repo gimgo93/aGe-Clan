@@ -1,0 +1,2 @@
+# Independent of Gymnasium / Stable-Baselines3 / OpenAI APIs.
+numpy>=2.0,<3

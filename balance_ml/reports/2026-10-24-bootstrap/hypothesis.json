@@ -1,0 +1,13 @@
+{
+  "hypothesis": "A one-parameter change can reduce controller progression target error while retaining archer cap.",
+  "method": "Random-feature ridge ensemble; configuration holdout; paired development; fresh confirmation",
+  "targets": {
+    "archer-fixed": 13,
+    "archer-economy": 15,
+    "mixed-no-miners": 20,
+    "mixed-no-potions": 30,
+    "mixed-potions": 40
+  },
+  "promotion": "Surrogate beats constant-policy holdout, fresh paired score improves by >=0.5 waves, archer max <=15; no errors/censoring",
+  "scope": "Solo only. Human skill, PvP and live telemetry are unmeasured. No automatic production patch."
+}

@@ -35,7 +35,7 @@ class ClanAudio {
  chime(kind='join'){if(kind==='queue'){this.melody(kind,[293.66,440,587.33],{volume:.06,spacing:.085,duration:.26});return;}this.melody(kind,kind==='ready'?[392,523.25,659.25]:[659.25,880],{volume:.055,spacing:.13,duration:.3});}
  tone(kind='click'){
    if(kind==='castleHit'){if(!this.allowed(kind,.28))return;this.note(100,{end:38,duration:.35,volume:.12,type:'triangle'});this.note(520,{end:180,duration:.10,volume:.065,type:'triangle'});this.note(220,{duration:.22,volume:.035});return;}
-   if(kind==='mine'){if(!this.allowed(kind,.12))return;this.note(1250,{end:720,duration:.075,volume:.055,type:'triangle',attack:.003});this.note(2350,{end:1700,delay:.025,duration:.13,volume:.025,attack:.003});this.note(190,{end:95,duration:.12,volume:.025,type:'triangle'});return;}
+   if(kind==='mine'){this.metalStrike();return;}
 
    if(kind==='crystal'){this.melody(kind,[880,1174.66,1568],{volume:.033,spacing:.065,duration:.36});return;}
    if(kind==='upgrade'||kind==='era'||kind==='clear'){this.melody(kind,kind==='era'?[392,523.25,659.25,783.99]:[523.25,659.25,783.99]);return;}
@@ -44,6 +44,30 @@ class ClanAudio {
    const presets={click:[440,520,.055,.018],error:[180,130,.11,.027],attack:[160,100,.055,.012],kill:[240,125,.085,.025],mine:[220,150,.065,.018],build:[330,520,.16,.035],hire:[440,580,.13,.03],demolish:[150,75,.18,.032],destroy:[110,45,.22,.04],potion:[440,110,.23,.035],wave:[196,260,.22,.032],repair:[392,520,.15,.03]};
    const p=presets[kind];if(!p||!this.allowed(kind,kind==='attack'?.2:kind==='kill'?.12:.08))return;
    this.note(p[0],{end:p[1],duration:p[2],volume:p[3],type:['attack','mine','kill'].includes(kind)?'triangle':'sine'});
+ }
+
+ metalStrike(){
+  if(!this.allowed('mine',.18))return;
+  const c=this.context;
+  if(!this.metalBuffer){
+   const rate=c.sampleRate,buffer=c.createBuffer(1,Math.ceil(rate*.62),rate),data=buffer.getChannelData(0);
+   const modes=[{f:2137,a:.48,d:12},{f:3349,a:.28,d:17},{f:4783,a:.18,d:22},{f:6121,a:.1,d:29},{f:7937,a:.06,d:42}];
+   let seed=527,previous=0,peak=0;
+   for(let i=0;i<data.length;i++){
+    const t=i/rate;let value=0;
+    for(const [at,amount]of [[0,1],[.075,.27],[.144,.12]]){const u=t-at;if(u<0)continue;const attack=Math.min(1,u/.0007);for(const m of modes)value+=amount*attack*m.a*Math.sin(2*Math.PI*m.f*u)*Math.exp(-u*m.d);}
+    seed=(Math.imul(seed,1664525)+1013904223)>>>0;const noise=seed/4294967296*2-1;
+    value+=(noise-previous)*.16*Math.exp(-t*180);previous=noise;
+    value*=Math.min(1,(data.length-1-i)/(rate*.012));data[i]=value;peak=Math.max(peak,Math.abs(value));
+   }
+   if(peak)for(let i=0;i<data.length;i++)data[i]*=.72/peak;
+   this.metalBuffer=buffer;
+  }
+  const source=c.createBufferSource(),gain=c.createGain(),filter=c.createBiquadFilter(),t=c.currentTime;
+  source.buffer=this.metalBuffer;filter.type='highpass';filter.frequency.value=950;filter.Q.value=.5;
+  gain.gain.setValueAtTime(.16,t);gain.gain.setValueAtTime(0,t+.63);
+  source.connect(filter);filter.connect(gain);gain.connect(this.effectsGain);this.voices++;
+  source.start(t);source.stop(t+.64);source.onended=()=>{source.disconnect();filter.disconnect();gain.disconnect();this.voices--;};
  }
  transition(style){
    if(style==='none'||!this.allowed('transition',.25))return;

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none">
+ <defs>
+  <linearGradient id="cover" x1="18" y1="18" x2="77" y2="82" gradientUnits="userSpaceOnUse"><stop stop-color="#57715c"/><stop offset=".55" stop-color="#243e32"/><stop offset="1" stop-color="#15271f"/></linearGradient>
+  <linearGradient id="gold" x1="22" y1="13" x2="73" y2="81" gradientUnits="userSpaceOnUse"><stop stop-color="#fff0b0"/><stop offset=".5" stop-color="#c79a49"/><stop offset="1" stop-color="#795024"/></linearGradient>
+  <linearGradient id="pages" x1="35" y1="20" x2="62" y2="86" gradientUnits="userSpaceOnUse"><stop stop-color="#f9eac4"/><stop offset="1" stop-color="#ac9061"/></linearGradient>
+ </defs>
+ <ellipse cx="49" cy="83" rx="33" ry="7" fill="#0b140d" opacity=".45"/>
+ <path d="m22 20 47-8 9 64-47 10-10-7Z" fill="url(#pages)" stroke="#5d4428" stroke-width="2"/>
+ <path d="m29 76 46-9M30 79l45-9M32 82l44-9" stroke="#8d744e" stroke-width="1.2"/>
+ <path d="m18 17 47-8 11 62-48 10-10-7Z" fill="url(#cover)" stroke="url(#gold)" stroke-width="3" stroke-linejoin="round"/>
+ <path d="m25 17 10 60M30 23l30-5 7 45-30 6Z" stroke="url(#gold)" stroke-width="1.5"/>
+ <path d="m19 26 7-1m-5 13 7-1m-5 13 7-1m-5 13 7-1" stroke="#e2be77" stroke-width="3"/>
+ <path d="m49 30 3 10 10 2-9 5-1 10-5-8-10-1 8-6Z" fill="url(#gold)"/>
+ <circle cx="49" cy="44" r="3" fill="#f9e8b0"/>
+ <path d="m59 70 3 18 5-5 6 2-4-17" fill="#9f4833" stroke="#d29261" stroke-width="1.2"/>
+ <circle cx="65" cy="69" r="8" fill="url(#gold)" stroke="#6f4e27" stroke-width="1.5"/>
+ <path d="m61 70 3 2 4-6" stroke="#534225" stroke-width="2" stroke-linecap="round"/>
+</svg>

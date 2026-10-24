@@ -16,6 +16,7 @@ class AudioContext{constructor(){this.state='running';this.currentTime=0;this.de
 const document={hidden:false};const c=vm.createContext({window:{AudioContext},document,setInterval(){return 1;},Math});vm.runInContext(read('audio.js'),c);
 const sound=new c.window.ClanAudio(()=>settings);assert.equal(sound.context,null,'no autoplay at load');sound.init();
 assert.equal(sound.master.gain.value,.6);assert.equal(sound.effectsGain.gain.value,1);
+const queueBefore=sound.context.nodes.length;sound.chime('queue');assert.equal(sound.context.nodes.length-queueBefore,6,'queue jingle has three notes');
 sound.tone('kill');const count=sound.context.nodes.length;sound.tone('kill');assert.equal(sound.context.nodes.length,count,'same-type throttle');
 sound.tone('crystal');assert.ok(sound.context.nodes.length>count,'kill must not suppress crystal');
 settings.effects=false;sound.apply();assert.equal(sound.effectsGain.gain.value,0);const muted=sound.context.nodes.length;sound.chime();sound.transition('slide');assert.equal(sound.context.nodes.length,muted);
@@ -29,7 +30,7 @@ sound.observe({...state,time:51,kills:102,crystalsMined:21},'one');assert.deepEq
 sound.observe({...state,time:51,kills:102,crystalsMined:21},'one');assert.equal(events.length,2,'duplicate snapshot silent');
 sound.observe({...state,time:500,kills:900},'new-room');assert.equal(events.length,2,'new room baseline silent');
 sound.observe({started:false});sound.observe(state,'one');assert.equal(events.length,2);
-assert.ok(!read('multiplayer.js').includes('입장 알림음은 설정'));
+assert.ok(!read('multiplayer.js').includes('입장 알림음은 설정'));assert.ok(read('chronicle.js').includes('assets/menu-guide-v3.svg'));assert.ok(fs.existsSync('public/game/assets/menu-guide-v3.svg'));
 assert.ok(!read('style.css').includes('.title-library{left:auto;right:4%'));
 assert.ok(read('renderer.js').includes('Noto Serif KR'));
 events.length=0;

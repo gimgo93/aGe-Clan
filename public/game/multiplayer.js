@@ -88,7 +88,7 @@ function setupClan(app){
    finally{if(generation===epoch){busy=false;if(roomId&&socket?.readyState!==1){clearTimeout(pollTimer);pollTimer=setTimeout(pump,failures?Math.min(8000,600*2**Math.min(4,failures))+Math.random()*250:active?Math.max(30,(data?.pollAfterMs||250)-(performance.now()-began)):750);}}}
  }
  async function join(){
-   if(joining||roomId)return;app.audio.init();joining=true;$('joinMatch').disabled=true;$('playerName').disabled=true;$('matchStatus').textContent='매칭 서버에 연결 중…';
+   if(joining||roomId)return;app.audio.init();app.audio.notify('queue');joining=true;$('joinMatch').disabled=true;$('playerName').disabled=true;$('matchStatus').textContent='매칭 서버에 연결 중…';
    try{const pending=sessionStorage.getItem('clan-pending-leave');if(pending){try{await request({op:'leave',roomId:pending});sessionStorage.removeItem('clan-pending-leave');}catch{}}const value=await request({op:entryMode,name:window.Chronicle?.profile.name||$('playerName').value,avatar:window.Chronicle?.profile.avatar||0,code:$('roomCodeInput').value,entryId});apply(value);pump();}
    catch(e){$('matchStatus').textContent=e.message;$('joinMatch').disabled=false;$('playerName').disabled=false;}
    finally{joining=false;}

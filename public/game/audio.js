@@ -32,7 +32,7 @@ class ClanAudio {
  melody(kind,frequencies,{volume=.045,spacing=.09,duration=.28}={}){
    if(!this.allowed(kind,.22))return;frequencies.forEach((f,i)=>this.note(f,{delay:i*spacing,duration,volume}));
  }
- chime(kind='join'){this.melody(kind,kind==='ready'?[392,523.25,659.25]:[659.25,880],{volume:.055,spacing:.13,duration:.3});}
+ chime(kind='join'){if(kind==='queue'){this.melody(kind,[293.66,440,587.33],{volume:.06,spacing:.085,duration:.26});return;}this.melody(kind,kind==='ready'?[392,523.25,659.25]:[659.25,880],{volume:.055,spacing:.13,duration:.3});}
  tone(kind='click'){
    if(kind==='castleHit'){if(!this.allowed(kind,.28))return;this.note(100,{end:38,duration:.35,volume:.12,type:'triangle'});this.note(520,{end:180,duration:.10,volume:.065,type:'triangle'});this.note(220,{duration:.22,volume:.035});return;}
    if(kind==='mine'){if(!this.allowed(kind,.12))return;this.note(1250,{end:720,duration:.075,volume:.055,type:'triangle',attack:.003});this.note(2350,{end:1700,delay:.025,duration:.13,volume:.025,attack:.003});this.note(190,{end:95,duration:.12,volume:.025,type:'triangle'});return;}

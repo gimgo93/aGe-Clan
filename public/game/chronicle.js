@@ -1,6 +1,7 @@
 (() => {
 'use strict';
 const $=id=>document.getElementById(id),avatars=['♜','♞','♛','⚔','❖','☀','✦','♟'];
+$('guideBtn').innerHTML='<img src="assets/menu-guide-v3.svg" width="32" height="32" alt="" decoding="async"><span>게임 설명</span>';
 $('rankBtn').innerHTML='<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 27V5M4 27h25M9 24V16h4v8M17 24V10h4v14M25 24V4h4v20"/></svg>랭킹';
 $('achievementsBtn').innerHTML='<svg viewBox="0 0 32 32" aria-hidden="true"><path d="m9 3 7 9 7-9M5 3h7l4 6 4-6h7l-8 12H13Z"/><circle cx="16" cy="21" r="9"/><path d="m16 15 2 4 4 .6-3 3 .7 4-3.7-2-3.7 2 .7-4-3-3 4-.6Z"/></svg>업적';
 let guestProfile=GuestProfile.load(),profile={...guestProfile},records={wave:0,kills:0,castle:0,miners:0,wood:0,tower:0,crystals:0,research:0};

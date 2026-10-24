@@ -1,0 +1,27 @@
+{
+  "site_version": 27,
+  "source_commit": "ca0851432bd20d214018abf82f94d1858f1894ee",
+  "checked_at": "2026-10-24T12:14:10.050Z",
+  "files": {
+    "audio.js": {
+      "status": 200,
+      "sha256": "4ef3a0c7583f2111500ab6916bcdde814e12c2abda5682b8bb38aa2e4ef9c8a7"
+    },
+    "multiplayer.js": {
+      "status": 200,
+      "sha256": "3c7230a87f3b4640dc47f25bfae75742f2ac6a4c7c7f967ccbf94708aed5a3cb"
+    },
+    "chronicle.js": {
+      "status": 200,
+      "sha256": "2a1147cc3dc8092dd9346f0f0d463e8ca592c4d008ed94ecc14af321e5dcfe62"
+    },
+    "app.js": {
+      "status": 200,
+      "sha256": "9067b919a5f3a3f80bd7e0ee80c08f46cca5d97d942f5e8c34d5dcbfd46b13ec"
+    },
+    "assets/menu-guide-v3.svg": {
+      "status": 200,
+      "sha256": "ea1f4f6a72fc44cfa1f64905e7ec76dcbd24fcca24fc1dc359666896dc7cc542"
+    }
+  }
+}

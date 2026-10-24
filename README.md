@@ -1,5 +1,15 @@
 # aGe Clan
 
+## 2D / 3D 버전 구분 · 2026-10-24
+
+| 버전 | 주소 | 코드 폴더 |
+| --- | --- | --- |
+| **2D 운영 게임** | https://ageclan.com/game/ | **public/game/** |
+| **3D 독립 시험판** | https://ageclan.com/3D | **public/3D/** |
+
+3D는 브라우저 혼자하기이며 2D 계정·랭킹·PvP에 연결하지 않습니다. 기존 루트 주소의 2D 이동을 유지합니다. [전체 구분](GAME_VERSIONS.md) · [3D 기능·조작·시험 규칙](public/3D/README_3D.md)
+
+
 플레이: **https://ageclan.com/game/** · 보조 주소: https://www.ageclan.com/game/
 
 기존 주소 https://age-clan.elatedbadge256.chatgpt.site/game/ 도 유지됩니다.
@@ -8,9 +18,9 @@
 Canvas 2D 문명 발전 타워 디펜스입니다. 혼자하기 무한 웨이브, 5인 일반 매칭,
 친구 코드로 입장하는 2~5인 대전을 제공합니다. 혼자하기도 서버 판정이므로 인터넷 연결이 필요합니다.
 
-## 현재 운영 상태 (2026-10-21)
+## 2D 운영 상태 (2026-10-21 구현 기준)
 
-- 화면·API 입구: Sites v18. 게임 소스 기준 98887de233329037fd176242d4ab2c8cf4be892b.
+- 2D 구현 기준: Sites v18의 소스 98887de233329037fd176242d4ab2c8cf4be892b. 같은 사이트에 3D 경로를 추가했으며 아래 내용은 2D 기능에 해당합니다.
 - 마을 성벽·궁수 감시초소와 시작 메뉴 이미지를 개편하고, 계정 연동을 설정 안으로 이동했습니다. [이미지·UI 반영 내역과 생성 프롬프트](docs/ART_REFRESH_2026-10-21.md)
 - Google 로그인·프로필/설정/서버 성장 기록 동기화 운영. 업적·랭킹 조회와 신규 등록은 로그인 계정만 허용합니다.
 - 도메인: ageclan.com과 www.ageclan.com DNS·HTTPS 연결 완료.

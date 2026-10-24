@@ -12,6 +12,8 @@ Canvas 2D 문명 발전 타워 디펜스입니다. 혼자하기 무한 웨이브
 
 ## 현재 운영 상태 (2026-10-21)
 
+2026-10-24: [포탑 버프 배포](docs/TOWER_BALANCE_RELEASE_2026-10-24.md)를 Sites v23/Cloudflare에 반영했습니다. 궁수 저항은 도입하지 않습니다.
+
 - 화면·API 입구: Sites v17. 게임 소스 기준 be11023dd9499d9f415281e5b2f6404988d62450.
 - Google 로그인·프로필/설정/서버 성장 기록 동기화 운영. 업적·랭킹 조회와 신규 등록은 로그인 계정만 허용합니다.
 - 도메인: ageclan.com과 www.ageclan.com DNS·HTTPS 연결 완료.

@@ -1,0 +1,62 @@
+{
+  "checked_at": "2026-10-24T10:34:45.830Z",
+  "urls": {
+    "/game/balance.js": {
+      "status": 200,
+      "sha256": "d425a0daf9f405ed1461fdab9ac572d924ffb17e519790753cb1dec4e1364d1c"
+    },
+    "/game/game.js": {
+      "status": 200,
+      "sha256": "79a3fc892da40e4c1caa54a42af9c50c5a05c2c25f4283715c0db1588bc0db18"
+    },
+    "/game/": {
+      "status": 200
+    },
+    "/3D": {
+      "status": 200
+    },
+    "/api/clan": {
+      "status": 200,
+      "transport": "websocket"
+    }
+  },
+  "config": {
+    "version": 1,
+    "startGold": 240,
+    "startCrystals": 12,
+    "waveRestSeconds": 20,
+    "towers": {
+      "archer": {
+        "gold": 140,
+        "damage": 16,
+        "rate": 0.8,
+        "range": 240
+      },
+      "ballista": {
+        "gold": 260,
+        "damage": 61,
+        "rate": 1.4,
+        "range": 429
+      },
+      "cannon": {
+        "gold": 370,
+        "damage": 72,
+        "rate": 1.8,
+        "range": 240
+      },
+      "frost": {
+        "gold": 460,
+        "damage": 32,
+        "rate": 1,
+        "range": 280
+      },
+      "storm": {
+        "gold": 570,
+        "damage": 66,
+        "rate": 0.65,
+        "range": 310
+      }
+    }
+  },
+  "ballista5": true
+}

@@ -15,7 +15,6 @@ for(const type of Object.keys(base.towers))for(const field of ['damage','gold'])
   const value=base.towers[type][field];schema[`towers.${type}.${field}`]={base:value,min:Math.round(value*.8),max:Math.round(value*1.2),integer:true};
 }
 schema.startGold={base:base.startGold,min:200,max:280,integer:true};
-schema['soloArrowResistance.step']={base:base.soloArrowResistance.step,min:.15,max:.25,integer:false};
 const sha=s=>createHash('sha256').update(s).digest('hex');
 const sources={game:source,balance:balanceSource,policies:read('./policies.mjs'),trees};
 const fingerprint=sha(JSON.stringify({sources,schema,worker:read('./worker.mjs')}));

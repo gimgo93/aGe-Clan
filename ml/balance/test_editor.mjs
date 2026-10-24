@@ -10,14 +10,9 @@ const context=vm.createContext({Defense:D,structuredClone,
 const text=fs.readFileSync(new URL('../../public/game/editor.js',import.meta.url),'utf8');
 vm.runInContext(text.replace('})();','globalThis.editorTest={read,normalize,fill};})();'),context);
 const plain=x=>JSON.parse(JSON.stringify(x));
-assert.deepEqual(plain(context.editorTest.read().soloArrowResistance),D.BALANCE.soloArrowResistance);
-const older=structuredClone(D.BALANCE);delete older.soloArrowResistance;
-context.editorTest.fill(context.editorTest.normalize(older));
-assert.deepEqual(plain(context.editorTest.read().soloArrowResistance),D.BALANCE.soloArrowResistance);
-const custom=structuredClone(D.BALANCE);custom.soloArrowResistance={startWave:14,step:.1,max:.8};
-context.editorTest.fill(context.editorTest.normalize(custom));
-assert.deepEqual(plain(context.editorTest.read().soloArrowResistance),custom.soloArrowResistance);
-for(const bad of [{startWave:0,step:.2,max:.9},{startWave:13,step:true,max:.9},{startWave:13,step:.2,max:1}]) {
-  assert.throws(()=>context.editorTest.normalize({...D.BALANCE,soloArrowResistance:bad}));
-}
-console.log('PASS: editor save/import preserves new resistance, old configs inherit published values, invalid values rejected');
+assert.deepEqual(plain(context.editorTest.read()),plain(D.BALANCE));
+const old=structuredClone(D.BALANCE);old.soloArrowResistance={startWave:13,step:.2,max:.9};
+assert.equal(context.editorTest.normalize(old).soloArrowResistance,undefined,'obsolete drafts cannot restore armor');
+const invalid=structuredClone(D.BALANCE);invalid.towers.storm.damage=-1;
+assert.throws(()=>context.editorTest.normalize(invalid));
+console.log('PASS: editor balance, obsolete armor ignored, invalid damage rejected');

@@ -1,7 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-import D from '../../lib/game-engine.js';
 import {engine, CANDIDATES, POLICIES, run} from './civilization.mjs';
 
 function damage(defense, wave, kind, type, multiplayer) {
@@ -12,6 +11,7 @@ function damage(defense, wave, kind, type, multiplayer) {
   g.tick(.1);return 1000-enemy.hp;
 }
 const baseline=engine(CANDIDATES[0]),selected=engine(CANDIDATES[1]);
+const D=selected;
 let checks=0;
 for(const wave of [1,12,13,14,15,16,17,30,40])for(const kind of ['raider','runner','heavy','brute','saboteur'])
 for(const type of ['archer','ballista','cannon','frost','storm'])for(const multiplayer of [false,true]) {
@@ -30,14 +30,4 @@ for(const multiplayer of [false,true]) {
   const g=new D.Game();g.start();Object.assign(g.s,{multiplayer,crystals:100});g.s.research.lightning=-1;
   const e={hp:1000};g.s.enemies=[e];assert.ok(g.potion('lightning').ok);assert.equal(e.hp,400);
 }
-// Browser and generated engine agree on the new config and damage.
-const c=vm.createContext({window:{}});
-vm.runInContext(fs.readFileSync(new URL('../../public/game/balance.js',import.meta.url),'utf8'),c);
-c.FRONTIER_BALANCE=c.window.FRONTIER_BALANCE;
-vm.runInContext(fs.readFileSync(new URL('../../public/game/game.js',import.meta.url),'utf8'),c);
-assert.equal(damage(c.Defense,16,'heavy','archer',false),damage(D,16,'heavy','archer',false));
-for(const id of ['archer-fixed','mixed-potions']) {
-  const policy=POLICIES.find(p=>p.id===id);
-  assert.deepEqual(run(D,policy,100000),run(selected,policy,100000),'full real-resource trajectory matches selected experiment');
-}
-console.log(`PASS: ${checks} projectile cases; early/non-archer/PvP isolation, potion unchanged, browser/generated parity, full trajectories`);
+console.log(`PASS: ${checks} historical fixture projectile cases; archived armor experiment only`);

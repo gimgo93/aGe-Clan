@@ -22,7 +22,15 @@ TARGETS=[13,15,20,30,40]  # Controller proxies, never claimed as human skill coh
 def write(path,value):
     temporary=path.with_suffix(path.suffix+'.tmp')
     temporary.write_text(json.dumps(value,ensure_ascii=False,indent=2),encoding='utf-8')
-    temporary.replace(path)
+    # Windows sync/scan readers can briefly deny atomic replacement.
+    for attempt in range(8):
+        try:
+            temporary.replace(path)
+            break
+        except PermissionError:
+            if attempt == 7:
+                raise
+            time.sleep(min(.05 * 2**attempt, .5))
 
 
 class Worker:

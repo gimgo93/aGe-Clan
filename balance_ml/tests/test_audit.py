@@ -47,3 +47,29 @@ class AuditTests(unittest.TestCase):
             self.assertEqual(len(policy['group_bootstrap_95pct_interval']), 2)
             self.assertLess(policy['equal_configuration_mae_improvement'], 0)
             self.assertFalse(policy['positive_improvement_supported'])
+
+
+class AtomicWriteTests(unittest.TestCase):
+    def test_transient_denial_retries_and_preserves_json(self):
+        from unittest.mock import patch
+        from balance_ml.agent import write
+        original = Path.replace
+        attempts = []
+        def replace(path, target):
+            attempts.append(1)
+            if len(attempts) < 3:
+                raise PermissionError('temporary Windows reader')
+            return original(path, target)
+        with tempfile.TemporaryDirectory() as folder:
+            target = Path(folder)/'progress.json'
+            with patch.object(Path, 'replace', replace), patch('balance_ml.agent.time.sleep'):
+                write(target, {'completed_games':123})
+            self.assertEqual(json.loads(target.read_text()), {'completed_games':123})
+            self.assertEqual(len(attempts), 3)
+
+    def test_permanent_denial_is_not_hidden(self):
+        from unittest.mock import patch
+        from balance_ml.agent import write
+        with tempfile.TemporaryDirectory() as folder:
+            with patch.object(Path, 'replace', side_effect=PermissionError('denied')), patch('balance_ml.agent.time.sleep'):
+                with self.assertRaises(PermissionError): write(Path(folder)/'progress.json', {})

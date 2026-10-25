@@ -7,6 +7,7 @@ import subprocess
 import time
 from types import SimpleNamespace
 from . import agent
+from .frontier_feedback import feedback
 
 FRONTIER_RESERVE = 65
 TOTAL = 5000
@@ -102,7 +103,7 @@ def execute(day, max_seconds=21600):
                         'reached40':sum(r['cleared']>=40 for r in rs),'reached50':sum(r['cleared']>=50 for r in rs),
                         'invalid_actions':sum(r['invalid'] for r in rs),'time_censored':sum(r['end']=='time_limit' for r in rs)}
         agent.write(directory/'frontier-report.json',{'fingerprint':description['fingerprint'],'summaries':summaries,
-                    'recommendation':'review_only','limitations':['Fixed policies are not optimal strategies or human skill cohorts.',
+                    'feedback':feedback(rows),'recommendation':'review_only','limitations':['Fixed policies are not optimal strategies or human skill cohorts.',
                     'If no baseline policy reaches50, improve strategy before adopting harder late waves.']})
     finally:worker.close()
     remaining=int(max_seconds-(time.monotonic()-began))

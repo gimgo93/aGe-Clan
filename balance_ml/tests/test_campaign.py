@@ -46,7 +46,8 @@ class CampaignIntegrationTests(unittest.TestCase):
                 if op=='describe':return {'fingerprint':'test','sources':{},'profiles':[{'id':p} for p in
                     ['mixed-timing-1s','mixed-timing-02s','mixed-no-potions-02s','mixed-no-economy-02s']]}
                 calls.append(query)
-                return {'cleared':30,'invalid':0,'end':'castle_destroyed'}
+                return {'cleared':30,'invalid':0,'end':'castle_destroyed','actions':{},
+                        **{k:0 for k in ['time','hp','kills','leaks','damage','destroyed','miners','workers','gold','crystals']}}
             def close(self):pass
         def fake_ml(args):
             ml_calls.append(args)

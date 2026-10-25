@@ -1,0 +1,29 @@
+{
+  "name": "frontier-50-v1",
+  "status": "prepared_not_run",
+  "target_wave": 50,
+  "difficulty_candidate": {
+    "from_wave": 36,
+    "enemy_hp_multiplier": 1.05
+  },
+  "decision_ticks": [
+    10,
+    2
+  ],
+  "simulation_tick_seconds": 0.1,
+  "development_seeds": [
+    51001,
+    51002,
+    51003
+  ],
+  "confirmation_seeds": [
+    52001,
+    52002,
+    52003,
+    52004,
+    52005
+  ],
+  "hypothesis": "Small late HP increase makes wave40 harder while advanced timing/economy may retain wave50 reachability. Neither is established.",
+  "adoption": "No early-wave changes; compare paired milestones40/50 and fresh-seed survival. Never claim optimality from fixed controllers. No production application.",
+  "budget": "Do not launch alongside the already reserved 5000-game daily run. Allocate paired experiments within a later daily 5000-game budget."
+}

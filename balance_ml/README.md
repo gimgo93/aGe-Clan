@@ -83,3 +83,11 @@ HP·처치·누수·성 피해·파괴·생존 게임초·행동/시설 이용·
 [개발 계획](DEVELOPMENT_PLAN.md)에 단계별 통과 기준을 기록합니다. 완료된 실행은
 `python -m balance_ml.audit --run balance_ml/runs/실행이름`으로 전략별 예측 오차와
 설정 단위 bootstrap 진단을 읽을 수 있습니다. 실행 중인 작업은 건드리지 않으며 패치를 자동 적용하지 않습니다.
+
+완료된 실행의 ridge 설정 비교(0.5/2/8, 내부 3분할 선택·외부 설정 검증):
+
+```bat
+C:\Users\pc\aGe-ai\.venv\Scripts\python.exe -m balance_ml.compare --run balance_ml/runs/2026-10-25
+```
+
+기존 모델을 교체하지 않으며 새 게임·운영 패치를 실행하지 않습니다. 외부 검증 결과를 보고 반복 설정 선택을 하지 않습니다.

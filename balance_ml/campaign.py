@@ -1,11 +1,10 @@
-"""One locked daily budget: 64 frontier games + 4935 legacy ML games."""
+"""Run the 64-game frontier study, then hold unused budget for evidence-led planning."""
 import argparse
 import datetime as dt
 import json
 from pathlib import Path
 import subprocess
 import time
-from types import SimpleNamespace
 from . import agent
 from .frontier_feedback import feedback
 from .frontier_metrics import strategy_effects
@@ -17,7 +16,8 @@ TOTAL = 5000
 def allocation(total=TOTAL):
     if total != TOTAL:
         raise ValueError('This experiment is predeclared for 5000 games only')
-    return {'frontier_reserved':FRONTIER_RESERVE,'frontier_planned':64,'ml_games':total-FRONTIER_RESERVE}
+    return {'frontier_reserved':FRONTIER_RESERVE,'frontier_planned':64,
+            'ml_games':0,'unallocated_games':total-FRONTIER_RESERVE}
 
 
 def jobs(plan):
@@ -107,15 +107,10 @@ def execute(day, max_seconds=21600):
                     'feedback':feedback(rows),'strategy_effects':strategy_effects(rows),'recommendation':'review_only','limitations':['Fixed policies are not optimal strategies or human skill cohorts.',
                     'If no baseline policy reaches50, improve strategy before adopting harder late waves.']})
     finally:worker.close()
-    remaining=int(max_seconds-(time.monotonic()-began))
-    ml_progress=agent.RUNS/ml_name/'progress.json'
-    already_complete=ml_progress.exists() and json.loads(ml_progress.read_text(encoding='utf-8')).get('state')=='complete'
-    if remaining>0 and not already_complete:
-        agent.execute(SimpleNamespace(run=ml_name,games=budget['ml_games'],seed=24601,max_seconds=remaining))
-    ml_progress=agent.RUNS/ml_name/'progress.json'
-    state=json.loads(ml_progress.read_text(encoding='utf-8'))['state'] if ml_progress.exists() else 'paused'
-    agent.write(directory/'progress.json',{'state':state,'phase':'ml40','frontier_games':len(rows),
-                'ml_run':ml_name,'daily_reserved_games':TOTAL})
+    agent.write(directory/'progress.json',{'state':'complete','phase':'frontier_review',
+                'frontier_games':len(rows),'daily_reserved_games':TOTAL,
+                'unused_reserved_games':TOTAL-len(rows),'next_action':'Review wave50 evidence before allocating more games'})
+
 
 
 def main():

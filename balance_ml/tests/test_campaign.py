@@ -8,7 +8,7 @@ from balance_ml.campaign import allocation,jobs,ensure_day_available
 class CampaignTests(unittest.TestCase):
     def test_budget_and_predeclared_jobs(self):
         a=allocation()
-        self.assertEqual(a['ml_games']+a['frontier_reserved'],5000)
+        self.assertEqual(a['ml_games']+a['frontier_reserved']+a['unallocated_games'],5000)
         self.assertEqual(a['ml_games']%5,0)
         self.assertLessEqual(a['ml_games']+a['frontier_planned'],5000)
         plan={'development_seeds':[1,2,3],'confirmation_seeds':[4,5,6,7,8]}
@@ -58,7 +58,8 @@ class CampaignIntegrationTests(unittest.TestCase):
             campaign.execute('2026-10-26')
             campaign.execute('2026-10-26')
             self.assertEqual(len(calls),64)
-            self.assertEqual(len(ml_calls),1)
-            self.assertEqual(ml_calls[0].games,4935)
+            self.assertEqual(len(ml_calls),0)
             progress=json.loads(Path(folder,'2026-10-26-frontier50/progress.json').read_text())
             self.assertEqual(progress['state'],'complete')
+            self.assertEqual(progress['phase'],'frontier_review')
+            self.assertEqual(progress['unused_reserved_games'],4936)

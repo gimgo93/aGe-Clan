@@ -15,4 +15,4 @@ if(Test-Path (Join-Path $runPath 'progress.json')) {
 $env:TEMP=$runs; $env:TMP=$runs
 $stamp=Get-Date -Format 'HHmmssfff'
 $process=Start-Process -FilePath $python -ArgumentList @('-m','balance_ml.campaign','--day',$day) -WorkingDirectory $repo -WindowStyle Hidden -RedirectStandardOutput (Join-Path $runPath "stdout-$stamp.log") -RedirectStandardError (Join-Path $runPath "stderr-$stamp.log") -PassThru
-Write-Output "Started bounded frontier/ML campaign PID=$($process.Id)"
+Write-Output "Started bounded frontier review campaign PID=$($process.Id)"

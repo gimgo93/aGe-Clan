@@ -98,3 +98,14 @@ C:\Users\pc\aGe-ai\.venv\Scripts\python.exe -m balance_ml.compare --run balance_
 36웨이브부터 적 체력5% 증가 후보와1초/0.2초 판단·물약/경제 대조를 준비했습니다.
 아직50성공이나 난이도 개선이 검증된 패치가 아닙니다. 다음 일일 예산 안에서 별도 배분 후 실행합니다.
 `node balance_ml/tests/check-frontier50.mjs`는경계·재현성 검사만 수행하며 전체게임배치를 시작하지 않습니다.
+
+## 다음 신규 일일 실행: 50평가와 ML 예산 분리
+
+```bat
+powershell -NoProfile -ExecutionPolicy Bypass -File balance_ml/daily50.ps1
+```
+
+50웨이브 평가64판과40평가 ML4935판을 순차 실행합니다. 총4999판이며 나머지1판은 예약 여유입니다.
+전역 잠금과 최초 시작 기준6시간 마감으로 중복/시간초과를 방지합니다. 기존당일5000판 작업이있으면 시작하지 않습니다.
+시간예산이소진된캠페인은 다음날재배분검토가필요합니다. 같은날재시작으로마감을초기화하지않습니다.
+50평가결과는 `날짜-frontier50/frontier-report.json`,40모델은 `날짜-ml40/`에 별도로 저장합니다.

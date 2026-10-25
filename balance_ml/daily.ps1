@@ -8,6 +8,8 @@ New-Item -ItemType Directory -Force $runs | Out-Null
 $lock=Join-Path $runs 'agent.lock'
 if (Test-Path -LiteralPath $lock) { Write-Output 'Existing agent lock: inspect status; no duplicate launch'; exit 0 }
 $runName=Get-Date -Format 'yyyy-MM-dd'
+$koreanDay=[TimeZoneInfo]::ConvertTimeBySystemTimeZoneId([DateTime]::UtcNow,'Korea Standard Time').ToString('yyyy-MM-dd')
+if (Test-Path (Join-Path $runs "$koreanDay-frontier50\manifest.json")) { Write-Output 'Frontier campaign already reserves daily budget; use its resume path'; exit 0 }
 # Resume the latest interrupted matching-budget run before creating another daily batch.
 $pending=Get-ChildItem -LiteralPath $runs -Directory | Sort-Object Name -Descending | Where-Object {
     $manifest=Join-Path $_.FullName 'manifest.json'

@@ -105,7 +105,7 @@ def execute(args):
             manifest={'fingerprint':description['fingerprint'],'budget':args.games,'seed':args.seed,
                       'created':dt.datetime.now().isoformat(),'schema':schema,'policies':policies}
             write(manifest_path,manifest);write(directory/'source-snapshot.json',description['sources'])
-            write(directory/'hypothesis.json',{'hypothesis':'A one-parameter change can reduce controller progression target error while retaining archer cap.',
+            write(directory/'hypothesis.json',{'hypothesis':'A one-parameter change can reduce controller progression target error; no archer cap or resistance is imposed.',
                  'method':'Random-feature ridge ensemble; configuration holdout; paired development; fresh confirmation',
                  'targets':dict(zip(policies,TARGETS)),'promotion':'Surrogate beats constant-policy holdout, fresh paired score improves by >=0.5 waves; no errors/censoring',
                  'scope':'Solo only. Human skill, PvP and live telemetry are unmeasured. No automatic production patch.'})
@@ -188,7 +188,7 @@ def execute(args):
                 'throughput_basis':'per-game wall timings' if timed else 'original completed run wall time including training overhead',
                 'estimated_simulation_hours':{str(n):per_game*n/3600 for n in [5000,10000]},
                 'automation':'Local feedback only; no deployment or code application',
-                'limitations':['Fixed controllers are not human skill cohorts','Solo only; PvP unvalidated','Ensemble spread is not calibrated','Only tower damage/cost, starting gold and solo arrow armor searched; potion/economy behavior observed but their constants not tuned']}
+                'limitations':['Fixed controllers are not human skill cohorts','Solo only; PvP unvalidated','Ensemble spread is not calibrated','Only tower damage/cost and starting gold searched; potion/economy behavior observed but their constants not tuned']}
         write(directory/'report.json',report);write(directory/'progress.json',{'state':'complete','completed_games':len(rows),'budget':args.games})
         text='# Local balance ML feedback\n\n'+f"Completed full games: {len(rows)} / {args.games}\n\nRecommendation: {report['recommendation']}\n\n"+'\n'.join('- '+r for r in reasons)+f'\n\nHoldout MAE: {metrics["holdout_mae_waves"]:.3f} waves; constant-policy baseline: {metrics["constant_policy_mae_waves"]:.3f}.\n\nFresh paired improvement: {improvement:.3f} waves.\n\n'+ '\n'.join('- '+r for r in report['limitations'])+'\n\nSee report.json for HP, kills, leaks, survival, invalid actions and facility use. No live deployment.\n'
         (directory/'REPORT.md').write_text(text,encoding='utf-8')

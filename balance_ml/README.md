@@ -118,3 +118,10 @@ powershell -NoProfile -ExecutionPolicy Bypass -File balance_ml/daily50.ps1
 50보고서의 `strategy_effects`는 같은 시드·HP설정에서 판단간격/물약/추가광부투자의 효과를 비교합니다.
 HP·처치·누수·피해·시설파괴·자원잔량·시설행동횟수·실패행동률을 함께 제공합니다.
 광부투자제외도 시작광부5명은 유지되므로 경제전체를 제거한 실험은 아닙니다.
+
+## 완료 후 자동 진단
+
+`python -m balance_ml.finalize --run balance_ml/runs/실행이름 --wait-seconds 3600`은
+최대1시간 완료를 기다린 뒤 정확도진단/정규화비교를 `analysis-complete.json`에 저장합니다.
+추가게임·모델교체·패치를하지않고 이미저장된결과는보존합니다. 실패/일시중단시즉시종료합니다.
+`analysis.lock`의PID를확인하기전잠금을삭제하지않습니다. 일반즉시진단은wait옵션을생략합니다.

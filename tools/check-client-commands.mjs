@@ -6,7 +6,7 @@ const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 function element(tag='div'){return{tag,open:false,value:'',style:{},options:[],classList:{add(){},remove(){},toggle(){}},addEventListener(){},showModal(){this.open=true;},close(){this.open=false;},append(...nodes){this.options.push(...nodes);},replaceChildren(){},remove(){}};}
 const nodes=new Map(),get=id=>{if(!nodes.has(id))nodes.set(id,element());return nodes.get(id);};
 const storage=new Map(),server=new Defense.Game();server.start();server.s.multiplayer=true;server.s.gold=1000;
-let version=0,sequence=1,status='waiting',release,block=false,reject=false;const received=[];
+let version=0,sequence=1,status='waiting',release,block=false,reject=false;const received=[],notifications=[];
 const view=result=>({roomId:'F-ABCDEFGH',code:'ABCDEFGH',private:true,hostId:'self',selfId:'self',status,version:++version,nextActionSeq:sequence,serverTime:Date.now(),simulationTime:Date.now(),transport:'http',players:[{id:'self',name:'test',s:structuredClone(server.s)}],result});
 const game=new Defense.Game();
 const context={Defense,performance,crypto,structuredClone,Date,console,setTimeout,clearTimeout,setInterval,clearInterval,URL,AbortController,
@@ -19,8 +19,8 @@ const context={Defense,performance,crypto,structuredClone,Date,console,setTimeou
 };context.window=context;vm.createContext(context);
 vm.runInContext(await readFile(new URL('../public/game/net-visual.js',import.meta.url),'utf8'),context);
 vm.runInContext(await readFile(new URL('../public/game/multiplayer.js',import.meta.url),'utf8'),context);
-const clan=context.setupClan({game,renderer:{images:{},ground:{},groundDetail:{},decor:[]},audio:{init(){},notify(){}},toast(){},hud(){},online(){},home(){}});
-get('createRoomBtn').onclick();await get('joinMatch').onclick();get('beginFriendMatch').onclick();await wait(25);
+const clan=context.setupClan({game,renderer:{images:{},ground:{},groundDetail:{},decor:[]},audio:{init(){},notify(kind){notifications.push(kind);}},toast(){},hud(){},online(){},home(){}});
+get('createRoomBtn').onclick();await get('joinMatch').onclick();assert.equal(notifications.filter(k=>k==='queue').length,1);await get('joinMatch').onclick();assert.equal(notifications.filter(k=>k==='queue').length,1,'duplicate join must not replay queue sound');get('beginFriendMatch').onclick();await wait(180);
 assert.equal(clan.active,true);block=true;
 const one=game.build('archer',0),two=game.build('archer',1);
 assert.equal(one.pending,true);assert.equal(two.pending,true);assert.equal(game.s.towers.length,2,'both placements appear before an HTTP reply');

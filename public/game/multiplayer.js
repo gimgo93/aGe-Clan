@@ -2,10 +2,14 @@ function setupClan(app){
  const $=id=>document.getElementById(id),game=app.game;
  let roomId=null,data=null,selfId=null,busy=false,joining=false,viewId=null,lastEvent=0,lastVersion=-1,active=false,lastGood=0,queued=[],pollTimer=null,failures=0,latency=0,epoch=0,startedSound=false;
  let members=new Set(),serverOffset=0,previewId=-1;
- let socket=null,heartbeat=null,wire=null,retryAt=0,commandBusy=false,commandTimer=null,streamFailures=0;
+ let socket=null,heartbeat=null,wire=null,retryAt=0,commandBusy=false,commandTimer=null,streamFailures=0,nextSendAt=0,sendTimer=null;
+ function speedCooldownMs(){return Math.max(0,(game.s.speedLockedUntil||0)-Date.now()-(active?serverOffset:0));}
+ function rebaseQueue(){let sequence=data?.nextActionSeq||1;for(const c of queued)if(c.op==='action')c.sequence=sequence++;}
+ function sendLater(ms=120){nextSendAt=Math.max(nextSendAt,performance.now()+ms);clearTimeout(sendTimer);sendTimer=setTimeout(sendCommand,Math.max(0,nextSendAt-performance.now()));}
+ function rateRetry(retryAfter=120){clearTimeout(commandTimer);commandBusy=false;const c=queued[0];if(!c)return;if((c.rateRetries=(c.rateRetries||0)+1)>6){queued=[];if(data)apply(data,true);app.toast('서버가 혼잡합니다. 잠시 후 다시 선택하세요.');return;}sendLater(Math.max(120,Math.min(1000,retryAfter))+Math.random()*60);}
  function mergePatch(old,p){if(!p)return old;if(Object.hasOwn(p,'set'))return p.set;if(p.order){const map=new Map((old||[]).map(x=>[x.id,x]));return p.order.map(id=>mergePatch(map.get(id),p.entries[id]));}const next={...old};for(const k of p.remove||[])delete next[k];for(const [k,v] of Object.entries(p.changes||{}))next[k]=mergePatch(next[k],v);return next;}
  function networkLabel(){if(roomId&&!failures)$('networkState').textContent=(socket?.readyState===1?'실시간 연결 · 왕복 ':'연결됨 · 응답 ')+latency+'ms · '+(data?.solo?'':'공통 ')+(game.s.speed||1)+'×';}
- function stopSocket(){clearInterval(heartbeat);clearTimeout(commandTimer);commandBusy=false;if(socket){const old=socket;socket=null;old.close();}wire=null;}
+ function stopSocket(){clearInterval(heartbeat);clearTimeout(commandTimer);clearTimeout(sendTimer);nextSendAt=0;commandBusy=false;if(socket){const old=socket;socket=null;old.close();}wire=null;}
  function openRealtime(){
   if(data?.transport!=='websocket'||socket||Date.now()<retryAt||!roomId)return;
   const current=roomId,generation=epoch,url=new URL('/api/clan/socket',location.href);url.protocol=location.protocol==='https:'?'wss:':'ws:';url.searchParams.set('roomId',roomId);
@@ -15,19 +19,19 @@ function setupClan(app){
    if(m.type==='pong'){latency=Math.max(0,Math.round(performance.now()-m.sentAt));lastGood=Date.now();networkLabel();return;}
    if(m.type==='snapshot')wire=m.value;
    else if(m.type==='patch'){if(!wire||wire.version!==m.baseVersion){ws.send(JSON.stringify({type:'resync'}));return;}wire=mergePatch(wire,m.patch);}
-   else if(m.type==='ack'){const matches=queued[0]&&((m.actionId&&queued[0].actionId===m.actionId)||(m.requestId&&queued[0].requestId===m.requestId));if(!matches)return;clearTimeout(commandTimer);commandBusy=false;if(m.status===429){setTimeout(sendCommand,180);return;}queued.shift();if(m.error)app.toast(m.error);if(m.value){if(!apply(m.value)&&data)apply(data,true);}else if(data)apply(data,true);networkLabel();setTimeout(()=>{if(queued.length)sendCommand();},120);return;}
-   else if(m.type==='error'){app.toast(m.error);return;}else return;
+   else if(m.type==='ack'){const matches=queued[0]&&((m.actionId&&queued[0].actionId===m.actionId)||(m.requestId&&queued[0].requestId===m.requestId));if(!matches)return;clearTimeout(commandTimer);commandBusy=false;if(m.status===429){rateRetry(m.retryAfterMs);return;}queued.shift();if(m.error)app.toast(m.error);if(m.value){if(!apply(m.value)&&data)apply(data,true);}else if(data)apply(data,true);rebaseQueue();networkLabel();if(queued.length)sendLater();return;}
+   else if(m.type==='error'){if(m.status===429&&commandBusy&&queued.length){rateRetry(m.retryAfterMs);return;}app.toast(m.error);return;}else return;
    failures=0;apply(structuredClone(wire));networkLabel();
   };
   ws.onclose=()=>{clearTimeout(opening);if(socket!==ws)return;clearInterval(heartbeat);clearTimeout(commandTimer);commandBusy=false;socket=null;wire=null;retryAt=Date.now()+Math.min(15000,1000*2**Math.min(4,streamFailures++));if(roomId===current&&epoch===generation){clearTimeout(pollTimer);pump();}};
   ws.onerror=()=>ws.close();
  }
  async function sendCommand(){
-  if(commandBusy||!roomId||!queued.length)return;commandBusy=true;const command=queued[0],current=roomId,generation=epoch;
+  if(commandBusy||!roomId||!queued.length)return;if(performance.now()<nextSendAt){clearTimeout(sendTimer);sendTimer=setTimeout(sendCommand,nextSendAt-performance.now());return;}commandBusy=true;nextSendAt=performance.now()+120;const command=queued[0],current=roomId,generation=epoch;
   if(socket?.readyState===1){socket.send(JSON.stringify({type:'command',input:command,requestId:command.requestId}));commandTimer=setTimeout(()=>{if(socket)socket.close();},3500);return;}
   try{const value=await request({...command,roomId:current});if(roomId!==current||epoch!==generation)return;if(queued[0]===command)queued.shift();if(!apply(value)){if(value.result?.error)app.toast(value.result.error);if(data)apply(data,true);}}
   catch(e){if(roomId!==current||epoch!==generation)return;if(e.status&&![409,429,503].includes(e.status)){queued.shift();app.toast(e.message);if(data)apply(data,true);}else setTimeout(sendCommand,300);}
-  finally{if(epoch===generation){commandBusy=false;app.hud();if(queued.length)setTimeout(sendCommand,120);else if(roomId){clearTimeout(pollTimer);pollTimer=setTimeout(pump,40);}}}
+  finally{if(epoch===generation){commandBusy=false;app.hud();if(queued.length)sendLater();else if(roomId){clearTimeout(pollTimer);pollTimer=setTimeout(pump,40);}}}
  }
 
  let entryMode='join',entryId=crypto.randomUUID(),lastSnapshot=performance.now();
@@ -37,6 +41,7 @@ function setupClan(app){
    game[method]=(...args)=>{if(!active)return original[method](...args);return queueAction(method,args);};
  }
  function queueAction(action,args){
+  if(action==='setSpeed'&&speedCooldownMs()>0)return{error:'배속은 변경 후 5초 뒤 다시 바꿀 수 있습니다.'};
   if(queued.length>=8||Date.now()-lastGood>5000)return{error:'서버 연결을 확인 중입니다. 잠시 후 다시 시도하세요.'};
   const last=queued.filter(c=>c.op==='action').at(-1),command={op:'action',action,args,actionId:crypto.randomUUID(),sequence:last?last.sequence+1:data.nextActionSeq,previewId:previewId--,queuedAt:performance.now()};
   const result=ClanVisual.preview(game,command);if(result?.error)return result;queued.push(command);sendCommand();app.hud();return{...result,pending:true};
@@ -123,7 +128,7 @@ function setupClan(app){
  }
  function hud(){
    const s=game.s,waiting=active&&(queued.length>=8||Date.now()-lastGood>5000);
-   $('speedBtn').disabled=!game.canAct()||waiting;networkLabel();
+   const cooldown=speedCooldownMs(),speedPending=queued.some(c=>c.action==='setSpeed');$('speedBtn').disabled=!game.canAct()||waiting||cooldown>0||speedPending;$('speedBtn').dataset.wait=cooldown>0?Math.ceil(cooldown/1000)+'초':speedPending?'변경 중':'';$('speedBtn').classList.toggle('speed-cooling',cooldown>0||speedPending);networkLabel();
    if(data?.status==='countdown'&&!failures)$('matchStatus').textContent=`${data.players.length}명 · ${Math.max(0,Math.ceil((data.readyAt-Date.now()-serverOffset)/1000))}초 후 시작`;
    if(failures&&roomId)$('networkState').textContent=`재연결 중 · 마지막 응답 ${Math.floor((Date.now()-lastGood)/1000)}초 전`;
    $('buildBarracks').textContent=s.barracks?'훈련소 건설 완료':'훈련소 건설 · 나무 100';

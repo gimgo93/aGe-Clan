@@ -10,7 +10,7 @@ function distanceAt(enemy,seconds){
 function adopt(state,previous,ageSeconds=0){
   const old=new Map((previous?.enemies||[]).map(e=>[e.id,e]));
   for(const enemy of state.enemies){
-    const prior=old.get(enemy.id);enemy._net={age:clamp(ageSeconds,0,4),distance:prior?prior._net?.distance??prior.d:distanceAt(enemy,ageSeconds)};
+    const prior=old.get(enemy.id);enemy._net={age:clamp(ageSeconds,0,4),elapsedSim:0,elapsedWall:0,distance:prior?prior._net?.distance??prior.d:distanceAt(enemy,ageSeconds)};
     if(Math.abs(enemy._net.distance-enemy.d)>300)enemy._net.distance=enemy.d;
     if(prior){enemy.x=prior.x;enemy.y=prior.y;}
   }
@@ -23,9 +23,14 @@ function animate(state,dt,elapsed,Defense,trees=[]){
   const blend=1-Math.exp(-dt/.08),rate=state.speed===2?2:1,simDt=dt*rate;
   for(const enemy of state.enemies){
     const net=enemy._net;if(!net)continue;
-    // Clamp the horizon instead of resetting to the old packet after 0.8 s.
-    const goal=distanceAt(enemy,clamp(elapsed*rate+net.age,0,2*rate));
-    net.distance+=(goal-net.distance)*blend;
+    // Integrate each frame at its actual rate; changing speed must not rewrite past time.
+    const predictionStep=Math.min(dt,Math.max(0,2-(net.elapsedWall||0)));
+    net.elapsedWall=Math.min(2,(net.elapsedWall||0)+dt);net.elapsedSim=Math.min(4,(net.elapsedSim||0)+predictionStep*rate);
+    const goal=distanceAt(enemy,clamp(net.elapsedSim+net.age,0,4));
+    // Forward-moving enemies never visibly walk backwards while a fresh packet catches up.
+    // A genuine large correction still resets in adopt(), instead of drifting indefinitely.
+    const forward=Math.max(net.distance,goal);
+    net.distance+=(forward-net.distance)*blend;
     const point=Defense.pointAt(Math.min(Defense.pathLength,net.distance));
     enemy.x=point.x;enemy.y=point.y;if(!enemy.siege)enemy.angle=point.angle;
     enemy.hit=Math.max(0,(enemy.hit||0)-simDt);
@@ -52,6 +57,7 @@ function animate(state,dt,elapsed,Defense,trees=[]){
 function preview(game,command){
   if(command.op!=='action'||typeof game.constructor.prototype[command.action]!=='function')return;
   if(command.action==='sellTower'&&command.args[0]<0)return{error:'서버가 설치를 확인한 후 철거할 수 있습니다.'};
+  if(command.action==='setSpeed')return{ok:true};
   const id=game.id;if(command.action==='build')game.id=command.previewId-1;
   const result=game.constructor.prototype[command.action].apply(game,command.args);game.id=id;
   if(result?.tower)result.tower._pending=true;

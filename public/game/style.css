@@ -199,3 +199,6 @@ body[data-scene=town]{--dock:70px}body[data-scene=town] #commandDock{height:70px
 #sceneTransition{z-index:3;background:transparent;transition:none;opacity:0;overflow:hidden}
 #sceneTransition.scene-snapshot{opacity:1;will-change:transform,opacity}
 #sceneTransition canvas{display:block;width:100%;height:100%}
+
+/* A shared real-time lock prevents rapid room-wide speed changes. */
+#speedBtn{position:relative}#speedBtn.speed-cooling{opacity:.82}#speedBtn.speed-cooling:after{content:attr(data-wait);position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);min-width:42px;padding:3px 5px;background:#273325ed;color:#ffe2a3;border:1px solid #ac925c;border-radius:3px;font:10px system-ui;white-space:nowrap;pointer-events:none}

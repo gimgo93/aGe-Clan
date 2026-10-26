@@ -125,3 +125,29 @@ HP·처치·누수·피해·시설파괴·자원잔량·시설행동횟수·실�
 최대1시간 완료를 기다린 뒤 정확도진단/정규화비교를 `analysis-complete.json`에 저장합니다.
 추가게임·모델교체·패치를하지않고 이미저장된결과는보존합니다. 실패/일시중단시즉시종료합니다.
 `analysis.lock`의PID를확인하기전잠금을삭제하지않습니다. 일반즉시진단은wait옵션을생략합니다.
+
+
+## v2: 같은 시드의 밸런스 변경 효과 학습
+
+기존 `model.py`는 절대 완료 웨이브를 예측한다. 새 모듈은 별도로 보존하며
+**후보 완료 웨이브 − 같은 시드·정책의 기준 완료 웨이브**를 예측한다.
+
+- `effect_data.py`: data 단계만 대응시키고 중복·미사용 시설·실패/시간제한을 진단한다.
+- `effect_model.py`: 64개 비선형 특징, 5개 시드 bootstrap 모델, ridge=2.
+  기준 효과는0으로 고정한다. 40/50 목표와 소스 해시를 저장·복원 시 검증한다.
+- `effect_train.py`: 설정과 시드를 모두 분리한 외부 검증. 10설정·10시드 미만이면 학습 보류.
+  모델 오차를 같은 평가행의 효과0 예측과 비교한다. 관측 범위를 벗어난 예측은 거부한다.
+
+Windows CMD, 저장소 루트에서 완료된 기존40 실행의 준비도 진단:
+
+```bat
+C:\Users\pc\aGe-ai\.venv\Scripts\python.exe -m balance_ml.effect_train --run balance_ml/runs/2026-10-25 --output-name effect-v2-my-check
+C:\Users\pc\aGe-ai\.venv\Scripts\python.exe -m unittest balance_ml.tests.test_effect -v
+```
+
+출력은 `balance_ml/runs/<output-name>/report.json`이다. 학습이 가능할 때만 그 안의
+`model/`에 가중치를 저장한다. 같은 이름은 덮어쓰지 않는다. 새 게임은 실행하지 않는다.
+이 CLI는 기존40 실행 전용이다. `train_effect(..., target_wave=50, fingerprint=...)`
+API는 목표50 대응 데이터를 지원하지만 실제50 학습용 데이터 수집 연결과 가중치 학습은 후속 단계다.
+검증용 게임을 새 학습으로 섞지 않는다. 새 모델은 기존 agent의 추천 경로에 자동 적용되지 않는다.
+시설 건설 기록은 최소 근거이며 실제 공격 효과나 사람 숙련도를 증명하지 않는다.

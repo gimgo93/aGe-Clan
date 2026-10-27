@@ -14,7 +14,7 @@ export function applyLateHp(game, {fromWave=36, multiplier=1}={}) {
   };
 }
 
-export function runFrontier(D, policy, seed, trees=[], {decisionTicks=10,hpMultiplier=1,maxTicks=60000}={}) {
+export function runFrontier(D, policy, seed, trees=[], {decisionTicks=10,hpMultiplier=1,maxTicks=60000,chooseAction=choose}={}) {
   if(!Number.isInteger(seed)||seed<0||seed>=2**32)throw Error('Invalid seed');
   if(![2,10].includes(decisionTicks)||!Number.isInteger(maxTicks)||maxTicks<1||maxTicks>60000)
     throw Error('Invalid timing or time budget');
@@ -22,7 +22,7 @@ export function runFrontier(D, policy, seed, trees=[], {decisionTicks=10,hpMulti
   const game=new D.Game(()=>{state=(Math.imul(state,1664525)+1013904223)>>>0;return state/4294967296;});
   game.setTreeSites(trees);game.start();applyLateHp(game,{multiplier:hpMultiplier});
   const actions={};let invalid=0,leaks=0,destroyed=0,damage=0;
-  const milestones={};
+  const milestones={};let castle17At=null;
   const resolve=game.resolveEnemy.bind(game);
   game.resolveEnemy=e=>{if(e.hp>0)leaks++;return resolve(e);};
   const destroy=game.destroyEffect.bind(game);
@@ -30,20 +30,21 @@ export function runFrontier(D, policy, seed, trees=[], {decisionTicks=10,hpMulti
   let tick=0;
   while(!game.s.over&&game.s.completed<50&&tick<maxTicks){
     if(tick%decisionTicks===0){
-      const action=choose(game,D,policy);
+      const action=chooseAction(game,D,policy);
       if(action){const result=game[action.name](...action.args);
         if(result.error)invalid++;
         else {const key=action.name+':'+(action.args[0]??'');actions[key]=(actions[key]??0)+1;}
       }
     }
     const hp=game.s.hp;game.tick(.1);tick++;damage+=Math.max(0,hp-game.s.hp);
+    if(castle17At===null&&game.s.castle>=17)castle17At={time:game.s.time,wave:game.s.wave,completed:game.s.completed};
     for(const wave of [10,15,20,30,40,50]) if(game.s.completed>=wave&&!milestones[wave])
       milestones[wave]={time:game.s.time,hp:game.s.hp,gold:game.s.gold,crystals:game.s.crystals};
   }
   return {seed,policy:policy.id,decisionTicks,hpMultiplier,cleared:game.s.completed,
     target:50,end:game.s.over?'castle_destroyed':game.s.completed>=50?'target_wave':'time_limit',
     time:game.s.time,hp:game.s.hp,kills:game.s.kills,leaks,destroyed,damage,invalid,actions,milestones,
-    miners:game.s.miners,workers:game.s.population,gold:game.s.gold,crystals:game.s.crystals};
+    castle:game.s.castle,castle17At,miners:game.s.miners,workers:game.s.population,gold:game.s.gold,crystals:game.s.crystals};
 }
 
 export const FRONTIER_PROFILES=[

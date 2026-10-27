@@ -1,0 +1,35 @@
+{
+  "name": "castle-potion-reserve-v1",
+  "target_wave": 50,
+  "from_wave": 18,
+  "castle_target": 17,
+  "decision_ticks": 2,
+  "development_seeds": [
+    61001,
+    61002,
+    61003,
+    61004,
+    61005,
+    61006,
+    61007,
+    61008,
+    61009,
+    61010
+  ],
+  "confirmation_seeds": [
+    62001,
+    62002,
+    62003,
+    62004,
+    62005,
+    62006,
+    62007,
+    62008,
+    62009,
+    62010
+  ],
+  "hypothesis": "Protect next castle upgrade cost from potion spending until castle17; all other decisions unchanged.",
+  "planned_games": 40,
+  "selection": "One fixed candidate; no selection on confirmation results",
+  "adoption": "Diagnostic only; no automatic policy or balance replacement"
+}

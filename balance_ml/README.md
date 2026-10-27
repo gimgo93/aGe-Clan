@@ -151,3 +151,25 @@ C:\Users\pc\aGe-ai\.venv\Scripts\python.exe -m unittest balance_ml.tests.test_ef
 API는 목표50 대응 데이터를 지원하지만 실제50 학습용 데이터 수집 연결과 가중치 학습은 후속 단계다.
 검증용 게임을 새 학습으로 섞지 않는다. 새 모델은 기존 agent의 추천 경로에 자동 적용되지 않는다.
 시설 건설 기록은 최소 근거이며 실제 공격 효과나 사람 숙련도를 증명하지 않는다.
+
+
+## 성17 해금용 물약 크리스탈 예약 대조
+
+`reserve-policy.mjs`는18웨이브 이상·성17 미만에서 물약 사용 후 다음 성 강화 비용을
+남기지 못할 때 물약을 보류한다. 다른 강화·연구·수리·판단 간격은 그대로다.
+이 규칙은 로컬 실험용이며 게임 규칙을 변경하지 않는다.
+
+```bat
+C:\Users\pc\aGe-ai\.venv\Scripts\python.exe -m balance_ml.reserve_experiment
+node balance_ml/tests/check-reserve.mjs
+C:\Users\pc\aGe-ai\.venv\Scripts\python.exe -m unittest balance_ml.tests.test_reserve -v
+```
+
+해당 한국 날짜의64판 frontier 캠페인을 완료·검토한 뒤만 실행한다.
+새 개발10시드/확인10시드에 기준·후보 각1판으로40판이다. 원래 캠페인의6시간 마감과
+일일5000판 예산을 공유한다. 날짜 외 이름의 수동 run도 manifest 생성일로 예산에 포함한다.
+진행/원시 기록/보고서는 `runs/날짜-castle-reserve/`에 보존한다.
+같은 명령 재개 시 완료한 게임은 반복하지 않으며 소스·계획 변경 시 기존 기록을 덮어쓰지 않는다.
+실패 시 stderr와 실제PID를 확인한 후 재개한다. 자동 가중치 학습·운영 적용은 하지 않는다.
+`positive_policy_signal_only`는 두 단계에서 평균 진척이 좋아졌다는 탐색적 표시에 한정된다.
+통계적 유의성,50 성공,게임 난이도 적정성은 별도로 판단해야 한다.

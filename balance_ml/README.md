@@ -173,3 +173,39 @@ C:\Users\pc\aGe-ai\.venv\Scripts\python.exe -m unittest balance_ml.tests.test_re
 실패 시 stderr와 실제PID를 확인한 후 재개한다. 자동 가중치 학습·운영 적용은 하지 않는다.
 `positive_policy_signal_only`는 두 단계에서 평균 진척이 좋아졌다는 탐색적 표시에 한정된다.
 통계적 유의성,50 성공,게임 난이도 적정성은 별도로 판단해야 한다.
+
+
+## 자원 흐름 감사와 후반 광부 목표 대조
+
+완료된 성17 예약 대조의행동횟수와기록된원본엔진으로소비를복원한다(추가게임없음):
+
+```bat
+node balance_ml/crystal-audit.mjs balance_ml/runs/2026-10-27-castle-reserve
+```
+
+단일전략솔로대조만지원하며수치변경run은거부한다. 채굴량은복원소비+잔량−초기자원으로
+역산한값이며직접관측획득량과구분한다. 소비시점은과거행동횟수에서복원할수없다.
+
+새6개진단시드에서성공호출의소비시점과실제채굴획득량을관측하려면:
+
+```bat
+C:\Users\pc\aGe-ai\.venv\Scripts\python.exe -m balance_ml.resource_diagnostic
+node balance_ml/tests/check-crystals.mjs
+```
+
+같은날완료된frontier캠페인의6시간마감과일일예산을공유한다. 각게임의
+초기+획득−소비=잔량보존식과행동횟수기반소비를대조한다. 진단은새정책/모델채택을하지않는다.
+판단시점의성강화비용부족횟수는관측자료이며모두실제강화시도가거절됐다는뜻은아니다.
+
+14웨이브이후광부목표만18→22로바꾸는새40판대조:
+
+```bat
+C:\Users\pc\aGe-ai\.venv\Scripts\python.exe -m balance_ml.reserve_experiment --study miners22
+node balance_ml/tests/check-miners.mjs
+C:\Users\pc\aGe-ai\.venv\Scripts\python.exe -m unittest balance_ml.tests.test_resources balance_ml.tests.test_reserve -v
+```
+
+기준/후보는동일0.2초판단,기존고용마감/금유보/물약/연구/수리규칙을쓴다.
+물약예약정책과섞지않는다. 새개발81001~81010/확인82001~82010을사용한다.
+기존정책의기본광부목표는18명이며실험옵션으로만22명을요청한다.
+이대조도스스로게임하는전략학습이나새밸런스ML가중치학습을수행하지않는다.

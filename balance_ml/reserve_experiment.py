@@ -14,9 +14,11 @@ def queue(plan):
     dev=plan['development_seeds'];test=plan['confirmation_seeds']
     if set(dev)&set(test) or len(set(dev))!=10 or len(set(test))!=10:
         raise ValueError('Ten distinct, disjoint seeds per stage required')
+    variants=plan.get('variants',['control','reserve'])
+    if len(variants)!=2 or variants[0]!='control' or len(set(variants))!=2:raise ValueError('Expected control and one candidate')
     return [{'id':f'{stage}:{seed}:{variant}','stage':stage,'seed':seed,'variant':variant}
             for stage,seeds in [('development',dev),('confirmation',test)]
-            for seed in seeds for variant in ('control','reserve')]
+            for seed in seeds for variant in variants]
 
 
 def allocated_today(runs,day,exclude):
@@ -39,30 +41,37 @@ def paired_report(rows,plan):
         if r['id']!=f"{r['stage']}:{r['seed']}:{r['variant']}":raise ValueError('Row identity mismatch')
         if r['result']['target']!=50 or r['result']['seed']!=r['seed']:
             raise ValueError('Result identity/target mismatch')
+    candidate=plan.get('variants',['control','reserve'])[1]
     output={}
     for stage in ('development','confirmation'):
         pairs=[]
         for seed in plan[stage+'_seeds']:
-            a=next(r['result'] for r in rows if r['stage']==stage and r['seed']==seed and r['variant']=='reserve')
+            a=next(r['result'] for r in rows if r['stage']==stage and r['seed']==seed and r['variant']==candidate)
             b=next(r['result'] for r in rows if r['stage']==stage and r['seed']==seed and r['variant']=='control')
             pairs.append((seed,a,b))
         variant={}
-        for index,label in [(1,'reserve'),(2,'control')]:
+        for index,label in [(1,candidate),(2,'control')]:
             results=[pair[index] for pair in pairs]
             variant[label]=summarize(results)
             variant[label]['castle17_games']=sum(r['castle17At'] is not None for r in results)
             variant[label]['mean_castle']=sum(r['castle'] for r in results)/len(results)
             variant[label]['storm_builds']=sum(r['actions'].get('build:storm',0) for r in results)
+            if all('crystalTrace' in r for r in results):
+                traces=[r['crystalTrace'] for r in results]
+                variant[label]['mean_crystals_acquired']=sum(t['acquired'] for t in traces)/len(results)
+                variant[label]['crystal_balance_errors']=sum(t['balanceError']!=0 for t in traces)
+                keys=sorted({k for t in traces for k in t['spending']})
+                variant[label]['mean_crystal_spending']={k:sum(t['spending'].get(k,0) for t in traces)/len(results) for k in keys}
         output[stage]={'variants':variant,'mean_delta':{k:sum(a[k]-b[k] for _,a,b in pairs)/len(pairs) for k in METRICS},
             'paired_wave_deltas':[{'seed':seed,'delta':a['cleared']-b['cleared']} for seed,a,b in pairs]}
-    clean=not any(v['invalid_actions'] or v['time_censored'] for s in output.values() for v in s['variants'].values())
+    clean=not any(v['invalid_actions'] or v['time_censored'] or v.get('crystal_balance_errors',0) for s in output.values() for v in s['variants'].values())
     repeatable=all(s['mean_delta']['cleared']>0 for s in output.values())
     return {'state':'complete','stages':output,'clean_results':clean,
-        'decision':'positive_policy_signal_only' if clean and repeatable else 'no_consistent_policy_gain',
-        'automatic_patch':False,'limitations':['Ten paired seeds per stage; descriptive result, not calibrated significance.',
+        'candidate':candidate,'decision':'positive_policy_signal_only' if clean and repeatable else 'no_consistent_policy_gain',
+        'automatic_patch':False,'limitations':plan.get('limitations',['Ten paired seeds per stage; descriptive result, not calibrated significance.',
           'Protects potion budget only; tower upgrades and research still spend crystals.',
           'Fixed policies are not human skill samples or optimal strategies.',
-          'No new ML weights trained; difficulty must be evaluated separately.']}
+          'No new ML weights trained; difficulty must be evaluated separately.'])}
 
 
 class ReserveWorker(agent.Worker):
@@ -71,20 +80,31 @@ class ReserveWorker(agent.Worker):
             stdin=subprocess.PIPE,stdout=subprocess.PIPE,text=True,encoding='utf-8')
 
 
-def execute(day):
+class MinerWorker(agent.Worker):
+    def __init__(self):
+        self.proc=subprocess.Popen(['node',str(agent.ROOT/'balance_ml/miners-worker.mjs')],cwd=agent.ROOT,
+            stdin=subprocess.PIPE,stdout=subprocess.PIPE,text=True,encoding='utf-8')
+    def request(self,op,**query):
+        if op=='simulate':query['minerLateCap']=22 if query.pop('reserve') else 18
+        return super().request(op=op,**query)
+
+
+def execute(day,study='reserve'):
+    if study not in ('reserve','miners22'):raise ValueError('Unknown study')
     parent=agent.RUNS/(day+'-frontier50')
     parent_progress=json.loads((parent/'progress.json').read_text(encoding='utf-8'))
     if parent_progress.get('phase')!='frontier_review' or parent_progress['state']!='complete':
         raise ValueError('Finish and review frontier campaign first')
     deadline=json.loads((parent/'time-budget.json').read_text(encoding='utf-8'))['deadline_epoch']
     if time.time()>=deadline:raise ValueError('Shared six-hour deadline expired')
-    name=day+'-castle-reserve';directory=agent.RUNS/name
-    plan=json.loads((agent.ROOT/'balance_ml/reserve-plan.json').read_text(encoding='utf-8'))
+    name=day+('-castle-reserve' if study=='reserve' else '-miners22');directory=agent.RUNS/name
+    plan_name='reserve-plan.json' if study=='reserve' else 'miners-plan.json'
+    plan=json.loads((agent.ROOT/'balance_ml'/plan_name).read_text(encoding='utf-8'))
     jobs=queue(plan)
     if len(jobs)!=plan['planned_games']:raise ValueError('Plan count mismatch')
     other,entries=allocated_today(agent.RUNS,day,name)
     if other+len(jobs)>5000:raise ValueError('Daily game cap would be exceeded')
-    worker=ReserveWorker()
+    worker=ReserveWorker() if study=='reserve' else MinerWorker()
     try:
         description=worker.request(op='describe')
         source_hash=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
@@ -117,7 +137,7 @@ def execute(day):
             if job['id'] in done:continue
             if time.time()>=deadline:
                 agent.write(directory/'progress.json',{'state':'paused','completed_games':len(rows),'reason':'Shared deadline reached'});return
-            result=worker.request(op='simulate',seed=job['seed'],reserve=job['variant']=='reserve')
+            result=worker.request(op='simulate',seed=job['seed'],reserve=job['variant']!='control')
             row={**job,'result':result}
             with journal.open('a',encoding='utf-8') as stream:
                 stream.write(json.dumps(row)+'\n');stream.flush();agent.os.fsync(stream.fileno())
@@ -134,9 +154,10 @@ def execute(day):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     today=dt.datetime.now(dt.timezone(dt.timedelta(hours=9))).date().isoformat()
-    parser.add_argument('--day',default=today);args=parser.parse_args()
+    parser.add_argument('--day',default=today)
+    parser.add_argument('--study',choices=['reserve','miners22'],default='reserve');args=parser.parse_args()
     if args.day!=today:parser.error('Only current Korean day may run')
-    with agent.lock():execute(args.day)
+    with agent.lock():execute(args.day,args.study)
 
 
 if __name__=='__main__':main()

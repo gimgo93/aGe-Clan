@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';
+import {choose} from '../policies.mjs';
+const c=vm.createContext({});c.window=c;
+vm.runInContext(fs.readFileSync(new URL('../../public/game/balance.js',import.meta.url),'utf8'),c);
+vm.runInContext(fs.readFileSync(new URL('../../public/game/game.js',import.meta.url),'utf8'),c);
+const D=c.Defense,g=new D.Game(()=>.5);g.start();
+const s=g.s;Object.assign(s,{wave:14,miners:18,time:900,gold:1000,crystals:0,castle:13});
+s.towers=[{type:'archer'},{type:'ballista'},{type:'cannon'}];s.towerLevels.archer=5;
+const p={id:'control',economy:true,castleMax:20,research:true,potions:true,repair:true};
+assert.notEqual(choose(g,D,p)?.name,'hire');
+assert.deepEqual(choose(g,D,{...p,minerLateCap:22}),{name:'hire',args:[]});
+s.gold=D.minerCost(18)+139;assert.notEqual(choose(g,D,{...p,minerLateCap:22})?.name,'hire');
+s.gold=1000;s.time=1800;assert.notEqual(choose(g,D,{...p,minerLateCap:22})?.name,'hire');
+s.time=900;s.wave=13;assert.notEqual(choose(g,D,{...p,minerLateCap:22})?.name,'hire');
+s.wave=14;s.miners=22;assert.notEqual(choose(g,D,{...p,minerLateCap:22})?.name,'hire');
+console.log('Late miner cap, unchanged pre14 target, gold reserve, cutoff and cap22 boundaries passed.');

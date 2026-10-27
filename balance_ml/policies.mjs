@@ -45,7 +45,7 @@ export function choose(game, D, policy) {
       const a=command('potion','lightning');if(a){game.lastLightningWave=s.wave;return a;}
     }
   }
-  if (policy.economy && s.miners < (s.wave >= 14 ? 18 : s.wave >= 7 ? 12 : 8) && s.towers.length >= 3 && s.time < 1800
+  if (policy.economy && s.miners < (s.wave >= 14 ? (policy.minerLateCap ?? 18) : s.wave >= 7 ? 12 : 8) && s.towers.length >= 3 && s.time < 1800
       && s.gold >= D.minerCost(s.miners) + 140) {
     const a=command('hire');if(a)return a;
   }

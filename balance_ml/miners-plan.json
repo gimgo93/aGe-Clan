@@ -1,0 +1,47 @@
+{
+  "name": "late-miner-cap22-v1",
+  "target_wave": 50,
+  "candidate": "miners22",
+  "variants": [
+    "control",
+    "miners22"
+  ],
+  "miner_late_cap": {
+    "control": 18,
+    "miners22": 22
+  },
+  "decision_ticks": 2,
+  "development_seeds": [
+    81001,
+    81002,
+    81003,
+    81004,
+    81005,
+    81006,
+    81007,
+    81008,
+    81009,
+    81010
+  ],
+  "confirmation_seeds": [
+    82001,
+    82002,
+    82003,
+    82004,
+    82005,
+    82006,
+    82007,
+    82008,
+    82009,
+    82010
+  ],
+  "planned_games": 40,
+  "hypothesis": "Raise only wave14+ miner target from18 to22 to expand crystal income; may delay defense.",
+  "selection": "One fixed candidate; no tuning on intermediate or confirmation outcomes",
+  "limitations": [
+    "Ten paired seeds per stage; descriptive signal, not calibrated significance.",
+    "Only late miner cap changes; hiring cutoff and gold reserve unchanged.",
+    "Fixed policies are not human skill samples or optimal strategies.",
+    "No new ML weights or automatic policy/balance adoption."
+  ]
+}

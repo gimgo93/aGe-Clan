@@ -51,7 +51,7 @@ function setupClan(app){
    if(!value.roomId||value.version<lastVersion)return false;
    const changed=force||value.version>lastVersion||!active;value._receivedAt??=performance.now();
    const wasKnown=members.size>0,arrivals=value.players.filter(p=>p.id!==value.selfId&&!members.has(p.id));
-   if(wasKnown&&arrivals.length){app.audio.notify('join');$('lobbyNotice').textContent=arrivals.map(p=>p.name).join(', ')+' 님이 입장했습니다.';}
+   if(wasKnown&&arrivals.length){app.audio.notify('join');$('lobbyNotice').textContent=arrivals.map(p=>PlayerIdentity.label(p)).join(', ')+' 님이 입장했습니다.';}
    members=new Set(value.players.map(p=>p.id));
    data=value;lastVersion=value.version;roomId=value.roomId;selfId=value.selfId;lastGood=Date.now();serverOffset=value.serverTime-Date.now();
    sessionStorage.setItem('clan-room',roomId);openRealtime();
@@ -64,7 +64,7 @@ function setupClan(app){
    $('beginFriendMatch').hidden=!value.private||value.status!=='waiting';$('beginFriendMatch').disabled=value.hostId!==selfId||value.players.length<2;
    $('beginFriendMatch').textContent=value.hostId===selfId?'친구 대전 시작':'방장이 시작하기를 기다립니다';
    $('matchStatus').textContent=value.status==='waiting'?(value.private?`친구 ${value.players.length} / 5 · 2명부터 방장이 시작할 수 있습니다.`:`매칭 대기 ${value.players.length} / 5 · 실제 플레이어가 모이면 시작합니다.`):'대전 시작';
-   if(value.status==='waiting'||value.status==='countdown')$('lobbySlots').replaceChildren(...Array.from({length:5},(_,i)=>{const span=document.createElement('span');span.textContent=value.players[i]?.name||'대기';return span;}));
+   if(value.status==='waiting'||value.status==='countdown')$('lobbySlots').replaceChildren(...Array.from({length:5},(_,i)=>{const span=document.createElement('span');if(value.players[i])PlayerIdentity.render(span,value.players[i]);else span.textContent='대기';return span;}));
    if(value.status==='countdown'&&!startedSound){startedSound=true;app.audio.notify('ready');$('lobbyNotice').textContent='곧 전투가 시작됩니다.';}
    if(value.status==='waiting')startedSound=false;
    if(value.status==='playing'||value.status==='finished'){
@@ -79,7 +79,7 @@ function setupClan(app){
      ClanVisual.adopt(game.s,previous,lead);
      game.s.events=game.s.events.filter(e=>(e.seq||0)>lastEvent);lastEvent=me.s.eventSeq||0;
      for(const event of game.s.events)if(event.type==='destroy'&&!game.s.effects.some(e=>e.type==='demolish'&&e.x===event.x&&e.y===event.y)){game.s.effects.push({type:'demolish',x:event.x,y:event.y,life:1.2});game.s.shake=.4;}
-     document.body.dataset.multiplayer=String(!value.solo);$('rivals').hidden=!!value.solo;game.s.rankedSolo=!!value.solo;window.Chronicle?.identity(me.name,me.avatar);window.Chronicle?.tick(game.s);
+     document.body.dataset.multiplayer=String(!value.solo);$('rivals').hidden=!!value.solo;game.s.rankedSolo=!!value.solo;window.Chronicle?.identity(me.name,me.avatar,me.admin);window.Chronicle?.tick(game.s);
      if(value.result?.error)app.toast(value.result.error);
      if(!value.solo)renderRivals();app.hud();
    }
@@ -120,11 +120,11 @@ function setupClan(app){
    for(const [id,node] of rivalNodes)if(!data.players.some(p=>p.id===id)){node.card.remove();rivalNodes.delete(id);}
    for(const p of data.players){
      let node=rivalNodes.get(p.id);
-     if(!node){const card=document.createElement('button'),name=document.createElement('span'),badge=document.createElement('b'),detail=document.createElement('small'),bar=document.createElement('div'),fill=document.createElement('i');bar.className='bar';bar.append(fill);card.append(name,badge,detail,bar);card.onclick=()=>{viewId=p.id;$('spectateTitle').textContent=p.name+'의 전장';$('spectateDialog').showModal();if(socket?.readyState===1)socket.send(JSON.stringify({type:'watch',id:viewId}));else pump();};node={card,name,badge,detail,fill};rivalNodes.set(p.id,node);$('rivalCards').append(card);}
-     node.card.className='rival-card'+(p.id===selfId?' active':'');node.name.textContent=p.name+(p.id===selfId?' · 나':'');node.badge.textContent=p.s.over?(p.s.won?'승리':'탈락'):'W'+p.s.wave;node.detail.textContent=`성 ${Math.ceil(p.s.hp)}/${p.s.maxHp} · 포탑 ${p.towerCount??p.s.towers?.length??0} · 군사 ${p.s.army}${p.connected?'':' · 재연결 중'}`;node.fill.style.width=p.s.hp/p.s.maxHp*100+'%';
+     if(!node){const card=document.createElement('button'),name=document.createElement('span'),badge=document.createElement('b'),detail=document.createElement('small'),bar=document.createElement('div'),fill=document.createElement('i');bar.className='bar';bar.append(fill);card.append(name,badge,detail,bar);card.onclick=()=>{viewId=p.id;$('spectateTitle').textContent=PlayerIdentity.label(p)+'의 전장';$('spectateDialog').showModal();if(socket?.readyState===1)socket.send(JSON.stringify({type:'watch',id:viewId}));else pump();};node={card,name,badge,detail,fill};rivalNodes.set(p.id,node);$('rivalCards').append(card);}
+     node.card.className='rival-card'+(p.id===selfId?' active':'');PlayerIdentity.render(node.name,p);if(p.id===selfId)node.name.append(document.createTextNode(' · 나'));node.badge.textContent=p.s.over?(p.s.won?'승리':'탈락'):'W'+p.s.wave;node.detail.textContent=`성 ${Math.ceil(p.s.hp)}/${p.s.maxHp} · 포탑 ${p.towerCount??p.s.towers?.length??0} · 군사 ${p.s.army}${p.connected?'':' · 재연결 중'}`;node.fill.style.width=p.s.hp/p.s.maxHp*100+'%';
    }
    const targets=data.players.filter(p=>p.id!==selfId&&!p.s.over);
-   for(const select of [$('attackTarget'),$('potionTarget')]){const signature=targets.map(p=>p.id).join('|');if(select.dataset.members===signature)continue;const selected=select.value;select.dataset.members=signature;for(const option of [...select.options])if(!targets.some(p=>p.id===option.value))option.remove();for(const p of targets){let option=[...select.options].find(o=>o.value===p.id);if(!option){option=document.createElement('option');option.value=p.id;select.append(option);}option.textContent=p.name;}if(targets.some(p=>p.id===selected))select.value=selected;}
+   for(const select of [$('attackTarget'),$('potionTarget')]){const signature=targets.map(p=>p.id).join('|');if(select.dataset.members===signature)continue;const selected=select.value;select.dataset.members=signature;for(const option of [...select.options])if(!targets.some(p=>p.id===option.value))option.remove();for(const p of targets){let option=[...select.options].find(o=>o.value===p.id);if(!option){option=document.createElement('option');option.value=p.id;select.append(option);}option.textContent=PlayerIdentity.label(p);}if(targets.some(p=>p.id===selected))select.value=selected;}
  }
  function hud(){
    const s=game.s,waiting=active&&(queued.length>=8||Date.now()-lastGood>5000);

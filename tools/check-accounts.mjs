@@ -17,7 +17,7 @@ const first=await api(a,{op:'challenge'}),bad=await token(first.nonce,'wrong');a
 const credential=await token(first.nonce);await assert.rejects(()=>verify(credential,env.GOOGLE_CLIENT_ID,'wrong'));
 const anonCookie=a.cookies.get('clan_session'),anonKey=await sha(anonCookie);sql.prepare('INSERT INTO clan_rankings(id,name,avatar,wave,updated) VALUES (?,?,?,?,?)').run(anonKey,'old',0,20,Date.now());
 sql.prepare('INSERT INTO clan_rooms VALUES (?,?,?,?,?)').run('stale-room','waiting',JSON.stringify({players:[{key:anonKey,s:{over:false}}]}),0,Date.now());env.CLAN_ROOMS={idFromName:x=>x,get:()=>({fetch:async()=>new Response('{}',{status:403})})};
-let signed=await api(a,{op:'login',credential,nonce:first.nonce,profile:{name:'군주 A',avatar:3}});assert.notEqual(a.cookies.get('clan_session'),anonCookie);assert.equal(signed.account.records.wave,20);assert.equal(signed.account.profile.name,'군주 A');await api(a,{op:'login',credential,nonce:first.nonce},409);
+let signed=await api(a,{op:'login',credential,nonce:first.nonce,profile:{name:'군주 A',avatar:3,admin:true}});assert.notEqual(a.cookies.get('clan_session'),anonCookie);assert.equal(signed.account.records.wave,20);assert.equal(signed.account.profile.name,'군주 A');assert.equal(signed.account.profile.admin,false);env.CLAN_ADMIN_ACCOUNT_IDS=await sha('google:google-test-user');assert.equal((await api(a,{op:'status'})).account.profile.admin,true);await api(a,{op:'login',credential,nonce:first.nonce},409);
 signed=await api(a,{op:'save',revision:signed.account.revision,profile:{name:'군주 B',avatar:2},settings:{volume:25,evil:true}});assert.equal(signed.account.settings.evil,undefined);
 const second=await api(b,{op:'challenge'});let other=await api(b,{op:'login',credential:await token(second.nonce),nonce:second.nonce});assert.equal(other.account.profile.name,'군주 B');assert.equal(other.account.settings.volume,25);
 await api(a,{op:'save',revision:1,profile:{name:'overwrite'}},409);
@@ -26,7 +26,7 @@ const identity=await accountIdentity(new Request(origin,{headers:{cookie:[...b.c
 const rankRequest=c=>new Request(origin+'/api/clan',{method:'POST',headers:{origin,cookie:[...c.cookies].map(([k,v])=>k+'='+v).join('; ')},body:JSON.stringify({op:'leaderboard'})});
 assert.equal((await realtimeRequest(rankRequest({cookies:new Map()}),env)).status,401);
 sql.prepare('INSERT INTO clan_rankings(id,name,avatar,wave,updated) VALUES (?,?,?,?,?)').run('unclaimed-guest','guest',0,9999,Date.now());
-const ranking=await realtimeRequest(rankRequest(b),env);assert.equal(ranking.status,200);const ranked=await ranking.json();assert.equal(ranked.items.length,1);assert.equal(ranked.items[0].name,'군주 B');assert.equal(ranked.items[0].wave,20);
+const ranking=await realtimeRequest(rankRequest(b),env);assert.equal(ranking.status,200);const ranked=await ranking.json();assert.equal(ranked.items.length,1);assert.equal(ranked.items[0].name,'군주 B');assert.equal(ranked.items[0].wave,20);assert.equal(ranked.items[0].admin,true);assert.equal(Object.hasOwn(ranked.items[0],'accountId'),false);
 assert.match(fs.readFileSync('lib/clan-room.js','utf8'),/if\(!p\?\.accountId\|\|p\.s\.completed<1/);
 await saveAccountProgress(db,{accountId:identity.accountId,s:{completed:30,kills:100,castle:5,miners:7,woodHarvested:20,towerLevels:{archer:2},crystalsMined:5,research:{ice:-1}}});
 other=await api(b,{op:'status'});assert.equal(other.account.records.wave,30);

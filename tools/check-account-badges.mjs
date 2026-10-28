@@ -1,0 +1,20 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+import {hasAdminBadge} from '../lib/account-badges.js';
+import {roomView} from '../lib/room-state.js';
+import {newPlayer} from '../lib/match-engine.js';
+import {cleanProfile} from '../lib/account-store.js';
+const owner='a'.repeat(64),other='b'.repeat(64),env={CLAN_ADMIN_ACCOUNT_IDS:owner};
+assert.equal(hasAdminBadge(owner,env),true);assert.equal(hasAdminBadge(other,env),false);
+assert.equal(hasAdminBadge(null,env),false);assert.equal(hasAdminBadge('',{CLAN_ADMIN_ACCOUNT_IDS:''}),false);assert.equal(hasAdminBadge(owner,{}),false);
+assert.equal(cleanProfile({name:'ordinary',avatar:0,admin:true,accountId:owner}).admin,undefined);
+const players=[{...newPlayer('owner','owner',Date.now()),key:'one',accountId:owner},{...newPlayer('other','other',Date.now()),key:'two',accountId:other,admin:true},{...newPlayer('guest','guest',Date.now()),key:'three',admin:true}];
+const view=roomView('room',1,{status:'playing',players,tick:Date.now()},'one',null,null,'websocket',env);
+assert.deepEqual(view.players.map(p=>p.admin),[true,false,false]);assert.ok(view.players.every(p=>!Object.hasOwn(p,'accountId')));
+assert.ok(roomView('room',1,{status:'playing',players,tick:Date.now()},'one',null).players.every(p=>!p.admin));
+function node(){return{children:[],attrs:{},replaceChildren(...items){this.children=items;},append(...items){this.children.push(...items);},setAttribute(key,value){this.attrs[key]=value;}};}
+const context={document:{createTextNode:text=>({text}),createElement:()=>node()}};context.window=context;vm.runInNewContext(fs.readFileSync('public/game/player-identity.js','utf8'),context);
+const target=node();context.PlayerIdentity.render(target,{name:'<img onerror=alert(1)>',admin:true});assert.equal(target.children[0].text,'<img onerror=alert(1)>');assert.equal(target.children[1].textContent,'(관리자)');assert.equal(target.children[1].className,'identity-admin');
+context.PlayerIdentity.render(target,{name:'ordinary',admin:'true'});assert.equal(target.children.length,1);assert.equal(context.PlayerIdentity.label({name:'owner',admin:true}),'owner (관리자)');
+console.log('PASS: server account-ID badge, guest/forged flags rejected, absent configuration fails closed, account ID not exposed, safe name rendering');

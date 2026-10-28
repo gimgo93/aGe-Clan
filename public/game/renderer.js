@@ -139,31 +139,14 @@ class WorldRenderer {
    for(const [type,level] of Object.entries(s.towerLevels))if(level>(old.levels[type]||1))this.levelGlows.set(type,{at:now,level});
   }
   this.upgradeBaseline={key,started:s.started,time:s.time,castle:s.castle,levels:{...s.towerLevels}};
-  for(const [type,glow] of this.levelGlows)if(now-glow.at>2.6)this.levelGlows.delete(type);
+  for(const [type,glow] of this.levelGlows)if(now-glow.at>1.5)this.levelGlows.delete(type);
  }
  buildingUpgradeGlow(ctx,now,reducedMotion=false){
-  const draw=(x,y,width,height,glow,castle=false)=>{
-   const p=(now-glow.at)/2.6;if(p<0||p>=1)return;
-   const fade=Math.sin(Math.PI*p),rise=reducedMotion?0:p*height*.55;
-   ctx.save();ctx.globalCompositeOperation='screen';ctx.globalAlpha=fade;
-   const light=ctx.createRadialGradient(x,y-height*.38,5,x,y-height*.38,width*1.3);light.addColorStop(0,castle?'#ffe46b70':'#92e8ff65');light.addColorStop(1,'#a8efff00');ctx.fillStyle=light;ctx.fillRect(x-width*1.5,y-height-width,width*3,height+width*2);
-   ctx.strokeStyle=castle?'#ffe477':'#a8f1ff';ctx.shadowColor=castle?'#ffc735':'#79d8ff';ctx.shadowBlur=12;ctx.lineWidth=3;
-   for(let i=0;i<2;i++){ctx.beginPath();ctx.ellipse(x,y-rise-i*height*.35,width*(.8+p*.35),width*.32,0,0,Math.PI*2);ctx.stroke();}
-   if(!reducedMotion)for(let i=0;i<12;i++){const a=i*2.4+p*2,r=width*(.55+(i%3)*.18),yy=y-((p*height+i*13)%height);ctx.fillStyle=i%3?'#fff1a0':'#d0f5ff';ctx.beginPath();ctx.arc(x+Math.cos(a)*r,yy,2+i%2,0,Math.PI*2);ctx.fill();}
-   ctx.globalCompositeOperation='source-over';ctx.shadowBlur=0;this.text(ctx,(castle?'성채 ':'')+'Lv.'+glow.level+' ↑',x,y-height-10-(reducedMotion?0:p*16),castle?'#ffe797':'#c3f3ff',castle?23:18);ctx.restore();
-  };
-  for(const tower of this.game.s.towers){const glow=this.levelGlows?.get(tower.type);if(glow&&!(tower.buildRemaining>0))draw(tower.x,tower.y,58,105,glow);}
-  if(this.castleLevelGlow)draw(1430,535,130,205,this.castleLevelGlow,true);
+  const draw=(x,y,width,height,glow,castle=false)=>{const p=(now-glow.at)/1.4;if(p<0||p>=1)return;const fade=Math.sin(Math.PI*p);ctx.save();ctx.globalAlpha=fade;ctx.strokeStyle='#ddc18a';ctx.lineWidth=2;if(!reducedMotion){ctx.beginPath();ctx.ellipse(x,y-3,width*(.75+p*.15),width*.25,0,0,Math.PI*2);ctx.stroke();}const yy=y-height-8-(reducedMotion?0:p*8);ctx.fillStyle='#182019dd';ctx.fillRect(x-35,yy-19,70,26);this.text(ctx,'Lv.'+glow.level+' ↑',x,yy,'#e4d0a2',castle?18:15);ctx.restore();};
+  for(const tower of this.game.s.towers){const glow=this.levelGlows?.get(tower.type);if(glow&&!(tower.buildRemaining>0))draw(tower.x,tower.y,54,100,glow);}
+  if(this.castleLevelGlow&&!(now-this.eraGlowAt<1.8))draw(1430,535,110,205,this.castleLevelGlow,true);
  }
- civilizationGlow(ctx,now,reducedMotion=false){
-   const p=(now-this.eraGlowAt)/3.2;if(!(p>=0&&p<1))return;
-   const fade=Math.sin(Math.PI*p),x=1430,y=535;
-   ctx.save();ctx.globalCompositeOperation='screen';ctx.globalAlpha=fade*.75;
-   const glow=ctx.createRadialGradient(x,y-65,12,x,y-65,190);glow.addColorStop(0,'#ffe00066');glow.addColorStop(.55,'#ffc80040');glow.addColorStop(1,'#ffbc0000');ctx.fillStyle=glow;ctx.fillRect(x-200,y-260,400,390);
-   ctx.strokeStyle='#ffe019';ctx.shadowColor='#ffc400';ctx.shadowBlur=18;ctx.lineWidth=3;
-   for(let ring=0;ring<3;ring++){ctx.beginPath();for(let j=0;j<=100;j++){const f=j/100,a=f*Math.PI*2+(reducedMotion?0:p*6)+ring*2.1,r=115+Math.sin(f*Math.PI)*16;const xx=x+Math.cos(a)*r,yy=y+Math.sin(a)*r*.34-f*145; j?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy);}ctx.stroke();}
-   if(!reducedMotion)for(let i=0;i<22;i++){const a=i*2.4+p*2,r=80+i%4*19,yy=y-((p*190+i*19)%220),xx=x+Math.cos(a)*r;ctx.fillStyle=i%3?'#ffdf20':'#fff16a';ctx.beginPath();ctx.arc(xx,yy,1.5+i%3*.6,0,Math.PI*2);ctx.fill();}
-   ctx.shadowBlur=0;ctx.globalAlpha=fade;this.text(ctx,Defense.ERAS[this.game.era]+' 문명',x,y-230,'#ffe128',23);ctx.restore();
+ civilizationGlow(ctx,now,reducedMotion=false){const p=(now-this.eraGlowAt)/1.8;if(!(p>=0&&p<1))return;ctx.save();ctx.globalAlpha=Math.sin(Math.PI*p);ctx.strokeStyle='#cbb079';ctx.lineWidth=2;if(!reducedMotion){ctx.beginPath();ctx.ellipse(1430,535,115+p*12,36,0,0,Math.PI*2);ctx.stroke();}ctx.fillStyle='#192119e8';ctx.fillRect(1320,282,220,38);this.text(ctx,Defense.ERAS[this.game.era]+' 문명 도달',1430,308,'#eddbaf',20);ctx.restore();
  }
 
  town(ctx,time){

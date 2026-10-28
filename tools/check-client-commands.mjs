@@ -3,7 +3,7 @@ import vm from 'node:vm';
 import { readFile } from 'node:fs/promises';
 import Defense from '../lib/game-engine.js';
 const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
-function element(tag='div'){return{tag,open:false,value:'',style:{},options:[],classList:{add(){},remove(){},toggle(){}},addEventListener(){},showModal(){this.open=true;},close(){this.open=false;},append(...nodes){this.options.push(...nodes);},replaceChildren(){},remove(){}};}
+function element(tag='div'){return{tag,open:false,value:'',style:{setProperty(){}},options:[],classList:{add(){},remove(){},toggle(){}},removeAttribute(){},addEventListener(){},showModal(){this.open=true;},close(){this.open=false;},append(...nodes){this.options.push(...nodes);},replaceChildren(){},remove(){}};}
 const nodes=new Map(),get=id=>{if(!nodes.has(id))nodes.set(id,element());return nodes.get(id);};
 const storage=new Map(),server=new Defense.Game();server.start();server.s.multiplayer=true;server.s.gold=1000;
 let version=0,sequence=1,status='waiting',release,block=false,reject=false;const received=[],notifications=[];

@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+import Defense from '../lib/game-engine.js';
+const scope={window:{}};vm.runInNewContext(fs.readFileSync('public/game/presentation.js','utf8'),scope);const rules=scope.window.GamePresentationRules;
+assert.equal(rules.waveLabel({wave:1,completed:0,waves:[]}), '01 / 20');assert.equal(rules.waveLabel({wave:20,completed:19,waves:[]}), '20 / 20');assert.equal(rules.waveLabel({wave:20,completed:20,waves:[{number:19}]}), '20 / 20');assert.equal(rules.waveLabel({wave:20,completed:20,waves:[]}), '20 / ∞');assert.equal(rules.waveLabel({wave:1,multiplayer:true}), '01 / ∞');
+const game=new Defense.Game(()=>1);game.start();game.s.wood=37;assert.match(game.buildLab().error,/163개가 부족/);assert.equal(game.s.wood,37);
+game.s.wave=20;game.s.completed=19;game.s.waves=[{number:19,total:1,spawned:1,resolved:0,spawnClock:1},{number:20,total:1,spawned:1,resolved:1,spawnClock:1}];game.syncWaves();game.tick(.1);assert.equal(game.s.endlessAnnounced,undefined,'20 completion waits for earlier concurrent wave');game.s.waves[0].resolved=1;game.tick(.1);assert.equal(game.s.endlessAnnounced,true);assert.equal(game.s.events.filter(e=>e.type==='milestone').length,1);assert.equal(game.s.over,false,'20 waves opens endless without ending game');game.tick(.1);assert.equal(game.s.events.filter(e=>e.type==='milestone').length,1);
+const main=fs.readFileSync('public/game/app.js','utf8');assert.ok(!main.includes('swipe.worldX'));assert.ok(!main.includes("setScene(game.s.scene==='town'"));assert.match(main,/restartBtn'\)\.onclick=leaveGame/);
+for(const rank of [1,2,3])assert.ok(fs.existsSync('public/game/assets/rank-'+rank+'.svg'));
+console.log('PASS: solo 20→endless gate, concurrent-wave ordering, one milestone, no premature game over, missing-resource amount, explicit scene navigation and exit action');

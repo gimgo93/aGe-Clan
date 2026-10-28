@@ -109,7 +109,7 @@ function setupClan(app){
  $('beginFriendMatch').onclick=()=>{if(!roomId||queued.length)return;$('beginFriendMatch').disabled=true;queued.push({op:'begin',requestId:crypto.randomUUID()});sendCommand();};
  $('joinMatch').onclick=join;$('cancelMatch').onclick=()=>{if(!joining)leave();};
  $('matchDialog').addEventListener('cancel',e=>{e.preventDefault();if(!joining)leave();});
- $('armyBtn').onclick=()=>{const r=game.buildBarracks();if(r.error)app.toast(r.error);else app.setScene('town');app.hud();};$('closeArmy').onclick=()=>$('armyDialog').close();
+ $('armyBtn').onclick=()=>{const r=game.buildBarracks();if(r.error)app.toast(r.error);app.hud();};$('closeArmy').onclick=()=>$('armyDialog').close();
  $('buildBarracks').onclick=()=>{const r=game.buildBarracks();if(r.error)app.toast(r.error);app.hud();};
  $('recruitBtn').onclick=()=>{const r=game.recruit();if(r.error)app.toast(r.error);app.hud();};
  $('dispatchBtn').onclick=()=>{if(!active)return;const r=queueAction('dispatch',[$('attackTarget').value,Number($('sendCount').value)]);if(r?.error)app.toast(r.error);};
@@ -128,7 +128,7 @@ function setupClan(app){
  }
  function hud(){
    const s=game.s,waiting=active&&(queued.length>=8||Date.now()-lastGood>5000);
-   const cooldown=speedCooldownMs(),speedPending=queued.some(c=>c.action==='setSpeed');$('speedBtn').disabled=!game.canAct()||waiting||cooldown>0||speedPending;$('speedBtn').dataset.wait=cooldown>0?Math.ceil(cooldown/1000)+'초':speedPending?'변경 중':'';$('speedBtn').classList.toggle('speed-cooling',cooldown>0||speedPending);networkLabel();
+   const cooldown=speedCooldownMs(),speedPending=queued.some(c=>c.action==='setSpeed');$('speedBtn').disabled=!game.canAct()||waiting||cooldown>0||speedPending;$('speedBtn').style.setProperty('--speed-ready',(Math.max(0,Math.min(1,1-cooldown/5000))*360)+'deg');$('speedBtn').removeAttribute('data-wait');$('speedBtn').classList.toggle('speed-cooling',cooldown>0||speedPending);networkLabel();
    if(data?.status==='countdown'&&!failures)$('matchStatus').textContent=`${data.players.length}명 · ${Math.max(0,Math.ceil((data.readyAt-Date.now()-serverOffset)/1000))}초 후 시작`;
    if(failures&&roomId)$('networkState').textContent=`재연결 중 · 마지막 응답 ${Math.floor((Date.now()-lastGood)/1000)}초 전`;
    $('buildBarracks').textContent=s.barracks?'훈련소 건설 완료':'훈련소 건설 · 나무 100';

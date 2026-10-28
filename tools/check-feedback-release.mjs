@@ -6,7 +6,7 @@ import {mutateRoom,roomView} from '../lib/room-state.js';
 import {advance,act,newPlayer,restore} from '../lib/match-engine.js';
 const game=new D.Game(()=>0);game.start();game.s.wood=1000;
 assert.ok(game.buildBarracks().error,'solo cannot build training camp');assert.equal(game.s.wood,1000);
-assert.equal(D.spec('archer').damage,16);assert.equal(D.spec('ballista').damage,61);assert.equal(D.spec('ballista').range,429);assert.equal(D.spec('cannon').splash,98);
+assert.equal(D.spec('archer').damage,16);assert.equal(D.spec('ballista').damage,61);assert.equal(D.spec('ballista').range,429);assert.equal(D.spec('cannon').splash,120);
 const spawn=n=>{const g=new D.Game(()=>1);g.start();g.s.wave=n-1;g.startWave();g.spawn(g.s.waves[0]);return g.s.enemies[0];};
 assert.ok(Math.abs(spawn(22).speed/spawn(21).speed-1.05)<1e-8);assert.ok(Math.abs(spawn(22).hp/spawn(21).hp-1.05)<.002);
 const g=new D.Game(()=>0);g.start();g.s.gold=1000;g.build('archer',0);g.s.wave=16;g.startWave();g.s.waves[0].spawned=3;g.spawn(g.s.waves[0]);assert.equal(g.s.towers.length,1,'bomb must travel before destruction');assert.equal(g.s.effects.at(-1).type,'sabotageBomb');for(let i=0;i<11;i++)g.tick(.1);assert.equal(g.s.towers.length,0);

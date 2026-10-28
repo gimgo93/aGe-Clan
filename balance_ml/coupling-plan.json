@@ -1,0 +1,28 @@
+{
+  "name": "rng-coupling-benchmark-v1",
+  "target_wave": 50,
+  "stage": "method_benchmark",
+  "seeds": [
+    91001,
+    91002,
+    91003,
+    91004,
+    91005,
+    91006,
+    91007,
+    91008
+  ],
+  "rng_modes": [
+    "legacy-lcg",
+    "event-sha256-u32-v1"
+  ],
+  "miner_caps": [
+    18,
+    22
+  ],
+  "decision_ticks": 2,
+  "planned_games": 32,
+  "hypothesis": "Extra mining draws must not shift shared sabotage/wood draws under event keys.",
+  "adoption": "Method diagnostic only; no policy selection, ML fitting or balance adoption.",
+  "limits": "Eight seed pairs per protocol; descriptive variance only, not a statistical guarantee."
+}

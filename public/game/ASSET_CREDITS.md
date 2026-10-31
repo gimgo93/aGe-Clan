@@ -68,3 +68,6 @@ achievement-medals-v1.webp는 내장 이미지 생성 도구로 이 게임의 11
 
 ## 2026-10-31 방어시설
 ballista-new.png 및 cannon-new.png는 이 게임을 위해 내장 이미지 생성 도구로 제작한 투명 2D 자산입니다. 광장은 기존 town-courtyard-v2.webp를 사용합니다.
+
+## 2026-10-31 시작 화면 3D 성
+castle-with-keep-cc0.glb: Innerscene 원본 성채, CC0. https://www.innerscene.com/tools/library/3d-parts/castle-with-keep-1a75a9e1 ; title-mountains-3d.webp: 기존 배경을 내장 이미지 생성 도구로 편집한 이미지. Three.js r180 GLTFLoader 및 BufferGeometryUtils는 MIT 라이선스 (public/3D/vendor/THREE-LICENSE.txt).

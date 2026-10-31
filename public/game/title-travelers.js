@@ -9,19 +9,23 @@
  ];
  const horseParts={head:[52,18,448,405],body:[525,36,595,465],frontBack:[1195,0,190,490],frontFront:[165,503,175,495],rearBack:[667,495,205,505],rearFront:[1165,495,210,505]};
  function rigPart(rig,parts,name,x,y,w,h,angle=0,pivot=.5){const [sx,sy,sw,sh]=parts[name];ctx.save();ctx.translate(x,y);ctx.rotate(angle);ctx.drawImage(rig,sx,sy,sw,sh,-w*pivot,0,w,h);ctx.restore();}
- function drawHuman(rig,parts,height,step,turn){
+ function headPart(rig,parts,x,y,w,h,angle,yaw){
+  // Rotate around the neck and turn the face from left profile to right profile.
+  ctx.save();ctx.translate(x,y+h*.85);ctx.rotate(angle);ctx.scale(yaw,1);rigPart(rig,parts,'head',0,-h*.85,w,h);ctx.restore();
+ }
+ function drawHuman(rig,parts,height,step,turn,yaw=1){
   ctx.save();ctx.scale(height/205,height/205);ctx.translate(0,-205);const swing=Math.sin(step),bob=Math.sin(step*2);
   rigPart(rig,parts,'legBack',7,105,53,100,-swing*.30,.52);rigPart(rig,parts,'armBack',14,52,38,80,swing*.26);
-  ctx.save();ctx.translate(0,90);ctx.rotate(swing*.025);rigPart(rig,parts,'body',0,-45,86,92);rigPart(rig,parts,'head',-7,-89,57,58,Math.sin(step+.5)*.035+turn*.16);rigPart(rig,parts,'armFront',-5,-39,42,83,-swing*.26);ctx.restore();
+  ctx.save();ctx.translate(0,90);ctx.rotate(swing*.025);rigPart(rig,parts,'body',0,-45,86,92);headPart(rig,parts,-7,-89,57,58,Math.sin(step+.5)*.035+turn*.06,yaw);rigPart(rig,parts,'armFront',-5,-39,42,83,-swing*.26);ctx.restore();
   rigPart(rig,parts,'legFront',-10,105,53,100,swing*.30,.52);ctx.restore();
  }
- function drawHorse(height,step,turn){
+ function drawHorse(height,step,turn,yaw=1){
   const rig=rigs[2],swing=Math.sin(step),p=horseParts;ctx.save();ctx.scale(height/205,height/205);ctx.translate(0,-205);
   rigPart(rig,p,'frontBack',-36,117,35,90,-swing*.24);rigPart(rig,p,'rearBack',43,117,38,90,swing*.24);
-  ctx.save();ctx.translate(5,105);ctx.rotate(swing*.016);rigPart(rig,p,'body',0,-55,150,100);rigPart(rig,p,'head',-76,-74,90,80,Math.sin(step+.4)*.045+turn*.10);ctx.restore();
+  ctx.save();ctx.translate(5,105);ctx.rotate(swing*.016);rigPart(rig,p,'body',0,-55,150,100);headPart(rig,p,-76,-74,90,80,Math.sin(step+.4)*.045+turn*.05,yaw);ctx.restore();
   rigPart(rig,p,'frontFront',-42,117,35,90,swing*.24);rigPart(rig,p,'rearFront',47,117,38,90,-swing*.24);ctx.restore();
   // The handler walks just ahead of the horse and uses the same jointed rig.
-  if(rigs[0].complete&&rigs[0].naturalWidth){ctx.save();ctx.translate(-height*.67,0);drawHuman(rigs[0],humanParts[0],height*.84,step+.25,turn);ctx.restore();}
+  if(rigs[0].complete&&rigs[0].naturalWidth){ctx.save();ctx.translate(-height*.67,0);drawHuman(rigs[0],humanParts[0],height*.84,step+.25,turn,yaw);ctx.restore();}
  }
  // Prepare intermediate poses in small batches, instead of compositing large
  // images for every person on every animation frame.
@@ -47,7 +51,7 @@
  }
  // Continue beyond the visible doorway so the full group clears its threshold
  // before it is removed from the animation.
- const road=[[1710,718],[1510,628],[1370,565],[1270,521],[1240,500],[1250,481],[1295,461],[1300,445],[1300,420],[1300,390]];
+ const road=[[1710,718],[1510,628],[1370,565],[1270,521],[1240,500],[1250,481],[1295,461],[1300,445],[1308,433],[1328,422],[1350,410],[1375,400]];
  const lengths=road.slice(1).map((point,i)=>Math.hypot(point[0]-road[i][0],point[1]-road[i][1])),total=lengths.reduce((a,b)=>a+b,0);
  let people=[],next=0,last=0;
  function loadWalkers(){sheet.src='assets/title-walk-frames-packed.webp';horse.src='assets/title-horse-walk-packed.webp';['traveler','farmer','horse','guard'].forEach((name,i)=>{rigs[i].src='assets/title-rig-'+name+'.webp';});}
@@ -62,7 +66,7 @@
   ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
   next-=dt;if(next<=0&&people.length<5){
    const pair=people.length<=3&&Math.random()<.35,speed=.021+Math.random()*.004;
-   for(let i=0;i<(pair?2:1);i++)people.push({kind:pair?[0,1,3][Math.floor(Math.random()*3)]:Math.floor(Math.random()*4),p:0,speed,offset:pair?(i===0?-7:7):0,phase:Math.random()*4,pace:2.8+Math.random()*.4,heading:-2.72});
+   for(let i=0;i<(pair?2:1);i++)people.push({kind:pair?[0,1,3][Math.floor(Math.random()*3)]:Math.floor(Math.random()*4),p:0,speed,offset:pair?(i===0?-7:7):0,phase:Math.random()*4,pace:2.8+Math.random()*.4,heading:-2.72,headYaw:1});
    next=4+Math.random()*9;
   }
   const scale=Math.max(w/1672,h/941),ox=(w-1672*scale)*.66,oy=(h-941*scale)*(w<=700?.28:.44);
@@ -74,14 +78,19 @@
    const before=position(person.p-.015),after=position(person.p+.035),target=Math.atan2(after[1]-before[1],after[0]-before[0]);
    const change=Math.atan2(Math.sin(target-person.heading),Math.cos(target-person.heading));person.heading+=change*(1-Math.exp(-dt*4));
    const facing=Math.atan2(Math.sin(person.heading+2.72),Math.cos(person.heading+2.72));
+   const horizontal=-Math.cos(person.heading);
+   // Retain a three-quarter profile on near-vertical sections instead of
+   // leaving the face permanently edge-on. Crossing between profiles is eased.
+   const desiredYaw=Math.abs(horizontal)<.35?Math.sign(person.headYaw||1)*.35:horizontal;
+   person.headYaw+=(desiredYaw-person.headYaw)*(1-Math.exp(-dt*6));
    const lane=person.offset*Math.max(0,Math.min(1,(1-person.p)/.14));
    ctx.save();
    // The back of the doorway covers only the part that has crossed its inner
    // threshold. The foreground approach remains fully visible; no opacity fade.
-   ctx.beginPath();ctx.rect(0,0,w,h);ctx.rect(ox+1250*scale,oy+300*scale,100*scale,120*scale);ctx.clip('evenodd');
+   ctx.beginPath();ctx.rect(0,0,w,h);ctx.rect(ox+1250*scale,oy+300*scale,180*scale,130*scale);ctx.clip('evenodd');
    ctx.translate(ox+x*scale,oy+(y+lane)*scale+Math.sin(step*2)*.55*scale);ctx.rotate(Math.sin(step)*.015);
    if(art.complete&&art.naturalWidth){
-    if(rigs[person.kind].complete&&rigs[person.kind].naturalWidth){if(person.kind===2)drawHorse(height,step,facing);else drawHuman(rigs[person.kind],humanParts[person.kind],height,step,facing);}
+    if(rigs[person.kind].complete&&rigs[person.kind].naturalWidth){if(person.kind===2)drawHorse(height,step,facing,person.headYaw);else drawHuman(rigs[person.kind],humanParts[person.kind],height,step,facing,person.headYaw);}
     else if(!pose){const sx=(person.kind===2?frameIndex%2:frameIndex)*sw,sy=(person.kind===2?Math.floor(frameIndex/2):person.kind)*sh;ctx.drawImage(art,sx,sy,sw,sh,-width/2,-height,width,height);}
     else if(person.kind===2){ctx.drawImage(pose,-width/2,-height,width,height);}
     else{

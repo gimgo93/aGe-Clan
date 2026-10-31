@@ -1,10 +1,28 @@
 (() => {
  const canvas=document.getElementById('titleTravelers'),screen=document.getElementById('titleScreen'),ctx=canvas.getContext('2d'),sheet=new Image();
  const horse=new Image();
- // Blend adjacent poses in a shared offscreen canvas. Additive compositing
- // combines their premultiplied alpha without fading the whole character out.
- const blend=document.createElement('canvas');blend.width=256;blend.height=256;
- const bctx=blend.getContext('2d');
+ // Prepare intermediate poses in small batches, instead of compositing large
+ // images for every person on every animation frame.
+ const poseCount=64,poseSize=96,poses=[[],[],[],[]];
+ function preparePoses(art,kinds){
+  let job=0;const count=kinds.length*poseCount;
+  function batch(){
+   const end=Math.min(job+8,count);
+   for(;job<end;job++){
+    const kind=kinds[Math.floor(job/poseCount)],n=job%poseCount,phase=n*4/poseCount,index=Math.floor(phase),mix=phase-index;
+    const nextIndex=(index+1)%4,sw=art.naturalWidth/(kind===2?2:4),sh=art.naturalHeight/(kind===2?2:4);
+    const output=document.createElement('canvas');output.width=output.height=poseSize;const out=output.getContext('2d');
+    for(const [frame,alpha] of [[index,1-mix],[nextIndex,mix]]){
+     if(alpha<=0)continue;out.globalAlpha=alpha;
+     const sx=(kind===2?frame%2:frame)*sw,sy=(kind===2?Math.floor(frame/2):kind)*sh;
+     out.drawImage(art,sx,sy,sw,sh,0,0,poseSize,poseSize);out.globalCompositeOperation='lighter';
+    }
+    poses[kind][n]=output;
+   }
+   if(job<count)setTimeout(batch,0);
+  }
+  batch();
+ }
  const road=[[1670,700],[1510,628],[1370,565],[1270,521],[1240,500],[1250,481],[1295,461]];
  const lengths=road.slice(1).map((point,i)=>Math.hypot(point[0]-road[i][0],point[1]-road[i][1])),total=lengths.reduce((a,b)=>a+b,0);
  let people=[],next=0,last=0;
@@ -25,29 +43,22 @@
   }
   const scale=Math.max(w/1672,h/941),ox=(w-1672*scale)*.66,oy=(h-941*scale)*(w<=700?.28:.44);
   people=people.filter(person=>person.p<1);
-  for(const person of people){person.p+=dt*person.speed;person.phase=(person.phase+dt*person.pace)%4;const [x,y]=position(person.p),step=person.phase*Math.PI/2,frameIndex=Math.floor(person.phase),fraction=person.phase-frameIndex,art=person.kind===2?horse:sheet,sw=art.width/(person.kind===2?2:4),sh=art.height/(person.kind===2?2:4);
+  for(const person of people){person.p+=dt*person.speed;person.phase=(person.phase+dt*person.pace)%4;const [x,y]=position(person.p),step=person.phase*Math.PI/2,frameIndex=Math.floor(person.phase),art=person.kind===2?horse:sheet,sw=art.naturalWidth/(person.kind===2?2:4),sh=art.naturalHeight/(person.kind===2?2:4),pose=poses[person.kind][Math.floor(person.phase*poseCount/4)];
    const height=(36-person.p*14)*scale,width=height*(person.kind===2?1.65:1.02);
    ctx.save();ctx.globalAlpha=Math.max(0,Math.min(1,person.p*15,(1-person.p)*15));ctx.translate(ox+x*scale,oy+(y+person.offset)*scale+Math.sin(step*2)*.55*scale);ctx.rotate(Math.sin(step)*.015);
    if(art.complete&&art.naturalWidth){
-    // Keep most of each pose crisp, then ease briefly into the next one.
-    const mix=Math.max(0,Math.min(1,(fraction-.65)/.35));const eased=mix*mix*(3-2*mix);
-    bctx.clearRect(0,0,256,256);bctx.globalCompositeOperation='source-over';
-    for(const [index,alpha] of [[frameIndex,1-eased],[(frameIndex+1)%4,eased]]){
-     if(alpha<=0)continue;bctx.globalAlpha=alpha;
-     const sx=(person.kind===2?index%2:index)*sw,sy=(person.kind===2?Math.floor(index/2):person.kind)*sh;
-     bctx.drawImage(art,sx,sy,sw,sh,0,0,256,256);bctx.globalCompositeOperation='lighter';
-    }
-    bctx.globalAlpha=1;bctx.globalCompositeOperation='source-over';
-    if(person.kind===2){ctx.drawImage(blend,-width/2,-height,width,height);}
+    if(!pose){const sx=(person.kind===2?frameIndex%2:frameIndex)*sw,sy=(person.kind===2?Math.floor(frameIndex/2):person.kind)*sh;ctx.drawImage(art,sx,sy,sw,sh,-width/2,-height,width,height);}
+    else if(person.kind===2){ctx.drawImage(pose,-width/2,-height,width,height);}
     else{
      // The sprite has no separate head asset. Gently tilt its upper section
      // around the shoulders, with a small overlap to hide the join.
-     const cut=84,overlap=4,split=cut/256*height;
-     ctx.drawImage(blend,0,cut-overlap,256,256-cut+overlap,-width/2,-height+(cut-overlap)/256*height,width,height*(256-cut+overlap)/256);
-     ctx.save();ctx.translate(-width*.08,-height+split);ctx.rotate(Math.sin(step+.5)*.035);ctx.drawImage(blend,0,0,256,cut,-width*.42,-split,width,split);ctx.restore();
+     const cut=31,overlap=2,split=cut/poseSize*height;
+     ctx.drawImage(pose,0,cut-overlap,poseSize,poseSize-cut+overlap,-width/2,-height+(cut-overlap)/poseSize*height,width,height*(poseSize-cut+overlap)/poseSize);
+     ctx.save();ctx.translate(-width*.08,-height+split);ctx.rotate(Math.sin(step+.5)*.02);ctx.drawImage(pose,0,0,poseSize,cut,-width*.42,-split,width,split);ctx.restore();
     }
    }ctx.restore();
   }
  }
- sheet.onload=()=>requestAnimationFrame(frame);
+ sheet.onload=()=>{requestAnimationFrame(frame);preparePoses(sheet,[0,1,3]);};
+ horse.onload=()=>preparePoses(horse,[2]);
 })();

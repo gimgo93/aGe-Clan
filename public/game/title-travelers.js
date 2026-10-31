@@ -1,14 +1,27 @@
 (() => {
  const canvas=document.getElementById('titleTravelers'),screen=document.getElementById('titleScreen'),ctx=canvas.getContext('2d'),sheet=new Image();
- const horse=new Image(),rig=new Image();
- // The farmer's head and limbs are independent pieces attached at joints.
- const parts={head:[185,75,255,325],body:[608,48,315,432],armBack:[1134,37,220,466],armFront:[185,516,210,470],legBack:[585,511,305,478],legFront:[1150,516,240,470]};
- function rigPart(name,x,y,w,h,angle=0,pivot=.5){const [sx,sy,sw,sh]=parts[name];ctx.save();ctx.translate(x,y);ctx.rotate(angle);ctx.drawImage(rig,sx,sy,sw,sh,-w*pivot,0,w,h);ctx.restore();}
- function drawFarmer(height,step,turn){
-  ctx.save();ctx.scale(height/205,height/205);ctx.translate(0,-205);const swing=Math.sin(step);
-  rigPart('legBack',7,105,53,100,-swing*.30,.52);rigPart('armBack',14,52,38,80,swing*.26);
-  rigPart('body',0,45,86,92);rigPart('legFront',-10,105,53,100,swing*.30,.52);
-  rigPart('head',-7,1,57,58,Math.sin(step+.5)*.025+turn*.16);rigPart('armFront',-5,51,42,83,-swing*.26);ctx.restore();
+ const horse=new Image(),rigs=[new Image(),new Image(),new Image(),new Image()];
+ const humanParts=[
+  {head:[110,110,295,315],body:[595,18,430,500],armBack:[1200,35,190,472],armFront:[195,525,190,454],legBack:[545,542,275,447],legFront:[1145,542,300,435]},
+  {head:[185,75,255,325],body:[608,48,315,432],armBack:[1134,37,220,466],armFront:[185,516,210,470],legBack:[585,511,305,478],legFront:[1150,516,240,470]},
+  null,
+  {head:[155,72,280,340],body:[630,45,310,500],armBack:[1185,108,190,425],armFront:[190,565,180,390],legBack:[595,560,270,410],legFront:[1175,560,260,410]}
+ ];
+ const horseParts={head:[52,18,448,405],body:[525,36,595,465],frontBack:[1195,0,190,490],frontFront:[165,503,175,495],rearBack:[667,495,205,505],rearFront:[1165,495,210,505]};
+ function rigPart(rig,parts,name,x,y,w,h,angle=0,pivot=.5){const [sx,sy,sw,sh]=parts[name];ctx.save();ctx.translate(x,y);ctx.rotate(angle);ctx.drawImage(rig,sx,sy,sw,sh,-w*pivot,0,w,h);ctx.restore();}
+ function drawHuman(rig,parts,height,step,turn){
+  ctx.save();ctx.scale(height/205,height/205);ctx.translate(0,-205);const swing=Math.sin(step),bob=Math.sin(step*2);
+  rigPart(rig,parts,'legBack',7,105,53,100,-swing*.30,.52);rigPart(rig,parts,'armBack',14,52,38,80,swing*.26);
+  ctx.save();ctx.translate(0,90);ctx.rotate(swing*.025);rigPart(rig,parts,'body',0,-45,86,92);rigPart(rig,parts,'head',-7,-89,57,58,Math.sin(step+.5)*.035+turn*.16);rigPart(rig,parts,'armFront',-5,-39,42,83,-swing*.26);ctx.restore();
+  rigPart(rig,parts,'legFront',-10,105,53,100,swing*.30,.52);ctx.restore();
+ }
+ function drawHorse(height,step,turn){
+  const rig=rigs[2],swing=Math.sin(step),p=horseParts;ctx.save();ctx.scale(height/205,height/205);ctx.translate(0,-205);
+  rigPart(rig,p,'frontBack',-36,117,35,90,-swing*.24);rigPart(rig,p,'rearBack',43,117,38,90,swing*.24);
+  ctx.save();ctx.translate(5,105);ctx.rotate(swing*.016);rigPart(rig,p,'body',0,-55,150,100);rigPart(rig,p,'head',-76,-74,90,80,Math.sin(step+.4)*.045+turn*.10);ctx.restore();
+  rigPart(rig,p,'frontFront',-42,117,35,90,swing*.24);rigPart(rig,p,'rearFront',47,117,38,90,-swing*.24);ctx.restore();
+  // The handler walks just ahead of the horse and uses the same jointed rig.
+  if(rigs[0].complete&&rigs[0].naturalWidth){ctx.save();ctx.translate(-height*.67,0);drawHuman(rigs[0],humanParts[0],height*.84,step+.25,turn);ctx.restore();}
  }
  // Prepare intermediate poses in small batches, instead of compositing large
  // images for every person on every animation frame.
@@ -32,10 +45,10 @@
   }
   batch();
  }
- const road=[[1710,718],[1510,628],[1370,565],[1270,521],[1240,500],[1250,481],[1295,461],[1301,435]];
+ const road=[[1710,718],[1510,628],[1370,565],[1270,521],[1240,500],[1250,481],[1295,461],[1300,425],[1300,405]];
  const lengths=road.slice(1).map((point,i)=>Math.hypot(point[0]-road[i][0],point[1]-road[i][1])),total=lengths.reduce((a,b)=>a+b,0);
  let people=[],next=0,last=0;
- function loadWalkers(){sheet.src='assets/title-walk-frames-packed.webp';horse.src='assets/title-horse-walk-packed.webp';rig.src='assets/title-rig-farmer.webp';}
+ function loadWalkers(){sheet.src='assets/title-walk-frames-packed.webp';horse.src='assets/title-horse-walk-packed.webp';['traveler','farmer','horse','guard'].forEach((name,i)=>{rigs[i].src='assets/title-rig-'+name+'.webp';});}
  if('requestIdleCallback' in window)requestIdleCallback(loadWalkers,{timeout:2500});else setTimeout(loadWalkers,1500);
  function position(progress){let distance=Math.max(0,Math.min(1,progress))*total,i=0;while(i<lengths.length-1&&distance>lengths[i])distance-=lengths[i++];const f=distance/lengths[i];return [road[i][0]+(road[i+1][0]-road[i][0])*f,road[i][1]+(road[i+1][1]-road[i][1])*f];}
  function frame(now){
@@ -59,10 +72,10 @@
    const lane=person.offset*Math.max(0,Math.min(1,(1-person.p)/.14));
    ctx.save();
    // The doorway covers the traveler as they pass inside; no opacity fade.
-   if(person.p>.82){ctx.beginPath();ctx.rect(0,0,w,h);ctx.rect(ox+1275*scale,oy+390*scale,50*scale,77*scale);ctx.clip('evenodd');}
+   ctx.beginPath();ctx.rect(0,0,w,h);ctx.rect(ox+1268*scale,oy+350*scale,68*scale,117*scale);ctx.clip('evenodd');
    ctx.translate(ox+x*scale,oy+(y+lane)*scale+Math.sin(step*2)*.55*scale);ctx.rotate(Math.sin(step)*.015);
    if(art.complete&&art.naturalWidth){
-    if(person.kind===1&&rig.complete&&rig.naturalWidth){drawFarmer(height,step,facing);}
+    if(rigs[person.kind].complete&&rigs[person.kind].naturalWidth){if(person.kind===2)drawHorse(height,step,facing);else drawHuman(rigs[person.kind],humanParts[person.kind],height,step,facing);}
     else if(!pose){const sx=(person.kind===2?frameIndex%2:frameIndex)*sw,sy=(person.kind===2?Math.floor(frameIndex/2):person.kind)*sh;ctx.drawImage(art,sx,sy,sw,sh,-width/2,-height,width,height);}
     else if(person.kind===2){ctx.drawImage(pose,-width/2,-height,width,height);}
     else{

@@ -71,3 +71,5 @@ ballista-new.png 및 cannon-new.png는 이 게임을 위해 내장 이미지 생
 
 ## 2026-10-31 시작 화면 3D 성
 castle-with-keep-cc0.glb: Innerscene 원본 성채, CC0. https://www.innerscene.com/tools/library/3d-parts/castle-with-keep-1a75a9e1 ; title-mountains-3d.webp: 기존 배경을 내장 이미지 생성 도구로 편집한 이미지. Three.js r180 GLTFLoader 및 BufferGeometryUtils는 MIT 라이선스 (public/3D/vendor/THREE-LICENSE.txt).
+
+2026-10-31: castle-rock.webp는 내장 이미지 생성 도구로 제작한 바위·이끼 지형 텍스처입니다. 성채 모델의 석조·지붕 재질과 CC0 이용 조건은 위 성채 출처와 같습니다.

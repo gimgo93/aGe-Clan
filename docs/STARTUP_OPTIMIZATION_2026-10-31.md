@@ -61,3 +61,18 @@ HTML은 `max-age=0, must-revalidate`, 이미지 응답은 `max-age=14400, must-r
 `check-startup`, `check-accounts`, `check-account-badges`, `check-ux-refinement`, `check-ui-audio`, `check-pvp`, `check-pvp-gateway`, 프레임워크 production build 통과.
 
 브라우저 활성화 응답 후 도구 세션까지 초기화했지만 계속 비활성화로 반환돼 실제 프레임/화면 검증은 미완료. 파일 용량 감소를 동일 비율의 로딩 시간 감소로 주장하지 않는다. 변경은 운영 배포 전 상태다.
+
+## 2026-10-31 운영 반영 완료
+
+위의 배포 전 기록 이후 Sites 연결이 복구되어 다음 변경을 완료했다.
+
+- GitHub 최적화 커밋: `8c50e62` (취소된 traveler 수정은 재도입하지 않음).
+- Sites 버전 45, 소스 `e27b323462f998638766e5b205d0024739c1072b`, 운영 주소 https://ageclan.com/game/.
+- 별도 대전 Worker 버전: `b8f09a6b-9505-4655-a5de-ece9086ff0cb`. `--keep-vars`로 기존 Google client 설정을 유지했고 비밀키 이름, D1, Durable Object 바인딩을 배포 후 재확인했다. DB 마이그레이션이나 DNS 변경 없음.
+- 운영 JS 5개와 새 WebP 9개를 다운로드해 SHA-256 비교: 14개 모두 로컬 배포 소스와 동일.
+- 비로그인 계정 status: HTTP 200, configured=true. 실제 Google 계정 로그인·동기화는 이번 배포 후 수동 검증하지 못했다.
+- 초기 배포 직후 HTML 단일 요청은 2398ms. 이어 실시한 5회 HTTP 전체 수신은 126~684ms, 중앙값 174ms. API health는 172~363ms, 중앙값 201ms. 모두 200 응답.
+- HTTP 측정은 순차 소수 표본이며 연결 재사용·캐시 영향을 받는다. 브라우저 화면 완성 시간, 게임 핑, 최적화 전후 인과 비교, 동시접속 한계가 아니다. 첫 HTML 지연이 완전히 해결됐다고 단정하지 않는다.
+- 빌드, 자산 로더, 계정, 배지, UI/음향, PvP, gateway, UX 회귀 검사 통과.
+- 브라우저 도구는 계속 Local browser use is disabled로 반환: 실화면 배치, FCP/LCP, 프레임 끊김, 실제 다인전 검증은 미완료.
+- 원자료: `STARTUP_VERIFICATION_2026-10-31.json`. 재검증 스크립트 `node tools/verify-production-startup.mjs`는 운영 사이트에 소수 HTTP 요청을 보내며 비로그인 status 요청 시 익명 세션/요청제한 기록이 생성될 수 있다.

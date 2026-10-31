@@ -1,0 +1,168 @@
+{
+  "checkedAt": "2026-10-31T08:53:28.270Z",
+  "samples": [
+    {
+      "path": "/game/",
+      "run": 1,
+      "status": 200,
+      "headersMs": 676,
+      "totalMs": 684
+    },
+    {
+      "path": "/api/clan",
+      "run": 1,
+      "status": 200,
+      "headersMs": 361,
+      "totalMs": 363
+    },
+    {
+      "path": "/game/",
+      "run": 2,
+      "status": 200,
+      "headersMs": 168,
+      "totalMs": 171
+    },
+    {
+      "path": "/api/clan",
+      "run": 2,
+      "status": 200,
+      "headersMs": 201,
+      "totalMs": 201
+    },
+    {
+      "path": "/game/",
+      "run": 3,
+      "status": 200,
+      "headersMs": 171,
+      "totalMs": 174
+    },
+    {
+      "path": "/api/clan",
+      "run": 3,
+      "status": 200,
+      "headersMs": 178,
+      "totalMs": 179
+    },
+    {
+      "path": "/game/",
+      "run": 4,
+      "status": 200,
+      "headersMs": 125,
+      "totalMs": 126
+    },
+    {
+      "path": "/api/clan",
+      "run": 4,
+      "status": 200,
+      "headersMs": 172,
+      "totalMs": 172
+    },
+    {
+      "path": "/game/",
+      "run": 5,
+      "status": 200,
+      "headersMs": 203,
+      "totalMs": 204
+    },
+    {
+      "path": "/api/clan",
+      "run": 5,
+      "status": 200,
+      "headersMs": 306,
+      "totalMs": 307
+    }
+  ],
+  "hashes": [
+    {
+      "file": "public/game/app.js",
+      "status": 200,
+      "bytes": 28239,
+      "match": true
+    },
+    {
+      "file": "public/game/renderer.js",
+      "status": 200,
+      "bytes": 30947,
+      "match": true
+    },
+    {
+      "file": "public/game/asset-loader.js",
+      "status": 200,
+      "bytes": 1211,
+      "match": true
+    },
+    {
+      "file": "public/game/account.js",
+      "status": 200,
+      "bytes": 7477,
+      "match": true
+    },
+    {
+      "file": "public/game/title-travelers.js",
+      "status": 200,
+      "bytes": 2652,
+      "match": true
+    },
+    {
+      "file": "public/game/assets/age-clan-logo-transparent-packed.webp",
+      "status": 200,
+      "bytes": 896846,
+      "match": true
+    },
+    {
+      "file": "public/game/assets/ballista-static-packed.webp",
+      "status": 200,
+      "bytes": 290132,
+      "match": true
+    },
+    {
+      "file": "public/game/assets/barracks-building-v1-packed.webp",
+      "status": 200,
+      "bytes": 1285852,
+      "match": true
+    },
+    {
+      "file": "public/game/assets/cannon-new-packed.webp",
+      "status": 200,
+      "bytes": 1482094,
+      "match": true
+    },
+    {
+      "file": "public/game/assets/construction-site-v1-packed.webp",
+      "status": 200,
+      "bytes": 1125138,
+      "match": true
+    },
+    {
+      "file": "public/game/assets/lab-building-v1-packed.webp",
+      "status": 200,
+      "bytes": 1341502,
+      "match": true
+    },
+    {
+      "file": "public/game/assets/title-horse-walk-packed.webp",
+      "status": 200,
+      "bytes": 970464,
+      "match": true
+    },
+    {
+      "file": "public/game/assets/title-walk-frames-packed.webp",
+      "status": 200,
+      "bytes": 1202768,
+      "match": true
+    },
+    {
+      "file": "public/game/assets/woodcutter-axe-packed.webp",
+      "status": 200,
+      "bytes": 499888,
+      "match": true
+    }
+  ],
+  "account": {
+    "status": 200,
+    "body": {
+      "configured": true,
+      "account": null
+    }
+  }
+}

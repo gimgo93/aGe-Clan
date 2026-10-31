@@ -45,7 +45,9 @@
   }
   batch();
  }
- const road=[[1710,718],[1510,628],[1370,565],[1270,521],[1240,500],[1250,481],[1295,461],[1300,425],[1300,405]];
+ // Continue beyond the visible doorway so the full group clears its threshold
+ // before it is removed from the animation.
+ const road=[[1710,718],[1510,628],[1370,565],[1270,521],[1240,500],[1250,481],[1295,461],[1300,445],[1300,420],[1300,390]];
  const lengths=road.slice(1).map((point,i)=>Math.hypot(point[0]-road[i][0],point[1]-road[i][1])),total=lengths.reduce((a,b)=>a+b,0);
  let people=[],next=0,last=0;
  function loadWalkers(){sheet.src='assets/title-walk-frames-packed.webp';horse.src='assets/title-horse-walk-packed.webp';['traveler','farmer','horse','guard'].forEach((name,i)=>{rigs[i].src='assets/title-rig-'+name+'.webp';});}
@@ -60,19 +62,23 @@
   ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
   next-=dt;if(next<=0&&people.length<5){
    const pair=people.length<=3&&Math.random()<.35,speed=.021+Math.random()*.004;
-   for(let i=0;i<(pair?2:1);i++)people.push({kind:pair?[0,1,3][Math.floor(Math.random()*3)]:Math.floor(Math.random()*4),p:0,speed,offset:pair?(i===0?-7:7):0,phase:Math.random()*4,pace:2.8+Math.random()*.4});
+   for(let i=0;i<(pair?2:1);i++)people.push({kind:pair?[0,1,3][Math.floor(Math.random()*3)]:Math.floor(Math.random()*4),p:0,speed,offset:pair?(i===0?-7:7):0,phase:Math.random()*4,pace:2.8+Math.random()*.4,heading:-2.72});
    next=4+Math.random()*9;
   }
   const scale=Math.max(w/1672,h/941),ox=(w-1672*scale)*.66,oy=(h-941*scale)*(w<=700?.28:.44);
   people=people.filter(person=>person.p<1);
   for(const person of people){person.p+=dt*person.speed;person.phase=(person.phase+dt*person.pace)%4;const [x,y]=position(person.p),step=person.phase*Math.PI/2,frameIndex=Math.floor(person.phase),art=person.kind===2?horse:sheet,sw=art.naturalWidth/(person.kind===2?2:4),sh=art.naturalHeight/(person.kind===2?2:4),pose=poses[person.kind][Math.floor(person.phase*poseCount/4)];
    const height=(36-person.p*14)*scale,width=height*(person.kind===2?1.65:1.02);
-   const before=position(person.p-.025),after=position(person.p+.025),turn=Math.atan2(after[1]-before[1],after[0]-before[0]);
-   const facing=Math.atan2(Math.sin(turn+2.72),Math.cos(turn+2.72));
+   // Look slightly ahead and ease the direction, so heads follow each bend
+   // without snapping at the joints between path segments.
+   const before=position(person.p-.015),after=position(person.p+.035),target=Math.atan2(after[1]-before[1],after[0]-before[0]);
+   const change=Math.atan2(Math.sin(target-person.heading),Math.cos(target-person.heading));person.heading+=change*(1-Math.exp(-dt*4));
+   const facing=Math.atan2(Math.sin(person.heading+2.72),Math.cos(person.heading+2.72));
    const lane=person.offset*Math.max(0,Math.min(1,(1-person.p)/.14));
    ctx.save();
-   // The doorway covers the traveler as they pass inside; no opacity fade.
-   ctx.beginPath();ctx.rect(0,0,w,h);ctx.rect(ox+1268*scale,oy+350*scale,68*scale,117*scale);ctx.clip('evenodd');
+   // The back of the doorway covers only the part that has crossed its inner
+   // threshold. The foreground approach remains fully visible; no opacity fade.
+   ctx.beginPath();ctx.rect(0,0,w,h);ctx.rect(ox+1250*scale,oy+300*scale,100*scale,120*scale);ctx.clip('evenodd');
    ctx.translate(ox+x*scale,oy+(y+lane)*scale+Math.sin(step*2)*.55*scale);ctx.rotate(Math.sin(step)*.015);
    if(art.complete&&art.naturalWidth){
     if(rigs[person.kind].complete&&rigs[person.kind].naturalWidth){if(person.kind===2)drawHorse(height,step,facing);else drawHuman(rigs[person.kind],humanParts[person.kind],height,step,facing);}

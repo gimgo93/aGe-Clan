@@ -65,3 +65,6 @@ title-fortress-dawn.webp는 aGe Clan의 숲·석조 성채·문명 방어 컨셉
 
 ## 2026-10-30 업적 메달
 achievement-medals-v1.webp는 내장 이미지 생성 도구로 이 게임의 11종 업적을 위해 제작한 투명 메달 아틀라스입니다. 배포용 WebP는 원본 알파 채널을 보존합니다. 화면의 출처 메뉴 제거와 관계없이 기존 외부 자산 라이선스 기록은 유지합니다. 생성 내역: docs/2D_ACHIEVEMENTS_ENTRY_2026-10-30.md.
+
+## 2026-10-31 방어시설
+ballista-new.png 및 cannon-new.png는 이 게임을 위해 내장 이미지 생성 도구로 제작한 투명 2D 자산입니다. 광장은 기존 town-courtyard-v2.webp를 사용합니다.

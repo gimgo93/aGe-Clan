@@ -1,6 +1,6 @@
 class WorldRenderer {
  constructor(canvas,game){this.canvas=canvas;this.ctx=canvas.getContext('2d',{alpha:false});this.game=game;this.images={};this.camera={x:0,y:0,zoom:1};this.hover=-1;this.selected=null;this.buildType=null;this.scene='battle';this.ready=false;this.art=window.ART_META;this.resize();}
- async load(){await Promise.all(['ballista','ballista-arm','ballista-new','cannon-new','grassland','cave','miner','soldier','raider','woodcutter','woodcutter-axe','battleOuter','mineOuter','battleDetail','mineDetail','town-courtyard-v2','construction-site-v1','lab-building-v1','barracks-building-v1'].map(name=>new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>{this.images[name]=image;resolve();};image.onerror=()=>reject(new Error(name+' 이미지를 불러오지 못했습니다.'));image.src='assets/'+name+((name.startsWith('woodcutter')||name.startsWith('ballista')||name==='cannon-new'||['construction-site-v1','lab-building-v1','barracks-building-v1'].includes(name))?'.png':'.webp');})));this.ground={battle:this.images.battleOuter,mine:this.images.mineOuter};this.groundDetail={battle:this.images.battleDetail,mine:this.images.mineDetail};this.prepareBackdrops();this.decor=this.props();this.game.setTreeSites(this.decor.filter(p=>p.id>=240));this.ready=true;}
+ async load(){await Promise.all(['ballista','ballista-arm','ballista-new','ballista-static','cannon-new','grassland','cave','miner','soldier','raider','woodcutter','woodcutter-axe','battleOuter','mineOuter','battleDetail','mineDetail','town-courtyard-v4','construction-site-v1','lab-building-v1','barracks-building-v1'].map(name=>new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>{this.images[name]=image;resolve();};image.onerror=()=>reject(new Error(name+' 이미지를 불러오지 못했습니다.'));image.src='assets/'+name+((name.startsWith('woodcutter')||name.startsWith('ballista')||name==='cannon-new'||['construction-site-v1','lab-building-v1','barracks-building-v1'].includes(name))?'.png':'.webp');})));this.ground={battle:this.images.battleOuter,mine:this.images.mineOuter};this.groundDetail={battle:this.images.battleDetail,mine:this.images.mineDetail};this.prepareBackdrops();this.decor=this.props();this.game.setTreeSites(this.decor.filter(p=>p.id>=240));this.ready=true;}
 
  // Cache small repeating surfaces once; coverage follows the camera, not a fixed map rectangle.
  prepareBackdrops(){
@@ -8,7 +8,7 @@ class WorldRenderer {
    ctx.fillStyle=set==='cave'?'#493c30':'#676b3b';ctx.fillRect(0,0,768,384);ctx.filter=set==='cave'?'brightness(1.55) saturate(.78)':'brightness(1.35) saturate(.75)';
    for(let row=-2;row<11;row++)for(let col=-2;col<6;col++){const r=(row%8+8)%8,c=(col%4+4)%4,id=16+(r*7+c*3)%16;this.tile(ctx,set,id,col*192+(row%2?96:0),row*48,1);}
    return surface;};
-  const paving=document.createElement('canvas');paving.width=512;paving.height=256;const p=paving.getContext('2d'),town=this.images['town-courtyard-v2'];
+  const paving=document.createElement('canvas');paving.width=512;paving.height=256;const p=paving.getContext('2d'),town=this.images['town-courtyard-v4'];
   for(let row=0;row<2;row++)for(let col=0;col<2;col++){p.save();p.translate(col*256+(col?256:0),row*128+(row?128:0));p.scale(col?-1:1,row?-1:1);p.drawImage(town,620,560,256,128,0,0,256,128);p.restore();}
   const forest=document.createElement('canvas');forest.width=768;forest.height=768;const f=forest.getContext('2d'),random=this.rng(1739),trees=[];
   for(let row=0;row<6;row++)for(let col=0;col<6;col++){const x=col*128+random()*70,y=row*128+random()*65,id=[248,249,252,253,240][Math.floor(random()*5)],scale=.6+random()*.22;
@@ -73,7 +73,7 @@ class WorldRenderer {
  }
 
  castle(ctx,time){const s=this.game.s;this.shadow(ctx,1430,550,106);if(s.castle<5){this.tile(ctx,'grassland',72,1395,555,1.05,true);this.tile(ctx,'grassland',75,1470,565,.7,true);}else{this.tile(ctx,'grassland',296,1430,565,.27+(s.castle/20)*.08,true);for(let i=0;i<Math.min(3,Math.floor(s.castle/6));i++)this.tile(ctx,'grassland',296,1360+i*80,585,.11,true);}
-   this.flag(ctx,1490,530,'#a63d30',time,1.05);this.sprite(ctx,'soldier','stance',time*4,7,1350,590,.72);this.sprite(ctx,'soldier','stance',time*4,7,1470,610,.72);this.text(ctx,'성을 터치해 강화',1430,415,'#ffe6af',13);this.text(ctx,`성 Lv.${s.castle}`,1430,440,'#f6ddaa',18);ctx.fillStyle='#191b18';ctx.fillRect(1375,451,110,7);ctx.fillStyle='#a3bf76';ctx.fillRect(1376,452,108*s.hp/s.maxHp,5);
+   this.flag(ctx,1490,530,'#a63d30',time,1.05);this.sprite(ctx,'soldier','stance',time*4,7,1350,590,.72);this.sprite(ctx,'soldier','stance',time*4,7,1470,610,.72);if(Defense.castleCost(s.castle)!==null&&s.crystals>=Defense.castleCost(s.castle)&&this.game.canAct())this.text(ctx,'성을 터치해 강화',1430,415,'#ffe6af',13);this.text(ctx,`성 Lv.${s.castle}`,1430,440,'#f6ddaa',18);ctx.fillStyle='#191b18';ctx.fillRect(1375,451,110,7);ctx.fillStyle='#a3bf76';ctx.fillRect(1376,452,108*s.hp/s.maxHp,5);
  }
  tower(ctx,t,time,preview=false){if(t.buildRemaining>0&&!preview){this.construction(ctx,t.x,t.y,t.buildRemaining,3,160,t._pending);return;}if(!preview&&t.hp<300){ctx.fillStyle='#291b15';ctx.fillRect(t.x-25,t.y+12,50,5);ctx.fillStyle='#d4a250';ctx.fillRect(t.x-25,t.y+12,50*Math.max(0,t.hp)/300,5);}const p=Defense.spec(t.type),st=this.game.stats(t),level=this.game.s.towerLevels[t.type];this.shadow(ctx,t.x,t.y,40);if(t.type==='archer'){this.tile(ctx,'grassland',72,t.x,t.y,.45,true);}else if(t.type==='frost'){this.tile(ctx,'grassland',296,t.x,t.y,.105,true);}else if(t.type!=='ballista'&&t.type!=='cannon'){this.tile(ctx,'grassland',264,t.x-18,t.y,.38);}   if(t.type==='cannon'){
      const recoil=t.attack?Math.sin(Math.min(1,t.attack/.4)*Math.PI)*4:0;ctx.save();ctx.translate(t.x,t.y);ctx.scale(Math.cos(t.angle??-.7)<0?-1:1,1);ctx.drawImage(this.images['cannon-new'],-54-recoil,-95,108,108);
@@ -82,7 +82,7 @@ class WorldRenderer {
    else if(t.type==='frost'||t.type==='storm'){ctx.save();ctx.translate(t.x,t.y-52);const color=t.type==='frost'?'#80d8ed':'#bd9ef1';ctx.shadowColor=color;ctx.shadowBlur=15;ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(0,-28);ctx.lineTo(15,-7);ctx.lineTo(0,15);ctx.lineTo(-13,-7);ctx.closePath();ctx.fill();ctx.fillStyle='#e8ffffb5';ctx.beginPath();ctx.moveTo(0,-28);ctx.lineTo(0,15);ctx.lineTo(-13,-7);ctx.closePath();ctx.fill();ctx.restore();}
    else if(t.type==='archer'){const dir=this.direction(t.angle||1);this.sprite(ctx,'soldier',t.attack?'shoot':'stance',t.attack?( .4-t.attack)*10:time*4,dir,t.x,t.y-25,.72);}
    if(t.type==='ballista'){
-     const draw=t.attack?Math.sin(Math.min(1,t.attack/.4)*Math.PI)*3:0;ctx.save();ctx.translate(t.x,t.y);ctx.scale(Math.cos(t.angle??-.65)<0?-1:1,1);ctx.drawImage(this.images['ballista-new'],-53-draw,-106,106,106);ctx.restore();
+     ctx.drawImage(this.images['ballista-static'],t.x-53,t.y-106,106,106);this.ballistaCrew(ctx,t,time,t.x-23,t.y-53);
    }
    if(level===5){ctx.strokeStyle=p.color;ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(t.x,t.y,42,19,0,0,Math.PI*2);ctx.stroke();}
    if(!preview){this.flag(ctx,t.x-29,t.y-9,p.color,time,.44);this.text(ctx,`Lv.${level}`,t.x,t.y+25,p.color,12);if(this.selected===t.id){ctx.strokeStyle='#ffe4a4';ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(t.x,t.y,49,23,0,0,Math.PI*2);ctx.stroke();ctx.fillStyle=p.color+'0c';ctx.strokeStyle=p.color+'88';ctx.lineWidth=1;ctx.beginPath();ctx.arc(t.x,t.y,st.range,0,Math.PI*2);ctx.fill();ctx.stroke();}}
@@ -111,13 +111,13 @@ class WorldRenderer {
    const p=loading?Math.min(1,Math.max(0,(rate-cooldown)/Math.max(.1,rate-.4))):0;
    const pull=loading?Math.sin(p*Math.PI/2):t.attack?Math.max(0,t.attack/.4):0;
    const a=t.angle??-.65,dir=this.direction(a),lean=loading?Math.sin(p*Math.PI)*3:0;
-   this.shadow(ctx,x,y,18);ctx.save();
-   this.sprite(ctx,'soldier',loading?'shoot':'stance',loading?Math.min(3,Math.floor(p*4)):time*3,dir,x+Math.cos(a)*lean,y,.64);
+   ctx.save();
+   this.sprite(ctx,'soldier',loading?'shoot':'stance',loading?Math.min(3,Math.floor(p*4)):time*3,dir,x+Math.cos(a)*lean,y,.36);
    // Hands travel back from the bolt rail with the drawn string.
-   const reach=25-pull*16,handX=x+Math.cos(a)*reach,handY=y-40+Math.sin(a)*reach*.5;
-   ctx.lineCap='round';ctx.strokeStyle='#685c43';ctx.lineWidth=5;
-   for(const side of [-1,1]){ctx.beginPath();ctx.moveTo(x+side*8,y-44);ctx.quadraticCurveTo(x+side*10+Math.cos(a)*9,y-34,handX,handY+side*2);ctx.stroke();}
-   ctx.fillStyle='#c5a17b';ctx.beginPath();ctx.ellipse(handX,handY,4,3,a,0,Math.PI*2);ctx.fill();ctx.restore();
+   const reach=12-pull*7,handX=x+Math.cos(a)*reach,handY=y-20+Math.sin(a)*reach*.5;
+   ctx.lineCap='round';ctx.strokeStyle='#685c43';ctx.lineWidth=2;
+   for(const side of [-1,1]){ctx.beginPath();ctx.moveTo(x+side*4,y-22);ctx.quadraticCurveTo(x+side*5+Math.cos(a)*4,y-17,handX,handY+side);ctx.stroke();}
+   ctx.fillStyle='#c5a17b';ctx.beginPath();ctx.ellipse(handX,handY,2,1.5,a,0,Math.PI*2);ctx.fill();ctx.restore();
  }
  observeBuildingUpgrades(s,now,key){
   const old=this.upgradeBaseline;
@@ -140,7 +140,7 @@ class WorldRenderer {
  town(ctx,time){
   const s=this.game.s,era=this.game.era;
   // The painted curtain walls and eight watchtowers replace the former tree fence.
-  ctx.drawImage(this.images['town-courtyard-v2'],-120,-150,1840,1152);
+  ctx.drawImage(this.images['town-courtyard-v4'],-1100,-700,3800,2375);
   for(const [x,y] of [[120,180],[410,120],[685,105],[930,105],[1210,120],[1500,180]]){
    this.flag(ctx,x,y,'#8f3c30',time,.48);
    this.sprite(ctx,'soldier','stance',Math.floor(time*2),7,x-14,y+10,.52);
@@ -170,7 +170,7 @@ class WorldRenderer {
     this.castleDamage(ctx,visualNow,settings);
     this.civilizationGlow(ctx,visualNow,settings.reducedMotion);
     this.buildingUpgradeGlow(ctx,visualNow,settings.reducedMotion);
-    for(const shot of s.shots){if(shot.delay>0||shot._netHidden)continue;const color=Defense.spec(shot.type).color;ctx.fillStyle=color;ctx.shadowColor=color;ctx.shadowBlur=8;ctx.beginPath();ctx.arc(shot.x,shot.y,shot.type==='cannon'?7:3,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;}
+    for(const shot of s.shots){if(shot.delay>0||shot._netHidden)continue;const color=Defense.spec(shot.type).color;if(shot.type==='ballista'){const target=s.enemies.find(e=>e.id===shot.target),a=target?Math.atan2(target.y-shot.y,target.x-shot.x):0;ctx.save();ctx.translate(shot.x,shot.y);ctx.rotate(a);ctx.strokeStyle='#e2c899';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-17,0);ctx.lineTo(10,0);ctx.stroke();ctx.fillStyle='#ddd3bd';ctx.beginPath();ctx.moveTo(14,0);ctx.lineTo(7,-4);ctx.lineTo(7,4);ctx.closePath();ctx.fill();ctx.restore();}else{ctx.fillStyle=color;ctx.shadowColor=color;ctx.shadowBlur=8;ctx.beginPath();ctx.arc(shot.x,shot.y,shot.type==='cannon'?7:3,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;}}
     for(const e of s.effects){ctx.save();ctx.globalAlpha=Math.min(1,e.life*2);if(e.type==='sabotageBomb'){const p=Math.max(0,1-e.life/(e.duration||1.05)),x=e.x+(e.toX-e.x)*p,y=e.y+(e.toY-e.y)*p-Math.sin(p*Math.PI)*150;ctx.globalAlpha=1;ctx.fillStyle='#252921';ctx.strokeStyle='#9c8355';ctx.lineWidth=2;ctx.beginPath();ctx.arc(x,y,11,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.strokeStyle='#d1a36d';ctx.beginPath();ctx.moveTo(x+4,y-8);ctx.quadraticCurveTo(x+13,y-25,x+18,y-15);ctx.stroke();ctx.fillStyle='#ffd36f';ctx.beginPath();ctx.arc(x+18,y-15,3+Math.sin(time*30),0,Math.PI*2);ctx.fill();}else if(e.type==='demolish'){const p=Math.max(0,1-e.life/1.2);ctx.globalAlpha=1-p;const glow=ctx.createRadialGradient(e.x,e.y-25,0,e.x,e.y-25,85*p+20);glow.addColorStop(0,'#ffe4a0cc');glow.addColorStop(.45,'#e28f4866');glow.addColorStop(1,'#3d332400');ctx.fillStyle=glow;ctx.fillRect(e.x-120,e.y-145,240,220);ctx.strokeStyle='#f5c06e';ctx.lineWidth=5*(1-p);ctx.beginPath();ctx.ellipse(e.x,e.y,18+p*90,9+p*40,0,0,Math.PI*2);ctx.stroke();for(let i=0;i<16;i++){const a=i*2.4,rad=18+p*(45+i%4*13);ctx.save();ctx.translate(e.x+Math.cos(a)*rad,e.y-30+Math.sin(a)*rad*.55-Math.sin(p*Math.PI)*35);ctx.rotate(i+p*5);ctx.fillStyle=i%3?'#bba077':'#5c5346';ctx.fillRect(-4,-4,6+i%4,6);ctx.restore();}for(let i=0;i<5;i++){ctx.fillStyle='#aa9c8266';ctx.beginPath();ctx.ellipse(e.x+(i-2)*16*p,e.y-20-p*(30+i*8),20+p*25,12+p*15,0,0,Math.PI*2);ctx.fill();}}else if(e.type==='lightning'||e.type==='arc'){ctx.strokeStyle='#dcddff';ctx.shadowColor='#ada5ff';ctx.shadowBlur=13;ctx.lineWidth=e.type==='lightning'?4:2;ctx.beginPath();ctx.moveTo(e.fromX??e.x-25,e.fromY??e.y-220);ctx.lineTo(e.x+15,e.y-90);ctx.lineTo(e.x-15,e.y-70);ctx.lineTo(e.x,e.y);ctx.stroke();}else{ctx.fillStyle=e.type==='ice'?'#8ddbff66':e.type==='blast'?'#e7aa5577':'#c8b58e66';ctx.beginPath();ctx.ellipse(e.x,e.y,e.type==='blast'?98*(1-e.life):19,e.type==='blast'?46*(1-e.life):9,0,0,Math.PI*2);ctx.fill();}ctx.restore();}
    }else if(kind==='town')this.town(ctx,time);else this.mine(ctx,time);
    ctx.restore();const vignette=ctx.createRadialGradient(this.w/2,this.h*.42,this.w*.12,this.w/2,this.h*.42,this.w*.75);vignette.addColorStop(0,'#050a0800');vignette.addColorStop(1,kind==='mine'?'#09060352':'#0c140b38');ctx.fillStyle=vignette;ctx.fillRect(0,0,this.w,this.h);this.castleDamage(ctx,visualNow,settings,true);

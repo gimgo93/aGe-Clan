@@ -156,3 +156,4 @@ body[data-mode="title"] { overflow-y: auto; background: var(--color-paper); }
 #titleScreen .title-shell { z-index: 2; pointer-events: none; }
 #titleScreen .title-shell button, #titleScreen .title-shell a { pointer-events: auto; }
 @media(max-width:700px) { #castle3d { right: 0; top: 24%; width: 90%; height: 36%; } #castle3d span { right: 5%; bottom: 0; font-size: 11px; } }
+#titleScreen #titleTravelers { position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none; }

@@ -27,7 +27,7 @@
   people=people.filter(person=>person.p<1);
   for(const person of people){person.p+=dt*person.speed;person.phase=(person.phase+dt*person.pace)%4;const [x,y]=position(person.p),step=person.phase*Math.PI/2,frameIndex=Math.floor(person.phase),fraction=person.phase-frameIndex,art=person.kind===2?horse:sheet,sw=art.width/(person.kind===2?2:4),sh=art.height/(person.kind===2?2:4);
    const height=(36-person.p*14)*scale,width=height*(person.kind===2?1.65:1.02);
-   ctx.save();ctx.globalAlpha=Math.max(0,Math.min(1,person.p*15,(1-person.p)*15));ctx.translate(ox+x*scale,oy+(y+person.offset)*scale+Math.sin(step*2)*.35*scale);ctx.rotate(Math.sin(step)*.008);
+   ctx.save();ctx.globalAlpha=Math.max(0,Math.min(1,person.p*15,(1-person.p)*15));ctx.translate(ox+x*scale,oy+(y+person.offset)*scale+Math.sin(step*2)*.55*scale);ctx.rotate(Math.sin(step)*.015);
    if(art.complete&&art.naturalWidth){
     // Keep most of each pose crisp, then ease briefly into the next one.
     const mix=Math.max(0,Math.min(1,(fraction-.65)/.35));const eased=mix*mix*(3-2*mix);
@@ -37,7 +37,15 @@
      const sx=(person.kind===2?index%2:index)*sw,sy=(person.kind===2?Math.floor(index/2):person.kind)*sh;
      bctx.drawImage(art,sx,sy,sw,sh,0,0,256,256);bctx.globalCompositeOperation='lighter';
     }
-    bctx.globalAlpha=1;bctx.globalCompositeOperation='source-over';ctx.drawImage(blend,-width/2,-height,width,height);
+    bctx.globalAlpha=1;bctx.globalCompositeOperation='source-over';
+    if(person.kind===2){ctx.drawImage(blend,-width/2,-height,width,height);}
+    else{
+     // The sprite has no separate head asset. Gently tilt its upper section
+     // around the shoulders, with a small overlap to hide the join.
+     const cut=84,overlap=4,split=cut/256*height;
+     ctx.drawImage(blend,0,cut-overlap,256,256-cut+overlap,-width/2,-height+(cut-overlap)/256*height,width,height*(256-cut+overlap)/256);
+     ctx.save();ctx.translate(-width*.08,-height+split);ctx.rotate(Math.sin(step+.5)*.035);ctx.drawImage(blend,0,0,256,cut,-width*.42,-split,width,split);ctx.restore();
+    }
    }ctx.restore();
   }
  }

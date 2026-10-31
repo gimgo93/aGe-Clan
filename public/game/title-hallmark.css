@@ -9,7 +9,7 @@ body[data-mode="title"] { scrollbar-color: var(--color-rule-strong) var(--color-
 body[data-mode="title"] ::selection { background: var(--color-accent); color: var(--color-accent-ink); }
 body[data-mode="title"] { overflow-y: auto; background: var(--color-paper); }
 #titleScreen { position: fixed; inset: 0; overflow-y: auto; text-align: left; color: var(--color-ink); background: var(--color-paper); font-family: var(--font-body); }
-#titleScreen .title-landscape { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 66% 44%; }
+#titleScreen .title-landscape { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 66% 44%; pointer-events: none; user-select: none; -webkit-user-drag: none; }
 #titleScreen .title-shade { position: absolute; inset: 0; background: linear-gradient(90deg,var(--shade-heavy),var(--shade-light) 54%,var(--shade-none) 83%),linear-gradient(0deg,var(--shade-floor),var(--shade-none) 57%,var(--shade-roof)); pointer-events: none; }
 #titleScreen .title-shell { position: relative; max-width: var(--container); min-height: 600px; height: 100%; min-height: 100svh; margin: 0 auto; padding: 0 var(--gutter); display: flex; flex-direction: column; }
 #titleScreen .title-masthead { display: flex; flex-shrink: 0; align-items: center; justify-content: space-between; gap: var(--space-md); min-height: 102px; border-bottom: 1px solid var(--color-rule); }

@@ -5,7 +5,7 @@
  // combines their premultiplied alpha without fading the whole character out.
  const blend=document.createElement('canvas');blend.width=256;blend.height=256;
  const bctx=blend.getContext('2d');
- const road=[[1660,660],[1510,605],[1370,550],[1265,510],[1230,490],[1260,468],[1300,450]];
+ const road=[[1670,700],[1510,628],[1370,565],[1270,521],[1240,500],[1250,481],[1295,461]];
  const lengths=road.slice(1).map((point,i)=>Math.hypot(point[0]-road[i][0],point[1]-road[i][1])),total=lengths.reduce((a,b)=>a+b,0);
  let people=[],next=0,last=0;
  function loadWalkers(){sheet.src='assets/title-walk-frames-packed.webp';horse.src='assets/title-horse-walk-packed.webp';}
@@ -18,7 +18,11 @@
   const w=screen.clientWidth,h=screen.clientHeight,dpr=Math.min(devicePixelRatio||1,1.5);
   if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}
   ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
-  next-=dt;if(next<=0&&people.length<5){people.push({kind:Math.floor(Math.random()*4),p:0,speed:.021+Math.random()*.004,offset:(Math.random()-.5)*8,phase:Math.random()*4,pace:2.8+Math.random()*.4});next=6+Math.random()*6;}
+  next-=dt;if(next<=0&&people.length<5){
+   const pair=people.length<=3&&Math.random()<.35,speed=.021+Math.random()*.004;
+   for(let i=0;i<(pair?2:1);i++)people.push({kind:pair?[0,1,3][Math.floor(Math.random()*3)]:Math.floor(Math.random()*4),p:0,speed,offset:pair?(i===0?-7:7):0,phase:Math.random()*4,pace:2.8+Math.random()*.4});
+   next=4+Math.random()*9;
+  }
   const scale=Math.max(w/1672,h/941),ox=(w-1672*scale)*.66,oy=(h-941*scale)*(w<=700?.28:.44);
   people=people.filter(person=>person.p<1);
   for(const person of people){person.p+=dt*person.speed;person.phase=(person.phase+dt*person.pace)%4;const [x,y]=position(person.p),step=person.phase*Math.PI/2,frameIndex=Math.floor(person.phase),fraction=person.phase-frameIndex,art=person.kind===2?horse:sheet,sw=art.width/(person.kind===2?2:4),sh=art.height/(person.kind===2?2:4);

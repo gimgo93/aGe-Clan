@@ -1,7 +1,7 @@
 function setupClan(app){
  const $=id=>document.getElementById(id),game=app.game;
  let roomId=null,data=null,selfId=null,busy=false,joining=false,viewId=null,lastEvent=0,lastVersion=-1,active=false,lastGood=0,queued=[],pollTimer=null,failures=0,latency=0,epoch=0,startedSound=false;
- let members=new Set(),serverOffset=0,previewId=-1;
+ let members=new Set(),serverOffset=0,previewId=-1,resuming=false;
  let socket=null,heartbeat=null,wire=null,retryAt=0,commandBusy=false,commandTimer=null,streamFailures=0,nextSendAt=0,sendTimer=null;
  function speedCooldownMs(){return Math.max(0,(game.s.speedLockedUntil||0)-Date.now()-(active?serverOffset:0));}
  function rebaseQueue(){let sequence=data?.nextActionSeq||1;for(const c of queued)if(c.op==='action')c.sequence=sequence++;}
@@ -46,9 +46,11 @@ function setupClan(app){
   const last=queued.filter(c=>c.op==='action').at(-1),command={op:'action',action,args,actionId:crypto.randomUUID(),sequence:last?last.sequence+1:data.nextActionSeq,previewId:previewId--,queuedAt:performance.now()};
   const result=ClanVisual.preview(game,command);if(result?.error)return result;queued.push(command);sendCommand();app.hud();return{...result,pending:true};
  }
- async function request(body){const began=performance.now(),controller=new AbortController(),timer=setTimeout(()=>controller.abort(),10000);try{const response=await fetch('/api/clan',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',body:JSON.stringify({...body,watchId:$('spectateDialog').open?viewId:null}),signal:controller.signal,keepalive:body.op==='leave'});const value=await response.json();const duration=performance.now()-began,serverMs=Number(response.headers.get('Server-Timing')?.match(/app;dur=([\d.]+)/)?.[1]||0);value._receivedAt=performance.now();value._leadSeconds=Math.max(0,Math.min(2,((value.serverTime-(value.simulationTime||value.serverTime))+Math.max(0,duration-serverMs)/2)/1000));if(!response.ok)throw Object.assign(new Error(value.error||'대전 서버 오류'),{status:response.status});return value;}finally{clearTimeout(timer);}}
+ async function request(body){const began=performance.now(),controller=new AbortController(),timer=setTimeout(()=>controller.abort(),10000);try{const analytics=body.op==='poll'?null:window.AgeAnalytics?.context(),response=await fetch('/api/clan',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',body:JSON.stringify({...body,...(analytics?{analytics}:{}),watchId:$('spectateDialog').open?viewId:null}),signal:controller.signal,keepalive:body.op==='leave'});const value=await response.json();const duration=performance.now()-began,serverMs=Number(response.headers.get('Server-Timing')?.match(/app;dur=([\d.]+)/)?.[1]||0);value._receivedAt=performance.now();value._leadSeconds=Math.max(0,Math.min(2,((value.serverTime-(value.simulationTime||value.serverTime))+Math.max(0,duration-serverMs)/2)/1000));if(!response.ok)throw Object.assign(new Error(value.error||'대전 서버 오류'),{status:response.status});return value;}finally{clearTimeout(timer);}}
  function apply(value,force=false){
    if(!value.roomId||value.version<lastVersion)return false;
+   if(value.status==='playing')window.AgeAnalytics?.trackOnce(value.solo?'game_start':'pvp_game_start',value.roomId);
+   if(value.status==='finished')window.AgeAnalytics?.trackOnce(value.solo?'game_end':'pvp_game_end',value.roomId);
    const changed=force||value.version>lastVersion||!active;value._receivedAt??=performance.now();
    const wasKnown=members.size>0,arrivals=value.players.filter(p=>p.id!==value.selfId&&!members.has(p.id));
    if(wasKnown&&arrivals.length){app.audio.notify('join');$('lobbyNotice').textContent=arrivals.map(p=>PlayerIdentity.label(p)).join(', ')+' 님이 입장했습니다.';}
@@ -57,6 +59,7 @@ function setupClan(app){
    sessionStorage.setItem('clan-room',roomId);openRealtime();
    const me=value.players.find(p=>p.id===selfId);
    if(!me)return;
+   $('matchDialog').dataset.phase=value.status;$('lobbySlots').hidden=false;$('cancelMatch').textContent='방 나가기';
    $('lobbyTitle').textContent=value.private?'친구 초대방':'5인 매칭';
    $('lobbyIntro').textContent=value.private?'초대 코드를 받은 친구끼리 2~5명이 참가합니다. 방장이 시작을 누르면 5초 후 동시에 시작합니다.':'실제 플레이어 5명이 모이면 시작합니다. 20웨이브 방어 후 상대에게 출병할 수 있습니다.';
    $('joinMatch').hidden=true;
@@ -79,7 +82,7 @@ function setupClan(app){
      ClanVisual.adopt(game.s,previous,lead);
      game.s.events=game.s.events.filter(e=>(e.seq||0)>lastEvent);lastEvent=me.s.eventSeq||0;
      for(const event of game.s.events)if(event.type==='destroy'&&!game.s.effects.some(e=>e.type==='demolish'&&e.x===event.x&&e.y===event.y)){game.s.effects.push({type:'demolish',x:event.x,y:event.y,life:1.2});game.s.shake=.4;}
-     document.body.dataset.multiplayer=String(!value.solo);$('rivals').hidden=!!value.solo;game.s.rankedSolo=!!value.solo;window.Chronicle?.identity(me.name,me.avatar,me.admin);window.Chronicle?.tick(game.s);
+     document.body.dataset.multiplayer=String(!value.solo);$('rivals').hidden=!!value.solo;game.s.rankedSolo=!!value.solo;window.Chronicle?.identity(me.name,me.avatar,me.admin);if(resuming){window.Chronicle?.seedServerState(me.s);resuming=false;}else window.Chronicle?.observeServerState(me.s);
      if(value.result?.error)app.toast(value.result.error);
      if(!value.solo)renderRivals();app.hud();
    }
@@ -93,21 +96,21 @@ function setupClan(app){
    finally{if(generation===epoch){busy=false;if(roomId&&socket?.readyState!==1){clearTimeout(pollTimer);pollTimer=setTimeout(pump,failures?Math.min(8000,600*2**Math.min(4,failures))+Math.random()*250:active?Math.max(30,(data?.pollAfterMs||250)-(performance.now()-began)):750);}}}
  }
  async function join(){
-   if(joining||roomId)return;app.audio.init();app.audio.notify('queue');joining=true;$('joinMatch').disabled=true;$('playerName').disabled=true;$('matchStatus').textContent='매칭 서버에 연결 중…';
+   if(joining||roomId)return;if(entryMode==='joinCode'&&!/^[A-Z0-9]{8}$/.test($('roomCodeInput').value.trim().toUpperCase())){$('roomCodeInput').setAttribute('aria-invalid','true');$('matchStatus').textContent='초대 코드 8자리를 확인하세요.';$('roomCodeInput').focus();return;}$('roomCodeInput').removeAttribute('aria-invalid');app.audio.init();app.audio.notify('queue');joining=true;$('joinMatch').setAttribute('aria-busy','true');$('cancelMatch').disabled=true;$('closeMatch').disabled=true;$('joinMatch').disabled=true;$('playerName').disabled=true;$('matchStatus').textContent='매칭 서버에 연결 중…';
    try{const pending=sessionStorage.getItem('clan-pending-leave');if(pending){try{await request({op:'leave',roomId:pending});sessionStorage.removeItem('clan-pending-leave');}catch{}}const value=await request({op:entryMode,name:window.Chronicle?.profile.name||$('playerName').value,avatar:window.Chronicle?.profile.avatar||0,code:$('roomCodeInput').value,entryId});apply(value);pump();}
    catch(e){$('matchStatus').textContent=e.message;$('joinMatch').disabled=false;$('playerName').disabled=false;}
-   finally{joining=false;}
+   finally{joining=false;$('joinMatch').removeAttribute('aria-busy');$('cancelMatch').disabled=false;$('closeMatch').disabled=false;}
  }
  async function leave(){
-   const old=roomId;epoch++;stopSocket();retryAt=0;streamFailures=0;busy=false;roomId=null;queued=[];active=false;data=null;selfId=null;lastVersion=-1;lastEvent=0;members.clear();startedSound=false;failures=0;clearTimeout(pollTimer);sessionStorage.removeItem('clan-room');document.body.dataset.multiplayer='false';$('rivals').hidden=true;$('joinMatch').disabled=false;$('playerName').disabled=false;app.home();
+   const old=roomId;resuming=false;epoch++;stopSocket();retryAt=0;streamFailures=0;busy=false;roomId=null;queued=[];active=false;data=null;selfId=null;lastVersion=-1;lastEvent=0;members.clear();startedSound=false;failures=0;clearTimeout(pollTimer);sessionStorage.removeItem('clan-room');document.body.dataset.multiplayer='false';$('rivals').hidden=true;$('joinMatch').disabled=false;$('playerName').disabled=false;app.home();
    if(old){sessionStorage.setItem('clan-pending-leave',old);try{await request({op:'leave',roomId:old});if(sessionStorage.getItem('clan-pending-leave')===old)sessionStorage.removeItem('clan-pending-leave');}catch{app.toast('퇴장을 다시 확인합니다. 다음 방 입장 시 자동으로 정리합니다.');}}
  }
- function openLobby(mode){entryMode=mode;entryId=crypto.randomUUID();app.audio.init();$('lobbyTitle').textContent=mode==='create'?'친구 방 만들기':mode==='joinCode'?'코드로 입장':'5인 매칭';$('lobbyIntro').textContent=mode==='join'?'실제 플레이어 5명이 모이면 시작합니다. 20웨이브 방어 후 상대에게 출병할 수 있습니다.':'친구 대전은 2~5명이 참가하고 방장이 시작합니다. 코드를 알려준 사람만 입장할 수 있습니다.';$('friendCodePanel').hidden=true;$('beginFriendMatch').hidden=true;$('roomCodeLabel').hidden=mode!=='joinCode';$('roomCodeInput').value='';$('joinMatch').hidden=false;$('joinMatch').textContent=mode==='create'?'방 만들고 코드 받기':mode==='joinCode'?'코드로 입장':'매칭 참가';$('lobbySlots').replaceChildren();$('matchStatus').textContent=mode==='join'?'실제 플레이어 5명이 모이면 시작합니다.':mode==='create'?'나와 친구들만 참가하는 초대방을 만듭니다.':'친구에게 받은 초대 코드 8자리를 입력하세요.';$('lobbyNotice').textContent='';$('matchDialog').showModal();}
+ function openLobby(mode){$('matchDialog').dataset.phase='entry';$('matchDialog').dataset.entryMode=mode;$('lobbySlots').hidden=true;$('cancelMatch').textContent='돌아가기';$('roomCodeInput').removeAttribute('aria-invalid');entryMode=mode;entryId=crypto.randomUUID();app.audio.init();$('lobbyTitle').textContent=mode==='create'?'친구 방 만들기':mode==='joinCode'?'코드로 입장':'5인 매칭';$('lobbyIntro').textContent=mode==='join'?'실제 플레이어 5명이 모이면 시작합니다. 20웨이브 방어 후 상대에게 출병할 수 있습니다.':'친구 대전은 2~5명이 참가하고 방장이 시작합니다. 코드를 알려준 사람만 입장할 수 있습니다.';$('friendCodePanel').hidden=true;$('beginFriendMatch').hidden=true;$('roomCodeLabel').hidden=mode!=='joinCode';$('roomCodeInput').value='';$('joinMatch').hidden=false;$('joinMatch').textContent=mode==='create'?'방 만들고 코드 받기':mode==='joinCode'?'코드로 입장':'매칭 참가';$('lobbySlots').replaceChildren();$('matchStatus').textContent=mode==='join'?'실제 플레이어 5명이 모이면 시작합니다.':mode==='create'?'나와 친구들만 참가하는 초대방을 만듭니다.':'친구에게 받은 초대 코드 8자리를 입력하세요.';$('lobbyNotice').textContent='';$('matchDialog').showModal();}
  $('matchBtn').onclick=()=>openLobby('join');$('createRoomBtn').onclick=()=>openLobby('create');$('codeRoomBtn').onclick=()=>openLobby('joinCode');$('createRoomBtn').disabled=false;$('codeRoomBtn').disabled=false;
  $('roomCodeInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();join();}});
  $('copyRoomCode').onclick=async()=>{try{await navigator.clipboard.writeText(data.code);$('lobbyNotice').textContent='초대 코드를 복사했습니다.';}catch{$('lobbyNotice').textContent='코드를 직접 선택해서 친구에게 알려주세요: '+data.code;}};
  $('beginFriendMatch').onclick=()=>{if(!roomId||queued.length)return;$('beginFriendMatch').disabled=true;queued.push({op:'begin',requestId:crypto.randomUUID()});sendCommand();};
- $('joinMatch').onclick=join;$('cancelMatch').onclick=()=>{if(!joining)leave();};
+ $('joinMatch').onclick=join;$('cancelMatch').onclick=()=>{if(!joining)leave();};$('closeMatch').onclick=$('cancelMatch').onclick;$('roomCodeInput').addEventListener('input',()=>{$('roomCodeInput').value=$('roomCodeInput').value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,8);$('roomCodeInput').removeAttribute('aria-invalid');});
  $('matchDialog').addEventListener('cancel',e=>{e.preventDefault();if(!joining)leave();});
  $('armyBtn').onclick=()=>{const r=game.buildBarracks();if(r.error)app.toast(r.error);app.hud();};$('closeArmy').onclick=()=>$('armyDialog').close();
  $('buildBarracks').onclick=()=>{const r=game.buildBarracks();if(r.error)app.toast(r.error);app.hud();};
@@ -145,7 +148,7 @@ function setupClan(app){
  watch.canvas.width=1000;watch.canvas.height=550;watch.canvas.style.width='100%';watch.canvas.style.height='auto';
  function spectator(){if($('spectateDialog').open&&data){const p=data.players.find(p=>p.id===viewId);if(p){if(p.s.enemies){watch.upgradeScope='watch:'+p.id;watchGame.s=p.s;watchGame.normalize();watch.draw({});}$('spectateStats').textContent=`웨이브 ${p.s.wave} · 성 Lv.${p.s.castle} · 금 ${Math.floor(p.s.gold)} · 크리스탈 ${p.s.crystals} · 나무 ${p.s.wood} · 광부 ${p.s.miners}명 · 벌목 인구 ${p.s.population}명 · 군사 ${p.s.army}${p.s.enemies?'':' · 전장 불러오는 중…'}`;}}requestAnimationFrame(spectator);}requestAnimationFrame(spectator);
  // A reload uses the same HttpOnly session, so it resumes the same participant.
- const saved=sessionStorage.getItem('clan-room');if(saved){roomId=saved;$('matchDialog').showModal();$('joinMatch').disabled=true;$('matchStatus').textContent='이전 대전에 다시 연결 중…';pump();}
+ const saved=sessionStorage.getItem('clan-room');if(saved){resuming=true;roomId=saved;$('matchDialog').showModal();$('joinMatch').disabled=true;$('matchStatus').textContent='이전 대전에 다시 연결 중…';pump();}
  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&roomId)pump();});
  $('attackPotion').onclick=()=>{$('attackPotionStatus').textContent='';$('attackDialog').showModal();};$('closeAttack').onclick=()=>$('attackDialog').close();$('castAttackPotion').onclick=()=>{if(!active)return;const r=queueAction('attackPotion',[$('potionTarget').value]);if(r?.error)app.toast(r.error);else $('attackDialog').close();};
  function animate(dt){

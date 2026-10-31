@@ -57,3 +57,11 @@ construction-site-v1.png, lab-building-v1.png, barracks-building-v1.png는 이 �
 
 
 2026-10-24: town-courtyard-v3.png는 기존 광장 배경을 내장 이미지 도구로 확장해 잘린 성벽/감시탑을 완성한 수정본입니다. 기존 v2는 보존합니다. 피격·광산 효과음은 외부 음원 없이 Web Audio로 합성합니다.
+
+
+## 2026-10-30 시작 화면 개편
+
+title-fortress-dawn.webp는 aGe Clan의 숲·석조 성채·문명 방어 컨셉을 위해 OpenAI 내장 이미지 생성 도구로 제작한 시작 화면 전용 배경입니다. 실제 플레이 지도를 나타내는 화면 캡처가 아닌 타이틀 배경화입니다. 원본 로고와 기존 메뉴 자산은 유지했습니다. 디자인 검토에는 MIT 라이선스 Nutlope/Hallmark v2.0.0 (65b5e4090ed95ee3dc2ff7db55b69aef8c5ff7b5)의 지침을 참고했습니다. https://github.com/Nutlope/hallmark
+
+## 2026-10-30 업적 메달
+achievement-medals-v1.webp는 내장 이미지 생성 도구로 이 게임의 11종 업적을 위해 제작한 투명 메달 아틀라스입니다. 배포용 WebP는 원본 알파 채널을 보존합니다. 화면의 출처 메뉴 제거와 관계없이 기존 외부 자산 라이선스 기록은 유지합니다. 생성 내역: docs/2D_ACHIEVEMENTS_ENTRY_2026-10-30.md.

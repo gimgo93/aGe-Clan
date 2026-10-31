@@ -1,0 +1,97 @@
+/* Hallmark · shape: app screen · genre: atmospheric · theme: brand · redesign: full
+ * nav: existing game modes and records · signature: fortress entry and engraved achievements · states: entry, waiting, loading, error, earned, locked · v2.0.0 */
+/* Hallmark · pre-emit critique: artwork supports controls; retain code labels, native dialogs and readable progress. */
+:root { --entry-error: #edb2a6; --entry-backdrop: #070e0de8; --entry-focus-wash: #c9ad7018; }
+dialog.entry-dialog { position: fixed; inset: 0; width: min(640px,calc(100% - 32px)); max-width: 640px; height: fit-content; max-height: 92dvh; margin: auto; padding: 0; border: 1px solid var(--color-rule-strong); border-radius: 4px; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); overflow-x: clip; overflow-y: auto; }
+#matchDialog { width: min(640px,calc(100% - 32px)); border-radius: 4px; background: var(--color-paper); border-color: var(--color-rule-strong); }
+dialog.entry-dialog::backdrop, #recordAccessDialog::backdrop { background: var(--entry-backdrop); }
+.entry-visual { height: 154px; background-image: linear-gradient(0deg,var(--color-paper),var(--shade-none) 80%),url('assets/title-fortress-dawn.webp'); background-size: cover; background-position: center,70% 35%; }
+.entry-dialog .dialog-head, #matchDialog .dialog-head { display: flex; align-items: center; justify-content: space-between; padding: var(--space-lg) var(--space-xl) var(--space-md); border: 0; text-align: left; }
+.entry-heading { display: flex; align-items: center; gap: var(--space-md); min-width: 0; }
+.entry-heading > svg { width: 32px; height: 32px; color: var(--color-accent); }
+.entry-heading h2 { margin: 0; font: 500 30px/1.3 var(--font-body); min-width: 0; overflow-wrap: break-word; }
+.entry-dialog .close-dialog { min-width: 44px; min-height: 44px; color: var(--color-ink-2); }
+.entry-dialog .settings-content { padding: 0 var(--space-xl) var(--space-xl); max-height: none; }
+.entry-dialog p, .solo-rules span { word-break: keep-all; overflow-wrap: break-word; }
+#lobbyIntro, .entry-lead { display: block; margin: 0 0 var(--space-lg); font-size: var(--text-sm); line-height: 1.7; color: var(--color-ink-2); }
+#matchDialog .entry-name-label { display: none; }
+#roomCodeLabel { display: flex; flex-direction: column; gap: var(--space-xs); margin: var(--space-lg) 0 0; font-size: var(--text-sm); }
+#roomCodeInput { width: 100%; min-height: 60px; padding: var(--space-sm) var(--space-md); border: 1px solid var(--color-muted); border-radius: 2px; outline-offset: -4px; background: var(--color-paper-2); color: var(--color-ink); font: 500 26px/1.3 var(--font-body); letter-spacing: .16em; text-align: center; }
+#roomCodeInput::placeholder { color: var(--color-muted); }
+#roomCodeInput[aria-invalid="true"] { border-color: var(--entry-error); }
+#matchStatus { min-height: 1.5em; margin: var(--space-sm) 0; font-size: var(--text-sm); line-height: 1.6; color: var(--color-ink-2); }
+#roomCodeLabel:has([aria-invalid="true"]) ~ #matchStatus { color: var(--entry-error); }
+#lobbyNotice { margin: var(--space-xs) 0; min-height: 0; font-size: var(--text-xs); color: var(--color-accent); }
+#lobbyNotice:empty { display: none; }
+#friendCodePanel { padding: var(--space-lg) 0; border-top: 1px solid var(--color-rule); border-bottom: 1px solid var(--color-rule); }
+#friendCodePanel > small { color: var(--color-ink-2); font-size: var(--text-sm); }
+#friendCodePanel .invite-code { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-md); align-items: center; margin-top: var(--space-sm); }
+#friendCode { color: var(--color-accent); font-size: 28px; letter-spacing: .12em; }
+#lobbySlots { display: grid; grid-template-columns: minmax(0,1fr); gap: 0; margin: var(--space-lg) 0; counter-reset: participants; }
+#lobbySlots > span { display: flex; align-items: center; justify-content: flex-start; min-height: 48px; gap: var(--space-md); padding: var(--space-sm) var(--space-md); font-size: var(--text-sm); color: var(--color-ink); background: var(--color-paper-2); border: 0; border-bottom: 1px solid var(--color-rule); border-radius: 0; overflow-wrap: break-word; }
+#lobbySlots > span::before { counter-increment: participants; content: counter(participants); font-size: var(--text-sm); color: var(--color-accent); min-width: 24px; }
+#lobbySlots > span:last-child { border-bottom: 0; }
+#matchDialog .match-rules { display: block; margin: var(--space-lg) 0; font-size: var(--text-xs); color: var(--color-muted); }
+.match-rules summary { min-height: 32px; cursor: pointer; color: var(--color-ink-2); }
+.match-rules p { font-size: var(--text-xs); line-height: 1.8; margin: var(--space-sm) 0; }
+.entry-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm); margin-top: var(--space-lg); }
+.entry-dialog button.primary-small { display: inline-flex; justify-content: center; align-items: center; min-height: 48px; min-width: 180px; padding: var(--space-sm) var(--space-lg); border: 1px solid var(--color-accent); border-radius: 2px; background: var(--color-accent); color: var(--color-accent-ink); font: 600 var(--text-sm)/1.5 var(--font-body); letter-spacing: 0; }
+.entry-dialog button.mini-button { min-height: 48px; padding: var(--space-sm) var(--space-lg); border: 1px solid var(--color-rule-strong); border-radius: 2px; background: var(--color-paper-2); color: var(--color-ink-2); font-size: var(--text-sm); }
+.entry-dialog button.primary-small:hover { background: var(--color-accent-hover); }
+.entry-dialog button.mini-button:hover { background: var(--color-paper-3); }
+.entry-dialog button:active { transform: translateY(1px); }
+.entry-dialog button:disabled { opacity: .55; cursor: not-allowed; }
+.entry-dialog button[aria-busy="true"] { cursor: progress; }
+.entry-dialog button[aria-busy="true"]::after { content: ''; width: 12px; height: 12px; border: 1px solid var(--color-accent-ink); border-right-color: var(--shade-none); border-radius: 50%; margin-left: var(--space-sm); animation: entry-spin .8s linear infinite; }
+.solo-rules { list-style: none; margin: var(--space-lg) 0; padding: 0; }
+.solo-rules li { display: grid; grid-template-columns: 44px minmax(0,1fr); gap: var(--space-md); padding: var(--space-md) 0; border-top: 1px solid var(--color-rule); font-size: var(--text-sm); line-height: 1.7; }
+.solo-rules b { font-weight: 500; color: var(--color-accent); }
+.solo-rules span { color: var(--color-ink-2); }
+#recordAccessDialog { position: fixed; inset: 0; width: min(420px,calc(100% - 32px)); height: fit-content; max-height: 85dvh; margin: auto; border: 1px solid var(--color-rule-strong); border-radius: 4px; background: var(--color-paper-2); }
+#recordAccessDialog .chronicle-wrap { padding: var(--space-lg); }
+#recordAccessDialog h2 { font-size: 24px; }
+#recordAccessDialog .overline { display: none; }
+#recordAccessDialog .dialog-head { padding-bottom: var(--space-md); }
+#recordAccessDialog p { font-size: var(--text-sm); color: var(--color-ink-2); line-height: 1.6; }
+#recordAccessDialog .primary-small { min-height: 44px; margin-top: var(--space-sm); }
+#medalsDialog, #rankingDialog { background: var(--color-paper); color: var(--color-ink); }
+#medalsDialog, #rankingDialog { width: 100%; max-width: 100%; }
+.entry-dialog h2, #recordAccessDialog h2, #medalsDialog h2, #rankingDialog h2 { text-wrap: balance; min-width: 0; overflow-wrap: break-word; }
+#medalsDialog .chronicle-wrap, #rankingDialog .chronicle-wrap { max-width: 1180px; padding: var(--space-xl) var(--space-lg) var(--space-2xl); }
+#medalsDialog .overline, #rankingDialog .overline { display: none; }
+#medalsDialog .dialog-head, #rankingDialog .dialog-head { padding-bottom: var(--space-lg); border-bottom: 1px solid var(--color-rule); }
+#medalsDialog h2, #rankingDialog h2 { font: 500 clamp(28px,4vw,42px)/1.4 var(--font-body); }
+#medalProgress { margin: var(--space-lg) 0 0; color: var(--color-accent); font-size: var(--text-sm); }
+#medalGrid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(300px,100%),1fr)); gap: 0 var(--space-lg); padding-top: var(--space-md); }
+#medalGrid .medal-card { display: flex; align-items: center; gap: var(--space-md); text-align: left; padding: var(--space-lg) 0; border: 0; border-bottom: 1px solid var(--color-rule); border-radius: 0; background: none; }
+.achievement-art { display: block; flex-shrink: 0; width: 104px; height: 104px; background-image: url('assets/achievement-medals-v1.webp'); background-size: 400% 400%; background-repeat: no-repeat; }
+#medalGrid .locked .achievement-art { filter: grayscale(1); opacity: .55; }
+#medalGrid .medal-card > div { flex: 1; min-width: 0; }
+#medalGrid h3 { margin: 0 0 var(--space-xs); font: 500 18px/1.4 var(--font-body); color: var(--color-ink); }
+#medalGrid p { margin: 0 0 var(--space-sm); font-size: var(--text-xs); line-height: 1.6; color: var(--color-muted); }
+.medal-state { color: var(--color-muted); font-size: var(--text-xs); }
+.earned .medal-state { color: var(--color-accent); }
+.achievement-progress { margin-top: var(--space-xs); height: 3px; background: var(--color-paper-3); }
+.achievement-progress i { display: block; width: 100%; height: 100%; transform-origin: left; background: var(--color-accent); }
+#achievementToast { position: fixed; top: 96px; left: 50%; transform: translateX(-50%); width: min(460px,calc(100% - 32px)); z-index: 40; display: flex; align-items: center; gap: var(--space-sm); padding: var(--space-sm) var(--space-lg) var(--space-sm) var(--space-sm); border: 1px solid var(--color-accent); background: var(--color-paper-2); color: var(--color-ink); pointer-events: none; animation: achievement-arrive var(--dur-short) var(--ease-out); }
+#achievementToast .achievement-art { width: 76px; height: 76px; }
+#achievementToast strong { display: block; font: 600 17px/1.5 var(--font-body); }
+#achievementToast div > span { display: block; margin-top: var(--space-xs); font-size: var(--text-xs); color: var(--color-muted); }
+.entry-dialog button:focus-visible, .entry-dialog input:focus-visible, .match-rules summary:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+@keyframes entry-spin { to { transform: rotate(360deg); } }
+@keyframes achievement-arrive { from { opacity: .3; transform: translate(-50%,-8px); } }
+@media(max-width:700px) {
+ .entry-visual { height: 100px; }
+ .entry-dialog .dialog-head, #matchDialog .dialog-head { padding: var(--space-md) var(--space-lg); }
+ .entry-dialog .settings-content { padding: 0 var(--space-lg) var(--space-lg); }
+ .entry-heading h2 { font-size: 26px; }
+ .entry-actions > .primary-small { flex: 1; min-width: 120px; }
+ .entry-actions > .mini-button { flex: 0 0 auto; }
+ #friendCode { font-size: 24px; }
+ #achievementToast { top: 84px; padding: var(--space-xs) var(--space-sm); }
+ #achievementToast strong { font-size: 14px; }
+ #achievementToast .achievement-art { width: 64px; height: 64px; }
+ #medalsDialog .chronicle-wrap, #rankingDialog .chronicle-wrap { padding: var(--space-lg) var(--space-md); }
+ #medalGrid .medal-card { gap: var(--space-sm); }
+}
+@media(prefers-reduced-motion:reduce) { #achievementToast, .entry-dialog button[aria-busy="true"]::after { animation: none; } }

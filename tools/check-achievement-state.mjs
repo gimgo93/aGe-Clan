@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+const context={window:{}};vm.runInNewContext(fs.readFileSync('public/game/achievement-state.js','utf8'),context);
+const {Tracker,definitions}=context.window.AgeAchievements;
+assert.equal(definitions.length,11);assert.equal(new Set(definitions.map(m=>m.id)).size,11);
+const state={started:true,completed:9,towerLevels:{archer:1},research:{}};
+const tracker=new Tracker({wave:0});assert.equal(tracker.observe(state).length,0);
+state.completed=10;assert.equal(tracker.observe(state)[0].title,'첫 방어선');assert.equal(tracker.observe(state).length,0,'repeated snapshot never repeats a notification');
+state.completed=9;assert.equal(tracker.observe(state).length,0);state.completed=10;assert.equal(tracker.observe(state).length,0,'rollback and replay never duplicate');
+state.completed=20;assert.equal(tracker.observe(state)[0].title,'개척지의 수호자');
+const existing=new Tracker({wave:30,miners:30});assert.equal(existing.observe({...state,completed:30,miners:30}).length,0,'existing account achievements are seeded without historical spam');
+assert.equal(existing.observe({...state,started:false,completed:50}).length,0,'title and unstarted states cannot award');
+const simultaneous=new Tracker();const earned=simultaneous.observe({...state,completed:10,kills:1000,woodHarvested:100,crystalsMined:100});assert.equal(earned.length,4);assert.equal(simultaneous.observe({...state,completed:10,kills:1000,woodHarvested:100,crystalsMined:100}).length,0);
+tracker.reset({wave:10});assert.equal(tracker.observe({...state,completed:20})[0].id,'wave-20','switching accounts resets deduplication');
+const html=fs.readFileSync('public/game/index.html','utf8'),client=fs.readFileSync('public/game/multiplayer.js','utf8'),chronicle=fs.readFileSync('public/game/chronicle.js','utf8');assert.ok(!html.includes('creditsBtn'));assert.ok(!html.includes('preview.js'));assert.ok(client.includes('observeServerState(me.s)'));assert.ok(chronicle.includes('설정에서 로그인 후 접속하세요.'));assert.ok(!chronicle.includes('로그인한 계정의 업적은 기기 간 동기화됩니다.'));
+console.log('PASS: 11 achievements, one-time authoritative notifications, historical seeding, rollback/replay, multi-award, account switch, concise login gate and release wiring.');

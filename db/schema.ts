@@ -1,4 +1,4 @@
-import { sqliteTable, text, integer, index } from 'drizzle-orm/sqlite-core';
+import { sqliteTable, text, integer, index, primaryKey } from 'drizzle-orm/sqlite-core';
 export const rooms = sqliteTable('clan_rooms', {
  id: text('id').primaryKey(), status: text('status').notNull(), state: text('state').notNull(),
  version: integer('version').notNull().default(0), updated: integer('updated').notNull(),
@@ -27,3 +27,12 @@ export const accountChallenges=sqliteTable('clan_account_challenges',{
 export const accountProgress=sqliteTable('clan_account_progress',{
  id:text('id').primaryKey(),wave:integer('wave').notNull().default(0),kills:integer('kills').notNull().default(0),castle:integer('castle').notNull().default(0),miners:integer('miners').notNull().default(0),wood:integer('wood').notNull().default(0),tower:integer('tower').notNull().default(0),crystals:integer('crystals').notNull().default(0),research:integer('research').notNull().default(0),updated:integer('updated').notNull(),
 });
+export const analyticsEvents=sqliteTable('clan_analytics_events',{
+ id:text('id').primaryKey(),visitorHash:text('visitor_hash').notNull(),sessionHash:text('session_hash').notNull(),event:text('event').notNull(),source:text('source').notNull(),country:text('country').notNull(),success:integer('success').notNull(),created:integer('created').notNull(),
+},t=>[index('clan_analytics_events_created').on(t.created),index('clan_analytics_events_event_created').on(t.event,t.created),index('clan_analytics_events_visitor_created').on(t.visitorHash,t.created)]);
+export const analyticsRequests=sqliteTable('clan_analytics_requests',{
+ hour:integer('hour').notNull(),country:text('country').notNull(),route:text('route').notNull(),status:integer('status').notNull(),bot:integer('bot').notNull(),requests:integer('requests').notNull().default(0),totalMs:integer('total_ms').notNull().default(0),maxMs:integer('max_ms').notNull().default(0),
+},t=>[primaryKey({columns:[t.hour,t.country,t.route,t.status,t.bot]}),index('clan_analytics_requests_hour').on(t.hour)]);
+export const analyticsActions=sqliteTable('clan_analytics_actions',{
+ hour:integer('hour').notNull(),visitorHash:text('visitor_hash').notNull(),sessionHash:text('session_hash').notNull(),country:text('country').notNull(),action:text('action').notNull(),
+},t=>[primaryKey({columns:[t.hour,t.visitorHash,t.sessionHash,t.action,t.country]}),index('clan_analytics_actions_hour').on(t.hour),index('clan_analytics_actions_action_hour').on(t.action,t.hour)]);

@@ -1,0 +1,127 @@
+/* Hallmark · shape: app screen · genre: atmospheric · theme: brand · redesign: full
+ * paper: forest stone · accent: antique brass · display: Georgia / Noto Serif KR · body: Noto Serif KR
+ * nav: logo and account masthead · signature: fortress dawn panorama and expedition rail · states: existing controls, local multiplayer notice
+ * axes: dark/roman-serif/warm · posture: landscape · v2.0.0 */
+/* Hallmark · pre-emit critique: preserve the title's quiet and the fortress silhouette; compact the expedition rail on phones. */
+@import url('./title-tokens.css?v=20261030-hallmark');
+html, body { overflow-x: clip; }
+body[data-mode="title"] { scrollbar-color: var(--color-rule-strong) var(--color-paper); }
+body[data-mode="title"] ::selection { background: var(--color-accent); color: var(--color-accent-ink); }
+body[data-mode="title"] { overflow-y: auto; background: var(--color-paper); }
+#titleScreen { position: fixed; inset: 0; overflow-y: auto; text-align: left; color: var(--color-ink); background: var(--color-paper); font-family: var(--font-body); }
+#titleScreen .title-landscape { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 66% 44%; }
+#titleScreen .title-shade { position: absolute; inset: 0; background: linear-gradient(90deg,var(--shade-heavy),var(--shade-light) 54%,var(--shade-none) 83%),linear-gradient(0deg,var(--shade-floor),var(--shade-none) 57%,var(--shade-roof)); pointer-events: none; }
+#titleScreen .title-shell { position: relative; max-width: var(--container); min-height: 600px; height: 100%; min-height: 100svh; margin: 0 auto; padding: 0 var(--gutter); display: flex; flex-direction: column; }
+#titleScreen .title-masthead { display: flex; flex-shrink: 0; align-items: center; justify-content: space-between; gap: var(--space-md); min-height: 102px; border-bottom: 1px solid var(--color-rule); }
+#titleScreen .brand-lockup { display: flex; align-items: center; gap: var(--space-lg); min-width: 0; }
+#titleScreen .title-logo { position: static; transform: none; width: 105px; height: 62px; margin: 0; pointer-events: none; }
+#titleScreen .title-logo img { width: 100%; height: 100%; object-fit: contain; filter: none; }
+#titleScreen .brand-caption { border-left: 1px solid var(--color-rule); padding-left: var(--space-lg); font-size: var(--text-sm); color: var(--color-ink-2); white-space: nowrap; }
+#titleScreen .title-account { display: flex; align-items: center; gap: var(--space-lg); min-width: 0; padding: var(--space-xs) var(--space-md); background: var(--shade-heavy); border: 1px solid var(--color-rule); }
+#titleScreen .profile-launch { position: static; transform: none; background: none; border: 0; border-radius: 0; padding: var(--space-xs) 0; display: flex; align-items: center; gap: var(--space-sm); min-width: 0; font: 500 var(--text-sm)/1.5 var(--font-body); color: var(--color-ink); max-width: 270px; }
+#titleScreen #profileBadge { font-size: 24px; color: var(--color-accent); }
+#titleScreen #profileName { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#titleScreen .title-settings { position: static; transform: none; padding: var(--space-xs) 0; background: none; border: 0; border-radius: 0; display: flex; gap: var(--space-xs); align-items: center; color: var(--color-ink-2); font-size: var(--text-sm); }
+#titleScreen .title-settings svg { width: 20px; height: 20px; }
+#titleScreen .title-scene { display: flex; align-items: center; flex: 1; min-height: 330px; padding: var(--space-xl) 0 var(--space-2xl); }
+#titleScreen .title-copy { position: static; transform: none; width: 100%; max-width: 740px; padding: 0; }
+#titleScreen .title-copy h1 { margin: 0 0 var(--space-lg); font: 400 clamp(72px,9.3vw,140px)/1.03 var(--font-display); color: var(--color-ink); letter-spacing: -.035em; text-shadow: 0 4px 32px var(--shade-heavy); min-width: 0; overflow-wrap: break-word; text-wrap: balance; }
+#titleScreen .title-copy p { margin: 0; font: 400 clamp(16px,1.7vw,22px)/1.6 var(--font-body); color: var(--color-ink-2); letter-spacing: 0; }
+#titleScreen .title-eras { display: flex; list-style: none; align-items: center; flex-wrap: wrap; gap: var(--space-sm); margin: var(--space-xl) 0 0; padding: 0; font-size: var(--text-xs); color: var(--color-muted); }
+#titleScreen .title-eras li { display: flex; align-items: center; gap: var(--space-sm); }
+#titleScreen .title-eras li:not(:last-child)::after { content: ''; display: block; width: 18px; height: 1px; background: var(--color-rule-strong); }
+#titleScreen #playModes { position: static; transform: none; flex-shrink: 0; width: 100%; display: grid; grid-template-columns: minmax(0,1.12fr) repeat(3,minmax(0,1fr)); gap: 0; margin: 0; border: 1px solid var(--color-rule-strong); background: var(--panel-solid); }
+#titleScreen #playModes button { position: relative; inset: auto; transform: none; display: flex; align-items: center; justify-content: flex-start; flex-direction: row; width: 100%; height: 116px; min-height: 0; min-width: 0; margin: 0; padding: var(--space-lg); gap: var(--space-md); border: 0; border-right: 1px solid var(--color-rule); border-radius: 0; background: none; box-shadow: none; color: var(--color-ink); text-align: left; letter-spacing: 0; transition: background-color var(--dur-short),color var(--dur-short); }
+#titleScreen #playModes button:last-child { border-right: 0; }
+#titleScreen #playModes button::after, #titleScreen #playModes button::before { content: none; }
+#titleScreen #playModes #startBtn { background: var(--color-accent); color: var(--color-accent-ink); }
+#titleScreen #playModes .mode-emblem { position: static; transform: none; scale: 1; display: flex; align-items: center; justify-content: center; width: 38px; height: 45px; flex-shrink: 0; border: 0; border-radius: 0; background: none; box-shadow: none; color: inherit; }
+#titleScreen #playModes .mode-emblem svg { width: 34px; height: 34px; }
+#titleScreen #playModes .mode-text { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-xs); min-width: 0; }
+#titleScreen #playModes .mode-text > span { font: 600 21px/1.3 var(--font-body); letter-spacing: 0; white-space: nowrap; }
+#titleScreen #playModes small { font: 400 var(--text-xs)/1.45 var(--font-body); color: var(--color-muted); letter-spacing: 0; white-space: nowrap; }
+#titleScreen #playModes #startBtn small { color: var(--color-accent-ink); }
+#titleScreen #playModes .mode-direction { width: 18px; height: 18px; margin-left: auto; stroke: currentColor; stroke-width: 1.4; fill: none; opacity: .7; }
+#titleScreen #playModes button:hover { background: var(--color-paper-3); }
+#titleScreen #playModes #startBtn:hover { background: var(--color-accent-hover); }
+#titleScreen #playModes button:active { transform: translateY(1px); }
+#titleScreen #playModes button:disabled { opacity: .5; cursor: wait; }
+#titleScreen .title-bottom { display: flex; flex-shrink: 0; align-items: center; justify-content: space-between; gap: var(--space-lg); min-height: 106px; }
+#titleScreen .title-library { position: static; transform: none; width: auto; display: flex; align-items: center; gap: var(--space-xl); text-align: left; }
+#titleScreen .title-library button { width: auto; min-width: 0; min-height: 44px; display: flex; flex-direction: row; align-items: center; gap: var(--space-sm); border: 0; border-radius: 0; background: none; box-shadow: none; padding: var(--space-xs) 0; font: 500 var(--text-sm)/1.5 var(--font-body); color: var(--color-ink-2); transition: color var(--dur-short); }
+#titleScreen .title-library button > img { width: 36px; height: 36px; object-fit: contain; filter: none; }
+#titleScreen .title-library button > span:not(.menu-guide-art) { font: inherit; color: inherit; }
+#titleScreen .title-library button > small { display: none; }
+#titleScreen .title-library .menu-guide-art { display: flex; align-items: center; width: 36px; height: 36px; }
+#titleScreen .title-library .menu-guide-art svg { width: 32px; height: 32px; }
+#titleScreen .title-library button:hover { transform: none; background: none; border: 0; color: var(--color-ink); }
+#titleScreen .title-footer { position: static; width: auto; display: flex; flex-direction: row; flex-wrap: wrap; gap: var(--space-lg); align-items: center; justify-content: flex-end; color: var(--color-muted); letter-spacing: 0; }
+#titleScreen .title-footer button, #titleScreen .title-footer a, #titleScreen .preview-tag { font: 400 var(--text-xs)/1.5 var(--font-body); color: inherit; padding: var(--space-xs) 0; background: none; border: 0; text-decoration: none; }
+#titleScreen .preview-tag { color: var(--color-ink-2); }
+#titleScreen .compare-link { text-decoration: underline; text-underline-offset: 4px; }
+#titleScreen button:focus-visible, #titleScreen a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }
+#titleScreen .title-account button:hover, #titleScreen .title-footer button:hover, #titleScreen .title-footer a:hover { color: var(--color-accent-hover); }
+@media (min-width: 1600px) { #titleScreen .title-shell { max-height: 1080px; } }
+@media (max-width: 1100px) {
+ :root { --gutter: 32px; }
+ #titleScreen #playModes button { padding: var(--space-lg) var(--space-md); gap: var(--space-sm); }
+ #titleScreen #playModes .mode-text > span { font-size: 17px; }
+ #titleScreen #playModes .mode-direction { display: none; }
+ #titleScreen #playModes .mode-emblem { width: 28px; }
+ #titleScreen #playModes .mode-emblem svg { width: 28px; height: 28px; }
+ #titleScreen .title-footer { gap: var(--space-sm); }
+ #titleScreen .title-library { gap: var(--space-lg); }
+}
+@media (max-width: 700px) {
+ :root { --gutter: 20px; }
+ #titleScreen .title-shell { min-height: 600px; height: 100%; min-height: 100svh; }
+ #titleScreen .title-landscape { object-position: 66% 28%; }
+ #titleScreen .title-shade { background: linear-gradient(0deg,var(--shade-floor) 4%,var(--shade-light) 56%,var(--shade-roof)),linear-gradient(90deg,var(--shade-heavy),var(--shade-none) 85%); }
+ #titleScreen .title-masthead { min-height: 78px; gap: var(--space-xs); }
+ #titleScreen .brand-caption { display: none; }
+ #titleScreen .title-logo { width: 82px; height: 54px; }
+ #titleScreen .title-account { gap: var(--space-sm); max-width: calc(100% - 90px); padding: 0 var(--space-xs); }
+ #titleScreen .profile-launch { font-size: var(--text-xs); max-width: 170px; gap: var(--space-xs); }
+ #titleScreen #profileBadge { font-size: 22px; }
+ #titleScreen .title-settings span { display: none; }
+ #titleScreen .title-settings { min-width: 24px; min-height: 44px; }
+ #titleScreen .title-scene { min-height: 230px; align-items: flex-start; padding: var(--space-xl) 0 var(--space-lg); }
+ #titleScreen .title-copy h1 { font-size: clamp(52px,12vw,78px); margin-bottom: var(--space-sm); }
+ #titleScreen .title-copy p { font-size: var(--text-sm); }
+ #titleScreen .title-eras { margin-top: var(--space-lg); gap: var(--space-xs); font-size: 11px; }
+ #titleScreen .title-eras li { gap: var(--space-xs); }
+ #titleScreen .title-eras li:not(:last-child)::after { width: 12px; }
+ #titleScreen #playModes { grid-template-columns: repeat(2,minmax(0,1fr)); }
+ #titleScreen #playModes button { height: 88px; padding: var(--space-md) var(--space-sm); border-bottom: 1px solid var(--color-rule); gap: var(--space-xs); }
+ #titleScreen #playModes button:nth-child(2n) { border-right: 0; }
+ #titleScreen #playModes button:nth-child(n+3) { border-bottom: 0; }
+ #titleScreen #playModes .mode-text > span { font-size: 17px; }
+ #titleScreen #playModes small { font-size: 10px; }
+ #titleScreen #playModes .mode-emblem { width: 26px; }
+ #titleScreen #playModes .mode-emblem svg { width: 26px; height: 26px; }
+ #titleScreen #playModes .mode-direction { display: none; }
+ #titleScreen .title-bottom { flex-direction: column; gap: 0; min-height: 110px; justify-content: center; padding: var(--space-sm) 0; }
+ #titleScreen .title-library { width: 100%; justify-content: space-between; gap: var(--space-sm); }
+ #titleScreen .title-library button { font-size: var(--text-xs); gap: var(--space-xs); }
+ #titleScreen .title-library button > img, #titleScreen .title-library .menu-guide-art { width: 28px; height: 28px; }
+ #titleScreen .title-library .menu-guide-art svg { width: 27px; height: 27px; }
+ #titleScreen .title-footer { width: 100%; justify-content: space-between; gap: var(--space-xs); }
+ #titleScreen .title-footer button, #titleScreen .title-footer a, #titleScreen .preview-tag { font-size: 10px; }
+}
+@media (max-height: 640px) and (min-width: 701px) {
+ #titleScreen .title-masthead { min-height: 74px; }
+ #titleScreen .title-scene { min-height: 220px; padding: var(--space-lg) 0; }
+ #titleScreen .title-copy h1 { font-size: 86px; }
+ #titleScreen .title-eras { margin-top: var(--space-lg); }
+ #titleScreen #playModes button { height: 88px; }
+ #titleScreen .title-bottom { min-height: 74px; }
+}
+@media (max-height: 600px) and (max-width: 700px) {
+ #titleScreen .title-masthead { min-height: 62px; }
+ #titleScreen .title-scene { min-height: 170px; padding-top: var(--space-lg); }
+ #titleScreen .title-copy h1 { font-size: 54px; }
+ #titleScreen .title-eras { margin-top: var(--space-md); }
+ #titleScreen #playModes button { height: 76px; }
+ #titleScreen .title-bottom { min-height: 90px; padding: var(--space-xs) 0; }
+}
+@media (prefers-reduced-motion: reduce) { #titleScreen *, #titleScreen *::before, #titleScreen *::after { animation: none; transition: none; } }

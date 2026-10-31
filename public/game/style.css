@@ -235,3 +235,5 @@ body[data-scene=town] .scene-nav button{flex:none;max-width:none;justify-content
 @media(prefers-reduced-motion:reduce){#milestoneBanner,.ending-dialog,.rank-place img{animation:none!important}#speedBtn{transition:none}}
 
 body[data-scene=town] #wavePanel{display:none!important}
+
+.town-facility img { grid-row: 1/3; align-self: center; width: 30px; height: 30px; object-fit: contain; }

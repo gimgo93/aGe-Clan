@@ -137,10 +137,12 @@ class WorldRenderer {
  civilizationGlow(ctx,now,reducedMotion=false){const p=(now-this.eraGlowAt)/1.8;if(!(p>=0&&p<1))return;ctx.save();ctx.globalAlpha=Math.sin(Math.PI*p);ctx.strokeStyle='#cbb079';ctx.lineWidth=2;if(!reducedMotion){ctx.beginPath();ctx.ellipse(1430,535,115+p*12,36,0,0,Math.PI*2);ctx.stroke();}ctx.fillStyle='#192119e8';ctx.fillRect(1320,282,220,38);this.text(ctx,Defense.ERAS[this.game.era]+' 문명 도달',1430,308,'#eddbaf',20);ctx.restore();
  }
 
- town(ctx,time){
+ town(ctx,time,transform,shake){
   const s=this.game.s,era=this.game.era;
   // The painted curtain walls and eight watchtowers replace the former tree fence.
-  ctx.drawImage(this.images['town-courtyard-v4'],-1100,-700,3800,2375);
+  const image=this.images['town-courtyard-v4'],bounds=this.visibleBounds(transform,shake),x0=-1100,y0=-700,w=3800,h=2375;
+  // Mirror adjacent copies of the same courtyard, matching its edges at any zoom.
+  for(let iy=Math.floor((bounds.y-y0)/h);iy<=Math.floor((bounds.y+bounds.h-y0)/h);iy++)for(let ix=Math.floor((bounds.x-x0)/w);ix<=Math.floor((bounds.x+bounds.w-x0)/w);ix++){ctx.save();ctx.translate(x0+ix*w+(Math.abs(ix)%2?w:0),y0+iy*h+(Math.abs(iy)%2?h:0));ctx.scale(Math.abs(ix)%2?-1:1,Math.abs(iy)%2?-1:1);ctx.drawImage(image,0,0,w,h);ctx.restore();}
   for(const [x,y] of [[120,180],[410,120],[685,105],[930,105],[1210,120],[1500,180]]){
    this.flag(ctx,x,y,'#8f3c30',time,.48);
    this.sprite(ctx,'soldier','stance',Math.floor(time*2),7,x-14,y+10,.52);
@@ -172,7 +174,7 @@ class WorldRenderer {
     this.buildingUpgradeGlow(ctx,visualNow,settings.reducedMotion);
     for(const shot of s.shots){if(shot.delay>0||shot._netHidden)continue;const color=Defense.spec(shot.type).color;if(shot.type==='ballista'){const target=s.enemies.find(e=>e.id===shot.target),a=target?Math.atan2(target.y-shot.y,target.x-shot.x):0;ctx.save();ctx.translate(shot.x,shot.y);ctx.rotate(a);ctx.strokeStyle='#e2c899';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-17,0);ctx.lineTo(10,0);ctx.stroke();ctx.fillStyle='#ddd3bd';ctx.beginPath();ctx.moveTo(14,0);ctx.lineTo(7,-4);ctx.lineTo(7,4);ctx.closePath();ctx.fill();ctx.restore();}else{ctx.fillStyle=color;ctx.shadowColor=color;ctx.shadowBlur=8;ctx.beginPath();ctx.arc(shot.x,shot.y,shot.type==='cannon'?7:3,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;}}
     for(const e of s.effects){ctx.save();ctx.globalAlpha=Math.min(1,e.life*2);if(e.type==='sabotageBomb'){const p=Math.max(0,1-e.life/(e.duration||1.05)),x=e.x+(e.toX-e.x)*p,y=e.y+(e.toY-e.y)*p-Math.sin(p*Math.PI)*150;ctx.globalAlpha=1;ctx.fillStyle='#252921';ctx.strokeStyle='#9c8355';ctx.lineWidth=2;ctx.beginPath();ctx.arc(x,y,11,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.strokeStyle='#d1a36d';ctx.beginPath();ctx.moveTo(x+4,y-8);ctx.quadraticCurveTo(x+13,y-25,x+18,y-15);ctx.stroke();ctx.fillStyle='#ffd36f';ctx.beginPath();ctx.arc(x+18,y-15,3+Math.sin(time*30),0,Math.PI*2);ctx.fill();}else if(e.type==='demolish'){const p=Math.max(0,1-e.life/1.2);ctx.globalAlpha=1-p;const glow=ctx.createRadialGradient(e.x,e.y-25,0,e.x,e.y-25,85*p+20);glow.addColorStop(0,'#ffe4a0cc');glow.addColorStop(.45,'#e28f4866');glow.addColorStop(1,'#3d332400');ctx.fillStyle=glow;ctx.fillRect(e.x-120,e.y-145,240,220);ctx.strokeStyle='#f5c06e';ctx.lineWidth=5*(1-p);ctx.beginPath();ctx.ellipse(e.x,e.y,18+p*90,9+p*40,0,0,Math.PI*2);ctx.stroke();for(let i=0;i<16;i++){const a=i*2.4,rad=18+p*(45+i%4*13);ctx.save();ctx.translate(e.x+Math.cos(a)*rad,e.y-30+Math.sin(a)*rad*.55-Math.sin(p*Math.PI)*35);ctx.rotate(i+p*5);ctx.fillStyle=i%3?'#bba077':'#5c5346';ctx.fillRect(-4,-4,6+i%4,6);ctx.restore();}for(let i=0;i<5;i++){ctx.fillStyle='#aa9c8266';ctx.beginPath();ctx.ellipse(e.x+(i-2)*16*p,e.y-20-p*(30+i*8),20+p*25,12+p*15,0,0,Math.PI*2);ctx.fill();}}else if(e.type==='lightning'||e.type==='arc'){ctx.strokeStyle='#dcddff';ctx.shadowColor='#ada5ff';ctx.shadowBlur=13;ctx.lineWidth=e.type==='lightning'?4:2;ctx.beginPath();ctx.moveTo(e.fromX??e.x-25,e.fromY??e.y-220);ctx.lineTo(e.x+15,e.y-90);ctx.lineTo(e.x-15,e.y-70);ctx.lineTo(e.x,e.y);ctx.stroke();}else{ctx.fillStyle=e.type==='ice'?'#8ddbff66':e.type==='blast'?'#e7aa5577':'#c8b58e66';ctx.beginPath();ctx.ellipse(e.x,e.y,e.type==='blast'?98*(1-e.life):19,e.type==='blast'?46*(1-e.life):9,0,0,Math.PI*2);ctx.fill();}ctx.restore();}
-   }else if(kind==='town')this.town(ctx,time);else this.mine(ctx,time);
+   }else if(kind==='town')this.town(ctx,time,transform,shake);else this.mine(ctx,time);
    ctx.restore();const vignette=ctx.createRadialGradient(this.w/2,this.h*.42,this.w*.12,this.w/2,this.h*.42,this.w*.75);vignette.addColorStop(0,'#050a0800');vignette.addColorStop(1,kind==='mine'?'#09060352':'#0c140b38');ctx.fillStyle=vignette;ctx.fillRect(0,0,this.w,this.h);this.castleDamage(ctx,visualNow,settings,true);
  }
 }

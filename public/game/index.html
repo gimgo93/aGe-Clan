@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#171a14"><title>aGe Clan</title><meta name="description" content="광산과 벌목을 운영하고 문명을 발전시켜 성채를 지키는 aGe Clan 타워 디펜스 게임."><link rel="icon" type="image/png" href="assets/age-clan-logo-transparent.png"><meta name="application-name" content="aGe Clan"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css?v=20261031-wood"><link rel="stylesheet" href="title-hallmark.css?v=20261031-travelers"><link rel="stylesheet" href="entry-ui.css?v=20261030-entry"></head>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#171a14"><title>aGe Clan</title><meta name="description" content="광산과 벌목을 운영하고 문명을 발전시켜 성채를 지키는 aGe Clan 타워 디펜스 게임."><link rel="icon" type="image/webp" href="assets/age-clan-logo-transparent-packed.webp"><meta name="application-name" content="aGe Clan"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css?v=20261031-perf1"><link rel="stylesheet" href="title-hallmark.css?v=20261031-travelers"><link rel="stylesheet" href="entry-ui.css?v=20261030-entry"></head>
 <body data-mode="title" data-scene="battle">
 
 <svg class="svg-defs" aria-hidden="true"><defs>
@@ -17,7 +17,7 @@
 </defs></svg>
 <canvas id="world" aria-label="전장 지도. 하단에서 포탑을 선택하고 표시된 건설 터를 누르세요."></canvas>
 <div id="sceneTransition" aria-hidden="true"></div>
-<div id="loading"><span class="loading-ring"></span><span id="loadingText">개척지의 지도를 펼치는 중…</span></div>
+<div id="loading" hidden><span class="loading-ring"></span><span id="loadingText">개척지의 지도를 펼치는 중…</span></div>
 
 <section id="titleScreen" aria-label="게임 시작 화면">
  <img class="title-landscape" src="assets/title-fortress-empty-road.webp" alt="새벽 안개가 흐르는 숲과 성벽 위에 세워진 국경의 성채" fetchpriority="high">
@@ -25,12 +25,13 @@
  <canvas id="titleTravelers" aria-hidden="true"></canvas>
  <div class="title-shell">
   <header class="title-masthead">
-   <div class="brand-lockup"><div class="title-logo"><img src="assets/age-clan-logo-transparent.png" alt="aGe Clan 로고"></div><span class="brand-caption">문명 발전 디펜스</span></div>
+   <div class="brand-lockup"><div class="title-logo"><img src="assets/age-clan-logo-transparent-packed.webp" alt="aGe Clan 로고"></div><span class="brand-caption">문명 발전 디펜스</span></div>
    <div class="title-account"><button id="profileBtn" class="profile-launch"><span id="profileBadge" aria-hidden="true">♜</span><span id="profileName">군주 이름 설정</span></button><button id="titleSettings" class="title-settings" aria-label="설정"><svg aria-hidden="true"><use href="#i-gear"/></svg><span>설정</span></button></div>
   </header>
   <div class="title-scene">
    <div class="title-copy"><h1>aGe Clan</h1><p>그대의 문명과 함께하라</p><ol class="title-eras" aria-label="다섯 문명의 발전"><li>구석기</li><li>신석기</li><li>청동기</li><li>철기</li><li>현대</li></ol></div>
   </div>
+  <div id="bootStatus" role="status" aria-live="polite"><span id="bootText">원정 준비 중…</span><progress id="bootProgress" max="1" value="0" aria-label="게임 자산 준비"></progress><button id="retryAssets" hidden>다시 준비하기</button></div>
   <div id="playModes" aria-label="게임 모드 선택">
    <button id="startBtn" class="start-button" disabled><span class="mode-emblem" aria-hidden="true"><svg><use href="#mode-solo"/></svg></span><span class="mode-text"><span id="startLabel">혼자하기</span><small>무한 웨이브 도전</small></span><svg class="mode-direction" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg></button>
    <button id="matchBtn" class="match-button" disabled><span class="mode-emblem" aria-hidden="true"><svg><use href="#mode-match"/></svg></span><span class="mode-text"><span>매칭</span><small>5인 자유 대전</small></span><svg class="mode-direction" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg></button>
@@ -105,5 +106,5 @@
  </div><div class="dialog-footer"><button id="backTitle" class="text-button">게임 나가기</button><button id="saveSettings" class="primary-small">설정 완료</button></div></dialog>
 
 <dialog id="endingDialog" class="ending-dialog" aria-labelledby="endingTitle" aria-describedby="endingStats"><div class="ending-emblem"><svg><use id="endingIcon" href="#i-castle"/></svg></div><div class="ending-result" id="endingResult">DEFEAT</div><div class="overline" id="endingTag">THE FRONTIER ENDURES</div><h2 id="endingTitle">문명을 지켜냈습니다</h2><p id="endingStats"></p><button id="restartBtn" class="start-button">게임 나가기</button></dialog>
-<script src="title-travelers.js?v=20261031-walk"></script><script src="balance.js"></script><script src="assets/data.js"></script><script src="analytics.js?v=20261030-p1-1"></script><script src="game.js?v=20261028-ux-final"></script><script src="renderer.js?v=20261031-town-edge"></script><script src="net-visual.js?v=20261028-ux-final"></script><script src="player-identity.js?v=20261028-ux-final"></script><script src="multiplayer.js?v=20261030-entry"></script><script src="scene-transition.js?v=20261028-ux-final"></script><script src="audio.js?v=20261028-ux-final"></script><script src="presentation.js?v=20261028-ux-final"></script><script src="app.js?v=20261031-scene"></script><script src="guest-profile.js?v=20261028-ux-final"></script><script src="guide-content.js?v=20261028-ux-final"></script><script src="achievement-state.js?v=20261030-entry"></script><script src="chronicle.js?v=20261030-entry"></script><script src="account.js?v=20261030-p1-1"></script>
+<script src="title-travelers.js?v=20261031-perf1"></script><script src="balance.js"></script><script src="assets/data.js"></script><script src="analytics.js?v=20261030-p1-1"></script><script src="game.js?v=20261028-ux-final"></script><script src="asset-loader.js?v=20261031-perf1"></script><script src="renderer.js?v=20261031-perf1"></script><script src="net-visual.js?v=20261028-ux-final"></script><script src="player-identity.js?v=20261028-ux-final"></script><script src="multiplayer.js?v=20261030-entry"></script><script src="scene-transition.js?v=20261028-ux-final"></script><script src="audio.js?v=20261028-ux-final"></script><script src="presentation.js?v=20261028-ux-final"></script><script src="app.js?v=20261031-perf1"></script><script src="guest-profile.js?v=20261028-ux-final"></script><script src="guide-content.js?v=20261028-ux-final"></script><script src="achievement-state.js?v=20261030-entry"></script><script src="chronicle.js?v=20261030-entry"></script><script src="account.js?v=20261031-perf1"></script>
 </body></html>

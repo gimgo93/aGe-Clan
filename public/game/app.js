@@ -68,9 +68,23 @@ function hud(){const s=game.s;presentation.observe(s,window.Clan?.audioKey||'loc
 }
 function resize(){renderer.resize();}window.addEventListener('resize',resize);
 function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;sound.observe(game.s,window.Clan?.audioKey||'local');if(!game.s.multiplayer&&!window.Clan?.active)for(let i=0;i<speed;i++)game.tick(dt);if(game.canAct()){if(game.s.scene==='battle'&&game.s.towers.some(t=>t.attack>.35))sound.tone('attack');if(settings.edgePan&&pointer&&!drag){const speed=200*dt*settings.panSpeed/10;if(pointer.x<30)renderer.camera.x+=speed;else if(pointer.x>innerWidth-30)renderer.camera.x-=speed;if(pointer.y<95)renderer.camera.y+=speed;else if(pointer.y>innerHeight-renderer.dockHeight-20)renderer.camera.y-=speed;renderer.camera.x=Math.max(-renderer.w*.7,Math.min(renderer.w*.7,renderer.camera.x));renderer.camera.y=Math.max(-renderer.h*.6,Math.min(renderer.h*.6,renderer.camera.y));}}
- window.Clan?.animate(dt);window.Chronicle?.tick(game.s);renderer.draw({...settings,shake:settings.shake&&!settings.reducedMotion});hudTime+=dt;if(hudTime>.1){hudTime=0;hud();}requestAnimationFrame(frame);}
+ window.Clan?.animate(dt);window.Chronicle?.tick(game.s);if(!document.hidden&&mode==='playing')renderer.draw({...settings,shake:settings.shake&&!settings.reducedMotion});hudTime+=dt;if(!document.hidden&&mode==='playing'&&hudTime>.1){hudTime=0;hud();}requestAnimationFrame(frame);}
 document.addEventListener('pointerdown',e=>{if(e.target.closest('button,input,select'))sound.init();},{capture:true});
 document.addEventListener('click',e=>{const button=e.target.closest('button');if(button&&!button.disabled&&button.id!=='joinMatch')sound.tone('click');});
 
-settingControls();renderer.load().then(()=>{$('loading').hidden=true;$('startBtn').disabled=false;$('matchBtn').disabled=false;window.GameApp={game,renderer,setScene,toast,hud,sound,getSettings:()=>({...settings}),applySettings(value){for(const k of Object.keys(defaults))if(typeof value?.[k]===typeof defaults[k])settings[k]=value[k];settingControls();sound.apply();}};window.Clan=setupClan({game,renderer,start,restart,toast,hud,setScene,audio:{init:()=>sound.init(),notify:kind=>sound.chime(kind)},home:returnHome,online(){speed=1;renderer.buildType=buildType;endedShown=false;modeSet('playing');renderer.scene='battle';document.body.dataset.scene='battle';}});drawPortraits();hud();requestAnimationFrame(frame);}).catch(e=>{$('loadingText').textContent='이미지를 불러오지 못했습니다. 압축을 모두 해제한 뒤 index.html을 열어주세요.';console.error(e);});
+settingControls();
+window.GameApp={game,renderer,setScene,toast,hud,sound,getSettings:()=>({...settings}),applySettings(value){for(const k of Object.keys(defaults))if(typeof value?.[k]===typeof defaults[k])settings[k]=value[k];settingControls();sound.apply();}};
+$('loading').hidden=true;
+const bootStatus=$('bootStatus'),retry=$('retryAssets');let preparing=false,initialized=false;
+async function prepareGame(){if(preparing||initialized)return;preparing=true;retry.hidden=true;bootStatus.hidden=false;bootStatus.setAttribute('aria-busy','true');
+ try{await renderer.load((done,total)=>{$('bootText').textContent=`원정 준비 중 · ${done} / ${total}`;$('bootProgress').value=done/total;});
+ window.Clan=setupClan({game,renderer,start,restart,toast,hud,setScene,audio:{init:()=>sound.init(),notify:kind=>sound.chime(kind)},home:returnHome,online(){speed=1;renderer.buildType=buildType;endedShown=false;modeSet('playing');renderer.scene='battle';document.body.dataset.scene='battle';}});
+ drawPortraits();hud();initialized=true;$('startBtn').disabled=false;$('matchBtn').disabled=false;bootStatus.hidden=true;performance.mark('age-game-ready');requestAnimationFrame(frame);
+ }catch(error){$('bootText').textContent='일부 지도를 준비하지 못했습니다. 다시 시도해 주세요.';retry.hidden=false;console.error(error);}
+ finally{preparing=false;bootStatus.setAttribute('aria-busy','false');}
+}
+retry.onclick=prepareGame;
+performance.mark('age-lobby-ready');
+// Let the title paint before fetching/decompressing the game atlases.
+requestAnimationFrame(()=>requestAnimationFrame(prepareGame));
 })();

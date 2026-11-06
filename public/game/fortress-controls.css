@@ -1,0 +1,27 @@
+/* Existing fortress system: functional states and legible controls. No title or onboarding redesign. */
+:root {
+ --control-surface:#16251ef5; --control-raised:#24352a; --control-border:#9e8a5c;
+ --control-text:#f2e8d0; --control-muted:#c0c8b4; --control-error:#ffc3b4;
+ --control-focus:#ffe1a0; --control-shadow:0 12px 40px #0008;
+}
+html { color-scheme:dark; }
+.game-ui button,dialog button,.analytics-preferences button { touch-action:manipulation; }
+:is(button,a,input,select,[tabindex]):focus-visible { outline:3px solid var(--control-focus);outline-offset:3px; }
+dialog { overscroll-behavior:contain;scroll-padding-block:20px; }
+#settingsDialog .settings-content,#accountDialog .chronicle-wrap { color:var(--control-text);line-height:1.65; }
+#settingsDialog :is(.toggle-row,.slider-label),.account-settings { padding-block:12px; }
+#settingsDialog :is(.toggle-row small,.settings-note),#accountDialog p { color:var(--control-muted);font-size:14px; }
+#settingsDialog :is(button,select),#accountDialog button { min-height:44px;min-width:44px; }
+#settingsDialog :is(.toggle-row,.select-row,.slider-label>span) { font-size:14px;line-height:1.5; }
+#settingsDialog,#accountDialog { border-color:var(--control-border);background:linear-gradient(145deg,var(--control-raised),#142119);box-shadow:var(--control-shadow); }
+#settingsDialog .dialog-head,#accountDialog .dialog-head { background:#101b1580; }
+#settingsDialog .toggle-row { min-height:44px; }
+#settingsDialog input[type=range] { min-height:36px;accent-color:var(--color-accent,var(--gold)); }
+#accountDialog .account-actions { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px; }
+#accountDialog .account-actions button { width:100%;padding:12px;line-height:1.5; }
+#accountDelete { color:var(--control-error);border:1px solid var(--control-error); }
+#accountStatus:not(:empty) { border-left:3px solid var(--color-accent,var(--gold));padding:10px 14px;background:var(--control-raised); }
+.treasury { font-variant-numeric:tabular-nums; }
+.treasury :is(small,.resource-label),#selectionStats,.dock-section-label { color:var(--control-muted); }
+#speedBtn,#settingsBtn,#towerInfoBtn { min-width:44px;min-height:44px; }
+@media(max-width:600px) { #accountDialog .account-actions { grid-template-columns:minmax(0,1fr); }.potion-tray { top:116px; } }

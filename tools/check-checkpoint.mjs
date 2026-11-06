@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {advance,newPlayer,restore} from '../lib/match-engine.js';
-import {mutateRoom,roomView,roomError,delta} from '../lib/room-state.js';
+import {mutateRoom,roomView,roomError,delta,normalizeWatch} from '../lib/room-state.js';
 import {RoomDirectory,directoryRecord} from '../lib/room-directory.js';
 const source=fs.readFileSync(new URL('../lib/clan-room.js',import.meta.url),'utf8').replace(/^import .*;\r?\n/gm,'').replace('export class ClanRoom','class ClanRoom');
-const ClanRoom=Function('DurableObject','advance','mutateRoom','roomView','roomError','delta','RoomDirectory','directoryRecord',source+';return ClanRoom;')(class {},advance,mutateRoom,roomView,roomError,delta,RoomDirectory,directoryRecord);
+const ClanRoom=Function('DurableObject','advance','mutateRoom','roomView','roomError','delta','normalizeWatch','RoomDirectory','directoryRecord',source+';return ClanRoom;')(class {},advance,mutateRoom,roomView,roomError,delta,normalizeWatch,RoomDirectory,directoryRecord);
 let release;const pending=new Promise(r=>release=r),background=[],options=[];
 const db={prepare:()=>({bind:()=>({run:async()=>({})})})};
 const ctx={waitUntil:p=>background.push(p),storage:{put:async(k,value,opt)=>{options.push(opt);await pending;},setAlarm:async(t,opt)=>options.push(opt)}};

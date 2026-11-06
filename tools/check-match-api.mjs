@@ -1,11 +1,11 @@
 import assert from 'node:assert/strict';
 const url='http://127.0.0.1:8787/api/clan';
-const clients=Array.from({length:5},()=>({cookie:'',roomId:null}));
+const clients=Array.from({length:4},()=>({cookie:'',roomId:null}));
 async function call(client,body){const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json',...(client.cookie?{cookie:client.cookie}:{})},body:JSON.stringify({...body,roomId:client.roomId})});const cookie=r.headers.get('set-cookie');if(cookie)client.cookie=cookie.split(';')[0];const data=await r.json();assert.equal(r.status,200,JSON.stringify(data));if(data.roomId)client.roomId=data.roomId;return data;}
 try{
  const joined=await Promise.all(clients.map((c,i)=>call(c,{op:'join',name:'검증 군주 '+i})));
  assert.equal(new Set(joined.map(d=>d.roomId)).size,1,'concurrent joins must share one room');
- let state=await call(clients[0],{op:'poll'});assert.equal(state.status,'countdown');assert.equal(state.players.length,5);assert.equal(new Set(state.players.map(p=>p.id)).size,5);
+ let state=await call(clients[0],{op:'poll'});assert.equal(state.status,'countdown');assert.equal(state.players.length,4);assert.equal(new Set(state.players.map(p=>p.id)).size,4);
  await new Promise(r=>setTimeout(r,5100));state=await call(clients[0],{op:'poll'});assert.equal(state.status,'playing');
  const command={op:'action',action:'build',args:['archer',0],actionId:crypto.randomUUID(),sequence:1};
  let built=await call(clients[0],command);assert.ok(built.result.ok);assert.equal(built.players.find(p=>p.id===built.selfId).s.towers.length,1);

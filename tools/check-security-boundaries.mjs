@@ -1,0 +1,110 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+import {DatabaseSync} from 'node:sqlite';
+import {readBody,readJson,boundedRequest} from '../lib/request-body.js';
+import {analyticsRequest,recordAnalyticsEvent,recordGameAction,analyticsHash} from '../lib/analytics-store.js';
+import {realtimeRequest,realtimeSocket} from '../lib/realtime-router.js';
+import {pvpGateway} from '../lib/pvp-gateway.js';
+import {ingressHash,ingressIdentity,trustBackendIngress} from '../lib/ingress-policy.js';
+import {canReadAnalytics} from '../lib/account-permissions.js';
+import {validateSocketSession} from '../lib/socket-session.js';
+import {advance,newPlayer} from '../lib/match-engine.js';
+import {mutateRoom,roomView,roomError,delta,normalizeWatch} from '../lib/room-state.js';
+import {RoomDirectory,directoryRecord} from '../lib/room-directory.js';
+import {saveAccountProgress,accountRequest,sha} from '../lib/account-store.js';
+const sql=new DatabaseSync(':memory:');for(const name of fs.readdirSync('drizzle').filter(n=>n.endsWith('.sql')).sort())sql.exec(fs.readFileSync('drizzle/'+name,'utf8'));
+const db={prepare(q){let values=[];const s={bind(...v){values=v;return s;},async first(){return sql.prepare(q).get(...values)||null;},async all(){return{results:sql.prepare(q).all(...values)};},async run(){return{meta:{changes:sql.prepare(q).run(...values).changes}};}};return s;},async batch(ss){sql.exec('BEGIN');try{const result=await Promise.all(ss.map(s=>s.run()));sql.exec('COMMIT');return result;}catch(e){sql.exec('ROLLBACK');throw e;}}};
+const origin='https://game.test';
+function request(path,body,extra={}){return new Request(origin+path,{method:'POST',headers:{origin,'CF-Connecting-IP':'192.0.2.1',...extra},body:JSON.stringify(body)});}
+let cancelled=false,pulls=0;
+const stream=new ReadableStream({pull(c){pulls++;c.enqueue(new Uint8Array(700));},cancel(){cancelled=true;}});
+await assert.rejects(readBody(new Request(origin+'/api/clan',{method:'POST',body:stream,duplex:'half'}),1000),e=>e.status===413);
+assert.equal(cancelled,true);assert.ok(pulls<6,'stop an oversized unbounded stream early');
+await assert.rejects(readBody(new Request(origin+'/api/clan',{method:'POST',body:'금'.repeat(400)}),1000),e=>e.status===413,'UTF-8 byte bound, not UTF-16 length');
+await assert.rejects(readJson(request('/api/clan',[])),e=>e.status===400);
+const normal=request('/api/clan',{op:'poll',roomId:'valid'});assert.equal((await readJson(normal)).op,'poll');assert.equal((await readJson(normal)).roomId,'valid','same bounded body is reused');
+let called=false;const tooLarge=new Request(origin+'/api/clan',{method:'POST',headers:{origin},body:'x'.repeat(2049)});
+assert.equal((await pvpGateway(tooLarge,{CLAN_BACKEND_URL:'https://pvp.test',CLAN_BACKEND_TOKEN:'test-token-'.repeat(4)},async()=>{called=true;})).status,413);assert.equal(called,false);
+assert.equal((await boundedRequest(request('/api/clan',{op:'poll'}))).headers.get('x-clan-auth'),null);
+console.log('PASS: streaming cancellation, byte limits, bounded parse reuse, rejection before backend fetch');
+const env={DB:db};
+for(const body of [null,[],1])assert.equal((await accountRequest(request('/api/clan/account',body),env)).status,400);
+for(let i=0;i<61;i++){
+ const r=await analyticsRequest(request('/api/clan/analytics',{event:'page_view',analytics:{visitorId:crypto.randomUUID(),sessionId:crypto.randomUUID()}}),env);
+ assert.equal(r.status,i<60?202:429);
+}
+assert.equal(sql.prepare('SELECT COUNT(*) AS n FROM clan_analytics_events').get().n,60,'rotated UUIDs cannot exceed ingress budget');
+const fake=request('/api/clan',{op:'poll',roomId:'unknown'},{'x-clan-ingress':'attacker'});assert.equal(ingressIdentity(fake),'192.0.2.1');
+const trusted=trustBackendIngress(request('/api/clan',{}, {'x-clan-ingress':'gateway-hash'}));assert.equal(ingressIdentity(trusted),'gateway-hash');
+let routed=0;const roomEnv={DB:db,CLAN_ROOMS:{idFromName:id=>id,get:()=>{routed++;return{fetch:async()=>new Response('{}',{status:404})};}}};
+const minute=Math.floor(Date.now()/60000),hash=await ingressHash(fake);
+sql.prepare('INSERT OR REPLACE INTO clan_limits VALUES (?,?,?)').run('admission:room:'+hash+':'+minute,3600,Date.now()+120000);
+for(const roomId of ['unknown-a','unknown-b'])assert.equal((await realtimeRequest(request('/api/clan',{op:'poll',roomId},{'x-clan-ingress':crypto.randomUUID()}),roomEnv)).status,429);
+assert.equal(routed,0,'reject before any DO selection');
+sql.prepare('INSERT OR REPLACE INTO clan_limits VALUES (?,?,?)').run('admission:socket:'+hash+':'+minute,60,Date.now()+120000);
+assert.equal((await realtimeSocket(new Request(origin+'/api/clan/socket?roomId=unknown',{headers:{origin,'CF-Connecting-IP':'192.0.2.1',upgrade:'websocket',cookie:'clan_session='+'a'.repeat(64)}}),roomEnv)).status,429);assert.equal(routed,0);
+console.log('PASS: UUID rotation quota, forged ingress ignored, all-room and socket admission before DO allocation');
+const withdrawn={visitorId:crypto.randomUUID(),sessionId:crypto.randomUUID()},withdrawnHash=await analyticsHash(withdrawn.visitorId);
+await recordAnalyticsEvent(db,withdrawn,'page_view',fake);await recordGameAction(db,withdrawn,'build',fake);
+const deleteReq=new Request(origin+'/api/clan/analytics',{method:'DELETE',headers:{origin,'CF-Connecting-IP':'192.0.2.8'},body:JSON.stringify({analytics:withdrawn})});
+assert.equal((await analyticsRequest(deleteReq,env)).status,200);
+// Both late browser events and the server's in-flight game/account events must
+// lose the race to withdrawal, even when their old context is still available.
+await recordAnalyticsEvent(db,withdrawn,'game_start',fake);await recordAnalyticsEvent(db,withdrawn,'account_logout',fake,{source:'server'});await recordGameAction(db,withdrawn,'build',fake);
+assert.equal(sql.prepare('SELECT COUNT(*) n FROM clan_analytics_events WHERE visitor_hash=?').get(withdrawnHash).n,0);
+assert.equal(sql.prepare('SELECT COUNT(*) n FROM clan_analytics_actions WHERE visitor_hash=?').get(withdrawnHash).n,0);
+assert.ok(sql.prepare('SELECT expires FROM clan_limits WHERE id=?').get('analytics-withdrawn:'+withdrawnHash).expires>Date.now());
+console.log('PASS: transactional withdrawal removes existing records and atomically blocks late browser/server writes without schema changes');
+const accountId='a'.repeat(64),sessionKey='b'.repeat(64),expires=Date.now()+60000;
+assert.equal(canReadAnalytics(accountId,{CLAN_ADMIN_ACCOUNT_IDS:accountId}),false,'badge does not authorize analytics');assert.equal(canReadAnalytics(accountId,{CLAN_ANALYTICS_ACCOUNT_IDS:accountId}),true);
+const gatewayEnv={CLAN_BACKEND_URL:'https://pvp.test',CLAN_BACKEND_TOKEN:'test-token-'.repeat(4)};
+const reportRequest=()=>new Request(origin+'/api/clan/analytics',{headers:{origin,cookie:'clan_session='+sessionKey+'; clan_account=1'}});
+assert.equal((await pvpGateway(reportRequest(),gatewayEnv,async()=>Response.json({account:{profile:{admin:true}}})) ).status,403);
+sql.prepare('INSERT INTO clan_account_sessions VALUES (?,?,?)').run(sessionKey,accountId,expires);
+const auth={accountId,sessionKey,expires};await validateSocketSession(db,auth);sql.prepare('DELETE FROM clan_account_sessions WHERE id=?').run(sessionKey);
+await validateSocketSession(db,auth,auth.checkedAt+4999);
+await assert.rejects(validateSocketSession(db,auth,auth.checkedAt+5000),e=>e.status===401);
+await assert.rejects(validateSocketSession(db,{accountId,sessionKey,expires:1000},1000),e=>e.status===401);
+const source=fs.readFileSync('lib/clan-room.js','utf8').replace(/^import .*;\r?\n/gm,'').replace('export class ClanRoom','class ClanRoom');
+const ClanRoom=Function('DurableObject','advance','mutateRoom','roomView','roomError','delta','normalizeWatch','RoomDirectory','directoryRecord','saveAccountProgress','stateRecords','validateSocketSession',source+';return ClanRoom;')(class{},advance,mutateRoom,roomView,roomError,delta,normalizeWatch,RoomDirectory,directoryRecord,saveAccountProgress,()=>({}),validateSocketSession);
+const room=new ClanRoom({waitUntil(){},storage:{}},{DB:db}),messages=[],closed=[];
+const ws={send:m=>messages.push(m),close:(...args)=>closed.push(args)};room.sockets.set(ws,{key:'member',auth:{accountId,sessionKey,expires},lastCommand:0});
+await room.message(ws,JSON.stringify({type:'command',input:{op:'begin'}}));assert.equal(closed[0][0],4001);assert.equal(messages.length,0);assert.equal(room.sockets.size,0);
+console.log('PASS: badge/report separation, 5-second revocation bound, exact expiry, revoked socket rejected before command');
+const outageRoom=new ClanRoom({waitUntil(){},storage:{}},{DB:{prepare(){throw Error('DB unavailable');}}}),outageClose=[];
+const outageWs={close:(...args)=>outageClose.push(args),send:()=>assert.fail('must not acknowledge during failed authentication')};
+outageRoom.sockets.set(outageWs,{key:'member',auth:{accountId,sessionKey,expires},lastCommand:0});
+await outageRoom.message(outageWs,JSON.stringify({type:'command',input:{op:'begin'}}));assert.equal(outageClose[0][0],1011);
+let forwardedHeaders;
+const forwardingEnv={DB:db,CLAN_ROOMS:{idFromName:x=>x,get:()=>({fetch:async r=>{forwardedHeaders=r.headers;return Response.json({ok:true});}})}};
+const cookieToken='c'.repeat(64),socketReq=signed=>new Request(origin+'/api/clan/socket?roomId=existing',{headers:{origin,upgrade:'websocket','CF-Connecting-IP':'192.0.2.19',cookie:'clan_session='+cookieToken+(signed?'; clan_account=1':''),'x-clan-auth':JSON.stringify({accountId,sessionKey,expires,checkedAt:Date.now()})}});
+assert.equal((await realtimeSocket(socketReq(false),forwardingEnv)).status,200);assert.equal(forwardedHeaders.has('x-clan-auth'),false);
+const signedSession=await sha(cookieToken);sql.prepare('INSERT INTO clan_account_sessions VALUES (?,?,?)').run(signedSession,accountId,expires);
+assert.equal((await realtimeSocket(socketReq(true),forwardingEnv)).status,200);assert.equal(JSON.parse(forwardedHeaders.get('x-clan-auth')).sessionKey,signedSession);assert.equal(JSON.parse(forwardedHeaders.get('x-clan-auth')).checkedAt,undefined);
+console.log('PASS: malformed account payloads rejected; auth DB outage closes socket; forged socket credentials stripped and rebuilt from server session');
+// Minimal DOM harness exercises the real consent script, including failed
+// deletion, reload recovery, and success. No network or production data.
+class Element{constructor(tag){this.tag=tag;this.children=[];this.attrs={};this.dataset={};}append(...xs){this.children.push(...xs);}replaceChildren(...xs){this.children=xs;}setAttribute(k,v){this.attrs[k]=v;}addEventListener(){}focus(){}showModal(){assert.equal(this.tag,'dialog');this.open=true;}close(){this.open=false;}remove(){this.removed=true;}querySelector(selector){return this.children.find(x=>selector==='button'?x.tag==='button':selector==='[role="status"]'?x.attrs.role==='status':x.className===selector.slice(1))||this.children.map(x=>x.querySelector?.(selector)).find(Boolean);}}
+const store=()=>{const values=new Map();return{getItem:k=>values.get(k)||null,setItem:(k,v)=>values.set(k,v),removeItem:k=>values.delete(k)};};
+const localStorage=store(),sessionStorage=store(),body=new Element('body'),listeners={};let succeed=false;const deletes=[];
+const browser={localStorage,sessionStorage,crypto,AbortController,setTimeout,clearTimeout,document:{body,createElement:t=>new Element(t),getElementById:()=>null},fetch:async(u,o)=>{if(o.method==='DELETE')deletes.push(JSON.parse(o.body));return{ok:succeed};}};browser.window={addEventListener:(key,fn)=>listeners[key]=fn};
+localStorage.setItem('ageclan-analytics-consent-v1','yes');localStorage.setItem('ageclan-analytics-visitor-v1','old-visitor');sessionStorage.setItem('ageclan-analytics-session-v1','old-session');
+vm.runInNewContext(fs.readFileSync('public/game/analytics.js','utf8'),browser);browser.window.AgeAnalytics.showPreferences();
+let panel=body.children.at(-1);assert.equal(panel.tag,'dialog');assert.equal(panel.open,true);await panel.querySelector('.analytics-controls').children.find(x=>x.textContent==='허용하지 않음').onclick();
+assert.equal(browser.window.AgeAnalytics.context(),null);assert.ok(localStorage.getItem('ageclan-analytics-delete-pending-v1'));assert.equal(localStorage.getItem('ageclan-analytics-visitor-v1'),'old-visitor');
+// A fresh page automatically resumes a failed deletion from persistent state.
+const reloaded={...browser,document:{...browser.document,body:new Element('body')},window:{addEventListener:(key,fn)=>listeners[key]=fn}};
+vm.runInNewContext(fs.readFileSync('public/game/analytics.js','utf8'),reloaded);await new Promise(resolve=>setTimeout(resolve,0));assert.equal(deletes.length,2);assert.equal(reloaded.window.AgeAnalytics.context(),null);assert.ok(localStorage.getItem('ageclan-analytics-delete-pending-v1'));
+succeed=true;panel=reloaded.document.body.children.at(-1);await panel.querySelector('.analytics-controls').children[0].onclick();assert.equal(localStorage.getItem('ageclan-analytics-delete-pending-v1'),null);assert.equal(localStorage.getItem('ageclan-analytics-visitor-v1'),null);assert.ok(deletes.every(x=>x.analytics.visitorId===deletes[0].analytics.visitorId));
+console.log('PASS: withdrawal immediately disables collection; failed DELETE survives reload; automatic and manual retry retain the same identity until success');
+// Storage denial and a never-finishing earlier event must not prevent opt-out.
+const deniedBody=new Element('body'),deniedDeletes=[],deniedValues=new Map([['ageclan-analytics-consent-v1','yes'],['ageclan-analytics-visitor-v1','retained-visitor']]);
+const deniedStore={getItem:k=>deniedValues.get(k)||null,setItem(){throw Error('quota denied');},removeItem:k=>deniedValues.delete(k)};
+const denied={...browser,localStorage:deniedStore,sessionStorage:store(),document:{...browser.document,body:deniedBody},window:{addEventListener(){}},fetch:(_url,options)=>{if(options.method==='POST')return new Promise(()=>{});deniedDeletes.push(JSON.parse(options.body));return Promise.resolve({ok:false});}};
+denied.sessionStorage.setItem('ageclan-analytics-session-v1','retained-session');
+vm.runInNewContext(fs.readFileSync('public/game/analytics.js','utf8'),denied);denied.window.AgeAnalytics.showPreferences();
+const deniedPanel=deniedBody.children.at(-1);
+await Promise.race([deniedPanel.querySelector('.analytics-controls').children.find(x=>x.textContent==='허용하지 않음').onclick(),new Promise((_,reject)=>{const timer=setTimeout(()=>reject(Error('withdrawal waited for hung POST')),500);timer.unref();})]);
+assert.equal(denied.window.AgeAnalytics.context(),null);assert.equal(deniedDeletes.length,1);assert.equal(deniedDeletes[0].analytics.visitorId,'retained-visitor');assert.match(deniedPanel.querySelector('[role="status"]').textContent,/이 탭에만/);
+console.log('PASS: storage failure still stops current-tab collection and preserves in-memory retry; hung prior POST cannot block withdrawal');

@@ -2,4 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
+# /3D/ stays crawlable so search engines can read its noindex directive.
+
 Sitemap: https://ageclan.com/sitemap.xml

@@ -1,3 +1,6 @@
+import {trustBackendIngress} from '../lib/ingress-policy.js';
+import {releaseInfo} from '../lib/release-info.js';
+import {boundedRequest} from '../lib/request-body.js';
 import {realtimeRequest,realtimeSocket} from '../lib/realtime-router.js';
 import {accountRequest} from '../lib/account-store.js';
 export {ClanRoom} from '../lib/clan-room.js';
@@ -12,12 +15,13 @@ export default{
   const a=await digest(expected),b=await digest(provided);let diff=0;for(let i=0;i<a.length;i++)diff|=a[i]^b[i];
   if(diff)return json({error:'인증되지 않은 요청입니다.'},403);
   if(!env.CLAN_ROOMS||!env.DB)return json({status:'unavailable',error:'DB와 방 서버 바인딩이 필요합니다.'},503);
+  try{request=trustBackendIngress(await boundedRequest(request));}catch(e){return json({error:e.message},e.status||400);}
   const path=new URL(request.url).pathname;
   if(path==='/api/clan/account')return accountRequest(request,env);
   if(path==='/api/clan/socket')return realtimeSocket(request,env);
   if(path!=='/api/clan')return json({error:'Not found'},404);
   if(request.method==='GET'){
-   try{await env.DB.prepare('SELECT 1 AS ok').first();return json({status:'ready',protocol:2,capacity:5,transport:'websocket',storage:'durable-object',directory:'d1'});}
+   try{await env.DB.prepare('SELECT 1 AS ok').first();return json({status:'ready',protocol:2,capacity:4,transport:'websocket',storage:'durable-object',directory:'d1',...releaseInfo});}
    catch{return json({status:'unavailable'},503);}
   }
   if(request.method==='POST')return realtimeRequest(request,env);

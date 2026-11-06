@@ -1,0 +1,10 @@
+{
+  "version": "v58",
+  "defaultInterface": "original",
+  "availableInterfaces": [
+    "original",
+    "fortress"
+  ],
+  "previousDesignCommit": "109e353fd10547432d8a716ff84da8544d646df9",
+  "sitesVersionNumber": "assigned by Sites when saved"
+}

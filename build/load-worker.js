@@ -7,7 +7,7 @@ export class LoadRoom extends ClanRoom{
  serial(fn){const queued=performance.now();return super.serial(async()=>{const began=performance.now();try{return await fn();}finally{this.samples??=[];this.samples.push({queueMs:began-queued,workMs:performance.now()-began});if(this.samples.length>2000)this.samples.shift();}});}
  async fetch(req){const path=new URL(req.url).pathname;
   if(path==='/seed'){
-   const {id,scenario}=await req.json();this.storageDisabled=scenario==='early-nostore';this.id=id;this.version=0;this.samples=[];const now=Date.now();this.room={private:true,solo:false,status:'waiting',tick:now,players:Array.from({length:5},(_,i)=>({...newPlayer('p'+i,'load-'+i,now),key:'load-'+i}))};this.room.hostId='p0';startRoom(this.room,now);
+   const {id,scenario}=await req.json();this.storageDisabled=scenario==='early-nostore';this.id=id;this.version=0;this.samples=[];const now=Date.now();this.room={private:true,solo:false,status:'waiting',tick:now,players:Array.from({length:4},(_,i)=>({...newPlayer('p'+i,'load-'+i,now),key:'load-'+i}))};this.room.hostId='p0';startRoom(this.room,now);
    for(const p of this.room.players)p.s.gold=1e8;
    if(scenario==='late')for(const p of this.room.players){const g=restore(p);Object.assign(p.s,{gold:1e8,crystals:1e6,castle:20,hp:1e8,maxHp:1e8,miners:30,wave:24,completed:24});for(let i=0;i<50;i++)g.hireWoodcutter();for(let pad=0;pad<22;pad++)g.build(Defense.TYPES[pad%Defense.TYPES.length].id,pad);for(const tower of p.s.towers)tower.buildRemaining=0;g.startWave(2);p.nextId=g.id;}
    await this.persist();return Response.json({ok:true});

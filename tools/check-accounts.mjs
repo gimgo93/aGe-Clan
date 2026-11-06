@@ -5,7 +5,8 @@ import {generateKeyPair,SignJWT,createLocalJWKSet,exportJWK} from 'jose';
 import {accountRequest,accountIdentity,verifyGoogle,sha,saveAccountProgress} from '../lib/account-store.js';
 import {realtimeRequest} from '../lib/realtime-router.js';
 const sql=new DatabaseSync(':memory:');for(const f of fs.readdirSync('drizzle').filter(f=>f.endsWith('.sql')).sort())sql.exec(fs.readFileSync('drizzle/'+f,'utf8'));
-const db={prepare(q){let values=[];const statement={bind(...v){values=v;return statement;},async first(){return sql.prepare(q).get(...values)||null;},async all(){return{results:sql.prepare(q).all(...values)};},async run(){return{meta:{changes:sql.prepare(q).run(...values).changes}};}};return statement;},async batch(statements){sql.exec('BEGIN');try{const result=await Promise.all(statements.map(s=>s.run()));sql.exec('COMMIT');return result;}catch(e){sql.exec('ROLLBACK');throw e;}}};
+let observedQueries=[];
+const db={prepare(q){observedQueries.push(q);let values=[];const statement={bind(...v){values=v;return statement;},async first(){return sql.prepare(q).get(...values)||null;},async all(){return{results:sql.prepare(q).all(...values)};},async run(){return{meta:{changes:sql.prepare(q).run(...values).changes}};}};return statement;},async batch(statements){sql.exec('BEGIN');try{const result=await Promise.all(statements.map(s=>s.run()));sql.exec('COMMIT');return result;}catch(e){sql.exec('ROLLBACK');throw e;}}};
 const env={DB:db,GOOGLE_CLIENT_ID:'test.apps.googleusercontent.com'},origin='https://game.test';
 const keys=await generateKeyPair('RS256'),publicKey=await exportJWK(keys.publicKey),jwks=createLocalJWKSet({keys:[{...publicKey,kid:'test'}]});
 const verify=(t,a,n)=>verifyGoogle(t,a,n,jwks);
@@ -18,6 +19,7 @@ const credential=await token(first.nonce);await assert.rejects(()=>verify(creden
 const anonCookie=a.cookies.get('clan_session'),anonKey=await sha(anonCookie);sql.prepare('INSERT INTO clan_rankings(id,name,avatar,wave,updated) VALUES (?,?,?,?,?)').run(anonKey,'old',0,20,Date.now());
 sql.prepare('INSERT INTO clan_rooms VALUES (?,?,?,?,?)').run('stale-room','waiting',JSON.stringify({players:[{key:anonKey,s:{over:false}}]}),0,Date.now());env.CLAN_ROOMS={idFromName:x=>x,get:()=>({fetch:async()=>new Response('{}',{status:403})})};
 let signed=await api(a,{op:'login',credential,nonce:first.nonce,profile:{name:'군주 A',avatar:3,admin:true}});assert.notEqual(a.cookies.get('clan_session'),anonCookie);assert.equal(signed.account.records.wave,20);assert.equal(signed.account.profile.name,'군주 A');assert.equal(signed.account.profile.admin,false);env.CLAN_ADMIN_ACCOUNT_IDS=await sha('google:google-test-user');assert.equal((await api(a,{op:'status'})).account.profile.admin,true);await api(a,{op:'login',credential,nonce:first.nonce},409);
+observedQueries=[];await api(a,{op:'status'});assert.equal(observedQueries.filter(q=>q.startsWith('SELECT')).length,2,'status reads only identity and one joined account view');assert.equal(observedQueries.filter(q=>q.startsWith('UPDATE clan_rankings')).length,0,'settled accounts do not rewrite ranking ownership');
 signed=await api(a,{op:'save',revision:signed.account.revision,profile:{name:'군주 B',avatar:2},settings:{volume:25,evil:true}});assert.equal(signed.account.settings.evil,undefined);
 const second=await api(b,{op:'challenge'});let other=await api(b,{op:'login',credential:await token(second.nonce),nonce:second.nonce});assert.equal(other.account.profile.name,'군주 B');assert.equal(other.account.settings.volume,25);
 await api(a,{op:'save',revision:1,profile:{name:'overwrite'}},409);

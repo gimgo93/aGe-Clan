@@ -9,4 +9,10 @@
 - 닉네임을 바꾸거나 다른 기기에서 같은 Google 계정으로 로그인해도 배지가 유지됩니다. 이미 로그인한 세션도 새로 불러오면 적용됩니다.
 - DB 스키마 변경은 없습니다. 허용 목록에서 ID를 제거하면 배지를 해제할 수 있습니다. 랭킹은 기존 5초 캐시가 갱신된 뒤 반영됩니다.
 
-검증: `node tools/check-accounts.mjs`, `node tools/check-account-badges.mjs`.
+## 통계 조회 권한 · 2026-11-05 로컬 변경
+
+이전 구현은 이 배지 판정을 통계 조회에도 사용했습니다. 이번 수정은 별도의 `CLAN_ANALYTICS_ACCOUNT_IDS` 허용 목록으로 분리합니다. 배지 목록만 설정해도 통계 권한은 생기지 않습니다. 값이 비어 있으면 통계 조회를 거부합니다. 실제 운영 목록은 아직 이관하지 않았습니다.
+
+외부 PvP Worker가 로그인 계정의 `permissions.analyticsRead`를 판정하고, Sites가 그 응답을 확인한 뒤 자신의 통계 DB를 조회합니다. 로그인 계정 응답은 해당 사용자 자신의 권한 불리언을 포함하며, 내부 계정 ID와 전체 목록은 공개하지 않습니다. 외부 Worker가 없는 로컬 구성은 같은 함수로 판정합니다. 실제 목록은 승인 후 서버 환경 변수로만 설정합니다.
+
+검증: `node tools/check-accounts.mjs`, `node tools/check-account-badges.mjs`, `node tools/check-security-boundaries.mjs`.

@@ -6,13 +6,13 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 async function api(c,input){const r=await fetch(base+'/api/clan',{method:'POST',headers:{...backendHeaders,'Content-Type':'application/json',cookie:c.cookie||''},body:JSON.stringify({roomId:c.id,...input})});if(r.headers.get('set-cookie'))c.cookie=r.headers.get('set-cookie').split(';')[0];const value=await r.json();assert.equal(r.status,200,JSON.stringify(value));if(value.roomId)c.id=value.roomId;return value;}
 function merge(v,p){if(!p)return v;if(Object.hasOwn(p,'set'))return p.set;if(p.order){const old=new Map((v||[]).map(x=>[x.id,x]));return p.order.map(id=>merge(old.get(id),p.entries[id]));}const n={...v};for(const k of p.remove||[])delete n[k];for(const [k,d] of Object.entries(p.changes||{}))n[k]=merge(n[k],d);return n;}
 async function connect(c){const url=base.replace(/^http/,'ws')+'/api/clan/socket?roomId='+encodeURIComponent(c.id),ws=new WebSocket(url,{headers:{...backendHeaders,cookie:c.cookie,origin:base}});c.ws=ws;c.messages=[];c.patches=0;c.bytes=0;
- ws.on('message',raw=>{c.bytes+=raw.length;const m=JSON.parse(raw);c.messages.push(m);if(m.type==='snapshot')c.state=m.value;if(m.type==='patch'){assert.equal(c.state.version,m.baseVersion);c.state=merge(c.state,m.patch);c.patches++;}});
+ ws.on('message',raw=>{if(c.ws!==ws||ws.readyState!==WebSocket.OPEN)return;c.bytes+=raw.length;const m=JSON.parse(raw);c.messages.push(m);if(m.type==='snapshot')c.state=m.value;if(m.type==='patch'){assert.ok(c.state,'current socket must send snapshot before patches');assert.equal(c.state.version,m.baseVersion);c.state=merge(c.state,m.patch);c.patches++;}});
  await new Promise((resolve,reject)=>{ws.once('open',resolve);ws.once('error',reject);});await until(()=>c.state,3000);return ws;
 }
 async function until(fn,ms=4000){const start=Date.now();while(!fn()){assert.ok(Date.now()-start<ms,'timed out');await sleep(25);}}
 async function command(c,input){const requestId=crypto.randomUUID();c.ws.send(JSON.stringify({type:'command',requestId,input}));await until(()=>c.messages.some(m=>m.type==='ack'&&m.requestId===requestId));const ack=c.messages.find(m=>m.type==='ack'&&m.requestId===requestId);assert.equal(ack.error,undefined,JSON.stringify(ack));return ack.value;}
 try{
- for(const count of [2,5]){
+ for(const count of [2,4]){
   const group=Array.from({length:count},()=>({}));users.push(...group);const host=group[0],created=await api(host,{op:'create',name:'실시간 검증 '+count,entryId:crypto.randomUUID()});assert.equal(created.transport,'websocket');
   await Promise.all(group.slice(1).map((c,i)=>api(c,{op:'joinCode',code:created.code,name:'참가자 '+i})));
   await Promise.all(group.map(connect));await until(()=>group.every(c=>c.state.players.length===count));
@@ -30,5 +30,5 @@ try{
   console.log(JSON.stringify({players:count,transport:'websocket',reconnected:true,idempotent:true,deltaFrames:group[1].patches,localPingSampleMs:Math.round(times.sort((a,b)=>a-b)[3])}));
   for(const c of group){c.ws.close();await api(c,{op:'leave'});c.id=null;}
  }
- console.log('PASS: 2/5 player WebSockets, countdown, simultaneous joins, action acknowledgments, retries, delta patches, independent waves, spectator scope and reconnection');
+ console.log('PASS: 2/4 player WebSockets, countdown, simultaneous joins, action acknowledgments, retries, delta patches, independent waves, spectator scope and reconnection');
 }finally{for(const c of users){c.ws?.close();if(c.id)try{await api(c,{op:'leave'});}catch{}}}

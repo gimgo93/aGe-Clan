@@ -11,6 +11,6 @@ function launch(initial,deny=false){
 const original=launch();assert.equal(original.sheet.disabled,true);original.change('fortress');assert.equal(original.sheet.disabled,false);assert.equal(original.storage.get('ageclan-interface-style-v1'),'fortress');
 assert.equal(launch('fortress').sheet.disabled,false);original.change('original');assert.equal(original.sheet.disabled,true);assert.equal(launch('invalid').sheet.disabled,true);
 const denied=launch(null,true);denied.change('fortress');assert.equal(denied.sheet.disabled,false);assert.match(denied.status.textContent,/현재 탭/);
-assert.match(html,/href="privacy-controls\.css\?v=v58"/);assert.match(html,/id="fortressControls"[^>]+ disabled/);assert.match(html,/앱 릴리스 v58/);
+assert.match(html,/href="privacy-controls\.css\?v=v58"/);assert.match(html,/id="fortressControls"[^>]+ disabled/);assert.match(html,/앱 릴리스 ver\.1/);
 assert.equal(JSON.parse(readFileSync('public/game/release.json','utf8')).version,'v58');
 console.log('PASS: original style defaults, reversible enhancement, persistence/reload and storage failure; privacy remains linked and release is v58');

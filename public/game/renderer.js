@@ -1,6 +1,6 @@
 class WorldRenderer {
  constructor(canvas,game){this.canvas=canvas;this.ctx=canvas.getContext('2d',{alpha:false});this.game=game;this.images={};this.camera={x:0,y:0,zoom:1};this.hover=-1;this.selected=null;this.buildType=null;this.scene='battle';this.ready=false;this.art=window.ART_META;this.resize();}
- async load(onProgress){const packed=new Set(['ballista-static','cannon-new','construction-site-v1','lab-building-v1','barracks-building-v1','woodcutter-axe']);const names=['ballista-static','cannon-new','grassland','cave','miner','soldier','raider','woodcutter','woodcutter-axe','battleOuter','mineOuter','battleDetail','mineDetail','town-courtyard-v4','construction-site-v1','lab-building-v1','barracks-building-v1'];await GameAssets.load(names,name=>'assets/'+name+(packed.has(name)?'-packed.webp':name==='woodcutter'?'.png':'.webp'),this.images,onProgress);await new Promise(resolve=>setTimeout(resolve,0));this.ground={battle:this.images.battleOuter,mine:this.images.mineOuter};this.groundDetail={battle:this.images.battleDetail,mine:this.images.mineDetail};this.prepareBackdrops();this.decor=this.props();this.game.setTreeSites(this.decor.filter(p=>p.id>=240));this.ready=true;}
+ async load(onProgress){const packed=new Set(['ballista-static','cannon-new','construction-site-v1','lab-building-v1','barracks-building-v1','woodcutter-axe']);const names=['ballista-static','cannon-new','grassland','cave','miner','soldier','raider','woodcutter','woodcutter-axe','battleOuter','mineOuter','battleDetail','mineDetail','town-courtyard-wide-v5','construction-site-v1','lab-building-v1','barracks-building-v1'];await GameAssets.load(names,name=>'assets/'+name+(packed.has(name)?'-packed.webp':name==='woodcutter'?'.png':'.webp'),this.images,onProgress);await new Promise(resolve=>setTimeout(resolve,0));this.ground={battle:this.images.battleOuter,mine:this.images.mineOuter};this.groundDetail={battle:this.images.battleDetail,mine:this.images.mineDetail};this.prepareBackdrops();this.decor=this.props();this.game.setTreeSites(this.decor.filter(p=>p.id>=240));this.ready=true;}
 
  // Cache small repeating surfaces once; coverage follows the camera, not a fixed map rectangle.
  prepareBackdrops(){
@@ -8,7 +8,7 @@ class WorldRenderer {
    ctx.fillStyle=set==='cave'?'#493c30':'#676b3b';ctx.fillRect(0,0,768,384);ctx.filter=set==='cave'?'brightness(1.55) saturate(.78)':'brightness(1.35) saturate(.75)';
    for(let row=-2;row<11;row++)for(let col=-2;col<6;col++){const r=(row%8+8)%8,c=(col%4+4)%4,id=16+(r*7+c*3)%16;this.tile(ctx,set,id,col*192+(row%2?96:0),row*48,1);}
    return surface;};
-  const paving=document.createElement('canvas');paving.width=512;paving.height=256;const p=paving.getContext('2d'),town=this.images['town-courtyard-v4'];
+  const paving=document.createElement('canvas');paving.width=512;paving.height=256;const p=paving.getContext('2d'),town=this.images['town-courtyard-wide-v5'];
   for(let row=0;row<2;row++)for(let col=0;col<2;col++){p.save();p.translate(col*256+(col?256:0),row*128+(row?128:0));p.scale(col?-1:1,row?-1:1);p.drawImage(town,620,560,256,128,0,0,256,128);p.restore();}
   const forest=document.createElement('canvas');forest.width=768;forest.height=768;const f=forest.getContext('2d'),random=this.rng(1739),trees=[];
   for(let row=0;row<6;row++)for(let col=0;col<6;col++){const x=col*128+random()*70,y=row*128+random()*65,id=[248,249,252,253,240][Math.floor(random()*5)],scale=.6+random()*.22;
@@ -42,8 +42,9 @@ class WorldRenderer {
   ctx.restore();
  }
  resize(){this.w=innerWidth;this.h=innerHeight;this.dockHeight=document.getElementById('commandDock')?.getBoundingClientRect().height||this.h*.3;this.dpr=Math.min(devicePixelRatio||1,2);this.canvas.width=this.w*this.dpr;this.canvas.height=this.h*this.dpr;this.canvas.style.width=this.w+'px';this.canvas.style.height=this.h+'px';}
- get scale(){const bottom=this.dockHeight;if(this.scene==='town')return Math.min(this.w/2020,Math.max(80,this.h-bottom-80)/1300)*this.camera.zoom;return Math.max(this.w/1900,Math.min(this.w/1630,(this.h-bottom-90)/840))*1.12*this.camera.zoom;}
- transform(){const bottom=this.dockHeight;const scale=this.scale;return{scale,x:this.w/2-800*scale+this.camera.x,y:68+(this.h-bottom-68)/2-440*scale+this.camera.y};}
+ townBounds(){const image=this.images['town-courtyard-wide-v5'];return{x:-2000,y:-600,w:5600,h:5600*(image?.height||887)/(image?.width||1774)};}
+ get scale(){const bottom=this.dockHeight;if(this.scene==='town'){const b=this.townBounds();return Math.max((this.w+8)/b.w,(this.h+8)/b.h,Math.min(this.w/2020,Math.max(80,this.h-bottom-80)/1300)*this.camera.zoom);}return Math.max(this.w/1900,Math.min(this.w/1630,(this.h-bottom-90)/840))*1.12*this.camera.zoom;}
+ transform(){const bottom=this.dockHeight,scale=this.scale;let x=this.w/2-800*scale+this.camera.x,y=68+(this.h-bottom-68)/2-440*scale+this.camera.y;if(this.scene==='town'){const b=this.townBounds();x=Math.max(this.w+4-(b.x+b.w)*scale,Math.min(-4-b.x*scale,x));y=Math.max(this.h+4-(b.y+b.h)*scale,Math.min(-4-b.y*scale,y));}return{scale,x,y};}
  world(clientX,clientY){const t=this.transform();return{x:(clientX-t.x)/t.scale,y:(clientY-t.y)/t.scale};}
  resetCamera(){this.camera={x:0,y:0,zoom:1};}
  tile(ctx,set,id,x,y,scale=1,center=false){const t=this.art[set][id];if(!t)return;const [sx,sy,w,h,ox,oy]=t;ctx.drawImage(this.images[set],sx,sy,w,h,x-(center?w/2:ox)*scale,y-(center?h*.83:oy)*scale,w*scale,h*scale);}
@@ -139,10 +140,10 @@ class WorldRenderer {
 
  town(ctx,time,transform,shake){
   const s=this.game.s,era=this.game.era;
-  // The painted curtain walls and eight watchtowers replace the former tree fence.
-  const image=this.images['town-courtyard-v4'],bounds=this.visibleBounds(transform,shake),x0=-1100,y0=-700,w=3800,h=2375;
-  // Mirror adjacent copies of the same courtyard, matching its edges at any zoom.
-  for(let iy=Math.floor((bounds.y-y0)/h);iy<=Math.floor((bounds.y+bounds.h-y0)/h);iy++)for(let ix=Math.floor((bounds.x-x0)/w);ix<=Math.floor((bounds.x+bounds.w-x0)/w);ix++){ctx.save();ctx.translate(x0+ix*w+(Math.abs(ix)%2?w:0),y0+iy*h+(Math.abs(iy)%2?h:0));ctx.scale(Math.abs(ix)%2?-1:1,Math.abs(iy)%2?-1:1);ctx.drawImage(image,0,0,w,h);ctx.restore();}
+  // One continuous fortress panorama. Camera bounds prevent exposing its edge;
+  // gates and walls must never be mirrored into adjacent courtyards.
+  const image=this.images['town-courtyard-wide-v5'],b=this.townBounds();
+  ctx.drawImage(image,b.x,b.y,b.w,b.h);
   for(const [x,y] of [[120,180],[410,120],[685,105],[930,105],[1210,120],[1500,180]]){
    this.flag(ctx,x,y,'#8f3c30',time,.48);
    this.sprite(ctx,'soldier','stance',Math.floor(time*2),7,x-14,y+10,.52);

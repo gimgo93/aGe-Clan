@@ -1,0 +1,10 @@
+import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:assert/strict';
+const animations=[],labels={locationTag:{},locationTitle:{}},element={style:{},animate(frames,options){const animation={frames,options,cancel(){this.cancelled=true;}};animations.push(animation);return animation;}};
+const scope=vm.createContext({document:{querySelector:()=>element},$:id=>labels[id],mode:'playing',settings:{reducedMotion:false}});
+const app=fs.readFileSync('public/game/app.js','utf8');vm.runInContext(app.slice(app.indexOf("let locationKey="),app.indexOf('function closeConstruction')),scope);
+const update=(scene,viewing=false)=>vm.runInContext(`updateLocation({name:'중앙 국경지대',english:'CENTRAL FRONTIER'},'${scene}',${viewing})`,scope);
+update('battle');assert.equal(animations.length,1);update('battle');assert.equal(animations.length,1,'HUD refresh must not restart the arrival');
+update('mine');assert.equal(animations[0].cancelled,true);assert.equal(labels.locationTitle.textContent,'중앙 국경지대 · 광산');assert.equal(element.style.visibility,'');assert.equal(animations.length,2);
+update('town',true);assert.equal(labels.locationTag.textContent,'OBSERVING · CENTRAL FRONTIER');assert.equal(animations.length,3);
+vm.runInContext('settings.reducedMotion=true',scope);update('battle');assert.equal(animations.length,3);assert.equal(animations[2].cancelled,true);
+console.log('PASS: location arrival on scene/watch changes, immediate cancellation, stable repeated HUD, reduced motion');

@@ -242,3 +242,23 @@ C:\Users\pc\aGe-ai\.venv\Scripts\python.exe -m balance_ml.coupling_study
 작은표본의대응결과분산비율이낮아져도일반적인분산감소를증명하는것은아니다.
 각경로처음32추첨의감사표본만저장하며전체난수테이프를동일세계상태로취급하지않는다.
 이미완료된같은계획/시드를다음날자동반복하지않는다.
+
+
+## 투자 정책 블록: 기존 행동을 유지하는 별도 모듈
+
+`policy-blocks.mjs`의`chooseBlocks`는기존정책과동일한기본순서를표현한다.
+초기방어/긴급수리/물약은먼저검사하고투자는다음순서로시도한다:
+`economy → workforce → research → castle → towerUpgrade → towerBuild`.
+`archer-fixed`의전용행동도유지한다. 기존worker의기본정책은아직교체하지않았다.
+
+```bat
+node balance_ml/tests/check-policy-blocks.mjs
+```
+
+이검사는경계상태의행동·상태불변성·물약기록과LCG/이벤트난수의짧은결과를대조한다.
+전체게임배치/모델학습이아니며좋은정책이라는의미도아니다.
+평가기에서명시적으로`chooseAction: chooseBlocks`를전달하면새모듈을사용할수있다.
+`createPolicyChooser({investmentOrder: [...]})`는6개블록각각을한번포함한순서만받고
+누락/중복/알수없는블록을거부한다. 입력배열은복사하므로이후변경이기존함수에영향을주지않는다.
+새순서는별도의가설/시드/예산을등록하고실제대조를해야하며이동일성검사가채택근거는아니다.
+게임원본이나기존정책이바뀌면해당버전에서이검사를다시통과해야한다.

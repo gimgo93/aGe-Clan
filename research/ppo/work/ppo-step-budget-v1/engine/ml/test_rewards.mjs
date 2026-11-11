@@ -1,0 +1,63 @@
+import assert from 'node:assert/strict';
+import {ACTIONS, TrainingSession} from './bridge.mjs';
+import Defense from '../lib/game-engine.js';
+const fresh = (options = {}) => {const t = new TrainingSession(); t.reset({seed: 42, frameSkip: 1, rewardMode: 'defense-v1', ...options}); return t;};
+const leak = fresh(); leak.game.startWave();
+const w = leak.game.s.waves[0]; leak.game.spawn(w);
+w.spawned = w.total; w.resolved = w.total - 1;
+Object.assign(leak.game.s.enemies[0], {kind: 'raider', d: Defense.pathLength, siege: .74});
+const a = leak.step(0);
+assert.equal(a.info.reward_terms.waves, 0); assert.equal(a.reward, -.16);
+assert.equal(a.info.leaks, 1); assert.equal(a.info.cleared_waves, 1);
+const allLeaks = fresh(); allLeaks.game.startWave();
+const aw = allLeaks.game.s.waves[0];
+while (aw.spawned < aw.total) allLeaks.game.spawn(aw);
+for (const e of allLeaks.game.s.enemies) Object.assign(e, {kind: 'raider', d: Defense.pathLength, siege: .74});
+const ar = allLeaks.step(0);
+assert.equal(ar.info.kills, 0); assert.equal(ar.info.leaks, aw.total);
+assert.equal(ar.info.reward_terms.waves, 0); assert.equal(ar.info.damage_taken, aw.total * 8);
+assert.ok(ar.reward < 0);
+
+// Real complete wave: kill all but one, then leak the last. No artificial kill counter.
+const mixed = fresh(); mixed.game.startWave();
+const mw = mixed.game.s.waves[0];
+for (let i = 0; i < mw.total; i++) mixed.game.spawn(mw);
+for (const e of [...mixed.game.s.enemies].slice(0, -1)) mixed.game.hurt(e, e.hp);
+Object.assign(mixed.game.s.enemies[0], {kind: 'raider', d: Defense.pathLength, siege: .74});
+const mr = mixed.step(0);
+assert.equal(mr.info.reward_terms.waves, (mw.total - 1) / mw.total);
+assert.equal(mr.info.reward_terms.damage, -.16);
+
+// A higher wave finishing first is one event and cannot satisfy the target.
+const overlap = fresh({targetWave: 2}); overlap.game.startWave(2);
+const last = overlap.game.s.waves[1];
+for (let i = 0; i < last.total; i++) overlap.game.spawn(last);
+for (const e of [...overlap.game.s.enemies]) overlap.game.hurt(e, e.hp);
+const b = overlap.step(0);
+assert.equal(b.info.reward_terms.waves, 1); assert.equal(b.info.cleared_waves, 1);
+assert.equal(b.info.completed, 2); assert.equal(b.info.contiguous_cleared, 0);
+assert.equal(b.terminated, false);
+const first = overlap.game.s.waves[0];
+while (first.spawned < first.total) overlap.game.spawn(first);
+for (const e of [...overlap.game.s.enemies]) overlap.game.hurt(e, e.hp);
+const win = overlap.step(0);
+assert.equal(win.info.end_reason, 'target_wave'); assert.equal(win.info.reward_terms.terminal, 10);
+assert.equal(win.info.contiguous_cleared, 2); assert.equal(win.info.reward_terms.waves, 1);
+
+const cap = fresh({targetWave: 20}); cap.game.s.wave = 19;
+const double = ACTIONS.findIndex(x => x.name === 'startWave' && x.args[0] === 2);
+assert.equal(cap.actionMasks()[double], false);
+assert.ok(cap.step(double).info.action_result.error);
+assert.equal(cap.game.s.wave, 19);
+const fatal = fresh(); fatal.game.startWave(); fatal.game.spawn(fatal.game.s.waves[0]);
+Object.assign(fatal.game.s.enemies[0], {d: Defense.pathLength, siege: .74}); fatal.game.s.hp = 1;
+const death = fatal.step(0);
+assert.equal(death.info.reward_terms.terminal, -10); assert.equal(death.info.cleared_waves, 0);
+assert.equal(death.info.reward_terms.waves, 0);
+const repair = fresh(); repair.game.s.hp = 60; repair.game.s.wood = 10;
+assert.equal(repair.step(ACTIONS.findIndex(x => x.name === 'repairCastle')).reward, 0);
+const timeout = fresh({maxTicks: 1}); const end = timeout.step(0);
+assert.equal(end.truncated, true); assert.equal(end.info.reward_terms.terminal, 0);
+assert.equal(end.reward, Object.values(end.info.reward_totals).reduce((a,b) => a+b,0));
+assert.throws(() => fresh({rewardMode: 'unknown'}));
+console.log('PASS: defense quality, leak, out-of-order waves, contiguous goal, target mask, death, repair, timeout');

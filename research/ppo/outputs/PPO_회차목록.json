@@ -1,0 +1,11 @@
+{
+  "latest_round": 1,
+  "rounds": [
+    {
+      "round": 1,
+      "status": "planned",
+      "report": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\outputs\\PPO_간단보고서_001회.md",
+      "results": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-round-001\\result.json"
+    }
+  ]
+}

@@ -1,0 +1,860 @@
+{
+  "scope": "Recent step-budget study headline; two older fresh-run batches are separate appendix, not all historical training.",
+  "latest": {
+    "models": 10,
+    "ppo_interactions": 2621440,
+    "completed_games": 6067,
+    "completed_game_steps": 2615688,
+    "unfinished_game_steps": 5752,
+    "unfinished_game_fragments": 10
+  },
+  "latest_primary": {
+    "models": 8,
+    "ppo_interactions": 2097152,
+    "completed_games": 4440,
+    "completed_game_steps": 2091814,
+    "unfinished_game_steps": 5338,
+    "unfinished_game_fragments": 8
+  },
+  "latest_generalization": {
+    "models": 2,
+    "ppo_interactions": 524288,
+    "completed_games": 1627,
+    "completed_game_steps": 523874,
+    "unfinished_game_steps": 414,
+    "unfinished_game_fragments": 2
+  },
+  "per_study": {
+    "ppo-hierarchy-v1": {
+      "models": 12,
+      "ppo_interactions": 1572864,
+      "completed_games": 5859,
+      "completed_game_steps": 1566801,
+      "unfinished_game_steps": 6063,
+      "unfinished_game_fragments": 12
+    },
+    "ppo-expanded-demo-v2": {
+      "models": 8,
+      "ppo_interactions": 1048576,
+      "completed_games": 3508,
+      "completed_game_steps": 1041461,
+      "unfinished_game_steps": 7115,
+      "unfinished_game_fragments": 8
+    },
+    "ppo-step-budget-v1": {
+      "models": 10,
+      "ppo_interactions": 2621440,
+      "completed_games": 6067,
+      "completed_game_steps": 2615688,
+      "unfinished_game_steps": 5752,
+      "unfinished_game_fragments": 10
+    }
+  },
+  "records": {
+    "ppo-hierarchy-v1": [
+      {
+        "key": "flat-44-basic",
+        "seed": 44,
+        "architecture": "flat",
+        "initialization": "basic",
+        "ppo_interactions": 131072,
+        "completed_games": 690,
+        "completed_game_steps": 130904,
+        "unfinished_game_steps": 168,
+        "cumulative_completed_games_by_step": {
+          "65536": 614,
+          "131072": 690
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 292,
+          "131072": 168
+        },
+        "average_completed_game_steps": 189.7159420289855,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-hierarchy-v1\\runs\\flat-44-basic\\episodes.monitor.csv",
+        "monitor_sha256": "9602774514911ab97f8538eb8d84a6b6e77131f11b6fb12baa21dc6323466cea",
+        "end_reasons": {
+          "castle_destroyed": 690
+        }
+      },
+      {
+        "key": "flat-44-imitation",
+        "seed": 44,
+        "architecture": "flat",
+        "initialization": "imitation",
+        "ppo_interactions": 131072,
+        "completed_games": 126,
+        "completed_game_steps": 130616,
+        "unfinished_game_steps": 456,
+        "cumulative_completed_games_by_step": {
+          "65536": 67,
+          "131072": 126
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 96,
+          "131072": 456
+        },
+        "average_completed_game_steps": 1036.6349206349207,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-hierarchy-v1\\runs\\flat-44-imitation\\episodes.monitor.csv",
+        "monitor_sha256": "e604067c59c5ee9ab54f93dcb3dcced62a60041353ca0894c9f0fd8b83b1b9d8",
+        "end_reasons": {
+          "castle_destroyed": 126
+        }
+      },
+      {
+        "key": "flat-45-basic",
+        "seed": 45,
+        "architecture": "flat",
+        "initialization": "basic",
+        "ppo_interactions": 131072,
+        "completed_games": 772,
+        "completed_game_steps": 130913,
+        "unfinished_game_steps": 159,
+        "cumulative_completed_games_by_step": {
+          "65536": 553,
+          "131072": 772
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 111,
+          "131072": 159
+        },
+        "average_completed_game_steps": 169.57642487046633,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-hierarchy-v1\\runs\\flat-45-basic\\episodes.monitor.csv",
+        "monitor_sha256": "f18bb72f9437f1e7703ef14bcdecf12199af654f60a21dd2dfce66111b3da1a1",
+        "end_reasons": {
+          "castle_destroyed": 772
+        }
+      },
+      {
+        "key": "flat-45-imitation",
+        "seed": 45,
+        "architecture": "flat",
+        "initialization": "imitation",
+        "ppo_interactions": 131072,
+        "completed_games": 117,
+        "completed_game_steps": 129583,
+        "unfinished_game_steps": 1489,
+        "cumulative_completed_games_by_step": {
+          "65536": 72,
+          "131072": 117
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 724,
+          "131072": 1489
+        },
+        "average_completed_game_steps": 1107.5470085470085,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-hierarchy-v1\\runs\\flat-45-imitation\\episodes.monitor.csv",
+        "monitor_sha256": "c6d2d6470951eda48b1d8da9353a7d29e14557b029f2445e22c28cebbe34dd0f",
+        "end_reasons": {
+          "castle_destroyed": 117
+        }
+      },
+      {
+        "key": "flat-46-basic",
+        "seed": 46,
+        "architecture": "flat",
+        "initialization": "basic",
+        "ppo_interactions": 131072,
+        "completed_games": 925,
+        "completed_game_steps": 130934,
+        "unfinished_game_steps": 138,
+        "cumulative_completed_games_by_step": {
+          "65536": 590,
+          "131072": 925
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 31,
+          "131072": 138
+        },
+        "average_completed_game_steps": 141.55027027027026,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-hierarchy-v1\\runs\\flat-46-basic\\episodes.monitor.csv",
+        "monitor_sha256": "febd357ad86c9e218218aa7fe3e81e787e2adef6b0b40287e07e153b2c5ea7e5",
+        "end_reasons": {
+          "castle_destroyed": 925
+        }
+      },
+      {
+        "key": "flat-46-imitation",
+        "seed": 46,
+        "architecture": "flat",
+        "initialization": "imitation",
+        "ppo_interactions": 131072,
+        "completed_games": 146,
+        "completed_game_steps": 130221,
+        "unfinished_game_steps": 851,
+        "cumulative_completed_games_by_step": {
+          "65536": 78,
+          "131072": 146
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 541,
+          "131072": 851
+        },
+        "average_completed_game_steps": 891.9246575342465,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-hierarchy-v1\\runs\\flat-46-imitation\\episodes.monitor.csv",
+        "monitor_sha256": "e4d23aa49dcc26f8b2320298ffb34c024ea1dbf9bbadbc48092fa71afa4172ea",
+        "end_reasons": {
+          "castle_destroyed": 146
+        }
+      },
+      {
+        "key": "hierarchy-44-basic",
+        "seed": 44,
+        "architecture": "hierarchy",
+        "initialization": "basic",
+        "ppo_interactions": 131072,
+        "completed_games": 901,
+        "completed_game_steps": 131020,
+        "unfinished_game_steps": 52,
+        "cumulative_completed_games_by_step": {
+          "65536": 556,
+          "131072": 901
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 181,
+          "131072": 52
+        },
+        "average_completed_game_steps": 145.41620421753606,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-hierarchy-v1\\runs\\hierarchy-44-basic\\episodes.monitor.csv",
+        "monitor_sha256": "62099d8bd0331135f703de8967dcb07ff76534365967e827694edfc54853fc14",
+        "end_reasons": {
+          "castle_destroyed": 901
+        }
+      },
+      {
+        "key": "hierarchy-44-imitation",
+        "seed": 44,
+        "architecture": "hierarchy",
+        "initialization": "imitation",
+        "ppo_interactions": 131072,
+        "completed_games": 144,
+        "completed_game_steps": 130794,
+        "unfinished_game_steps": 278,
+        "cumulative_completed_games_by_step": {
+          "65536": 57,
+          "131072": 144
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 282,
+          "131072": 278
+        },
+        "average_completed_game_steps": 908.2916666666666,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-hierarchy-v1\\runs\\hierarchy-44-imitation\\episodes.monitor.csv",
+        "monitor_sha256": "c2891ae5e8cccb012db51a07f8a269334edcd6a83731c2491af0081685629d49",
+        "end_reasons": {
+          "castle_destroyed": 144
+        }
+      },
+      {
+        "key": "hierarchy-45-basic",
+        "seed": 45,
+        "architecture": "hierarchy",
+        "initialization": "basic",
+        "ppo_interactions": 131072,
+        "completed_games": 890,
+        "completed_game_steps": 130953,
+        "unfinished_game_steps": 119,
+        "cumulative_completed_games_by_step": {
+          "65536": 547,
+          "131072": 890
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 175,
+          "131072": 119
+        },
+        "average_completed_game_steps": 147.138202247191,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-hierarchy-v1\\runs\\hierarchy-45-basic\\episodes.monitor.csv",
+        "monitor_sha256": "102ce6b58c4de9123f2511831004208b9b5a893abad3ecc129f1061b894187bb",
+        "end_reasons": {
+          "castle_destroyed": 890
+        }
+      },
+      {
+        "key": "hierarchy-45-imitation",
+        "seed": 45,
+        "architecture": "hierarchy",
+        "initialization": "imitation",
+        "ppo_interactions": 131072,
+        "completed_games": 101,
+        "completed_game_steps": 129554,
+        "unfinished_game_steps": 1518,
+        "cumulative_completed_games_by_step": {
+          "65536": 50,
+          "131072": 101
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 207,
+          "131072": 1518
+        },
+        "average_completed_game_steps": 1282.7128712871288,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-hierarchy-v1\\runs\\hierarchy-45-imitation\\episodes.monitor.csv",
+        "monitor_sha256": "d465ed747cb6600bd4af8868fde1f2806d565cea9900614d4da81747fc0f4158",
+        "end_reasons": {
+          "castle_destroyed": 101
+        }
+      },
+      {
+        "key": "hierarchy-46-basic",
+        "seed": 46,
+        "architecture": "hierarchy",
+        "initialization": "basic",
+        "ppo_interactions": 131072,
+        "completed_games": 917,
+        "completed_game_steps": 130822,
+        "unfinished_game_steps": 250,
+        "cumulative_completed_games_by_step": {
+          "65536": 630,
+          "131072": 917
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 112,
+          "131072": 250
+        },
+        "average_completed_game_steps": 142.6630316248637,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-hierarchy-v1\\runs\\hierarchy-46-basic\\episodes.monitor.csv",
+        "monitor_sha256": "61ec7d40839fed9f7df3a2235a922d36a04381dad9775c9ad0e92eca610e93f3",
+        "end_reasons": {
+          "castle_destroyed": 917
+        }
+      },
+      {
+        "key": "hierarchy-46-imitation",
+        "seed": 46,
+        "architecture": "hierarchy",
+        "initialization": "imitation",
+        "ppo_interactions": 131072,
+        "completed_games": 130,
+        "completed_game_steps": 130487,
+        "unfinished_game_steps": 585,
+        "cumulative_completed_games_by_step": {
+          "65536": 66,
+          "131072": 130
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 239,
+          "131072": 585
+        },
+        "average_completed_game_steps": 1003.7461538461539,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-hierarchy-v1\\runs\\hierarchy-46-imitation\\episodes.monitor.csv",
+        "monitor_sha256": "a7df3938da2f54b85b33de9ed2526b3f79920a932c100a565e74054867e95414",
+        "end_reasons": {
+          "castle_destroyed": 130
+        }
+      }
+    ],
+    "ppo-expanded-demo-v2": [
+      {
+        "key": "flat-47-basic",
+        "seed": 47,
+        "architecture": "flat",
+        "initialization": "basic",
+        "ppo_interactions": 131072,
+        "completed_games": 942,
+        "completed_game_steps": 130768,
+        "unfinished_game_steps": 304,
+        "cumulative_completed_games_by_step": {
+          "65536": 623,
+          "131072": 942
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 90,
+          "131072": 304
+        },
+        "average_completed_game_steps": 138.81953290870487,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-expanded-demo-v2\\runs\\flat-47-basic\\episodes.monitor.csv",
+        "monitor_sha256": "0cfc7cc6f36c76a3accb924fbcbf7f915e1b310914ffa4e8efd67367483e326f",
+        "end_reasons": {
+          "castle_destroyed": 942
+        }
+      },
+      {
+        "key": "flat-47-imitation",
+        "seed": 47,
+        "architecture": "flat",
+        "initialization": "imitation",
+        "ppo_interactions": 131072,
+        "completed_games": 48,
+        "completed_game_steps": 128522,
+        "unfinished_game_steps": 2550,
+        "cumulative_completed_games_by_step": {
+          "65536": 23,
+          "131072": 48
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 232,
+          "131072": 2550
+        },
+        "average_completed_game_steps": 2677.5416666666665,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-expanded-demo-v2\\runs\\flat-47-imitation\\episodes.monitor.csv",
+        "monitor_sha256": "3478561013d9bc53a7b8bad1c64b0d08e896cf56af521e9020a829b71e750d29",
+        "end_reasons": {
+          "castle_destroyed": 48
+        }
+      },
+      {
+        "key": "flat-48-basic",
+        "seed": 48,
+        "architecture": "flat",
+        "initialization": "basic",
+        "ppo_interactions": 131072,
+        "completed_games": 785,
+        "completed_game_steps": 130742,
+        "unfinished_game_steps": 330,
+        "cumulative_completed_games_by_step": {
+          "65536": 624,
+          "131072": 785
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 158,
+          "131072": 330
+        },
+        "average_completed_game_steps": 166.5503184713376,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-expanded-demo-v2\\runs\\flat-48-basic\\episodes.monitor.csv",
+        "monitor_sha256": "38263cf2e26558e4e8942077fea5a82469d8228e65c99b1678598065e9d4ed4b",
+        "end_reasons": {
+          "castle_destroyed": 785
+        }
+      },
+      {
+        "key": "flat-48-imitation",
+        "seed": 48,
+        "architecture": "flat",
+        "initialization": "imitation",
+        "ppo_interactions": 131072,
+        "completed_games": 48,
+        "completed_game_steps": 130486,
+        "unfinished_game_steps": 586,
+        "cumulative_completed_games_by_step": {
+          "65536": 21,
+          "131072": 48
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 2466,
+          "131072": 586
+        },
+        "average_completed_game_steps": 2718.4583333333335,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-expanded-demo-v2\\runs\\flat-48-imitation\\episodes.monitor.csv",
+        "monitor_sha256": "43b8bf1e92d66b1306b8653db15da119afa5aa39dc843b9082d1155bda2e9a61",
+        "end_reasons": {
+          "castle_destroyed": 48
+        }
+      },
+      {
+        "key": "hierarchy-47-basic",
+        "seed": 47,
+        "architecture": "hierarchy",
+        "initialization": "basic",
+        "ppo_interactions": 131072,
+        "completed_games": 863,
+        "completed_game_steps": 131050,
+        "unfinished_game_steps": 22,
+        "cumulative_completed_games_by_step": {
+          "65536": 528,
+          "131072": 863
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 58,
+          "131072": 22
+        },
+        "average_completed_game_steps": 151.8539976825029,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-expanded-demo-v2\\runs\\hierarchy-47-basic\\episodes.monitor.csv",
+        "monitor_sha256": "a9a3814124d9a05cdc029735c7d2bd5a5dbac875455e85582bf5f2dbf44c1a54",
+        "end_reasons": {
+          "castle_destroyed": 863
+        }
+      },
+      {
+        "key": "hierarchy-47-imitation",
+        "seed": 47,
+        "architecture": "hierarchy",
+        "initialization": "imitation",
+        "ppo_interactions": 131072,
+        "completed_games": 60,
+        "completed_game_steps": 129171,
+        "unfinished_game_steps": 1901,
+        "cumulative_completed_games_by_step": {
+          "65536": 32,
+          "131072": 60
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 1099,
+          "131072": 1901
+        },
+        "average_completed_game_steps": 2152.85,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-expanded-demo-v2\\runs\\hierarchy-47-imitation\\episodes.monitor.csv",
+        "monitor_sha256": "573e6ea76ec495e444dc5e26676a22405f8551013e81cac5168b471afe17f909",
+        "end_reasons": {
+          "castle_destroyed": 60
+        }
+      },
+      {
+        "key": "hierarchy-48-basic",
+        "seed": 48,
+        "architecture": "hierarchy",
+        "initialization": "basic",
+        "ppo_interactions": 131072,
+        "completed_games": 681,
+        "completed_game_steps": 130659,
+        "unfinished_game_steps": 413,
+        "cumulative_completed_games_by_step": {
+          "65536": 557,
+          "131072": 681
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 195,
+          "131072": 413
+        },
+        "average_completed_game_steps": 191.863436123348,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-expanded-demo-v2\\runs\\hierarchy-48-basic\\episodes.monitor.csv",
+        "monitor_sha256": "1c7add77f4c347109ff0ec9786ddf680b992f79cf95d56a384b84e807ad2ff42",
+        "end_reasons": {
+          "castle_destroyed": 681
+        }
+      },
+      {
+        "key": "hierarchy-48-imitation",
+        "seed": 48,
+        "architecture": "hierarchy",
+        "initialization": "imitation",
+        "ppo_interactions": 131072,
+        "completed_games": 81,
+        "completed_game_steps": 130063,
+        "unfinished_game_steps": 1009,
+        "cumulative_completed_games_by_step": {
+          "65536": 35,
+          "131072": 81
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 925,
+          "131072": 1009
+        },
+        "average_completed_game_steps": 1605.716049382716,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-expanded-demo-v2\\runs\\hierarchy-48-imitation\\episodes.monitor.csv",
+        "monitor_sha256": "6f26be0826ffd37ac247a19c22ca587983c8a00c404166362419912f37362cdf",
+        "end_reasons": {
+          "castle_destroyed": 81
+        }
+      }
+    ],
+    "ppo-step-budget-v1": [
+      {
+        "key": "flat-42-basic",
+        "seed": 42,
+        "architecture": "flat",
+        "initialization": "basic",
+        "ppo_interactions": 262144,
+        "completed_games": 754,
+        "completed_game_steps": 262036,
+        "unfinished_game_steps": 108,
+        "cumulative_completed_games_by_step": {
+          "65536": 436,
+          "131072": 489,
+          "262144": 754
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 67,
+          "131072": 159,
+          "262144": 108
+        },
+        "average_completed_game_steps": 347.52785145888595,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-step-budget-v1\\runs\\flat-42-basic\\episodes.monitor.csv",
+        "monitor_sha256": "3d183ab8db2033a84b03402f6dd151fce5e01213f6c442d2608ab4d74de86011",
+        "end_reasons": {
+          "castle_destroyed": 754
+        }
+      },
+      {
+        "key": "flat-42-imitation",
+        "seed": 42,
+        "architecture": "flat",
+        "initialization": "imitation",
+        "ppo_interactions": 262144,
+        "completed_games": 101,
+        "completed_game_steps": 260488,
+        "unfinished_game_steps": 1656,
+        "cumulative_completed_games_by_step": {
+          "65536": 27,
+          "131072": 53,
+          "262144": 101
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 79,
+          "131072": 414,
+          "262144": 1656
+        },
+        "average_completed_game_steps": 2579.089108910891,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-step-budget-v1\\runs\\flat-42-imitation\\episodes.monitor.csv",
+        "monitor_sha256": "a673cd4bafeec0650be9cd45fc6f0a0b33283a67995d488247c5a04caebe59d2",
+        "end_reasons": {
+          "castle_destroyed": 101
+        }
+      },
+      {
+        "key": "flat-43-basic",
+        "seed": 43,
+        "architecture": "flat",
+        "initialization": "basic",
+        "ppo_interactions": 262144,
+        "completed_games": 892,
+        "completed_game_steps": 261651,
+        "unfinished_game_steps": 493,
+        "cumulative_completed_games_by_step": {
+          "65536": 610,
+          "131072": 780,
+          "262144": 892
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 7,
+          "131072": 639,
+          "262144": 493
+        },
+        "average_completed_game_steps": 293.3307174887892,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-step-budget-v1\\runs\\flat-43-basic\\episodes.monitor.csv",
+        "monitor_sha256": "a07249950edda7aaa32d8dbea346316905d4367158a4cf23da62c40537a46971",
+        "end_reasons": {
+          "castle_destroyed": 892
+        }
+      },
+      {
+        "key": "flat-43-imitation",
+        "seed": 43,
+        "architecture": "flat",
+        "initialization": "imitation",
+        "ppo_interactions": 262144,
+        "completed_games": 111,
+        "completed_game_steps": 261318,
+        "unfinished_game_steps": 826,
+        "cumulative_completed_games_by_step": {
+          "65536": 26,
+          "131072": 51,
+          "262144": 111
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 1330,
+          "131072": 2155,
+          "262144": 826
+        },
+        "average_completed_game_steps": 2354.2162162162163,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-step-budget-v1\\runs\\flat-43-imitation\\episodes.monitor.csv",
+        "monitor_sha256": "88a0ea07594d996eb2456d076549b80d7013b08539ef413000b70d8dc9d0e498",
+        "end_reasons": {
+          "castle_destroyed": 111
+        }
+      },
+      {
+        "key": "flat-49-basic",
+        "seed": 49,
+        "architecture": "flat",
+        "initialization": "basic",
+        "ppo_interactions": 262144,
+        "completed_games": 912,
+        "completed_game_steps": 262057,
+        "unfinished_game_steps": 87,
+        "cumulative_completed_games_by_step": {
+          "65536": 622,
+          "131072": 803,
+          "262144": 912
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 9,
+          "131072": 1231,
+          "262144": 87
+        },
+        "average_completed_game_steps": 287.343201754386,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-step-budget-v1\\runs\\flat-49-basic\\episodes.monitor.csv",
+        "monitor_sha256": "dd67c11aa8b174455a3e957bffd33b8e7c26dd12491ad5c92cf330ebfef14c9a",
+        "end_reasons": {
+          "castle_destroyed": 912
+        }
+      },
+      {
+        "key": "flat-50-basic",
+        "seed": 50,
+        "architecture": "flat",
+        "initialization": "basic",
+        "ppo_interactions": 262144,
+        "completed_games": 715,
+        "completed_game_steps": 261817,
+        "unfinished_game_steps": 327,
+        "cumulative_completed_games_by_step": {
+          "65536": 465,
+          "131072": 521,
+          "262144": 715
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 1365,
+          "131072": 944,
+          "262144": 327
+        },
+        "average_completed_game_steps": 366.17762237762236,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-step-budget-v1\\runs\\flat-50-basic\\episodes.monitor.csv",
+        "monitor_sha256": "ea9163583f7854e84ec47563b1de677ac8b2cc0d121a833c9dc5fd30cef0e54a",
+        "end_reasons": {
+          "castle_destroyed": 715
+        }
+      },
+      {
+        "key": "hierarchy-42-basic",
+        "seed": 42,
+        "architecture": "hierarchy",
+        "initialization": "basic",
+        "ppo_interactions": 262144,
+        "completed_games": 652,
+        "completed_game_steps": 261883,
+        "unfinished_game_steps": 261,
+        "cumulative_completed_games_by_step": {
+          "65536": 517,
+          "131072": 561,
+          "262144": 652
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 168,
+          "131072": 420,
+          "262144": 261
+        },
+        "average_completed_game_steps": 401.66104294478527,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-step-budget-v1\\runs\\hierarchy-42-basic\\episodes.monitor.csv",
+        "monitor_sha256": "ea157d345bf8ae85ea028e4ee141d3f183d29f1e56d7c59215f8f0c83420979c",
+        "end_reasons": {
+          "castle_destroyed": 652
+        }
+      },
+      {
+        "key": "hierarchy-42-imitation",
+        "seed": 42,
+        "architecture": "hierarchy",
+        "initialization": "imitation",
+        "ppo_interactions": 262144,
+        "completed_games": 168,
+        "completed_game_steps": 261120,
+        "unfinished_game_steps": 1024,
+        "cumulative_completed_games_by_step": {
+          "65536": 26,
+          "131072": 57,
+          "262144": 168
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 2334,
+          "131072": 1417,
+          "262144": 1024
+        },
+        "average_completed_game_steps": 1554.2857142857142,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-step-budget-v1\\runs\\hierarchy-42-imitation\\episodes.monitor.csv",
+        "monitor_sha256": "09b47cc09d806aea04b39228a4fcb0bb44c7c151d8bc7609c0304589e0c67c2b",
+        "end_reasons": {
+          "castle_destroyed": 168
+        }
+      },
+      {
+        "key": "hierarchy-43-basic",
+        "seed": 43,
+        "architecture": "hierarchy",
+        "initialization": "basic",
+        "ppo_interactions": 262144,
+        "completed_games": 1607,
+        "completed_game_steps": 262014,
+        "unfinished_game_steps": 130,
+        "cumulative_completed_games_by_step": {
+          "65536": 593,
+          "131072": 928,
+          "262144": 1607
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 116,
+          "131072": 104,
+          "262144": 130
+        },
+        "average_completed_game_steps": 163.045426260112,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-step-budget-v1\\runs\\hierarchy-43-basic\\episodes.monitor.csv",
+        "monitor_sha256": "41643d58d9e43e5420f89ca22e4ff1af49438a9f2362a0e5dde23afc4d702c40",
+        "end_reasons": {
+          "castle_destroyed": 1607
+        }
+      },
+      {
+        "key": "hierarchy-43-imitation",
+        "seed": 43,
+        "architecture": "hierarchy",
+        "initialization": "imitation",
+        "ppo_interactions": 262144,
+        "completed_games": 155,
+        "completed_game_steps": 261304,
+        "unfinished_game_steps": 840,
+        "cumulative_completed_games_by_step": {
+          "65536": 53,
+          "131072": 91,
+          "262144": 155
+        },
+        "unfinished_steps_at_each_budget": {
+          "65536": 1393,
+          "131072": 205,
+          "262144": 840
+        },
+        "average_completed_game_steps": 1685.832258064516,
+        "monitor_path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-step-budget-v1\\runs\\hierarchy-43-imitation\\episodes.monitor.csv",
+        "monitor_sha256": "6a8173d217c0fa1c2732ec5ddf4ccba60ed3299ebb1970cd0fe94e2a046102f3",
+        "end_reasons": {
+          "castle_destroyed": 155
+        }
+      }
+    ]
+  },
+  "current_middle_candidate": {
+    "status": "not_adopted",
+    "config": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\outputs\\ppo_step_budget_policy\\config.json",
+    "summary": {
+      "episodes": 20,
+      "mean": 33.85,
+      "median": 35.0,
+      "sd": 5.650104796419826,
+      "p10": 29.9,
+      "min": 15,
+      "max": 43,
+      "max_started": 45,
+      "in_middle": 9,
+      "censored": 0,
+      "invalid": 0,
+      "eligible_tiers": [],
+      "diversity_games": 20,
+      "concentration_games": 20,
+      "distinct_sequences": 20,
+      "diversity_pass": true,
+      "mean_wait_share": 0.950708820581718
+    },
+    "key": "hierarchy-42-imitation",
+    "budget": 65536,
+    "training_seed": 42,
+    "replay": "passed",
+    "files_verified": 23
+  },
+  "current_middle_candidate_completed_games": 26,
+  "current_middle_candidate_partial_steps": 2334,
+  "previous_middle_candidate": {
+    "key": "flat-47-bc4000-lr3e-05-ppo16384",
+    "summary": {
+      "performance": {
+        "episodes": 20,
+        "mean": 32.05,
+        "median": 32.5,
+        "min": 19,
+        "max": 42,
+        "in_band": 3,
+        "censored": 0,
+        "invalid": 0,
+        "pass": false
+      },
+      "diversity": {
+        "command_root_tower_pass_games": 20,
+        "concentration_pass_games": 20,
+        "distinct_nonwait_sequences": 20,
+        "command_kind_range": [
+          7,
+          9
+        ],
+        "mean_wait_share": 0.9503424200764424,
+        "pass": true
+      },
+      "adoptable": false
+    },
+    "status": "not_adopted"
+  }
+}

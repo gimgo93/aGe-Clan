@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "model_reload_count": 12,
+  "paired_initial_weights": true,
+  "critic_unchanged_during_imitation": true,
+  "total_ppo_steps": 1572864,
+  "verification_smoke_steps_separate": 512,
+  "imitation_updates": 12000,
+  "initial_evaluation_games": 36,
+  "development_games": 120,
+  "confirmation_games": 240,
+  "invalid_actions_confirmation": 0,
+  "paired_input_scaling_identical": true,
+  "exported_entrypoint_replays": 2,
+  "archive": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\outputs\\PPO_계층행동_직접학습_실험자료.zip",
+  "bytes": 27627837,
+  "sha256": "162d30edfd9a7eaf35a36aa2c81fb98fb6e2bbace8e5b57f6cbbf0c604a0b8c3",
+  "files": 255
+}

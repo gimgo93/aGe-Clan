@@ -1,0 +1,28 @@
+{
+  "status": "not_adopted",
+  "config": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\outputs\\ppo_step_budget_policy\\config.json",
+  "summary": {
+    "episodes": 20,
+    "mean": 33.85,
+    "median": 35.0,
+    "sd": 5.650104796419826,
+    "p10": 29.9,
+    "min": 15,
+    "max": 43,
+    "max_started": 45,
+    "in_middle": 9,
+    "censored": 0,
+    "invalid": 0,
+    "eligible_tiers": [],
+    "diversity_games": 20,
+    "concentration_games": 20,
+    "distinct_sequences": 20,
+    "diversity_pass": true,
+    "mean_wait_share": 0.950708820581718
+  },
+  "key": "hierarchy-42-imitation",
+  "budget": 65536,
+  "training_seed": 42,
+  "replay": "passed",
+  "files_verified": 23
+}

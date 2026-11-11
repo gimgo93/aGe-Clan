@@ -1,0 +1,1523 @@
+{
+  "status": "not_adopted",
+  "selected": {
+    "key": "flat-47-bc4000-lr3e-05-ppo16384",
+    "path": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-intermediate-v1\\moderate-parent-ppo\\flat-47-bc4000-lr3e-05\\checkpoints\\ppo_16384_steps.zip",
+    "source": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-intermediate-v1\\moderate-parent-ppo\\flat-47-bc4000-lr3e-05\\checkpoints\\ppo_16384_steps.zip",
+    "sha256": "5a4c13b73669ad66aeb3e7200b13e34d41c5c36b76a97f4f469194051854c0c3",
+    "architecture": "flat",
+    "training_seed": 47,
+    "ppo_steps": 16384,
+    "environment": {
+      "version": 1,
+      "actions": [
+        {
+          "name": "wait"
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            0
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            1
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            2
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            3
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            4
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            5
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            6
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            7
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            8
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            9
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            10
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            11
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            12
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            13
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            14
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            15
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            16
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            17
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            18
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            19
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            20
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            21
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            22
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            23
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            24
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "archer",
+            25
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            0
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            1
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            2
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            3
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            4
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            5
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            6
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            7
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            8
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            9
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            10
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            11
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            12
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            13
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            14
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            15
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            16
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            17
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            18
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            19
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            20
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            21
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            22
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            23
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            24
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "ballista",
+            25
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            0
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            1
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            2
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            3
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            4
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            5
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            6
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            7
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            8
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            9
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            10
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            11
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            12
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            13
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            14
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            15
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            16
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            17
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            18
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            19
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            20
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            21
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            22
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            23
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            24
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "cannon",
+            25
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            0
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            1
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            2
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            3
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            4
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            5
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            6
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            7
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            8
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            9
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            10
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            11
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            12
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            13
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            14
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            15
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            16
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            17
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            18
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            19
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            20
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            21
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            22
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            23
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            24
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "frost",
+            25
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            0
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            1
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            2
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            3
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            4
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            5
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            6
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            7
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            8
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            9
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            10
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            11
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            12
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            13
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            14
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            15
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            16
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            17
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            18
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            19
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            20
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            21
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            22
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            23
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            24
+          ]
+        },
+        {
+          "name": "build",
+          "args": [
+            "storm",
+            25
+          ]
+        },
+        {
+          "name": "hire"
+        },
+        {
+          "name": "hireWoodcutter"
+        },
+        {
+          "name": "upgradeCastle"
+        },
+        {
+          "name": "upgradeTower",
+          "args": [
+            "archer"
+          ]
+        },
+        {
+          "name": "upgradeTower",
+          "args": [
+            "ballista"
+          ]
+        },
+        {
+          "name": "upgradeTower",
+          "args": [
+            "cannon"
+          ]
+        },
+        {
+          "name": "upgradeTower",
+          "args": [
+            "frost"
+          ]
+        },
+        {
+          "name": "upgradeTower",
+          "args": [
+            "storm"
+          ]
+        },
+        {
+          "name": "startWave",
+          "args": [
+            1
+          ]
+        },
+        {
+          "name": "startWave",
+          "args": [
+            2
+          ]
+        },
+        {
+          "name": "sellTower",
+          "pad": 0
+        },
+        {
+          "name": "sellTower",
+          "pad": 1
+        },
+        {
+          "name": "sellTower",
+          "pad": 2
+        },
+        {
+          "name": "sellTower",
+          "pad": 3
+        },
+        {
+          "name": "sellTower",
+          "pad": 4
+        },
+        {
+          "name": "sellTower",
+          "pad": 5
+        },
+        {
+          "name": "sellTower",
+          "pad": 6
+        },
+        {
+          "name": "sellTower",
+          "pad": 7
+        },
+        {
+          "name": "sellTower",
+          "pad": 8
+        },
+        {
+          "name": "sellTower",
+          "pad": 9
+        },
+        {
+          "name": "sellTower",
+          "pad": 10
+        },
+        {
+          "name": "sellTower",
+          "pad": 11
+        },
+        {
+          "name": "sellTower",
+          "pad": 12
+        },
+        {
+          "name": "sellTower",
+          "pad": 13
+        },
+        {
+          "name": "sellTower",
+          "pad": 14
+        },
+        {
+          "name": "sellTower",
+          "pad": 15
+        },
+        {
+          "name": "sellTower",
+          "pad": 16
+        },
+        {
+          "name": "sellTower",
+          "pad": 17
+        },
+        {
+          "name": "sellTower",
+          "pad": 18
+        },
+        {
+          "name": "sellTower",
+          "pad": 19
+        },
+        {
+          "name": "sellTower",
+          "pad": 20
+        },
+        {
+          "name": "sellTower",
+          "pad": 21
+        },
+        {
+          "name": "sellTower",
+          "pad": 22
+        },
+        {
+          "name": "sellTower",
+          "pad": 23
+        },
+        {
+          "name": "sellTower",
+          "pad": 24
+        },
+        {
+          "name": "sellTower",
+          "pad": 25
+        },
+        {
+          "name": "buildLab"
+        },
+        {
+          "name": "researchPotion",
+          "args": [
+            "lightning"
+          ]
+        },
+        {
+          "name": "researchPotion",
+          "args": [
+            "ice"
+          ]
+        },
+        {
+          "name": "potion",
+          "args": [
+            "lightning"
+          ]
+        },
+        {
+          "name": "potion",
+          "args": [
+            "ice"
+          ]
+        },
+        {
+          "name": "repairCastle"
+        }
+      ],
+      "features": [
+        "time",
+        "gold",
+        "crystals",
+        "wood",
+        "hp",
+        "maxHp",
+        "castle",
+        "era",
+        "miners",
+        "population",
+        "wave",
+        "completed",
+        "kills",
+        "activeWaves",
+        "waveClock",
+        "miningClock",
+        "lab",
+        "labBuild",
+        "repairCount",
+        "lightningResearch",
+        "iceResearch",
+        "lightningCooldown",
+        "iceCooldown",
+        "level.archer",
+        "level.ballista",
+        "level.cannon",
+        "level.frost",
+        "level.storm",
+        "pad.0.type",
+        "pad.0.hp",
+        "pad.0.buildRemaining",
+        "pad.0.cooldown",
+        "pad.1.type",
+        "pad.1.hp",
+        "pad.1.buildRemaining",
+        "pad.1.cooldown",
+        "pad.2.type",
+        "pad.2.hp",
+        "pad.2.buildRemaining",
+        "pad.2.cooldown",
+        "pad.3.type",
+        "pad.3.hp",
+        "pad.3.buildRemaining",
+        "pad.3.cooldown",
+        "pad.4.type",
+        "pad.4.hp",
+        "pad.4.buildRemaining",
+        "pad.4.cooldown",
+        "pad.5.type",
+        "pad.5.hp",
+        "pad.5.buildRemaining",
+        "pad.5.cooldown",
+        "pad.6.type",
+        "pad.6.hp",
+        "pad.6.buildRemaining",
+        "pad.6.cooldown",
+        "pad.7.type",
+        "pad.7.hp",
+        "pad.7.buildRemaining",
+        "pad.7.cooldown",
+        "pad.8.type",
+        "pad.8.hp",
+        "pad.8.buildRemaining",
+        "pad.8.cooldown",
+        "pad.9.type",
+        "pad.9.hp",
+        "pad.9.buildRemaining",
+        "pad.9.cooldown",
+        "pad.10.type",
+        "pad.10.hp",
+        "pad.10.buildRemaining",
+        "pad.10.cooldown",
+        "pad.11.type",
+        "pad.11.hp",
+        "pad.11.buildRemaining",
+        "pad.11.cooldown",
+        "pad.12.type",
+        "pad.12.hp",
+        "pad.12.buildRemaining",
+        "pad.12.cooldown",
+        "pad.13.type",
+        "pad.13.hp",
+        "pad.13.buildRemaining",
+        "pad.13.cooldown",
+        "pad.14.type",
+        "pad.14.hp",
+        "pad.14.buildRemaining",
+        "pad.14.cooldown",
+        "pad.15.type",
+        "pad.15.hp",
+        "pad.15.buildRemaining",
+        "pad.15.cooldown",
+        "pad.16.type",
+        "pad.16.hp",
+        "pad.16.buildRemaining",
+        "pad.16.cooldown",
+        "pad.17.type",
+        "pad.17.hp",
+        "pad.17.buildRemaining",
+        "pad.17.cooldown",
+        "pad.18.type",
+        "pad.18.hp",
+        "pad.18.buildRemaining",
+        "pad.18.cooldown",
+        "pad.19.type",
+        "pad.19.hp",
+        "pad.19.buildRemaining",
+        "pad.19.cooldown",
+        "pad.20.type",
+        "pad.20.hp",
+        "pad.20.buildRemaining",
+        "pad.20.cooldown",
+        "pad.21.type",
+        "pad.21.hp",
+        "pad.21.buildRemaining",
+        "pad.21.cooldown",
+        "pad.22.type",
+        "pad.22.hp",
+        "pad.22.buildRemaining",
+        "pad.22.cooldown",
+        "pad.23.type",
+        "pad.23.hp",
+        "pad.23.buildRemaining",
+        "pad.23.cooldown",
+        "pad.24.type",
+        "pad.24.hp",
+        "pad.24.buildRemaining",
+        "pad.24.cooldown",
+        "pad.25.type",
+        "pad.25.hp",
+        "pad.25.buildRemaining",
+        "pad.25.cooldown",
+        "enemyBin.0.count",
+        "enemyBin.0.hp",
+        "enemyBin.1.count",
+        "enemyBin.1.hp",
+        "enemyBin.2.count",
+        "enemyBin.2.hp",
+        "enemyBin.3.count",
+        "enemyBin.3.hp",
+        "enemyBin.4.count",
+        "enemyBin.4.hp",
+        "enemyBin.5.count",
+        "enemyBin.5.hp",
+        "enemyBin.6.count",
+        "enemyBin.6.hp",
+        "enemyBin.7.count",
+        "enemyBin.7.hp"
+      ],
+      "source_sha256": {
+        "public/game/game.js": "79a3fc892da40e4c1caa54a42af9c50c5a05c2c25f4283715c0db1588bc0db18",
+        "public/game/balance.js": "d425a0daf9f405ed1461fdab9ac572d924ffb17e519790753cb1dec4e1364d1c",
+        "lib/game-engine.js": "1d5792981a2be4a70231ff47649d249f5d83e4f37675de716dd16158f0c8b32e",
+        "lib/trees.js": "9c927c61a3cafb0f6754df270298ce447d443a1303b4c004098cab09b5428366",
+        "ml/bridge.mjs": "460c6e2f54c5c6788e4c6e3e0e673b21289ce1ac43d9afa4632d882a354ab6d9",
+        "ml/env.py": "8dbf01a13702c9445a87c8aee2aa93691cded22632012a9e81753dbfb7edba38"
+      }
+    },
+    "input_scaling": {
+      "version": "fixed-units-v1",
+      "source": "predeclared engineering units, not fitted to demonstrations or evaluation",
+      "formula": "clip(raw_observation / scale, -20, 20)",
+      "scales": {
+        "time": 12000.0,
+        "gold": 1000.0,
+        "crystals": 50.0,
+        "wood": 1000.0,
+        "hp": 140.0,
+        "maxHp": 140.0,
+        "castle": 5.0,
+        "era": 5.0,
+        "miners": 50.0,
+        "population": 100.0,
+        "wave": 50.0,
+        "completed": 50.0,
+        "kills": 1000.0,
+        "activeWaves": 2.0,
+        "waveClock": 30.0,
+        "miningClock": 1.5,
+        "lab": 1.0,
+        "labBuild": 60.0,
+        "repairCount": 10.0,
+        "lightningResearch": 60.0,
+        "iceResearch": 60.0,
+        "lightningCooldown": 60.0,
+        "iceCooldown": 60.0,
+        "level.archer": 5.0,
+        "level.ballista": 5.0,
+        "level.cannon": 5.0,
+        "level.frost": 5.0,
+        "level.storm": 5.0,
+        "pad.0.type": 5.0,
+        "pad.0.hp": 300.0,
+        "pad.0.buildRemaining": 10.0,
+        "pad.0.cooldown": 2.0,
+        "pad.1.type": 5.0,
+        "pad.1.hp": 300.0,
+        "pad.1.buildRemaining": 10.0,
+        "pad.1.cooldown": 2.0,
+        "pad.2.type": 5.0,
+        "pad.2.hp": 300.0,
+        "pad.2.buildRemaining": 10.0,
+        "pad.2.cooldown": 2.0,
+        "pad.3.type": 5.0,
+        "pad.3.hp": 300.0,
+        "pad.3.buildRemaining": 10.0,
+        "pad.3.cooldown": 2.0,
+        "pad.4.type": 5.0,
+        "pad.4.hp": 300.0,
+        "pad.4.buildRemaining": 10.0,
+        "pad.4.cooldown": 2.0,
+        "pad.5.type": 5.0,
+        "pad.5.hp": 300.0,
+        "pad.5.buildRemaining": 10.0,
+        "pad.5.cooldown": 2.0,
+        "pad.6.type": 5.0,
+        "pad.6.hp": 300.0,
+        "pad.6.buildRemaining": 10.0,
+        "pad.6.cooldown": 2.0,
+        "pad.7.type": 5.0,
+        "pad.7.hp": 300.0,
+        "pad.7.buildRemaining": 10.0,
+        "pad.7.cooldown": 2.0,
+        "pad.8.type": 5.0,
+        "pad.8.hp": 300.0,
+        "pad.8.buildRemaining": 10.0,
+        "pad.8.cooldown": 2.0,
+        "pad.9.type": 5.0,
+        "pad.9.hp": 300.0,
+        "pad.9.buildRemaining": 10.0,
+        "pad.9.cooldown": 2.0,
+        "pad.10.type": 5.0,
+        "pad.10.hp": 300.0,
+        "pad.10.buildRemaining": 10.0,
+        "pad.10.cooldown": 2.0,
+        "pad.11.type": 5.0,
+        "pad.11.hp": 300.0,
+        "pad.11.buildRemaining": 10.0,
+        "pad.11.cooldown": 2.0,
+        "pad.12.type": 5.0,
+        "pad.12.hp": 300.0,
+        "pad.12.buildRemaining": 10.0,
+        "pad.12.cooldown": 2.0,
+        "pad.13.type": 5.0,
+        "pad.13.hp": 300.0,
+        "pad.13.buildRemaining": 10.0,
+        "pad.13.cooldown": 2.0,
+        "pad.14.type": 5.0,
+        "pad.14.hp": 300.0,
+        "pad.14.buildRemaining": 10.0,
+        "pad.14.cooldown": 2.0,
+        "pad.15.type": 5.0,
+        "pad.15.hp": 300.0,
+        "pad.15.buildRemaining": 10.0,
+        "pad.15.cooldown": 2.0,
+        "pad.16.type": 5.0,
+        "pad.16.hp": 300.0,
+        "pad.16.buildRemaining": 10.0,
+        "pad.16.cooldown": 2.0,
+        "pad.17.type": 5.0,
+        "pad.17.hp": 300.0,
+        "pad.17.buildRemaining": 10.0,
+        "pad.17.cooldown": 2.0,
+        "pad.18.type": 5.0,
+        "pad.18.hp": 300.0,
+        "pad.18.buildRemaining": 10.0,
+        "pad.18.cooldown": 2.0,
+        "pad.19.type": 5.0,
+        "pad.19.hp": 300.0,
+        "pad.19.buildRemaining": 10.0,
+        "pad.19.cooldown": 2.0,
+        "pad.20.type": 5.0,
+        "pad.20.hp": 300.0,
+        "pad.20.buildRemaining": 10.0,
+        "pad.20.cooldown": 2.0,
+        "pad.21.type": 5.0,
+        "pad.21.hp": 300.0,
+        "pad.21.buildRemaining": 10.0,
+        "pad.21.cooldown": 2.0,
+        "pad.22.type": 5.0,
+        "pad.22.hp": 300.0,
+        "pad.22.buildRemaining": 10.0,
+        "pad.22.cooldown": 2.0,
+        "pad.23.type": 5.0,
+        "pad.23.hp": 300.0,
+        "pad.23.buildRemaining": 10.0,
+        "pad.23.cooldown": 2.0,
+        "pad.24.type": 5.0,
+        "pad.24.hp": 300.0,
+        "pad.24.buildRemaining": 10.0,
+        "pad.24.cooldown": 2.0,
+        "pad.25.type": 5.0,
+        "pad.25.hp": 300.0,
+        "pad.25.buildRemaining": 10.0,
+        "pad.25.cooldown": 2.0,
+        "enemyBin.0.count": 50.0,
+        "enemyBin.0.hp": 5000.0,
+        "enemyBin.1.count": 50.0,
+        "enemyBin.1.hp": 5000.0,
+        "enemyBin.2.count": 50.0,
+        "enemyBin.2.hp": 5000.0,
+        "enemyBin.3.count": 50.0,
+        "enemyBin.3.hp": 5000.0,
+        "enemyBin.4.count": 50.0,
+        "enemyBin.4.hp": 5000.0,
+        "enemyBin.5.count": 50.0,
+        "enemyBin.5.hp": 5000.0,
+        "enemyBin.6.count": 50.0,
+        "enemyBin.6.hp": 5000.0,
+        "enemyBin.7.count": 50.0,
+        "enemyBin.7.hp": 5000.0
+      }
+    },
+    "initialization": "expanded-imitation",
+    "bc_selected_update": 4000,
+    "inference": "deterministic",
+    "parent": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-expanded-demo-v2\\bc-checkpoints\\flat-47-imitation\\u4000\\model.zip",
+    "parent_sha256": "e7b8a701bb726c236a2ade145a0ef2c50814a0f459fd085c2363bb6a459fe732",
+    "learning_rate": 3e-05
+  },
+  "summary": {
+    "performance": {
+      "episodes": 20,
+      "mean": 32.05,
+      "median": 32.5,
+      "min": 19,
+      "max": 42,
+      "in_band": 3,
+      "censored": 0,
+      "invalid": 0,
+      "pass": false
+    },
+    "diversity": {
+      "command_root_tower_pass_games": 20,
+      "concentration_pass_games": 20,
+      "distinct_nonwait_sequences": 20,
+      "command_kind_range": [
+        7,
+        9
+      ],
+      "mean_wait_share": 0.9503424200764424,
+      "pass": true
+    },
+    "adoptable": false
+  },
+  "state_response_probe": {
+    "changed_pairs": 8,
+    "total_pairs": 80,
+    "examples": [
+      {
+        "probe_pair": [
+          24,
+          144
+        ],
+        "common_legal": 5,
+        "action_ids": [
+          132,
+          0
+        ]
+      },
+      {
+        "probe_pair": [
+          51,
+          171
+        ],
+        "common_legal": 25,
+        "action_ids": [
+          0,
+          132
+        ]
+      },
+      {
+        "probe_pair": [
+          54,
+          174
+        ],
+        "common_legal": 25,
+        "action_ids": [
+          132,
+          0
+        ]
+      },
+      {
+        "probe_pair": [
+          69,
+          189
+        ],
+        "common_legal": 5,
+        "action_ids": [
+          0,
+          132
+        ]
+      },
+      {
+        "probe_pair": [
+          144,
+          24
+        ],
+        "common_legal": 5,
+        "action_ids": [
+          0,
+          132
+        ]
+      }
+    ],
+    "auxiliary_only": true
+  },
+  "package": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\outputs\\ppo_intermediate_policy",
+  "replay": "passed"
+}

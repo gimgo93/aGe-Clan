@@ -1,0 +1,108 @@
+{
+  "status": "complete",
+  "finished": "2026-11-08T20:06:08.026404",
+  "models": {
+    "hierarchy-47-imitation": {
+      "selected_update": 4000,
+      "updates_performed": 8000,
+      "independent": {
+        "episodes": 20,
+        "mean": 24.5,
+        "median": 24.0,
+        "min": 16,
+        "max": 46,
+        "max_started": 48,
+        "censored": 0,
+        "invalid": 0,
+        "eligible_tiers": []
+      },
+      "model": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-expanded-demo-v2\\initial\\hierarchy-47-imitation\\model.zip",
+      "model_sha256": "dc97f148c03b93f353098fb641a75c80566776fb42aae923b29bc0a1b1c5507c"
+    },
+    "flat-47-imitation": {
+      "selected_update": 8000,
+      "updates_performed": 8000,
+      "independent": {
+        "episodes": 20,
+        "mean": 40.5,
+        "median": 42.0,
+        "min": 26,
+        "max": 47,
+        "max_started": 48,
+        "censored": 0,
+        "invalid": 0,
+        "eligible_tiers": []
+      },
+      "model": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-expanded-demo-v2\\initial\\flat-47-imitation\\model.zip",
+      "model_sha256": "838fb6ab28059b723b6b668eb9d5e1357a9e0bd3829f6bdba43b5ca7b08e7ea3"
+    },
+    "flat-48-imitation": {
+      "selected_update": 8000,
+      "updates_performed": 8000,
+      "independent": {
+        "episodes": 20,
+        "mean": 43.25,
+        "median": 44.0,
+        "min": 29,
+        "max": 55,
+        "max_started": 56,
+        "censored": 0,
+        "invalid": 0,
+        "eligible_tiers": []
+      },
+      "model": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-expanded-demo-v2\\initial\\flat-48-imitation\\model.zip",
+      "model_sha256": "688cbb1b9ceefd9811002a2cdc7d9cc8b536f1523ff0e2e8e761115b8b0810d3"
+    },
+    "hierarchy-48-imitation": {
+      "selected_update": 8000,
+      "updates_performed": 8000,
+      "independent": {
+        "episodes": 20,
+        "mean": 27.2,
+        "median": 24.5,
+        "min": 17,
+        "max": 49,
+        "max_started": 51,
+        "censored": 0,
+        "invalid": 0,
+        "eligible_tiers": []
+      },
+      "model": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-expanded-demo-v2\\initial\\hierarchy-48-imitation\\model.zip",
+      "model_sha256": "5737a5a905018d3b9fa18f92dee6b62daad7c945ea3dc67915a8f2fac93b6c65"
+    }
+  },
+  "independent_games": 80,
+  "phase": "imitation initialization; zero PPO steps in evaluated models",
+  "stability_at_40": {
+    "hierarchy-47-imitation": {
+      "at_least_40": 1,
+      "games": 20,
+      "fraction": 0.05
+    },
+    "flat-47-imitation": {
+      "at_least_40": 15,
+      "games": 20,
+      "fraction": 0.75
+    },
+    "flat-48-imitation": {
+      "at_least_40": 15,
+      "games": 20,
+      "fraction": 0.75
+    },
+    "hierarchy-48-imitation": {
+      "at_least_40": 2,
+      "games": 20,
+      "fraction": 0.1
+    }
+  },
+  "files": {
+    "report": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\outputs\\PPO_확장시연_모방초기화_간단보고서.md",
+    "evaluation_script": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo_imitation_brief.py",
+    "training_script": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo_expanded_train.py",
+    "teacher_script": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-expanded-demo-v2\\teachers.mjs",
+    "collection_script": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-expanded-demo-v2\\collect.mjs",
+    "preparation_script": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo_expanded_prepare.py",
+    "engine": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-expanded-demo-v2\\engine\\lib\\game-engine.js",
+    "episode_directory": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\work\\ppo-expanded-demo-v2"
+  }
+}

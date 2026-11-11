@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "intermediate": null,
+  "candidate": {
+    "status": "not_adopted",
+    "config": "C:\\Users\\jjiho\\Documents\\Codex\\PPO학습\\PPO강화학습·난이도연구\\outputs\\ppo_intermediate_policy\\config.json",
+    "performance_pass": false,
+    "diversity_pass": true
+  },
+  "game_deployment": "not performed; local registry only"
+}

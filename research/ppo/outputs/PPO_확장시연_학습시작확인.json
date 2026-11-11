@@ -1,0 +1,43 @@
+{
+  "observed_at": "2026-11-08T19:31:49.058136",
+  "status": "training_in_progress",
+  "models": [
+    {
+      "model": "flat-47-imitation",
+      "bc_status": "complete",
+      "performed": 8000,
+      "selected": 8000,
+      "ppo_steps": "18944",
+      "validation": {
+        "episodes": 5,
+        "mean": 35.2,
+        "median": 33.0,
+        "min": 31,
+        "max": 41,
+        "max_started": 42,
+        "censored": 0,
+        "invalid": 0,
+        "eligible_tiers": []
+      }
+    },
+    {
+      "model": "hierarchy-47-imitation",
+      "bc_status": "complete",
+      "performed": 8000,
+      "selected": 4000,
+      "ppo_steps": "13056",
+      "validation": {
+        "episodes": 5,
+        "mean": 23.6,
+        "median": 24.0,
+        "min": 21,
+        "max": 25,
+        "max_started": 27,
+        "censored": 0,
+        "invalid": 0,
+        "eligible_tiers": []
+      }
+    }
+  ],
+  "not_final_performance": true
+}

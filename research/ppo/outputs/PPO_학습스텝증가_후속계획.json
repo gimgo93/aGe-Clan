@@ -1,0 +1,32 @@
+{
+  "status": "planned_not_started",
+  "hypothesis": "A smaller PPO learning rate may preserve imitation behavior and reduce late-budget drift; it does not guarantee the middle band.",
+  "architecture": "hierarchy",
+  "training_seeds": [
+    42,
+    43
+  ],
+  "initializations": [
+    "basic",
+    "imitation"
+  ],
+  "parents": "Reuse this study initial.zip for each matching architecture/seed/initialization",
+  "learning_rates": {
+    "reference": 0.0001,
+    "new": 3e-05
+  },
+  "new_budget_per_model": 131072,
+  "new_models": 4,
+  "new_interactions": 524288,
+  "baseline": "Reuse corresponding frozen 131072 checkpoints, no baseline retraining",
+  "evaluation_python_seeds": [
+    660000,
+    660019
+  ],
+  "middle_confirmation_python_seeds": [
+    670000,
+    670019
+  ],
+  "reward_actions_gamma": "unchanged",
+  "criterion": "same middle80%+diversity; paired survival and dispersion; then new49/50 only if configuration improves"
+}

@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "episodes": {
+    "development": 60,
+    "confirmation": 40
+  },
+  "invalid_actions": 0,
+  "archive_sha256": "c81aaa8132435eeb4916bed8cd525a6ec6f3da52f587d55d74cd5d8f0e44f94c",
+  "archive_bytes": 39942
+}
